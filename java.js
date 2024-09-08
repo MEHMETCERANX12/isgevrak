@@ -1,4 +1,3 @@
-<script>
     function menublok(showId, hideIds)
     {
         var $showElement = $('#' + showId);
@@ -20,8 +19,6 @@
         $('#blok3').hide();
         $('#blok4').hide();
     });
-</script>
-<script>
     function toggleBlock(showId, hideId)
     {
         var $showElement = $('#' + showId);
@@ -51,8 +48,6 @@
         }
 
     }
-</script>
-
 
 
 
