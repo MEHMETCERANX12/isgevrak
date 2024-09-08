@@ -1,6 +1,6 @@
-    function menublok(showId, hideIds)
-    {
-        var $showElement = $('#' + showId);
+function menublok(showId, hideIds)
+{
+	var $showElement = $('#' + showId);
         hideIds.forEach(function(id)
         {
             $('#' + id).slideUp();
@@ -50,6 +50,7 @@
     }
 
 
+$(function () {$("#<%= Tarih1.ClientID %>").datepicker({firstDay: 1,dateFormat: "dd.mm.yy", autoSize: false, changeMonth: true, changeYear: true, dayNames: ["pazar", "pazartesi", "salı", "çarşamba", "perşembe", "cuma", "cumartesi"], dayNamesMin: ["paz","pzt", "sal", "çar", "per", "cum", "cmt", ], defaultDate: 0, maxDate: "+1y+0m+0w", minDate: "-6y-0m -0w", monthNamesShort: ["Ocak", "Şubat", "Mart", "Nisan", "Mayıs", "Haziran", "Temmuz", "Ağustos", "Eylül", "Ekim", "Kasım", "Aralık"], nextText: "ileri", prevText: "geri", showAnim: "slideDown" }); });
 
 
 
