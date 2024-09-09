@@ -859,3 +859,66 @@
           background-color: DodgerBlue !important;
           color: #ffffff;
         }
+        .cssadsoyadblok
+        {
+            width: 40%;
+            background-color: brown;
+            border-radius: 0.6vw;
+            color: white;
+            font-size: 2vh;
+            line-height: 4vh;
+            text-align: center;
+            font-family: Calibri;
+            margin:auto;
+            font-weight: bold;
+        }
+        .csslistboxblok
+        {
+            width: 40%;
+            background-color: brown;
+            color: white;
+            font-size: 2vh;
+            line-height: 4vh;
+            text-align: center;
+            font-family: Calibri;
+            margin:auto;
+            font-weight: bold;
+        }
+        .csslistbox
+        {
+            width: 100%;
+            color: black;
+            font-size: 2vh;
+            line-height: 4vh;
+            text-align: left;
+            font-family: Calibri;
+            padding-left: 1vh;
+            padding-top: 0.6vh;
+        }
+        .csslistboxkonum
+        {
+            margin: auto;
+            width: 40%;
+        }
+        .cssduyurubaslik
+        {
+            width: 100%;
+            background-color: brown;
+            color: white;
+            font-size: 2vh;
+            line-height: 4vh;
+            text-align: center;
+            font-family: Calibri;
+            font-weight: bold;
+        }
+        .cssaciklamabaslik
+        {
+            width: 100%;
+            color: black;
+            font-size: 2vh;
+            line-height: 2.8vh;
+            text-align: justify;
+            text-justify: inter-word;
+            font-family: Calibri;
+        }
+
