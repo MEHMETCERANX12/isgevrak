@@ -1,4 +1,4 @@
-﻿html{background-color: #ECF0F1;}
+html{background-color: #ECF0F1;}
 .mastermenugenel{position:fixed;top:0px;left:0px;bottom:0px;width: 10%;min-height: 100% !important;height: 100%;background-color: #343434;box-shadow: 0.2vw 0px 0.35vw 0px black;z-index: 1;}
 .masterbaslik{position:relative;height: 5%;color: white;font-weight: bold;width: 100%;background-color: #C0392B;margin: auto;text-align:center;font-family: Calibri;font-size: 1vw;}
 .masterbaslikortala{position: relative;top: 50%;transform: translateY(-50%);}
@@ -286,6 +286,10 @@
             font-size: 1vw;
             border: 0.1vw solid black;
         }
+.cssgridrowcss:hover
+{
+    background-color: #D1FF00;
+}
         .cssgridview
         {
             margin: auto;
@@ -921,8 +925,4 @@
             text-justify: inter-word;
             font-family: Calibri;
         }
-.cssgridrowcss:hover
-{
-    background-color: #D1FF00;
-}
 
