@@ -44,18 +44,6 @@
             background-color: transparent;
             border-radius: 0.4vw 0.4vw;
         }
-        .menudokuman .submenudokuman a
-        {
-            color: white;
-            display: block;
-            border: 0.1vw solid #abb2b9;
-            border-radius: 0.4vw 0.4vw;
-            padding: 0.7vw;
-            color: black;
-            margin-bottom: 0.1vw;
-            text-decoration: none;
-            background-color: #f4f6f7;
-        }
         .menudokuman .submenudokuman a:hover
         {
             background-color: brown;
@@ -66,15 +54,27 @@
             position: absolute;
             right: 4%;
         }
-        .menukutusu
-        {
-            width: 40%;
-            margin: 0 auto;
-            padding: 0.7vw;
-        }
         .sayfaortalama
         {
             display: flex;
             justify-content: center;
             align-items: center;
+        }
+        .menukutusu
+        {
+            width: 40%;
+            margin: 0 auto;
+            padding: 0.1vw;
+        }
+
+        .menudokuman .submenudokuman a
+        {
+            color: white;
+            display: block;
+            border: 0.1vw solid #abb2b9;
+            border-radius: 0.4vw 0.4vw;
+            color: black;
+            margin-bottom: 0.1vw;
+            text-decoration: none;
+            background-color: #f4f6f7;
         }
