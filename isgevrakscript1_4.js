@@ -127,3 +127,16 @@ $(function ()
         showAnim: "slideDown"
     });
 });
+
+            $(document).ready(function ()
+            {
+            if (localStorage.getItem("scrollPosition") !== null)
+            {
+                $(window).scrollTop(localStorage.getItem("scrollPosition"));
+            }
+
+            $("form").on("submit", function ()
+            {
+                localStorage.setItem("scrollPosition", $(window).scrollTop());
+            });
+        });
