@@ -140,3 +140,12 @@ $(function ()
                 localStorage.setItem("scrollPosition", $(window).scrollTop());
             });
         });
+
+    $(document).ready(function () {
+        // Tüm input alanlarında Enter tuşunu devre dışı bırak
+        $("input").keypress(function (event) {
+            if (event.which === 13) { // 13: Enter tuşu
+                event.preventDefault(); // Enter tuşunun varsayılan işlevini iptal et
+            }
+        });
+    });
