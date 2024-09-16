@@ -925,7 +925,7 @@ html{background-color: #ECF0F1;}
             text-justify: inter-word;
             font-family: Calibri;
         }
-        .diyalog
+        .diyalog1
         {
             display: none;
             position: fixed;
@@ -936,7 +936,7 @@ html{background-color: #ECF0F1;}
             height: 100%;
             background-color: rgba(235, 237, 239, 0.8);
         }
-        .diyalog-content
+        .diyalog1-content
         {
             background-color: #fefefe;
             margin: 15% auto;
@@ -944,6 +944,26 @@ html{background-color: #ECF0F1;}
             padding: 1vw 1vw 1.8vw 1vw;
             border: 0.1vw solid #888;
             width: 30%;
+        }
 
+        .diyalog2
+        {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(235, 237, 239, 0.8);
+        }
+        .diyalog2-content
+        {
+            background-color: #fefefe;
+            margin: 15% auto;
+            text-align: center;
+            padding: 1vw 1vw 1.8vw 1vw;
+            border: 0.1vw solid #888;
+            width: 30%;
         }
 
