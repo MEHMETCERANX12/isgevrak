@@ -48,85 +48,90 @@ function menublok(showId, hideIds)
         }
 
     }
-$(function ()
-  {
-    $("#" + tarih1ID).datepicker({
-        firstDay: 1,
-        dateFormat: "dd.mm.yy",
-        autoSize: false,
-        changeMonth: true,
-        changeYear: true,
-        dayNames: ["pazar", "pazartesi", "salı", "çarşamba", "perşembe", "cuma", "cumartesi"],
-        dayNamesMin: ["paz", "pzt", "sal", "çar", "per", "cum", "cmt"],
-        defaultDate: 0,
-        maxDate: "+1y+0m+0w",
-        minDate: "-6y-0m-0w",
-        monthNamesShort: ["Ocak", "Şubat", "Mart", "Nisan", "Mayıs", "Haziran", "Temmuz", "Ağustos", "Eylül", "Ekim", "Kasım", "Aralık"],
-        nextText: "ileri",
-        prevText: "geri",
-        showAnim: "slideDown"
-    });
+$(function() {
+    if (typeof tarih1ID !== 'undefined' && $("#" + tarih1ID).length) {
+        $("#" + tarih1ID).datepicker({
+            firstDay: 1,
+            dateFormat: "dd.mm.yy",
+            autoSize: false,
+            changeMonth: true,
+            changeYear: true,
+            dayNames: ["pazar", "pazartesi", "salı", "çarşamba", "perşembe", "cuma", "cumartesi"],
+            dayNamesMin: ["paz", "pzt", "sal", "çar", "per", "cum", "cmt"],
+            defaultDate: 0,
+            maxDate: "+1y+0m+0w",
+            minDate: "-6y-0m-0w",
+            monthNamesShort: ["Ocak", "Şubat", "Mart", "Nisan", "Mayıs", "Haziran", "Temmuz", "Ağustos", "Eylül", "Ekim", "Kasım", "Aralık"],
+            nextText: "ileri",
+            prevText: "geri",
+            showAnim: "slideDown"
+        });
+    }
+});
+$(function() {
+    if (typeof tarih2ID !== 'undefined' && $("#" + tarih2ID).length) {
+        $("#" + tarih2ID).datepicker({
+            firstDay: 1,
+            dateFormat: "dd.mm.yy",
+            autoSize: false,
+            changeMonth: true,
+            changeYear: true,
+            dayNames: ["pazar", "pazartesi", "salı", "çarşamba", "perşembe", "cuma", "cumartesi"],
+            dayNamesMin: ["paz", "pzt", "sal", "çar", "per", "cum", "cmt"],
+            defaultDate: 0,
+            maxDate: "+1y+0m+0w",
+            minDate: "-6y-0m-0w",
+            monthNamesShort: ["Ocak", "Şubat", "Mart", "Nisan", "Mayıs", "Haziran", "Temmuz", "Ağustos", "Eylül", "Ekim", "Kasım", "Aralık"],
+            nextText: "ileri",
+            prevText: "geri",
+            showAnim: "slideDown"
+        });
+    }
+});
+$(function() {
+    if (typeof tarih3ID !== 'undefined' && $("#" + tarih3ID).length) {
+        $("#" + tarih3ID).datepicker({
+            firstDay: 1,
+            dateFormat: "dd.mm.yy",
+            autoSize: false,
+            changeMonth: true,
+            changeYear: true,
+            dayNames: ["pazar", "pazartesi", "salı", "çarşamba", "perşembe", "cuma", "cumartesi"],
+            dayNamesMin: ["paz", "pzt", "sal", "çar", "per", "cum", "cmt"],
+            defaultDate: 0,
+            maxDate: "+1y+0m+0w",
+            minDate: "-6y-0m-0w",
+            monthNamesShort: ["Ocak", "Şubat", "Mart", "Nisan", "Mayıs", "Haziran", "Temmuz", "Ağustos", "Eylül", "Ekim", "Kasım", "Aralık"],
+            nextText: "ileri",
+            prevText: "geri",
+            showAnim: "slideDown"
+        });
+    }
 });
 
-$(function ()
-  {
-    $("#" + tarih2ID).datepicker({
-        firstDay: 1,
-        dateFormat: "dd.mm.yy",
-        autoSize: false,
-        changeMonth: true,
-        changeYear: true,
-        dayNames: ["pazar", "pazartesi", "salı", "çarşamba", "perşembe", "cuma", "cumartesi"],
-        dayNamesMin: ["paz", "pzt", "sal", "çar", "per", "cum", "cmt"],
-        defaultDate: 0,
-        maxDate: "+1y+0m+0w",
-        minDate: "-6y-0m-0w",
-        monthNamesShort: ["Ocak", "Şubat", "Mart", "Nisan", "Mayıs", "Haziran", "Temmuz", "Ağustos", "Eylül", "Ekim", "Kasım", "Aralık"],
-        nextText: "ileri",
-        prevText: "geri",
-        showAnim: "slideDown"
-    });
+$(function() {
+    if (typeof tarih4ID !== 'undefined' && $("#" + tarih4ID).length) {
+        $("#" + tarih4ID).datepicker({
+            firstDay: 1,
+            dateFormat: "dd.mm.yy",
+            autoSize: false,
+            changeMonth: true,
+            changeYear: true,
+            dayNames: ["pazar", "pazartesi", "salı", "çarşamba", "perşembe", "cuma", "cumartesi"],
+            dayNamesMin: ["paz", "pzt", "sal", "çar", "per", "cum", "cmt"],
+            defaultDate: 0,
+            maxDate: "+1y+0m+0w",
+            minDate: "-6y-0m-0w",
+            monthNamesShort: ["Ocak", "Şubat", "Mart", "Nisan", "Mayıs", "Haziran", "Temmuz", "Ağustos", "Eylül", "Ekim", "Kasım", "Aralık"],
+            nextText: "ileri",
+            prevText: "geri",
+            showAnim: "slideDown"
+        });
+    }
 });
 
-$(function ()
-  {
-    $("#" + tarih3ID).datepicker({
-        firstDay: 1,
-        dateFormat: "dd.mm.yy",
-        autoSize: false,
-        changeMonth: true,
-        changeYear: true,
-        dayNames: ["pazar", "pazartesi", "salı", "çarşamba", "perşembe", "cuma", "cumartesi"],
-        dayNamesMin: ["paz", "pzt", "sal", "çar", "per", "cum", "cmt"],
-        defaultDate: 0,
-        maxDate: "+1y+0m+0w",
-        minDate: "-6y-0m-0w",
-        monthNamesShort: ["Ocak", "Şubat", "Mart", "Nisan", "Mayıs", "Haziran", "Temmuz", "Ağustos", "Eylül", "Ekim", "Kasım", "Aralık"],
-        nextText: "ileri",
-        prevText: "geri",
-        showAnim: "slideDown"
-    });
-});
 
-$(function ()
-  {
-    $("#" + tarih4ID).datepicker({
-        firstDay: 1,
-        dateFormat: "dd.mm.yy",
-        autoSize: false,
-        changeMonth: true,
-        changeYear: true,
-        dayNames: ["pazar", "pazartesi", "salı", "çarşamba", "perşembe", "cuma", "cumartesi"],
-        dayNamesMin: ["paz", "pzt", "sal", "çar", "per", "cum", "cmt"],
-        defaultDate: 0,
-        maxDate: "+1y+0m+0w",
-        minDate: "-6y-0m-0w",
-        monthNamesShort: ["Ocak", "Şubat", "Mart", "Nisan", "Mayıs", "Haziran", "Temmuz", "Ağustos", "Eylül", "Ekim", "Kasım", "Aralık"],
-        nextText: "ileri",
-        prevText: "geri",
-        showAnim: "slideDown"
-    });
-});
+
 
             $(document).ready(function ()
             {
