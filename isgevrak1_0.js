@@ -50,7 +50,7 @@ function menublok(showId, hideIds)
     }
 $(function ()
   {
-    $("#tarih1ID").datepicker({
+    $("#" + tarih1ID).datepicker({
         firstDay: 1,
         dateFormat: "dd.mm.yy",
         autoSize: false,
