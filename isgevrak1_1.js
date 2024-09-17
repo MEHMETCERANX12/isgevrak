@@ -157,22 +157,19 @@ $(function() {
 
 
 function kopyala() {
-   var copyText = $('#' + textBoxClientID);
+    var copyText = $('#' + textBoxClientID);
     copyText.select(); // TextBox'taki metni seç
     
     if (navigator.clipboard) {
-        // Modern tarayıcılar için clipboard API'sini kullan
         navigator.clipboard.writeText(copyText.val()).then(function() {
-            console.log('Metin başarıyla kopyalandı: ' + copyText.val());
+            alertify.success('Metin başarıyla kopyalandı');
         }).catch(function(err) {
-            console.error('Kopyalama işlemi başarısız oldu: ', err);
+            alertify.error('Kopyalama işlemi başarısız oldu');
         });
     } else {
-        // Eski tarayıcılar için execCommand kullan
         document.execCommand("copy");
-        console.log('Kopyalama işlemi eski yöntemle yapıldı.');
+        alertify.success('Metin başarıyla kopyalandı');
     }
-    alertify.error('Kopyalandı'); 
 }
 
 
