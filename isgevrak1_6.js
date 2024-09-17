@@ -156,33 +156,21 @@ $(function() {
     });
 
 
-
-function kopyala() {
-    var copyText = document.getElementById('<%= TextBox1.ClientID %>');
+function copyInputText() {
+    var copyText = $('#<%= TextBox1.ClientID %>'); // JQuery ile TextBox elemanını seç
+    copyText.select(); // TextBox'taki metni seç
     
-    if (copyText) {
-        // Kopyalanacak metni seç
-        copyText.select();
-        copyText.setSelectionRange(0, 99999); // Tüm metni seçmek için geniş aralık
-
-        // Kopyalama işlemini modern tarayıcılar için gerçekleştirin
-        if (navigator.clipboard) {
-            navigator.clipboard.writeText(copyText.value).then(function() {
-                var duration = 6;
-                var msg = alertify.success('Kopyalandı: ' + copyText.value + ' ' + duration + ' sn', 6, function(){ 
-                    clearInterval(interval);
-                });
-                var interval = setInterval(function(){
-                    msg.setContent('Kopyalandı: ' + copyText.value + ' ' + (--duration) + ' sn');
-                }, 1000);
-            }).catch(function(err) {
-                alertify.error('Kopyalama başarısız oldu: ' + err);
-            });
-        } else {
-            // Eski tarayıcılar için execCommand kullan
-            document.execCommand("copy");
-            alertify.success('Kopyalandı (Eski yöntem): ' + copyText.value);
-        }
+    if (navigator.clipboard) {
+        // Modern tarayıcılar için clipboard API'sini kullan
+        navigator.clipboard.writeText(copyText.val()).then(function() {
+            console.log('Metin başarıyla kopyalandı: ' + copyText.val());
+        }).catch(function(err) {
+            console.error('Kopyalama işlemi başarısız oldu: ', err);
+        });
+    } else {
+        // Eski tarayıcılar için execCommand kullan
+        document.execCommand("copy");
+        console.log('Kopyalama işlemi eski yöntemle yapıldı.');
     }
 }
 
