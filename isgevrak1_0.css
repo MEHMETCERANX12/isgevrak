@@ -966,4 +966,19 @@ html{background-color: #ECF0F1;}
             border: 0.1vw solid #888;
             width: 30%;
         }
+.cssflexortala
+{
+    width: 100%;
+    display: flex;
+    justify-content: center; /* Centering the buttons */
+}
+
+.cssbutonortala
+{
+    display: flex;
+    justify-content: center;
+    grid-gap: 2vw; /* Adds space between the buttons */
+    width: 100%;
+}
+
 
