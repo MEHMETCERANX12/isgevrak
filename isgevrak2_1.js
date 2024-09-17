@@ -156,7 +156,7 @@ $(function() {
     });
 
 
-function copyInputText() {
+function kopyala() {
    var copyText = $('#' + textBoxClientID);
     copyText.select(); // TextBox'taki metni seç
     
@@ -172,6 +172,7 @@ function copyInputText() {
         document.execCommand("copy");
         console.log('Kopyalama işlemi eski yöntemle yapıldı.');
     }
+    var duration = 6;var msg = alertify.error('Kopyalandı: ' + copyText.value + ' ' + duration +' sn', 6, function(){ clearInterval(interval);});var interval = setInterval(function(){msg.setContent('Kopyalandı: ' + copyText.value + ' ' +(--duration)+' sn');},1000);
 }
 
 
