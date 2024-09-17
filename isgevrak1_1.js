@@ -154,3 +154,17 @@ $(function() {
             }
         });
     });
+
+
+
+    function kopyala()
+    {
+        var copyText = document.getElementById('<%= TextBox1.ClientID %>');
+        copyText.select();
+        copyText.setSelectionRange(0, 99999);
+        document.execCommand("copy");
+        var duration = 6;var msg = alertify.error('Kopyalandı: ' + copyText.value + ' ' + duration +' sn', 6, function(){ clearInterval(interval);});var interval = setInterval(function(){msg.setContent('Kopyalandı: ' + copyText.value + ' ' +(--duration)+' sn');},1000);
+    }
+
+
+
