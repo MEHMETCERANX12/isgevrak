@@ -157,7 +157,7 @@ $(function() {
 
 
 function copyInputText() {
-    var copyText = $('#<%= TextBox1.ClientID %>'); // JQuery ile TextBox elemanını seç
+   var copyText = $('#' + textBoxClientID);
     copyText.select(); // TextBox'taki metni seç
     
     if (navigator.clipboard) {
