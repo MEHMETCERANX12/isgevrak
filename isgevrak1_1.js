@@ -157,42 +157,4 @@ function kopyala() {
 
 
 
-$(document).ready(function () {
-    if (localStorage.getItem("diyalog1_hidden") === "true") {
-        $('#diyalog1').hide();
-    }
-
-    if (localStorage.getItem("diyalog2_hidden") === "true") {
-        $('#diyalog2').hide();
-    }
-
-    if (localStorage.getItem("scrollPosition") !== null) {
-        $(window).scrollTop(localStorage.getItem("scrollPosition"));
-    }
-
-    $("form").on("submit", function () {
-        localStorage.setItem("scrollPosition", $(window).scrollTop());
-    });
-
-    $('#hideDiyalog1').on("click", function () {
-        $('#diyalog1').hide();
-        localStorage.setItem("diyalog1_hidden", "true");
-    });
-
-    $('#hideDiyalog2').on("click", function () {
-        $('#diyalog2').hide();
-        localStorage.setItem("diyalog2_hidden", "true");
-    });
-    $('#showDiyalog1').on("click", function () {
-        $('#diyalog1').show();
-        localStorage.removeItem("diyalog1_hidden");
-    });
-
-    $('#showDiyalog2').on("click", function () {
-        $('#diyalog2').show();
-        localStorage.removeItem("diyalog2_hidden");
-    });
-});
-
-
 
