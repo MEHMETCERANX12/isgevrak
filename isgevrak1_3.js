@@ -139,7 +139,8 @@ $(function() {
     });
 
 
-function kopyala() {
+function kopyala()
+{
     var copyText = $('#' + textBoxClientID);
     copyText.select(); // TextBox'taki metni seç
     
@@ -154,6 +155,22 @@ function kopyala() {
         alertify.success('Metin başarıyla kopyalandı');
     }
 }
+
+
+$(document).ready(function ()
+            {
+            if (localStorage.getItem("scrollPosition") !== null)
+            {
+                $(window).scrollTop(localStorage.getItem("scrollPosition"));
+            }
+
+            $("form").on("submit", function ()
+            {
+                localStorage.setItem("scrollPosition", $(window).scrollTop());
+            });
+        });
+
+
 
 
 
