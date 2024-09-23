@@ -981,4 +981,32 @@ html{background-color: #ECF0F1;}
     width: 100%;
 }
 
+.ui-datepicker-title
+{
+    display: flex; 
+    justify-content: space-between;
+    align-items: center;
+}
+
+.ui-datepicker-month
+{
+    margin-right: 1vw;
+}
+.ui-datepicker
+{
+    width: 14vw;
+    font-size: 0.9vw;
+}
+
+.ui-datepicker-title select
+{
+    width: auto;
+}
+
+.ui-datepicker-calendar td a
+{
+    display: block;
+    text-align: center;
+}
+
 
