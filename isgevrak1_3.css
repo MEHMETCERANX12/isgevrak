@@ -1008,4 +1008,39 @@ html{background-color: #ECF0F1;}
     text-align: center;
 }
 
+.cssflexyariyariyagenel
+{
+    display: flex;
+    width: 100%;
+    position: relative;
+}
 
+.cssflexyariyariyasol, .cssflexyariyariyasag
+{
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.cssflexyariyariyasol
+{
+    margin-right: 0.5vw;
+}
+
+.cssflexyariyariyasag
+{
+    margin-left: 0.5vw;
+}
+
+.cssaltliustlu
+{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100%;
+}
+.csstextboxmetinortala
+{
+    text-align: center;
+}
