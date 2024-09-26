@@ -1008,6 +1008,11 @@ html{background-color: #ECF0F1;}
     text-align: center;
 }
 
+.csskurulsayfabuton
+{
+    margin-right: 50%;
+    margin-top: 0;
+}
 .cssflexyariyariyagenel
 {
     display: flex;
@@ -1017,20 +1022,19 @@ html{background-color: #ECF0F1;}
 
 .cssflexyariyariyasol, .cssflexyariyariyasag
 {
-    flex: 1;
-    display: flex;
     justify-content: center;
     align-items: center;
 }
 
 .cssflexyariyariyasol
 {
-    margin-right: 0.5vw;
+    width: 49.5%;
+    margin-right: 0.5%;
 }
-
 .cssflexyariyariyasag
 {
-    margin-left: 0.5vw;
+    width: 49.5%;
+    margin-left: 0.5%;
 }
 
 .cssaltliustlu
