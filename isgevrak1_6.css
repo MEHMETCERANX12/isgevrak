@@ -1049,29 +1049,28 @@ html{background-color: #ECF0F1;}
     text-align: center;
 }
 
-#tablo1, #tablo2 {
+.table-style {
     border-collapse: collapse;
     width: 100%;
     font-family: Calibri;
     font-size: 1vw;
 }
 
-#tablo1 tbody tr, #tablo2 tbody tr {
+.table-style tbody tr {
     height: 3vw;
     background-color: #FFF3F1;
     border: 0.1vw solid black;
     text-align: center;
 }
 
-#tablo1 thead th, #tablo2 thead th {
+.table-style thead th {
     height: 2vw;
     background-color: teal;
     color: white;
     border: 0.1vw solid black;
 }
 
-#tablo1 th, #tablo1 td, #tablo2 th, #tablo2 td
-{
+.table-style th, .table-style td {
     border: 0.1vw solid black; /* Hücre kenarlıkları */
     padding: 0; /* İç boşlukları sıfırla */
     box-sizing: border-box;
@@ -1082,9 +1081,4 @@ html{background-color: #ECF0F1;}
     width: 90%;
     height: 2vw;
     -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    box-sizing: border-box;
-    font-family: Calibri;
-    font-size: 1vw;
-    padding-left: 0.25vw;
 }
