@@ -1049,28 +1049,28 @@ html{background-color: #ECF0F1;}
     text-align: center;
 }
 
-#tablo {
+#tablo1, #tablo2 {
     border-collapse: collapse;
     width: 100%;
     font-family: Calibri;
     font-size: 1vw;
 }
 
-#tablo tbody tr {
+#tablo1 tbody tr, #tablo2 tbody tr {
     height: 3vw;
     background-color: #FFF3F1;
     border: 0.1vw solid black;
     text-align: center;
 }
 
-#tablo thead th {
+#tablo1 thead th, #tablo2 thead th {
     height: 2vw;
     background-color: teal;
     color: white;
     border: 0.1vw solid black;
 }
 
-#tablo th, #tablo td
+#tablo1 th, #tablo1 td, #tablo2 th, #tablo2 td
 {
     border: 0.1vw solid black; /* Hücre kenarlıkları */
     padding: 0; /* İç boşlukları sıfırla */
