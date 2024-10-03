@@ -25,51 +25,10 @@ html{background-color: #ECF0F1;}
 .mastermenualtbutoncsstek:hover{border-radius:0.4vw;}
 .masterblok4menu, .masterblok2menu, .masterblok1menu{position: relative;display: none;width: 90%;height: 15%;text-align: center;margin: auto;background-color: teal;border-radius: 0.4vw;}
 .masterblok5menu{position: relative;display: none;width: 90%;height: 10%;text-align: center;margin: auto;background-color: teal;border-radius: 0.4vw;}
-        .masterblok3menu
-        {
-            position: relative;
-            display: none;
-            width: 90%;
-            height: 20%;
-            text-align: center;
-            margin: auto;
-            background-color: teal;
-            border-radius: 0.4vw;
-        }
-        .masterbaslik:hover
-        {
-            background-color: teal;
-            color: white;
-        }
-        .masteraspicerik
-        {
-            position:absolute;
-            top: 1.5%;
-            bottom: 0;
-            left: 11%;
-            display:block;
-            width: 88%;
-            margin: auto;
-            font-size: 1vw;
-            font-family: Calibri;
-        }
-        .mastermesajicerik
-        {
-            position:fixed;
-            bottom: 0.75vw;
-            left: 11%;
-            width: 12vw;
-            height: 3vw;
-            display: none;
-            margin: auto;
-            z-index: 99;
-            color: white;
-            font-size: 1vw;
-            vertical-align:middle;
-            text-align: center;
-            font-family:Calibri;
-            opacity:1;
-        }
+.masterblok3menu{position: relative;display: none;width: 90%;height: 20%;text-align: center;margin: auto;background-color: teal;border-radius: 0.4vw;}
+.masterbaslik:hover{background-color: teal;color: white;}
+.masteraspicerik{position:absolute;top: 1.5%;bottom: 0;left: 11%;display:block;width: 88%;margin: auto;font-size: 1vw;font-family: Calibri;}
+.mastermesajicerik{position:fixed;bottom: 0.75vw;left: 11%;width: 12vw;height: 3vw;display: none;margin: auto;z-index: 99;color: white;font-size: 1vw;vertical-align:middle;text-align: center;font-family:Calibri;opacity:1;}
         .mastermesajortala
         {
             position: relative;
