@@ -32,8 +32,7 @@ html{background-color: #ECF0F1;}
 .mastermesajortala{position: relative;top: 50%;transform: translateY(-50%);}
 .masterlabelcss{padding-left: 0.5vw;}
 .masteranimasyon{animation: animate 0.75s ease;}
-@keyframes animate{0%
-{left: 75%;}100%{left: 11%;}}
+@keyframes animate{0%{left: 75%;}100%{left: 11%;}}
 .masteracmakapamacss{border:none;font-size: 1vw;font-family:Calibri;color: white;font-family: Calibri;font-size: 1vw;border: none;height: 100%;width: 100%;display: block;text-align: center;padding: 0px;background-color:transparent;}
 .masteracmakapamacss:hover{background-color: teal;color: white;}
 .masteracmakapamakutusu{position:fixed;left: 0;top: 0;background-color: brown;z-index: 0;width: 2%;font-size: 1vw;border:none;height: 100%;}
@@ -41,278 +40,54 @@ html{background-color: #ECF0F1;}
 .cssgridyazısag{text-align: right;padding-right: 1vw;}
 .cssgridyazıortala{text-align: center;}
 .cssgridbutonitemcss{text-align: center;}
-.cssgriddropitemcss
-{
-text-align: center;
-}
-.cssgridtextitemcss
-{
-margin: auto;
-text-align: center;
-}
-.cssgridcheckitemcss
-{
-margin: auto;
-text-align: center;
-}
-.cssgridbutoncss
-{
-width: 90%;
-height: 2vw;
-font-size: 1vw;
-border-radius: 0.3vw;
-	border: 0.1vw solid black;
-cursor: pointer;
-font-family: Calibri;
-}
-.cssgridbutoncss:hover
-{
-background-color: teal;
-color: white;
-}
-.cssgriddropcss
-{
-width: 90%;
-height: 2vw;
-font-size: 1vw;
-cursor: pointer;
-font-family: Calibri;
-padding-left: 0.3vw;
--webkit-box-sizing: border-box;
--moz-box-sizing: border-box;
-box-sizing: border-box;
-}
-.cssgridtextboxcss
-{
-width: 90%;
-height: 1.8vw;
-font-size: 1vw;
-cursor: pointer;
-font-family: Calibri;
-padding-left: 0.3vw;
--webkit-box-sizing: border-box;
--moz-box-sizing: border-box;
-box-sizing: border-box;
-}
-.cssgridtextboxcssortala
-{
-width: 90%;
-height: 1.8vw;
-font-size: 1vw;
-cursor: pointer;
-font-family: Calibri;
-padding-left: 0.3vw;
--webkit-box-sizing: border-box;
--moz-box-sizing: border-box;
-box-sizing: border-box;
-text-align:center;
-}
-.cssgridheader
-{
-height: 2vw;
-background-color: teal;
-text-align: center;
-color: white;
-font-size: 1vw;
-border: 0.1vw solid black;
-}
-.cssgridheader:hover
-{
-background-color: brown;
-}
-.cssgridrowcss
-{
-height: 3vw;
-background-color: #FFF3F1;
-color: black;
-font-size: 1vw;
-border: 0.1vw solid black;
-}
-.cssgridrowcss:hover
-{
-background-color: #D1FF00;
-}
-.cssgridview
-{
-margin: auto;
-text-align: center;
-}
-.cssarabaslik
-{
-text-align:center;
-height: 2vw;
-background-color: teal;
-color: white;
-font-size: 1vw;
-font-weight:bold;
-}
-.cssarabaslik:hover
-{
-background-color: brown;
-}
-.cssbaslikortala
-{
-position: relative;
-top: 50%;
-transform: translateY(-50%);
-}
-.cssbuton8, .cssbuton12, .cssbuton10, .cssbuton100, .cssbuton6, .cssbuton7
-{
-	box-shadow: 0px 0.2vw 0.9vw -0.1vw #276873;
-	background-color: crimson;
-	border-radius:0.2vw;
-	border:0.1vw solid #566573;
-	cursor:pointer;
-	color: white;
-	font-family:Calibri;
-font-size: 1vw;
-height: 2vw;
-}
-.cssbuton8:hover, .cssbuton12:hover, .cssbuton10:hover, .cssbuton100:hover, .cssbuton6:hover, .cssbuton7:hover
-{
-	background-color: #EB984E;
-color: black;
-}
-.cssbuton6
-{
-width: 6vw;
-}
-.cssbuton6
-{
-width: 7vw;
-}
-.cssbuton8
-{
-width: 8vw;
-}
-.cssbuton10
-{
-width: 10vw;
-}
-.cssbuton12
-{
-width: 12vw;
-}
-.cssbuton100
-{
-width: 100%;
-}
-.cssbutondiv
-{
-text-align:center;
-margin: auto;
-width: 100%;
-}
-.cssboslukalt0_25
-{
-padding-bottom: 0.25vw;
-}
-.cssboslukalt0_5
-{
-padding-bottom: 0.5vw;
-}
-.cssboslukalt0_75
-{
-padding-bottom: 0.75vw;
-}
-.cssboslukalt1
-{
-padding-bottom: 1vw;
-}
-.cssboslukust1
-{
-padding-top: 1vw;
-}
-.cssboslukaltust1
-{
-padding-bottom: 1vw;
-padding-top: 1vw;
-}
-.cssboslukalt1_5
-{
-padding-bottom: 1.5vw;
-}
-.cssboslukust1_5
-{
-padding-top: 1.5vw;
-}
-.cssboslukaltust1_5
-{
-padding-top: 1.5vw;
-padding-bottom: 1.5vw;
-}
-.cssboslukalt2
-{
-padding-bottom: 2vw;
-}
-.cssboslukust2
-{
-padding-top: 2vw;
-}
-.cssboslukust2_5
-{
-padding-top: 2.5vw;
-}
-.cssboslukalt3
-{
-padding-bottom: 3vw;
-}
-.cssboslukust3
-{
-padding-top: 3vw;
-}
-.cssflex
-{
-width: 100%;
-display: flex;
-}
-.cssflexsol10, .cssflexsol8, .cssflexsol6, .cssflexsol13
-{
-width: 10vw;
-padding-top: 0.5em;
-padding-bottom: 0.5em;
-}
-.cssflexsol8
-{
-width: 8vw;
-}
-.cssflexsol6
-{
-width: 6vw;
-}
-.cssflexsol13
-{
-width: 13vw;
-}
-.cssflexsag
-{
-width: 100%;
-margin: auto;
-padding-top: 0.5em;
-padding-bottom: 0.5em;
-}
-.csslabelzorunlu
-{
-color: #FF0000;
-font-size: 1vw;
-text-align: left;
-font-family: Calibri;
-}
-.csslabelnormal
-{
-color: black;
-font-size: 1vw;
-text-align: left;
-font-family: Calibri;
-}
-.csslabelnormaldikorta
-{
-color: black;
-font-size: 1vw;
-text-align: left;
-font-family: Calibri;
-padding-top: 0.3vw;
-}
+.cssgriddropitemcss{text-align: center;}
+.cssgridtextitemcss{margin: auto;text-align: center;}
+.cssgridcheckitemcss{margin: auto;text-align: center;}
+.cssgridbutoncss{width: 90%;height: 2vw;font-size: 1vw;border-radius: 0.3vw;border: 0.1vw solid black;cursor: pointer;font-family: Calibri;}
+.cssgridbutoncss:hover{background-color: teal;color: white;}
+.cssgriddropcss{width: 90%;height: 2vw;font-size: 1vw;cursor: pointer;font-family: Calibri;padding-left: 0.3vw;-webkit-box-sizing: border-box;-moz-box-sizing: border-box;box-sizing: border-box;}
+.cssgridtextboxcss{width: 90%;height: 1.8vw;font-size: 1vw;cursor: pointer;font-family: Calibri;padding-left: 0.3vw;-webkit-box-sizing: border-box;-moz-box-sizing: border-box;box-sizing: border-box;}
+.cssgridtextboxcssortala{width: 90%;height: 1.8vw;font-size: 1vw;cursor: pointer;font-family: Calibri;padding-left: 0.3vw;-webkit-box-sizing: border-box;-moz-box-sizing: border-box;box-sizing: border-box;text-align:center;}
+.cssgridheader{height: 2vw;background-color: teal;text-align: center;color: white;font-size: 1vw;border: 0.1vw solid black;}
+.cssgridheader:hover{background-color: brown;}
+.cssgridrowcss{height: 3vw;background-color: #FFF3F1;color: black;font-size: 1vw;border: 0.1vw solid black;}
+.cssgridrowcss:hover{background-color: #D1FF00;}
+.cssgridview{margin: auto;text-align: center;}
+.cssarabaslik{text-align:center;height: 2vw;background-color: teal;color: white;font-size: 1vw;font-weight:bold;}
+.cssarabaslik:hover{background-color: brown;}
+.cssbaslikortala{position: relative;top: 50%;transform: translateY(-50%);}
+.cssbuton8, .cssbuton12, .cssbuton10, .cssbuton100, .cssbuton6, .cssbuton7{box-shadow: 0px 0.2vw 0.9vw -0.1vw #276873;background-color: crimson;border-radius:0.2vw;border:0.1vw solid #566573;cursor:pointer;color: white;font-family:Calibri;font-size: 1vw;height: 2vw;}
+.cssbuton8:hover, .cssbuton12:hover, .cssbuton10:hover, .cssbuton100:hover, .cssbuton6:hover, .cssbuton7:hover{background-color: #EB984E;color: black;}
+.cssbuton6{width: 6vw;}
+.cssbuton6{width: 7vw;}
+.cssbuton8{width: 8vw;}
+.cssbuton10{width: 10vw;}
+.cssbuton12{width: 12vw;}
+.cssbuton100{width: 100%;}
+.cssbutondiv{text-align:center;margin: auto;width: 100%;}
+.cssboslukalt0_25{padding-bottom: 0.25vw;}
+.cssboslukalt0_5{padding-bottom: 0.5vw;}
+.cssboslukalt0_75{padding-bottom: 0.75vw;}
+.cssboslukalt1{padding-bottom: 1vw;}
+.cssboslukust1{padding-top: 1vw;}
+.cssboslukaltust1{padding-bottom: 1vw;padding-top: 1vw;}
+.cssboslukalt1_5{padding-bottom: 1.5vw;}
+.cssboslukust1_5{padding-top: 1.5vw;}
+.cssboslukaltust1_5{padding-top: 1.5vw;padding-bottom: 1.5vw;}
+.cssboslukalt2{padding-bottom: 2vw;}
+.cssboslukust2{padding-top: 2vw;}
+.cssboslukust2_5{padding-top: 2.5vw;}
+.cssboslukalt3{padding-bottom: 3vw;}
+.cssboslukust3{padding-top: 3vw;}
+.cssflex{width: 100%;display: flex;}
+.cssflexsol10, .cssflexsol8, .cssflexsol6, .cssflexsol13{width: 10vw;padding-top: 0.5em;padding-bottom: 0.5em;}
+.cssflexsol8{width: 8vw;}
+.cssflexsol6{width: 6vw;}
+.cssflexsol13{width: 13vw;}
+.cssflexsag{width: 100%;margin: auto;padding-top: 0.5em;padding-bottom: 0.5em;}
+.csslabelzorunlu{color: #FF0000;font-size: 1vw;text-align: left;font-family: Calibri;}
+.csslabelnormal{color: black;font-size: 1vw;text-align: left;font-family: Calibri;}
+.csslabelnormaldikorta{color: black;font-size: 1vw;text-align: left;font-family: Calibri;padding-top: 0.3vw;}
 .csslabelkalin
 {
 color: black;
