@@ -370,6 +370,7 @@ html{background-color: #ECF0F1;}
         {
             width: 100%;
             display: flex;
+            align-items: center;
         }
         .cssflexsol10, .cssflexsol8, .cssflexsol6, .cssflexsol13
         {
