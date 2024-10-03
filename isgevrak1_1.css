@@ -48,7 +48,7 @@ html{background-color: #ECF0F1;}
         {
             border-radius:0.4vw;
         }
-        .masterblok4menu, .masterblok5menu, .masterblok1menu
+        .masterblok4menu, .masterblok2menu, .masterblok1menu
         {
             position: relative;
             display: none;
@@ -59,7 +59,7 @@ html{background-color: #ECF0F1;}
             background-color: teal;
             border-radius: 0.4vw;
         }
-        .masterblok2menu
+        .masterblok5menu
         {
             position: relative;
             display: none;
