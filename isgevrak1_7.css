@@ -150,94 +150,15 @@ html{background-color: #ECF0F1;}
 .csslistbox{width: 100%;color: black;font-size: 2vh;line-height: 4vh;text-align: left;font-family: Calibri;padding-left: 1vh;padding-top: 0.6vh;}
 .csslistboxkonum{margin: auto;width: 40%;}
 .cssduyurubaslik{width: 100%;background-color: brown;color: white;font-size: 2vh;line-height: 4vh;text-align: center;font-family: Calibri;font-weight: bold;}
-.cssaciklamabaslik
-{
-width: 100%;
-color: black;
-font-size: 2vh;
-line-height: 2.8vh;
-text-align: justify;
-text-justify: inter-word;
-font-family: Calibri;
-}
-.diyalog1
-{
-display: none;
-position: fixed;
-z-index: 1;
-left: 0;
-top: 0;
-width: 100%;
-height: 100%;
-background-color: rgba(235, 237, 239, 0.8);
-}
-.diyalog1-content
-{
-background-color: #fefefe;
-margin: 15% auto;
-text-align: center;
-padding: 1vw 1vw 1.8vw 1vw;
-border: 0.1vw solid #888;
-width: 30%;
-}
-
-.diyalog2
-{
-display: none;
-position: fixed;
-z-index: 1;
-left: 0;
-top: 0;
-width: 100%;
-height: 100%;
-background-color: rgba(235, 237, 239, 0.8);
-}
-.diyalog2-content
-{
-background-color: #fefefe;
-margin: 15% auto;
-text-align: center;
-padding: 1vw 1vw 1.8vw 1vw;
-border: 0.1vw solid #888;
-width: 30%;
-}
-
-.diyalog3
-{
-display: none;
-position: fixed;
-z-index: 1;
-left: 0;
-top: 0;
-width: 100%;
-height: 100%;
-background-color: rgba(235, 237, 239, 0.8);
-}
-.diyalog3-content
-{
-background-color: #fefefe;
-margin: 15% auto;
-text-align: center;
-padding: 1vw;
-border: 0.1vw solid #888;
-width: 30%;
-height: 17%;
-}
-
-.cssflexortala
-{
-width: 100%;
-display: flex;
-justify-content: center; /* Centering the buttons */
-}
-
-.cssbutonortala
-{
-display: flex;
-justify-content: center;
-grid-gap: 2vw; /* Adds space between the buttons */
-width: 100%;
-}
+.cssaciklamabaslik{width: 100%;color: black;font-size: 2vh;line-height: 2.8vh;text-align: justify;text-justify: inter-word;font-family: Calibri;}
+.diyalog1{display: none;position: fixed;z-index: 1;left: 0;top: 0;width: 100%;height: 100%;background-color: rgba(235, 237, 239, 0.8);}
+.diyalog1-content{background-color: #fefefe;margin: 15% auto;text-align: center;padding: 1vw 1vw 1.8vw 1vw;border: 0.1vw solid #888;width: 30%;}
+.diyalog2{display: none;position: fixed;z-index: 1;left: 0;top: 0;width: 100%;height: 100%;background-color: rgba(235, 237, 239, 0.8);}
+.diyalog2-content{background-color: #fefefe;margin: 15% auto;text-align: center;padding: 1vw 1vw 1.8vw 1vw;border: 0.1vw solid #888;width: 30%;}
+.diyalog3{display: none;position: fixed;z-index: 1;left: 0;top: 0;width: 100%;height: 100%;background-color: rgba(235, 237, 239, 0.8);}
+.diyalog3-content{background-color: #fefefe;margin: 15% auto;text-align: center;padding: 1vw;border: 0.1vw solid #888;width: 30%;height: 17%;}
+.cssflexortala{width: 100%;display: flex;justify-content: center;}
+.cssbutonortala{display: flex;justify-content: center;grid-gap: 2vw;width: 100%;}
 
 .ui-datepicker-title
 {
