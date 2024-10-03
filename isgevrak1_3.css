@@ -18,58 +18,13 @@ html{background-color: #ECF0F1;}
 .mastermenubutoncss5 .icon{padding-left: 5.05vw;}
 .ajs-message{font-family: 'Arial';font-size: 0.9vw;color: white;}
 .cizgi{position: absolute;top: 1.5%;right: 91.7vw;line-height: 35vw;width: 100%;background-color: aqua;z-index: 1000;}
-.mastermenualtbutoncssalt, .mastermenualtbutoncssust, .mastermenualtbutoncssorta, .mastermenualtbutoncsstek{background-color: transparent;color: white;
-            font-family: Calibri;
-            font-size: 1vw;
-            border: none;
-            height: 100%;
-            width: 100%;
-            display: block;
-            text-align: left;
-            padding-left: 0.7em;
-            cursor: pointer;
-        }
-        .mastermenualtbutoncssalt:hover, .mastermenualtbutoncssust:hover, .mastermenualtbutoncssorta:hover, .mastermenualtbutoncsstek:hover
-        {
-            background-color: brown;
-            color: white;
-        }
-        .mastermenualtbutoncssalt:hover
-        {
-            border-bottom-left-radius: 0.4vw;
-            border-bottom-right-radius: 0.4vw;
-        }
-        .mastermenualtbutoncssust:hover
-        {
-            border-top-left-radius: 0.4vw;
-            border-top-right-radius: 0.4vw;
-        }
-        .mastermenualtbutoncsstek:hover
-        {
-            border-radius:0.4vw;
-        }
-        .masterblok4menu, .masterblok2menu, .masterblok1menu
-        {
-            position: relative;
-            display: none;
-            width: 90%;
-            height: 15%;
-            text-align: center;
-            margin: auto;
-            background-color: teal;
-            border-radius: 0.4vw;
-        }
-        .masterblok5menu
-        {
-            position: relative;
-            display: none;
-            width: 90%;
-            height: 10%;
-            text-align: center;
-            margin: auto;
-            background-color: teal;
-            border-radius: 0.4vw;
-        }
+.mastermenualtbutoncssalt, .mastermenualtbutoncssust, .mastermenualtbutoncssorta, .mastermenualtbutoncsstek{background-color: transparent;color: white;font-family: Calibri;font-size: 1vw;border: none;height: 100%;width: 100%;display: block;text-align: left;padding-left: 0.7em;cursor: pointer;}
+.mastermenualtbutoncssalt:hover, .mastermenualtbutoncssust:hover, .mastermenualtbutoncssorta:hover, .mastermenualtbutoncsstek:hover{background-color: brown;color: white;}
+.mastermenualtbutoncssalt:hover{border-bottom-left-radius: 0.4vw;border-bottom-right-radius: 0.4vw;}
+.mastermenualtbutoncssust:hover{border-top-left-radius: 0.4vw;border-top-right-radius: 0.4vw;}
+.mastermenualtbutoncsstek:hover{border-radius:0.4vw;}
+.masterblok4menu, .masterblok2menu, .masterblok1menu{position: relative;display: none;width: 90%;height: 15%;text-align: center;margin: auto;background-color: teal;border-radius: 0.4vw;}
+.masterblok5menu{position: relative;display: none;width: 90%;height: 10%;text-align: center;margin: auto;background-color: teal;border-radius: 0.4vw;}
         .masterblok3menu
         {
             position: relative;
