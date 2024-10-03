@@ -124,231 +124,32 @@ html{background-color: #ECF0F1;}
 .cssblok2_3{position: absolute;display: block;width: 33.33%;margin: auto;text-align: center;top: 5%;left: 33.33%;}
 .cssblok3_3{position: absolute;display: block;width: 33.33%;margin: auto;text-align: center;top: 5%;left: 66.66%;}
 .cssblokyuzde50{width: 50%;text-align: center;vertical-align: text-top;margin-top: 0;}
-.cssblokyuzde30
-{
-width: 30%;
-text-align: center;
-vertical-align: text-top;
-margin-top: 0;
-}
-.cssblokyuzde70
-{
-width: 70%;
-text-align: center;
-vertical-align: text-top;
-margin-top: 0;
-}
-.cssblokyuzde40
-{
-width: 40%;
-text-align: center;
-vertical-align: text-top;
-margin-top: 0;
-}
-.cssblokyuzde60
-{
-width: 60%;
-text-align: center;
-vertical-align: text-top;
-margin-top: 0;
-}
-.cssblokbosluk
-{
-width: 96%;
-margin: auto;
-text-align: center;
-}
-.cssaltbilgi
-{
-position: absolute;
-bottom: 5%;
-left: 0;
-width: 100%;
-margin: auto;
-text-align: center;
-}
-.cssblok1_3
-{
-position: absolute;
-display: block;
-width: 33.33%;
-margin: auto;
-text-align: center;
-top: 5%;
-left: 0;
-}
-.cssblok2_3
-{
-position: absolute;
-display: block;
-width: 33.33%;
-margin: auto;
-text-align: center;
-top: 5%;
-left: 33.33%;
-}
-.cssblok3_3
-{
-position: absolute;
-display: block;
-width: 33.33%;
-margin: auto;
-text-align: center;
-top: 5%;
-left: 66.66%;
-}
-.cssblokbosluk
-{
-width: 96%;
-margin: auto;
-text-align: center;
-}
-.csscheckbox input
-{
-width:1vw;
-height:1vw;
-}
-.cssevraknotextbox
-{
-background-color: #36454F;
-text-align: center;
-font-size: 1.2vw;
-width: 30%;
-height: 2.5vw;
-font-weight: bold;
-font-family: Calibri;
--webkit-box-sizing: border-box;
--moz-box-sizing: border-box;
-box-sizing: border-box;
-outline: none;
-color: white;
-}
-.cssmultitextbox
-{
-height: 75%;
-width: 97%;
-font-size: 1vw;
-font-family: Calibri;
-padding-left: 0.5vw;
-}
-.cssmessagebox
-{
-position:relative;
-width: 100%;
-background-color: #2C3E50;
-text-align: center;
-font-size: 1.25vw;
-height: 2.25vw;
-font-weight: bold;
-font-family: Calibri;
-color: white;
-padding-top: 0.5vw;
-}
-.cssriskanaliziaciklama
-{
-width: 100%;
-height: 6vw;
-font-size: 1vw;
-font-family: Calibri;
-padding-left: 0.5vw;
--webkit-box-sizing: border-box;
--moz-box-sizing: border-box;
-box-sizing: border-box;
-outline: none;
-}
-.cssmesajanasayfa
-{
-color: black;
-font-size: 1vw;
-text-align: left;
-font-family: Calibri;
-}
-.cssotomatikdoldurma
-{
-position: relative;
-display: inline-block;
-width:100%;
-padding-bottom: 10px;
-padding-top: 10px;
-}
-.cssotomatikdoldurma-items
-{
-  position: absolute;
-  border: 1px solid #d4d4d4;
-  border-bottom: none;
-  border-top: none;
-  z-index: 99;
-  width: 100%;
-  text-align: left;
-}
-.cssotomatikdoldurma-items div
-{
-  padding: 10px;
-  cursor: pointer;
-  background-color: #FDF2E9;
-  border-bottom: 1px solid #d4d4d4;
-}
-.cssotomatikdoldurma-items div:hover
-{
-  background-color: #e9e9e9;
-}
-.cssotomatikdoldurma-active
-{
-  background-color: DodgerBlue !important;
-  color: #ffffff;
-}
-.cssadsoyadblok
-{
-width: 40%;
-background-color: brown;
-border-radius: 0.6vw;
-color: white;
-font-size: 2vh;
-line-height: 4vh;
-text-align: center;
-font-family: Calibri;
-margin:auto;
-font-weight: bold;
-}
-.csslistboxblok
-{
-width: 40%;
-background-color: brown;
-color: white;
-font-size: 2vh;
-line-height: 4vh;
-text-align: center;
-font-family: Calibri;
-margin:auto;
-font-weight: bold;
-}
-.csslistbox
-{
-width: 100%;
-color: black;
-font-size: 2vh;
-line-height: 4vh;
-text-align: left;
-font-family: Calibri;
-padding-left: 1vh;
-padding-top: 0.6vh;
-}
-.csslistboxkonum
-{
-margin: auto;
-width: 40%;
-}
-.cssduyurubaslik
-{
-width: 100%;
-background-color: brown;
-color: white;
-font-size: 2vh;
-line-height: 4vh;
-text-align: center;
-font-family: Calibri;
-font-weight: bold;
-}
+.cssblokyuzde30{width: 30%;text-align: center;vertical-align: text-top;margin-top: 0;}
+.cssblokyuzde70{width: 70%;text-align: center;vertical-align: text-top;margin-top: 0;}
+.cssblokyuzde40{width: 40%;text-align: center;vertical-align: text-top;margin-top: 0;}
+.cssblokyuzde60{width: 60%;text-align: center;vertical-align: text-top;margin-top: 0;}
+.cssblokbosluk{width: 96%;margin: auto;text-align: center;}
+.cssaltbilgi{position: absolute;bottom: 5%;left: 0;width: 100%;margin: auto;text-align: center;}
+.cssblok1_3{position: absolute;display: block;width: 33.33%;margin: auto;text-align: center;top: 5%;left: 0;}
+.cssblok2_3{position: absolute;display: block;width: 33.33%;margin: auto;text-align: center;top: 5%;left: 33.33%;}
+.cssblok3_3{position: absolute;display: block;width: 33.33%;margin: auto;text-align: center;top: 5%;left: 66.66%;}
+.cssblokbosluk{width: 96%;margin: auto;text-align: center;}
+.csscheckbox input{width:1vw;height:1vw;}
+.cssevraknotextbox{background-color: #36454F;text-align: center;font-size: 1.2vw;width: 30%;height: 2.5vw;font-weight: bold;font-family: Calibri;-webkit-box-sizing: border-box;-moz-box-sizing: border-box;box-sizing: border-box;outline: none;color: white;}
+.cssmultitextbox{height: 75%;width: 97%;font-size: 1vw;font-family: Calibri;padding-left: 0.5vw;}
+.cssmessagebox{position:relative;width: 100%;background-color: #2C3E50;text-align: center;font-size: 1.25vw;height: 2.25vw;font-weight: bold;font-family: Calibri;color: white;padding-top: 0.5vw;}
+.cssriskanaliziaciklama{width: 100%;height: 6vw;font-size: 1vw;font-family: Calibri;padding-left: 0.5vw;-webkit-box-sizing: border-box;-moz-box-sizing: border-box;box-sizing: border-box;outline: none;}
+.cssmesajanasayfa{color: black;font-size: 1vw;text-align: left;font-family: Calibri;}
+.cssotomatikdoldurma{position: relative;display: inline-block;width:100%;padding-bottom: 10px;padding-top: 10px;}
+.cssotomatikdoldurma-items{position: absolute;border: 1px solid #d4d4d4;border-bottom:none;border-top: none;z-index: 99;width: 100%;text-align: left;}
+.cssotomatikdoldurma-items div{padding: 10px;cursor: pointer;background-color: #FDF2E9;border-bottom: 1px solid #d4d4d4;}
+.cssotomatikdoldurma-items div:hover{background-color: #e9e9e9;}
+.cssotomatikdoldurma-active{background-color: DodgerBlue !important;color: #ffffff;}
+.cssadsoyadblok{width: 40%;background-color: brown;border-radius: 0.6vw;color: white;font-size: 2vh;line-height: 4vh;text-align: center;font-family: Calibri;margin:auto;font-weight: bold;}
+.csslistboxblok{width: 40%;background-color: brown;color: white;font-size: 2vh;line-height: 4vh;text-align: center;font-family: Calibri;margin:auto;font-weight: bold;}
+.csslistbox{width: 100%;color: black;font-size: 2vh;line-height: 4vh;text-align: left;font-family: Calibri;padding-left: 1vh;padding-top: 0.6vh;}
+.csslistboxkonum{margin: auto;width: 40%;}
+.cssduyurubaslik{width: 100%;background-color: brown;color: white;font-size: 2vh;line-height: 4vh;text-align: center;font-family: Calibri;font-weight: bold;}
 .cssaciklamabaslik
 {
 width: 100%;
