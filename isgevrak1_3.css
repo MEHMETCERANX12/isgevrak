@@ -958,6 +958,29 @@ html{background-color: #ECF0F1;}
             border: 0.1vw solid #888;
             width: 30%;
         }
+
+    .diyalog3
+    {
+        display: none;
+        position: fixed;
+        z-index: 1;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(235, 237, 239, 0.8);
+    }    
+    .diyalog3-content
+    {
+        background-color: #fefefe;
+        margin: 15% auto;
+        text-align: center;
+        padding: 1vw;
+        border: 0.1vw solid #888;
+        width: 30%;
+        height: 17%;
+    }
+
 .cssflexortala
 {
     width: 100%;
@@ -1080,3 +1103,6 @@ html{background-color: #ECF0F1;}
     font-size: 1vw;
     padding-left: 0.25vw;
 }
+
+
+
