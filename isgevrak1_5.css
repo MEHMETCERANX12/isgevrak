@@ -375,8 +375,6 @@ html{background-color: #ECF0F1;}
         .cssflexsol10, .cssflexsol8, .cssflexsol6, .cssflexsol13
         {
             width: 10vw;
-            padding-top: 0.5em;
-            padding-bottom: 0.5em;
         }
         .cssflexsol8
         {
@@ -394,8 +392,6 @@ html{background-color: #ECF0F1;}
         {
             width: 100%;
             margin: auto;
-            padding-top: 0.5em;
-            padding-bottom: 0.5em;
         }
         .csslabelzorunlu
         {
