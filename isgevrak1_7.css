@@ -88,225 +88,42 @@ html{background-color: #ECF0F1;}
 .csslabelzorunlu{color: #FF0000;font-size: 1vw;text-align: left;font-family: Calibri;}
 .csslabelnormal{color: black;font-size: 1vw;text-align: left;font-family: Calibri;}
 .csslabelnormaldikorta{color: black;font-size: 1vw;text-align: left;font-family: Calibri;padding-top: 0.3vw;}
-.csslabelkalin
-{
-color: black;
-font-weight: bold;
-font-size: 1vw;
-text-align: left;
-font-family: Calibri;
-}
-.csstextbox100, .csstextbox90, .csstextbox80, .csstextbox70, .csstextbox60, .csstextbox50, .csstextbox40, .csstextbox30, .csstextbox20, .csstextbox10
-{
-width: 100%;
-height: 1.8vw;
-font-size: 1vw;
-font-family: Calibri;
-padding-left: 0.5vw;
--webkit-box-sizing: border-box;
--moz-box-sizing: border-box;
-box-sizing: border-box;
-outline: none;
-}
-.csstextbox100:focus, .csstextbox90:focus, .csstextbox80:focus, .csstextbox70:focus, .csstextbox60:focus, .csstextbox50:focus, .csstextbox40:focus, .csstextbox30:focus, .csstextbox20:focus, .csstextbox10:focus
-{
-outline: none;
-border: 0.15vw solid black;
-}
-.csstextbox90
-{
-width: 90%;
-}
-.csstextbox80
-{
-width: 80%;
-}
-.csstextbox70
-{
-width: 70%;
-}
-.csstextbox60
-{
-width: 60%;
-}
-.csstextbox50
-{
-width: 50%;
-}
-.csstextbox40
-{
-width: 40%;
-}
-.csstextbox30
-{
-width: 30%;
-}
-.csstextbox20
-{
-width: 20%;
-}
-.csstextbox10
-{
-width: 10%;
-}
-.cssdropdown100, .cssdropdown90, .cssdropdown80, .cssdropdown70, .cssdropdown60, .cssdropdown50, .cssdropdown40, .cssdropdown30, .cssdropdown25, .cssdropdown20, .cssdropdown10, .cssdropdown7
-{
-width: 100%;
-height: 1.8vw;
-font-size: 1vw;
-padding-left: 0.3vw;
--webkit-box-sizing: border-box;
--moz-box-sizing: border-box;
-box-sizing: border-box;
-font-family: Calibri;
-}
-.cssdropdown100:focus, .cssdropdown90:focus, .cssdropdown80:focus, .cssdropdown70:focus, .cssdropdown60:focus, .cssdropdown50:focus, .cssdropdown40:focus, .cssdropdown30:focus, .cssdropdown25:focus, .cssdropdown20:focus, .cssdropdown10:focus, .cssdropdown7:focus, .cssriskanaliziaciklama:focus
-{
-outline: none;
-border: 0.1em solid black;
-}
-.cssdropdown90
-{
-width: 90%;
-}
-.cssdropdown80
-{
-width: 80%;
-}
-.cssdropdown70
-{
-width: 70%;
-}
-.cssdropdown60
-{
-width: 60%;
-}
-.cssdropdown50
-{
-width: 50%;
-}
-.cssdropdown40
-{
-width: 40%;
-}
-.cssdropdown30
-{
-width: 30%;
-}
-.cssdropdown25
-{
-width: 25%;
-}
-.cssdropdown20
-{
-width: 20%;
-}
-.cssdropdown10
-{
-width: 10%;
-}
-.cssdropdown7
-{
-width: 7%;
-}
-.cssbutontamam, .cssbutonvazgec
-{
-height: 2vw;
-width: 6vw;
-font-size: 1vw;
-border-radius: 0.5vw;
-	border: 0.1vw solid black;
-cursor: pointer;
-font-family: Calibri;
-}
-.cssbutontamam:hover
-{
-background-color: teal;
-color: white;
-}
-.cssbutonvazgec:hover
-{
-background-color: brown;
-color: white;
-}
-.cssdivortala
-{
-position: relative;
-margin: auto;
-text-align: center;
-width: 100%;
-}
-.paddingleft0_5
-{
-padding-left: 0.5vw;
-}
-.cssmargin30
-{
-position:relative;
-margin-left: 30%;
-margin-right: 30%;
-}
-.csslineheight1_5
-{
-line-height: 1.5vw;
-color: black;
-font-size: 1vw;
-text-align: left;
-font-family: Calibri;
-}
-.cssfileupload
-{
-position: relative;
-margin: auto;
-display: block;
-text-align: center;
-line-height: 10vw;
-padding-left: 20%;
-padding-right: 20%;
-cursor: pointer;
-background-color: #FADBD8;
-border-radius: 2vw 2vw;
-border: 0.3vw dashed #2C3E50;
-font-size: 1vw;
-font-family: Calibri;
-}
-.cssblok1_3
-{
-position: absolute;
-display: block;
-width: 33.33%;
-margin: auto;
-text-align: center;
-top: 5%;
-left: 0;
-}
-.cssblok2_3
-{
-position: absolute;
-display: block;
-width: 33.33%;
-margin: auto;
-text-align: center;
-top: 5%;
-left: 33.33%;
-}
-.cssblok3_3
-{
-position: absolute;
-display: block;
-width: 33.33%;
-margin: auto;
-text-align: center;
-top: 5%;
-left: 66.66%;
-}
-.cssblokyuzde50
-{
-width: 50%;
-text-align: center;
-vertical-align: text-top;
-margin-top: 0;
-}
+.csslabelkalin{color: black;font-weight: bold;font-size: 1vw;text-align: left;font-family: Calibri;}
+.csstextbox100, .csstextbox90, .csstextbox80, .csstextbox70, .csstextbox60, .csstextbox50, .csstextbox40, .csstextbox30, .csstextbox20, .csstextbox10{width: 100%;height: 1.8vw;font-size: 1vw;font-family: Calibri;padding-left: 0.5vw;-webkit-box-sizing: border-box;-moz-box-sizing: border-box;box-sizing: border-box;outline: none;}
+.csstextbox100:focus, .csstextbox90:focus, .csstextbox80:focus, .csstextbox70:focus, .csstextbox60:focus, .csstextbox50:focus, .csstextbox40:focus, .csstextbox30:focus, .csstextbox20:focus, .csstextbox10:focus{outline: none;border: 0.15vw solid black;}
+.csstextbox90{width: 90%;}
+.csstextbox80{width: 80%;}
+.csstextbox70{width: 70%;}
+.csstextbox60{width: 60%;}
+.csstextbox50{width: 50%;}
+.csstextbox40{width: 40%;}
+.csstextbox30{width: 30%;}
+.csstextbox20{width: 20%;}
+.csstextbox10{width: 10%;}
+.cssdropdown100, .cssdropdown90, .cssdropdown80, .cssdropdown70, .cssdropdown60, .cssdropdown50, .cssdropdown40, .cssdropdown30, .cssdropdown25, .cssdropdown20, .cssdropdown10, .cssdropdown7{width: 100%;height: 1.8vw;font-size: 1vw;padding-left: 0.3vw;-webkit-box-sizing: border-box;-moz-box-sizing: border-box;box-sizing: border-box;font-family: Calibri;}
+.cssdropdown100:focus, .cssdropdown90:focus, .cssdropdown80:focus, .cssdropdown70:focus, .cssdropdown60:focus, .cssdropdown50:focus, .cssdropdown40:focus, .cssdropdown30:focus, .cssdropdown25:focus, .cssdropdown20:focus, .cssdropdown10:focus, .cssdropdown7:focus, .cssriskanaliziaciklama:focus{outline: none;border: 0.1em solid black;}
+.cssdropdown90{width: 90%;}
+.cssdropdown80{width: 80%;}
+.cssdropdown70{width: 70%;}
+.cssdropdown60{width: 60%;}
+.cssdropdown50{width: 50%;}
+.cssdropdown40{width: 40%;}
+.cssdropdown30{width: 30%;}
+.cssdropdown25{width: 25%;}
+.cssdropdown20{width: 20%;}
+.cssdropdown10{width: 10%;}
+.cssdropdown7{width: 7%;}
+.cssbutontamam, .cssbutonvazgec{height: 2vw;width: 6vw;font-size: 1vw;border-radius: 0.5vw;border: 0.1vw solid black;cursor: pointer;font-family: Calibri;}
+.cssbutontamam:hover{background-color: teal;color: white;}
+.cssbutonvazgec:hover{background-color: brown;color: white;}
+.cssdivortala{position: relative;margin: auto;text-align: center;width: 100%;}
+.paddingleft0_5{padding-left: 0.5vw;}
+.cssmargin30{position:relative;margin-left: 30%;margin-right: 30%;}
+.csslineheight1_5{line-height: 1.5vw;color: black;font-size: 1vw;text-align: left;font-family: Calibri;}
+.cssblok1_3{position: absolute;display: block;width: 33.33%;margin: auto;text-align: center;top: 5%;left: 0;}
+.cssblok2_3{position: absolute;display: block;width: 33.33%;margin: auto;text-align: center;top: 5%;left: 33.33%;}
+.cssblok3_3{position: absolute;display: block;width: 33.33%;margin: auto;text-align: center;top: 5%;left: 66.66%;}
+.cssblokyuzde50{width: 50%;text-align: center;vertical-align: text-top;margin-top: 0;}
 .cssblokyuzde30
 {
 width: 30%;
