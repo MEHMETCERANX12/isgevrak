@@ -173,7 +173,7 @@ html{background-color: #ECF0F1;}
 .cssaltliustlu{display: flex;flex-direction: column;align-items: flex-start;width: 100%;}
 .csstextboxmetinortala{text-align: center;}
 .table-style {border-collapse: collapse;width: 100%;font-family: Calibri;font-size: 1vw;}
-.table-style tbody tr {height: 3vw;background-color: #FFF3F1;border: 0.1vw solid black;text-align: center;}
+.table-style tbody tr {height: 2vw;background-color: #FFF3F1;border: 0.1vw solid black;text-align: center;}
 .table-style thead th {height: 2vw;background-color: teal;color: white;border: 0.1vw solid black;}
 .table-style th, .table-style td {border: 0.1vw solid black;padding: 0;box-sizing: border-box;}
 .csstablotextboxcss, .csstablodropcss{width: 90%;height: 2vw;-webkit-box-sizing: border-box;-moz-box-sizing: border-box;box-sizing: border-box;font-family: Calibri;font-size: 1vw;padding-left: 0.25vw;}
