@@ -179,5 +179,5 @@ html{background-color: #ECF0F1;}
 .csstablotextboxcss, .csstablodropcss{width: 90%;height: 2vw;-webkit-box-sizing: border-box;-moz-box-sizing: border-box;box-sizing: border-box;font-family: Calibri;font-size: 1vw;padding-left: 0.25vw;}
 .cssegitimlabel{font-size: 1vw;font-family: Calibri;font-weight: normal;padding-left: 0.3vw;}
 .csstabloyazisol{text-align: left;}
-
-
+.diyalog4{display: none;position: fixed;z-index: 1;left: 0;top: 0;width: 100%;height: 100%;background-color: rgba(235, 237, 239, 0.8);}
+.diyalog4-content{background-color: #e8f8f5;text-align: center;padding: 0.5vw;border: 0.2vw solid #888;width: 70%;height: 70vh;position: absolute;top: 50%;left: 50%;transform: translate(-50%, -50%);box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);border-radius: 2vw;}
