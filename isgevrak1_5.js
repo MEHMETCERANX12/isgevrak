@@ -172,7 +172,7 @@ $(document).ready(function ()
 
 
 $(function() {
-    $(".csstexboxtarih").datepicker({
+    $(".csstextboxtarih").datepicker({
         firstDay: 1,
         dateFormat: "dd.mm.yy",
         autoSize: false,
