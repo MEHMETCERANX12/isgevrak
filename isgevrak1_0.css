@@ -90,8 +90,8 @@ html{background-color: #ECF0F1;}
 .csslabelnormal{color: black;font-size: 1vw;text-align: left;font-family: Calibri;}
 .csslabelnormaldikorta{color: black;font-size: 1vw;text-align: left;font-family: Calibri;padding-top: 0.3vw;}
 .csslabelkalin{color: black;font-weight: bold;font-size: 1vw;text-align: left;font-family: Calibri;}
-.csstextbox100, .csstextbox90, .csstextbox80, .csstextbox70, .csstextbox60, .csstextbox50, .csstextbox40, .csstextbox30, .csstextbox20, .csstextbox10{width: 100%;height: 1.8vw;font-size: 1vw;font-family: Calibri;padding-left: 0.5vw;-webkit-box-sizing: border-box;-moz-box-sizing: border-box;box-sizing: border-box;outline: none;}
-.csstextbox100:focus, .csstextbox90:focus, .csstextbox80:focus, .csstextbox70:focus, .csstextbox60:focus, .csstextbox50:focus, .csstextbox40:focus, .csstextbox30:focus, .csstextbox20:focus, .csstextbox10:focus{outline: none;border: 0.15vw solid black;}
+.csstextbox100, .csstextbox90, .csstextbox80, .csstextbox70, .csstextbox60, .csstextbox50, .csstextbox40, .csstextbox30, .csstextbox20, .csstextbox10, .tarihtextbox{width: 100%;height: 1.8vw;font-size: 1vw;font-family: Calibri;padding-left: 0.5vw;-webkit-box-sizing: border-box;-moz-box-sizing: border-box;box-sizing: border-box;outline: none;}
+.csstextbox100:focus, .tarihtextbox:focus, .csstextbox90:focus, .csstextbox80:focus, .csstextbox70:focus, .csstextbox60:focus, .csstextbox50:focus, .csstextbox40:focus, .csstextbox30:focus, .csstextbox20:focus, .csstextbox10:focus{outline: none;border: 0.15vw solid black;}
 .csstextbox90{width: 90%;}
 .csstextbox80{width: 80%;}
 .csstextbox70{width: 70%;}
