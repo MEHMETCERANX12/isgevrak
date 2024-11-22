@@ -172,10 +172,6 @@ html{background-color: #ECF0F1;}
 .cssflexyariyariyasag{width: 49.5%;margin-left: 0.5%;}
 .cssaltliustlu{display: flex;flex-direction: column;align-items: flex-start;width: 100%;}
 .csstextboxmetinortala{text-align: center;}
-.table-style {border-collapse: collapse;width: 100%;font-family: Calibri;font-size: 1vw;}
-.table-style thead th {height: 1.9vw;background-color: teal;color: white;border: 0.1vw solid black;}
-.table-style tbody tr{height: 3vw;background-color: #FFF3F1;border: 0.1vw solid black;text-align: center;}
-.table-style th, .table-style td {border: 0.1vw solid black;padding: 0;box-sizing: border-box;}
 .csstablobuton{font-size: 1vw;border-radius: 0.3vw;border: 0.1vw solid black;cursor: pointer;font-family: Calibri;background-color: #e7e7e7;color: black;width: 90%;height: 2vw;font-weight: normal;text-align: center;display: flex;justify-content: center;align-items: center;vertical-align: middle;}
 .csstablobuton:hover{background-color: teal;color: white;}
 .csstablobutonortala{display: flex;justify-content: center;align-items: center;height: 100%;text-align:center;padding: 0;border: none;vertical-align: middle;}
@@ -202,7 +198,7 @@ input[type="checkbox"]:checked::before{transform: scale(1);}
 #tablo td{border: 0.1vh ridge #d5d8dc;padding: 0.4vw;}
 #tablo tbody tr:hover{background-color: #D1FF00; cursor: pointer;}
 #tablo .row-checkbox{margin: auto;}
-.csscheckboxortala{justify-content: center;align-items: center;height: 3vw;display: grid;border: 0 none;}
+
 
 
 
