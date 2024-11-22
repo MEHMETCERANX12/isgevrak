@@ -193,3 +193,8 @@ html{background-color: #ECF0F1;}
 .csskkdbutton:hover{background-color: #1e293b;color: #fff;}
 .cssarabasliksiyah{text-align:center;height: 2vw;background-color:#343434;color: white;font-size: 1vw;font-weight:bold;}
 .cssarabasliksiyah:hover{background-color: brown;}
+input[type="checkbox"]{-webkit-appearance: none;-moz-appearance: none;background-color: transparent;margin: 0;font: inherit;color: currentColor; width: 1.15em; height: 1.15em; border: 0.15em solid currentColor; border-radius: 0.15em; display: flex; justify-content: center; align-items: center;}
+input[type="checkbox"]:checked{background-color: #138d75;}input[type="checkbox"]::before{content: ""; width: 0.65em;  height: 0.65em; clip-path: polygon( 15.20% 26.20%, 36.60% 56.00%, 81.60% 0.00%, 100% 12.80%, 58.80% 66.40%, 35.20% 98.20%, 20.80% 74.20%, 0.00% 42.80% ); transform: scale(0); transform-origin: center; transition: 275ms transform ease-in-out; background-color: white;}
+input[type="checkbox"]:checked::before{transform: scale(1);}
+.csssolsagbosluk20{margin-left: 20%;margin-right: 20%;}
+
