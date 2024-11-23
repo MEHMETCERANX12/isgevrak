@@ -192,7 +192,7 @@ html{background-color: #ECF0F1;}
 .csssolsagbosluk20{margin-left: 20%;margin-right: 20%;}
 .gridtablo{border-collapse: collapse;border-spacing: 0;}
 .gridtablo tr{border: 0 none; border: 0.1mm solid #273746;}
-.gridtablo td, .gridtablo th{border-right: 0.1mm solid #273746;height: 2vw;text-align: left;vertical-align: middle;}
+.gridtablo td, .gridtablo th{border-right: 0.1mm solid #273746;height: 3vw;text-align: left;vertical-align: middle;}
 .gridtablo thead th{height: 2vw;background-color: #34495e;color: white; text-align:center;}
 .gridtablo tbody tr:nth-child(odd){background-color: #fff9f0;}
 .gridtablo tbody tr:nth-child(even){background-color: white;}
@@ -200,6 +200,4 @@ html{background-color: #ECF0F1;}
 .cssgridortala{text-align: center;}
 .cssgridcheckorta{display: flex; justify-content: center; align-items: center;}
 input[type="checkbox"]{width: 1.3vw;height: 1.3vw;}
-
-
-
+.cssgridnesneorta{align-items:center; justify-content:center; text-align:center;}
