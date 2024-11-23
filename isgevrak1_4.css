@@ -193,11 +193,15 @@ input[type="checkbox"]{-webkit-appearance: none;-moz-appearance: none;background
 input[type="checkbox"]:checked{background-color: #138d75;}input[type="checkbox"]::before{content: ""; width: 0.65em;  height: 0.65em; clip-path: polygon( 15.20% 26.20%, 36.60% 56.00%, 81.60% 0.00%, 100% 12.80%, 58.80% 66.40%, 35.20% 98.20%, 20.80% 74.20%, 0.00% 42.80% ); transform: scale(0); transform-origin: center; transition: 275ms transform ease-in-out; background-color: white;}
 input[type="checkbox"]:checked::before{transform: scale(1);}
 .csssolsagbosluk20{margin-left: 20%;margin-right: 20%;}
-#tablo tbody tr:nth-child(odd){background-color: white;}
-#tablo tbody tr:nth-child(even){background-color: #f4f6f7;}
-#tablo td{border: 0.1vh ridge #d5d8dc;padding: 0.4vw;}
-#tablo tbody tr:hover{background-color: #D1FF00; cursor: pointer;}
-#tablo .row-checkbox{margin: auto;}
+.gridtablo{border-collapse: collapse;border-spacing: 0;}
+.gridtablo tr{border: 0 none; border: 0.1mm solid #273746;}
+.gridtablo td, .gridtablo th{border-right: 0.1mm solid #273746;height: 2.5vw;text-align: left;vertical-align: middle;}
+.gridtablo thead th{height: 2vw;background-color: #34495e;color: white; text-align:center;}
+.gridtablo tbody tr:nth-child(odd){background-color: #fff9f0;}
+.gridtablo tbody tr:nth-child(even){background-color: white;}
+.gridtablo tbody tr:hover{background-color: #D1FF00; cursor: pointer;}
+.cssgridortala{text-align: center;}
+.cssgridcheckorta{display: flex; justify-content: center; align-items: center;}
 
 
 
