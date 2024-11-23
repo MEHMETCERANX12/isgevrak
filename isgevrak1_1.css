@@ -200,4 +200,4 @@ html{background-color: #ECF0F1;}
 .cssgridortala{text-align: center;}
 .cssgridcheckorta{display: flex; justify-content: center; align-items: center;}
 input[type="checkbox"]{width: 1.3vw;height: 1.3vw;}
-.cssgridnesneorta{align-items:center; justify-content:center; text-align:center;}
+.cssgridortala{text-align: center !important;}
