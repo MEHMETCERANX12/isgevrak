@@ -199,7 +199,7 @@ html{background-color: #ECF0F1;}
 .gridtablo tbody tr:hover{background-color: #D1FF00; cursor: pointer;}
 .cssgridortala{text-align: center;}
 .cssgridcheckorta{display: flex; justify-content: center; align-items: center;}
-
+input[type="checkbox"]{width: 1.3vw;height: 1.3vw;}
 
 
 
