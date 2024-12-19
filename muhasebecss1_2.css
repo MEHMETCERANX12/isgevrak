@@ -186,13 +186,6 @@ html{background-color: #ECF0F1;}
 .csskkdbutton:hover{background-color: #1e293b;color: #fff;}
 .cssarabasliksiyah{text-align:center;height: 2vw;background-color:#343434;color: white;font-size: 1vw;font-weight:bold;}
 .cssarabasliksiyah:hover{background-color: brown;}
-.gridtablo{border-collapse: collapse;border-spacing: 0;}
-.gridtablo tr{border: 0 none; border: 0.1mm solid #273746;}
-.gridtablo td, .gridtablo th{border-right: 0.1mm solid #273746;height: 3vw;text-align: left;vertical-align: middle;}
-.gridtablo thead th{height: 2vw;background-color: #34495e;color: white; text-align:center;}
-.gridtablo tbody tr:nth-child(odd){background-color: #fff9f0;}
-.gridtablo tbody tr:nth-child(even){background-color: white;}
-.gridtablo tbody tr:hover{background-color: #D1FF00; cursor: pointer;}
 .cssgridortala{text-align: center;}
 .cssgridcheckorta{display: flex; justify-content: center; align-items: center;}
 input[type="checkbox"]{width: 1.3vw;height: 1.3vw;}
@@ -201,3 +194,13 @@ input[type="checkbox"]{width: 1.3vw;height: 1.3vw;}
 .csssolsagbosluk15{margin-left: 15%;margin-right: 15%;}
 .csssolsagbosluk10{margin-left: 10%;margin-right: 10%;}
 .csssolsagbosluk5{margin-left: 5%;margin-right: 5%;}
+.gridtablo thead tr{color: white; text-align:center;}
+.gridtablo td{border: 0.1mm solid #d5d8dc;}
+.gridtablo thead th{background-color: #34495e;border: 0.1mm solid #5d6169;height:2vw;}
+.gridtablo{border-collapse: collapse;border-spacing: 0;text-align: center;}
+.gridtablo tr{border: 0 none;}
+.gridtablo th{vertical-align: middle;text-align: center;}
+.gridtablo tbody tr:nth-child(odd){background-color: #fffef8;height:3vw;}
+.gridtablo tbody tr:nth-child(even){background-color: white;height:3vw;}
+.gridtablo tbody tr:hover{background-color: #D1FF00; cursor: pointer;}
+.gridsolahizala{padding-left: 0.2vw;}
