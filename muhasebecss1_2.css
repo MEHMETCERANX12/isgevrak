@@ -197,9 +197,9 @@ input[type="checkbox"]{width: 1.3vw;height: 1.3vw;}
 .gridtablo thead tr{color: white; text-align:center;}
 .gridtablo td{border: 0.1mm solid #d5d8dc;}
 .gridtablo thead th{background-color: #34495e;border: 0.1mm solid #5d6169;height:2vw;}
-.gridtablo{border-collapse: collapse;border-spacing: 0;text-align: center;}
+.gridtablo{border-collapse: collapse;border-spacing: 0;text-align: left;}
 .gridtablo tr{border: 0 none;}
-.gridtablo th{vertical-align: middle;text-align: center;}
+.gridtablo th{vertical-align: middle;}
 .gridtablo tbody tr:nth-child(odd){background-color: #fffef8;height:3vw;}
 .gridtablo tbody tr:nth-child(even){background-color: white;height:3vw;}
 .gridtablo tbody tr:hover{background-color: #D1FF00; cursor: pointer;}
