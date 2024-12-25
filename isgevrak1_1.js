@@ -12,13 +12,6 @@ function menublok(showId, hideIds)
             $showElement.slideDown();
         }
     }
-    $(document).ready(function()
-    {
-        $('#blok1').hide();
-        $('#blok2').hide();
-        $('#blok3').hide();
-        $('#blok4').hide();
-    });
     function toggleBlock(showId, hideId)
     {
         var $showElement = $('#' + showId);
@@ -51,13 +44,18 @@ function menublok(showId, hideIds)
 
 $(document).ready(function ()
 {
+        $('#blok1').hide();
+        $('#blok2').hide();
+        $('#blok3').hide();
+        $('#blok4').hide();	
         $("input").keypress(function (event)
-			    {
-            if (event.which === 13) { // 13: Enter tuşu
-                event.preventDefault(); // Enter tuşunun varsayılan işlevini iptal et
-            }
-        });
-    });
+	{
+	if (event.which === 13) 
+	{ // 13: Enter tuşu
+		event.preventDefault(); // Enter tuşunun varsayılan işlevini iptal et
+	}
+	});
+});
 
 
 
@@ -80,5 +78,11 @@ $(function() {
     });
 });
 
-
+window.onload = function ()
+    {
+        if (performance.navigation.type === performance.navigation.TYPE_BACK_FORWARD)
+        {
+            alertify.dismissAll();
+        }
+    };
 
