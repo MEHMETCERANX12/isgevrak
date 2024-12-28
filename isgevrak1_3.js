@@ -99,8 +99,6 @@ $(document).ready(function () {
         dayNames: ["pazar", "pazartesi", "salı", "çarşamba", "perşembe", "cuma", "cumartesi"],
         dayNamesMin: ["paz", "pzt", "sal", "çar", "per", "cum", "cmt"],
         defaultDate: 0,
-        maxDate: "+1y+0m+0w",
-        minDate: "-6y-0m-0w",
         monthNamesShort: ["Ocak", "Şubat", "Mart", "Nisan", "Mayıs", "Haziran", "Temmuz", "Ağustos", "Eylül", "Ekim", "Kasım", "Aralık"],
         nextText: "ileri",
         prevText: "geri",
