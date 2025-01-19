@@ -80,7 +80,7 @@ html{background-color: #ECF0F1;}
 .cssboslukalt3{padding-bottom: 3vw;}
 .cssboslukust3{padding-top: 3vw;}
 .cssflex{width: 100%;display: flex;}
-.cssflexsol10, .cssflexsol8, .cssflexsol6, .cssflexsol13{width: 10vw;padding-top: 0.5em;padding-bottom: 0.5em;}
+.cssflexsol10, .cssflexsol8, .cssflexsol6, .cssflexsol13{width: 10vw;padding-top: 0.5em;padding-bottom: 0.5em;line-height:2vw;vertical-align: central;}
 .cssflexsol8{width: 8vw;}
 .cssflexsol6{width: 6vw;}
 .cssflexsol13{width: 13vw;}
