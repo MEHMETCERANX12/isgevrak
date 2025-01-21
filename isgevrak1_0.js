@@ -72,24 +72,6 @@ $(document).ready(function () {
         return;
     }
 
-    // SQL tarih formatını datepicker için dönüştür
-    function formatSqlDateForDatepicker(sqlDate) {
-        if (!sqlDate || !/\d{1,2}\.\d{1,2}\.\d{4}/.test(sqlDate)) {
-            return null;
-        }
-
-        var datePart = sqlDate.split(' ')[0]; // Sadece tarihi al (ör. '1.10.2024')
-        var parts = datePart.split('.');
-        if (parts.length === 3) {
-            var day = parts[0].padStart(2, '0');
-            var month = parts[1].padStart(2, '0');
-            var year = parts[2];
-            return day + '.' + month + '.' + year; // '01.10.2024' formatına çevir
-        }
-        return null;
-    }
-
-    // Datepicker ayarları
     $(".csstextboxtarih").datepicker({
         firstDay: 1,
         dateFormat: "dd.mm.yy",
@@ -103,15 +85,5 @@ $(document).ready(function () {
         nextText: "ileri",
         prevText: "geri",
         showAnim: "slideDown"
-    });
-
-    // Tarih kutularının değerini SQL formatından dönüştür ve uygula
-    $(".csstextboxtarih").each(function () {
-        var currentVal = $(this).val();
-        var formattedDate = formatSqlDateForDatepicker(currentVal);
-        if (formattedDate) {
-            $(this).val(formattedDate);
-            $(this).datepicker("setDate", formattedDate);
-        }
     });
 });
