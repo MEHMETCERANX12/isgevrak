@@ -1,0 +1,446 @@
+[
+    {
+        "sinif": "Baret",
+        "isim": "Baret",
+        "standart": "EN 397",
+        "aciklama": "Baret - Genel - EN 397"
+    },
+    {
+        "sinif": "Baret",
+        "isim": "Baret",
+        "standart": "EN 812",
+        "aciklama": "Baret - Şapka Tipi - EN 812"
+    },
+    {
+        "sinif": "Baret",
+        "isim": "Baret",
+        "standart": "EN 397 / EN 50365",
+        "aciklama": "Baret - Elektrikçi - EN 397 / EN 50365"
+    },
+    {
+        "sinif": "İş Elbisesi",
+        "isim": "İş Elbisesi",
+        "standart": "TS EN 13688",
+        "aciklama": "İş Elbisesi - Genel - TS EN 13688"
+    },
+    {
+        "sinif": "İş Elbisesi",
+        "isim": "İş Elbisesi - Reflektörlü",
+        "standart": "TS EN 13688-EN 343-EN 20471",
+        "aciklama": "İş Elbisesi - Yağmura Dayanıklı ve Reflektörlü (Yazlık) - TS EN 13688-EN 343-EN 20471"
+    },
+    {
+        "sinif": "İş Elbisesi",
+        "isim": "İş Elbisesi - Reflektörlü",
+        "standart": "TS EN 13688-EN 342-EN 343-EN 20471",
+        "aciklama": "İş Elbisesi - Yağmura Dayanıklı ve Reflektörlü (Kışlık) - TS EN 13688-EN 342-EN 343-EN 20471"
+    },
+    {
+        "sinif": "İş Elbisesi",
+        "isim": "İş Elbisesi (Anti Statik)",
+        "standart": "EN 1149-EN 13034-EN 13982",
+        "aciklama": "İş Elbisesi (Tulum) - Anti Statik, Sıvı ve Katı Kimyasal Karşı Koruma - EN 1149-EN 13034-EN 13982"
+    },
+    {
+        "sinif": "İş Elbisesi",
+        "isim": "İş Elbisesi",
+        "standart": "EN 1149-EN 13034-EN 13982-EN14126",
+        "aciklama": "İş Elbisesi (Tulum) - Anti Statik, Sıvı ve Katı Kimyasal ile Patojen Organizmalara Koruma - EN 1149-EN 13034-EN 13982-EN14126"
+    },
+    {
+        "sinif": "İş Elbisesi",
+        "isim": "İş Elbisesi (Elektrik)",
+        "standart": "EN 1149-EN 61482",
+        "aciklama": "İş Elbisesi - Elektrik İşlerinde - EN 1149-EN 61482"
+    },
+    {
+        "sinif": "İş Elbisesi",
+        "isim": "Kaynakçı Önlüğü",
+        "standart": "TSE EN 11611",
+        "aciklama": "İş Elbisesi - Kaynakçı Önlüğü - Kaynak sırasında vücuda gelen arkları engellemek için kullanınız. TSE EN 11611"
+    },
+    {
+        "sinif": "İş Elbisesi",
+        "isim": "İş Elbisesi (İtfaiye-Yangına Dayanıklı)",
+        "standart": "TS EN 13688-EN 469-EN 1149",
+        "aciklama": "İş Elbisesi - Yangınla mücadelede giyilen (İtfaiye - Nomex)"
+    },
+    {
+        "sinif": "İş Ayakkabısı",
+        "isim": "İş Ayakkabısı",
+        "standart": "EN 20345 SB",
+        "aciklama": "İş Ayakkabısı - SB (Çelik Burunlu) - EN 20345 SB"
+    },
+    {
+        "sinif": "İş Ayakkabısı",
+        "isim": "İş Ayakkabısı",
+        "standart": "EN 20345 S1",
+        "aciklama": "İş Ayakkabısı - S1 (SB Dahil ve Anti Statik) - EN 20345 S1"
+    },
+    {
+        "sinif": "İş Ayakkabısı",
+        "isim": "İş Ayakkabısı",
+        "standart": "EN 20345 S1",
+        "aciklama": "İş Ayakkabısı - S2 (S1 Dahil ve Suya Dayanıklı) - EN 20345 S1"
+    },
+    {
+        "sinif": "İş Ayakkabısı",
+        "isim": "İş Ayakkabısı",
+        "standart": "EN 20345 S3",
+        "aciklama": "İş Ayakkabısı - S3 (S2 Dahil ve Delinmeye Dayanıklı) - EN 20345 S3"
+    },
+    {
+        "sinif": "İş Ayakkabısı",
+        "isim": "İş Ayakkabısı",
+        "standart": "EN 20345 S3 HRO",
+        "aciklama": "İş Ayakkabısı - S3 HRO (S3 Dahil ve 300 Derece Sıcaklığa Dayanıklı) - EN 20345 S3 HRO"
+    },
+    {
+        "sinif": "İş Ayakkabısı",
+        "isim": "İş Ayakkabısı",
+        "standart": "EN 20345 S3 SRC",
+        "aciklama": "İş Ayakkabısı - S3 SRC (S3 Dahil ve Kaymaya Dirençli) - EN 20345 S3 SRC"
+    },
+    {
+        "sinif": "İş Ayakkabısı",
+        "isim": "İş Ayakkabısı",
+        "standart": "EN 20345 S3 HRO SRC",
+        "aciklama": "İş Ayakkabısı - S3 HRO SRC (S3 Dahil, Kaymaya 300 Derece Sıcaklığa Dayanıklı) - EN 20345 S3 HRO SRC"
+    },
+    {
+        "sinif": "İş Ayakkabısı",
+        "isim": "İş Ayakkabısı (Elektrik Yalıtım)",
+        "standart": "EN ISO 20345 CSA Z195 HRO SB",
+        "aciklama": "İş Ayakkabısı - Elektrikçi (18000 Volta 1 Dakika Dayanımlı) - EN ISO 20345 CSA Z195 HRO SB"
+    },
+    {
+        "sinif": "İş Ayakkabısı",
+        "isim": "İş Ayakkabısı (İtfaiyeci)",
+        "standart": "EN ISO 20345:2011 EN 15090",
+        "aciklama": "İş Ayakkabısı - İtfaiyeci Çizmesi ve 18000 Volt Dayanımlı - EN ISO 20345:2011 EN 15090"
+    },
+    {
+        "sinif": "İş Eldiveni",
+        "isim": "İş Eldiveni",
+        "standart": "EN 388",
+        "aciklama": "İş Eldiveni - Mekanik Risklere Karşı Koruma - EN 388"
+    },
+    {
+        "sinif": "İş Eldiveni",
+        "isim": "İş Eldiveni (Kimyasal)",
+        "standart": "EN 388 / EN 374",
+        "aciklama": "İş Eldiveni - Kimyasal Risklere Karşı Koruma - EN 388 / EN 374"
+    },
+    {
+        "sinif": "İş Eldiveni",
+        "isim": "İş Eldiveni (Biyolojik)",
+        "standart": "EN 388 / EN 374-5",
+        "aciklama": "İş Eldiveni - Biyolojik Risklere Karşı Koruma - EN 388 / EN 374-5"
+    },
+    {
+        "sinif": "İş Eldiveni",
+        "isim": "İş Eldiveni (Yüksek Isı)",
+        "standart": "EN 388 / EN 407",
+        "aciklama": "İş Eldiveni - Yüksek Isı / Sıcaklığa Karşı Koruma - EN 388 / EN 407"
+    },
+    {
+        "sinif": "İş Eldiveni",
+        "isim": "İş Eldiveni (Düşük Isı)",
+        "standart": "EN 388 / EN 511",
+        "aciklama": "İş Eldiveni - Düşük Isı / Sıcaklığa Karşı Koruma - EN 388 / EN 511"
+    },
+    {
+        "sinif": "İş Eldiveni",
+        "isim": "İş Eldiveni (Titreşim)",
+        "standart": "EN 388 / EN 10819",
+        "aciklama": "İş Eldiveni - Titreşim Riskine Karşı Koruma - EN 388 / EN 10819"
+    },
+    {
+        "sinif": "İş Eldiveni",
+        "isim": "İş Eldiveni (Anti Statik)",
+        "standart": "EN 388 / EN 1149-1",
+        "aciklama": "İş Eldiveni - Anti Statik - EN 388 / EN 1149-1"
+    },
+    {
+        "sinif": "İş Eldiveni",
+        "isim": "İş Eldiveni (Elektrik Yalıtım)",
+        "standart": "EN 60903",
+        "aciklama": "İş Eldiveni - Elektrik Çarpmasına Karşı Koruma - EN 60903"
+    },
+    {
+        "sinif": "İş Eldiveni",
+        "isim": "Kaynakçı İş Eldiveni",
+        "standart": "EN 388 / EN 407 / EN12477",
+        "aciklama": "İş Eldiveni - Kaynakçı - EN 388 / EN 407 / EN12477"
+    },
+    {
+        "sinif": "İş Eldiveni",
+        "isim": "Çelik İş Eldiveni",
+        "standart": "EN 1082-1",
+        "aciklama": "Çelik İş Eldiveni - EN 1082-1"
+    },
+    {
+        "sinif": "İş Eldiveni",
+        "isim": "İş Eldiveni (İtfaiyeci)",
+        "standart": "EN 659:2003+A1 2008",
+        "aciklama": "İş Eldiveni - İtfaiyeci - EN 659:2003+A1 2008"
+    },
+    {
+        "sinif": "İş Gözlüğü",
+        "isim": "İş Gözlüğü",
+        "standart": "EN 166",
+        "aciklama": "İş Gözlüğü - Genel - EN 166"
+    },
+    {
+        "sinif": "İş Gözlüğü",
+        "isim": "İş Gözlüğü",
+        "standart": "EN 166-EN 169-EN 170",
+        "aciklama": "İş Gözlüğü - Kaynakçı - EN 166-EN 169-EN 170"
+    },
+    {
+        "sinif": "İş Gözlüğü",
+        "isim": "Siperlik (Elle Tutulan)",
+        "standart": "EN 175",
+        "aciklama": "Siperlik (Elle Tutulan) - Kaynakçı - EN 175"
+    },
+    {
+        "sinif": "İş Gözlüğü",
+        "isim": "Siperlik (Başa Takılan)",
+        "standart": "EN 175",
+        "aciklama": "Siperlik (Başa Takılan) - Kaynakçı - EN 175"
+    },
+    {
+        "sinif": "Kulaklık",
+        "isim": "Kulak Tıkacı",
+        "standart": "EN 352-2",
+        "aciklama": "Kulaklık - Kulak Tıkacı - EN 352-2"
+    },
+    {
+        "sinif": "Kulaklık",
+        "isim": "Kulaklık",
+        "standart": "EN 352-1",
+        "aciklama": "Kulaklık - Baş Bantlı - EN 352-1"
+    },
+    {
+        "sinif": "Kulaklık",
+        "isim": "Kulaklık",
+        "standart": "EN 352-3",
+        "aciklama": "Kulaklık - Barete Takılabilir - EN 352-3"
+    },
+    {
+        "sinif": "Maske",
+        "isim": "Tıbbi Yüz Maskesi",
+        "standart": "TS EN 14683",
+        "aciklama": "Tıbbi Yüz Maskesi - TS EN 14683"
+    },
+    {
+        "sinif": "Maske",
+        "isim": "Solunum Maskesi FFP1",
+        "standart": "EN 149:2001 + A1:2009 FFP1",
+        "aciklama": "FFP1 Solunum Maskesi - EN 149:2001 + A1:2009 FFP1"
+    },
+    {
+        "sinif": "Maske",
+        "isim": "Solunum Maskesi FFP2",
+        "standart": "EN 149:2001 + A1:2009 FFP2",
+        "aciklama": "FFP2 Solunum Maskesi - EN 149:2001 + A1:2009 FFP2"
+    },
+    {
+        "sinif": "Maske",
+        "isim": "Solunum Maskesi FFP3",
+        "standart": "EN 149:2001 + A1:2009 FFP3",
+        "aciklama": "FFP3 Solunum Maskesi - EN 149:2001 + A1:2009 FFP3"
+    },
+    {
+        "sinif": "Maske",
+        "isim": "Aktif Karbonlu Solunum Maskesi FFP1",
+        "standart": "EN 149:2001 + A1:2009 V FFP1",
+        "aciklama": "Kaynakçı - FFP1 Aktif Karbonlu Solunum Maskesi - EN 149:2001 + A1:2009 V FFP1"
+    },
+    {
+        "sinif": "Maske",
+        "isim": "Aktif Karbonlu Solunum Maskesi FFP2",
+        "standart": "EN 149:2001 + A1:2009 V FFP2",
+        "aciklama": "Kaynakçı - FFP2 Aktif Karbonlu Solunum Maskesi - EN 149:2001 + A1:2009 V FFP2"
+    },
+    {
+        "sinif": "Maske",
+        "isim": "Aktif Karbonlu Solunum Maskesi FFP3",
+        "standart": "EN 149:2001 + A1:2009 V FFP3",
+        "aciklama": "Kaynakçı - FFP3 Aktif Karbonlu Solunum Maskesi - EN 149:2001 + A1:2009 V FFP3"
+    },
+    {
+        "sinif": "Maske",
+        "isim": "Gaz Maskesi (Tam Yüz)",
+        "standart": "EN 136",
+        "aciklama": "Tam Yüz Gaz Maskesi - EN 136"
+    },
+    {
+        "sinif": "Maske",
+        "isim": "Gaz Maskesi (Yarım Yüz)",
+        "standart": "EN 140",
+        "aciklama": "Yarım Yüz Gaz Maskesi - EN 140"
+    },
+    {
+        "sinif": "Maske Filtresi",
+        "isim": "Maske Filtresi",
+        "standart": "EN 14387 A1B1E1K1",
+        "aciklama": "Maske Filtresi - A Organik Gaz, B İnorgonik Gaz, E Asit Buharı, K Amonyak Türevleri - EN 14387 A1B1E1K1"
+    },
+    {
+        "sinif": "Maske Filtresi",
+        "isim": "Maske Filtresi",
+        "standart": "EN 14387 A1B2E1K1",
+        "aciklama": "Maske Filtresi - A Organik Gaz, B İnorgonik Gaz, E Asit Buharı, K Amonyak Türevleri - EN 14387 A1B2E1K1"
+    },
+    {
+        "sinif": "Maske Filtresi",
+        "isim": "Maske Filtresi",
+        "standart": "EN 14387 A1B2E2K1",
+        "aciklama": "Maske Filtresi - A Organik Gaz, B İnorgonik Gaz, E Asit Buharı, K Amonyak Türevleri - EN 14387 A1B2E2K1"
+    },
+    {
+        "sinif": "Maske Filtresi",
+        "isim": "Maske Filtresi",
+        "standart": "EN 14387 A1B2E2K2",
+        "aciklama": "Maske Filtresi - A Organik Gaz, B İnorgonik Gaz, E Asit Buharı, K Amonyak Türevleri - EN 14387 A1B2E2K2"
+    },
+    {
+        "sinif": "Maske Filtresi",
+        "isim": "Maske Filtresi",
+        "standart": "EN 14387 A2B2E2K2",
+        "aciklama": "Maske Filtresi - A Organik Gaz, B İnorgonik Gaz, E Asit Buharı, K Amonyak Türevleri - EN 14387 A2B2E2K2"
+    },
+    {
+        "sinif": "Maske Filtresi",
+        "isim": "Maske Filtresi",
+        "standart": "EN 143 P1",
+        "aciklama": "Maske Filtresi - Partikül Toz ve Türevleri Seviye - 1 - EN 143 P1"
+    },
+    {
+        "sinif": "Maske Filtresi",
+        "isim": "Maske Filtresi",
+        "standart": "EN 143 P2",
+        "aciklama": "Maske Filtresi - Partikül Toz ve Türevleri Seviye - 2 - EN 143 P2"
+    },
+    {
+        "sinif": "Maske Filtresi",
+        "isim": "Maske Filtresi",
+        "standart": "EN 143 P3",
+        "aciklama": "Maske Filtresi - Partikül Toz ve Türevleri Seviye - 3 - EN 143 P3"
+    },
+    {
+        "sinif": "Maske Filtresi",
+        "isim": "Maske Filtresi",
+        "standart": "EN 14387 ABEK HG CO NO P3",
+        "aciklama": "Maske Filtresi - HG Civa, NO Azot, CO Karbonmonoksit P3 Toz - EN 14387 ABEK HG CO NO P3"
+    },
+    {
+        "sinif": "Yüksekte Çalışma",
+        "isim": "Emniyet Kemeri",
+        "standart": "EN 358-EN 361",
+        "aciklama": "Emniyet Kemeri - Genel - EN 358-EN 361"
+    },
+    {
+        "sinif": "Yüksekte Çalışma",
+        "isim": "Emniyet Kemeri",
+        "standart": "EN 358-EN 361-EN 813",
+        "aciklama": "Emniyet Kemeri - Otomatik Tokalı Emniyet Kemeri - EN 358-EN 361-EN 813"
+    },
+    {
+        "sinif": "Yüksekte Çalışma",
+        "isim": "Emniyet Kemeri",
+        "standart": "EN 358-EN 361",
+        "aciklama": "Emniyet Kemeri - Elektrikçi - EN 358-EN 361"
+    },
+    {
+        "sinif": "Yüksekte Çalışma",
+        "isim": "Karabina Kanca",
+        "standart": "EN 362",
+        "aciklama": "Karabina Kanca - Alüminyum - EN 362"
+    },
+    {
+        "sinif": "Yüksekte Çalışma",
+        "isim": "Ankraj Kulağı",
+        "standart": "EN 795",
+        "aciklama": "Ankraj Kulağı - EN 795"
+    },
+    {
+        "sinif": "Yüksekte Çalışma",
+        "isim": "Halat Tutucu",
+        "standart": "EN 353-1 / EN 353-2 / EN 358",
+        "aciklama": "Halat Tutucu - İp / Çelik Halat Tutucu - EN 353-1 / EN 353-2 / EN 358"
+    },
+    {
+        "sinif": "Yüksekte Çalışma",
+        "isim": "Statik İp Yaşam Halatı",
+        "standart": "EN 1891",
+        "aciklama": "Yaşam Halatı - Statik İp Halat - EN 1891"
+    },
+    {
+        "sinif": "Yüksekte Çalışma",
+        "isim": "Yatay Yaşam Halatı",
+        "standart": "EN 795",
+        "aciklama": "Yaşam Halatı - Yatay Mobil Yaşam Halatı - EN 795"
+    },
+    {
+        "sinif": "Yüksekte Çalışma",
+        "isim": "Dikey Yaşam Halatı",
+        "standart": "EN 353-2",
+        "aciklama": "Yaşam Halatı - Dikey Mobil Yaşam Halatı - EN 353-2"
+    },
+    {
+        "sinif": "Yüksekte Çalışma",
+        "isim": "Uzatma Halatı",
+        "standart": "EN 354",
+        "aciklama": "Uzatma Halatı - Tek Bacaklı / Çift Bacaklı Uzatma Halatı - EN 354"
+    },
+    {
+        "sinif": "Yüksekte Çalışma",
+        "isim": "Şok Emici Lanyard",
+        "standart": "TS EN 355",
+        "aciklama": "Şok Emici Lanyard - Tek Bacaklı / Çift Bacaklı Şok Emici - TS EN 355"
+    },
+    {
+        "sinif": "Yüksekte Çalışma",
+        "isim": "Konumlandırma Lanyardı",
+        "standart": "EN 354",
+        "aciklama": "Konumlandırma Lanyardı - Konumlandırma Lanyardı - EN 354"
+    },
+    {
+        "sinif": "Yüksekte Çalışma",
+        "isim": "Düşüş Tutucuları",
+        "standart": "EN 360",
+        "aciklama": "Düşüş Tutucuları - Geri sarımlı düşüş tutucu - EN 360"
+    },
+    {
+        "sinif": "Yangın Söndürme",
+        "isim": "Solunum Seti (Çelik Tüplü)",
+        "standart": "EN137:2006",
+        "aciklama": "Solunum Seti (Çelik Tüplü) - Yangın Söndürme Solunum Seti - EN137:2006"
+    },
+    {
+        "sinif": "Yangın Söndürme",
+        "isim": "İş Elbisesi (İtfaiye-Yangına Dayanıklı)",
+        "standart": "TS EN 13688-EN 469-EN 1149",
+        "aciklama": "İş Elbisesi - Yangınla mücadelede giyilen (İtfaiye - Nomex)"
+    },
+    {
+        "sinif": "Yangın Söndürme",
+        "isim": "İş Elbisesi (Alüminize)",
+        "standart": "EN 1486:2007",
+        "aciklama": "Alüminize İş Elbisesi (Baş ve Ayak Hariç Tümü)(İtfaiye Döküm) - EN 1486:2007"
+    },
+    {
+        "sinif": "Yangın Söndürme",
+        "isim": "Başlık (Alüminize)",
+        "standart": "EN ISO 11612 : 2015",
+        "aciklama": "Alüminize Baş Koruma (Boğaz Dahil) (İtfaiye Döküm) - EN ISO 11612 : 2015"
+    },
+    {
+        "sinif": "Yangın Söndürme",
+        "isim": "Tozluk (Alüminize)",
+        "standart": "EN ISO 11612 : 2015",
+        "aciklama": "Alüminize Ayak Koruma (Bileklerin Üstü Dahil) (İtfaiye Döküm) - EN ISO 11612 : 2015"
+    }
+]
