@@ -116,7 +116,7 @@ html{background-color: #ECF0F1;}
 .cssbutontamam, .cssbutonvazgec{height: 2vw;width: 6vw;font-size: 1vw;border-radius: 0.5vw;border: 0.1vw solid black;cursor: pointer;font-family: Calibri;}
 .cssbutontamam:hover{background-color: teal;color: white;}
 .cssbutonvazgec:hover{background-color: brown;color: white;}
-.cssdivortala{position: relative;margin: auto;text-align: center;width: 100%;}
+.cssdivortala{display: flex;justify-content: center;align-items: center;}
 .paddingleft0_5{padding-left: 0.5vw;}
 .cssmargin30{position:relative;margin-left: 30%;margin-right: 30%;}
 .csslineheight1_5{line-height: 1.5vw;color: black;font-size: 1vw;text-align: left;font-family: Calibri;}
