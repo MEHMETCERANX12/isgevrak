@@ -16,8 +16,6 @@ html{background-color: #ECF0F1;}
 .mastermenubutoncss3 .icon{padding-left: 1.85vw;}
 .mastermenubutoncss4 .icon{padding-left: 3.3vw;}
 .mastermenubutoncss5 .icon{padding-left: 5.05vw;}
-.ajs-message{font-family: 'Arial';font-size: 0.9vw;color: white;}
-.cizgi{position: absolute;top: 1.5%;right: 91.7vw;line-height: 35vw;width: 100%;background-color: aqua;z-index: 1000;}
 .mastermenualtbutoncssalt, .mastermenualtbutoncssust, .mastermenualtbutoncssorta, .mastermenualtbutoncsstek{background-color: transparent;color: white;font-family: Calibri;font-size: 1vw;border: none;height: 100%;width: 100%;display: block;text-align: left;padding-left: 0.7em;cursor: pointer;}
 .mastermenualtbutoncssalt:hover, .mastermenualtbutoncssust:hover, .mastermenualtbutoncssorta:hover, .mastermenualtbutoncsstek:hover{background-color: brown;color: white;}
 .mastermenualtbutoncssalt:hover{border-bottom-left-radius: 0.4vw;border-bottom-right-radius: 0.4vw;}
@@ -31,8 +29,6 @@ html{background-color: #ECF0F1;}
 .mastermesajicerik{position:fixed;bottom: 0.75vw;left: 11%;width: 12vw;height: 3vw;display: none;margin: auto;z-index: 99;color: white;font-size: 1vw;vertical-align:middle;text-align: center;font-family:Calibri;opacity:1;}
 .mastermesajortala{position: relative;top: 50%;transform: translateY(-50%);}
 .masterlabelcss{padding-left: 0.5vw;}
-.masteranimasyon{animation: animate 0.75s ease;}
-@keyframes animate{0%{left: 75%;}100%{left: 11%;}}
 .masteracmakapamacss{border:none;font-size: 1vw;font-family:Calibri;color: white;font-family: Calibri;font-size: 1vw;border: none;height: 100%;width: 100%;display: block;text-align: center;padding: 0px;background-color:transparent;}
 .masteracmakapamacss:hover{background-color: teal;color: white;}
 .masteracmakapamakutusu{position:fixed;left: 0;top: 0;background-color: brown;z-index: 0;width: 2%;font-size: 1vw;border:none;height: 100%;}
@@ -226,3 +222,7 @@ input[type="checkbox"]{width: 1.3vw;height: 1.3vw;}
 .menuicerikbuton{width:100%;display:block;position:relative;color:#fff;background-color:#343A40;text-decoration:none;text-align:center;padding:0.7vw;margin-bottom:0.1vw;border:0;font-family:"Segoe UI",sans-serif;font-size:0.9vw;font-weight:bold}
 .menuicerikbuton:hover{color:#dbfe03}
 #aciklamakutusu{width:40%;background-color:#eef6fb;color:#333;padding:1.4vw;border-radius:1vw;border:3px solid #e5e7e9;font-family:'Segoe UI',sans-serif;font-size:1.2rem;box-shadow:0.5vw 0.5vw 0.5vw rgba(0,0,0,0.2);text-align:justify;}
+.loaderdosya{position:fixed;top:0;left:0;width:100vw;height:100vh;background-color:rgba(0,0,0,0.5);z-index:9999;display:flex;flex-direction:column;justify-content:center;align-items:center}
+.loaderdosya-wheel{animation:spin 1s infinite linear;border:8px solid #f3f3f3;border-radius:50%;border-top:8px solid #ffef00;border-right:8px solid #ffef00;border-bottom:8px solid #163962;border-left:8px solid #163962;height:60px;width:60px;margin-bottom:20px}
+.loaderdosya-text{color:#fff;font-weight:bold;font-family:Arial,sans-serif;font-size:18px}
+@keyframes spin{0% { transform: rotate(0deg); }25% { transform: rotate(90deg) scale(1.05); }50% { transform: rotate(180deg); }75% { transform: rotate(270deg) scale(1.05); }100% { transform: rotate(360deg);}}
