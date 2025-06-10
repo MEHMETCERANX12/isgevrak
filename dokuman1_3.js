@@ -263,4 +263,179 @@ function temelimzatablo(a, b, c, d, e, f) { return { table: { widths: [47, 207, 
 function temeltarihbul(v) { const t = "....../....../202....", a = v.tarih1 || t, b = v.tarih2 || t, c = v.tarih3 || t, d = v.tarih4 || t, g = parseInt(v.toplamgun) || 1; switch (g) { case 1: return a; case 2: return `${a} - ${b}`; case 3: return `${a} - ${b} - ${c}`; case 4: return `${a} - ${b} - ${c} - ${d}`; default: return a } }
 function temelegitimsuregun(h, t, s) { let r = ""; if (s === "8 Saat") { if (h === "1" && t === 1) r = "8 Saat"; else if (t === 2 && ["1", "2"].includes(h)) r = "4 Saat"; else if (t === 3) { if (h === "1") r = "4 Saat"; if (["2", "3"].includes(h)) r = "2 Saat" } else if (t === 4 && ["1", "2", "3", "4"].includes(h)) r = "2 Saat" } else if (s === "12 Saat") { if (t === 2) { if (h === "1") r = "4 Saat"; if (h === "2") r = "8 Saat" } else if (t === 3 && ["1", "2", "3"].includes(h)) r = "4 Saat"; else if (t === 4) { if (["1", "2"].includes(h)) r = "2 Saat"; if (["3", "4"].includes(h)) r = "4 Saat" } } else if (s === "16 Saat") { if (t === 2 && ["1", "2"].includes(h)) r = "8 Saat"; else if (t === 3) { if (h === "1") r = "8 Saat"; if (["2", "3"].includes(h)) r = "4 Saat" } else if (t === 4 && ["1", "2", "3", "4"].includes(h)) r = "4 Saat" } return r; }
 function temelsertifikasaat(s1, s2, s3, s4, g) { let s = "", t = 16; for (let i = 0; i < g; i++) { try { if (i === 0) { s = s1; t = parseInt(s1.replace(" Saat", "")) } else if (i === 1) { s += " - " + s2; t += parseInt(s2.replace(" Saat", "")) } else if (i === 2) { s += " - " + s3; t += parseInt(s3.replace(" Saat", "")) } else if (i === 3) { s += " - " + s4; t += parseInt(s4.replace(" Saat", "")) } } catch (e) { } } return s + " (Toplam: " + t + " Saat)"; }
+function temelkatılımlistesikontrol()
+{
+    $('#loading').show();
+    $.when(temelkatılımlistesiyaz())
+    .done(function ()
+    {
+        alertify.error("Dosya indirildi", 7);
+    })
+    .fail(function ()
+    {
+        alertify.error("Bir hata oluştu.", 7);
+    })
+    .always(function ()
+    {
+        $('#loading').hide();
+    });
+}
+function temelkatılımlistesiyaz() {
+    let uzmanad = store.get("uzmanad");
+    let uzmanno = store.get("uzmanno");
+    let uzmankurum = store.get("uzmankurum");
+    if (uzmankurum) {
+        uzmankurum = "Eğitimi Veren Kurumun Unvanı: " + uzmankurum;
+    }
+    let isgegitimveri = store.get('isgegitimveri');
+    isgegitimveri = JSON.parse(isgegitimveri || '{}');
+    let isyeri = store.get('xjsonfirma');
+    isyeri = JSON.parse(isyeri || '{}');
+    let hekimad = isyeri.hk;
+    let hekimno = isyeri.hn;
+    let bossatir = isgegitimveri.bossatir;
+    let calisanlistedata = store.get('calisansecimjsonx');
+    let calisanliste = [];
+    if (calisanlistedata)
+    {
+        try
+        {
+            calisanliste = JSON.parse(calisanlistedata);
+        }
+        catch (e) {
+            calisanliste = [];
+        }
+    }
+    if (!Array.isArray(calisanliste) || calisanliste.length === 0) {
+        calisanliste = Array.from({ length: 12 }, () => ({ ad: "", un: "" }));
+    }
+    else if (bossatir > 0)
+    {
+        calisanliste = calisanliste.concat(Array.from({ length: bossatir }, () => ({ ad: "", un: "" })));
+    }
+    let isyeriismi = isyeri.fi;
+    let toplamsaat = isgegitimveri.saat || "1";
+    let egitimyeri = isgegitimveri.egitimyeri || "İşyeri";
+    let isgegitimkod = isgegitimveri.isgegitimkod || "00000000";
+    let toplamgun = isgegitimveri.toplamgun || "1";
+    let sure1 = temelegitimsuregun("1", parseInt(toplamgun) || 1, toplamsaat);
+    let sure2 = temelegitimsuregun("2", parseInt(toplamgun) || 1, toplamsaat);
+    let sure3 = temelegitimsuregun("3", parseInt(toplamgun) || 1, toplamsaat);
+    let sure4 = temelegitimsuregun("4", parseInt(toplamgun) || 1, toplamsaat);
+    let tarih1 = isgegitimveri.tarih1 || "......./......./20....";
+    let tarih2 = isgegitimveri.tarih2 || "......./......./20....";
+    let tarih3 = isgegitimveri.tarih3 || "......./......./20....";
+    let tarih4 = isgegitimveri.tarih4 || "......./......./20....";
+    let konugun1 = katılımkonugun(1, parseInt(toplamgun) || 1, isgegitimkod);
+    let konugun2 = katılımkonugun(2, parseInt(toplamgun) || 1, isgegitimkod);
+    let konugun3 = katılımkonugun(3, parseInt(toplamgun) || 1, isgegitimkod);
+    let konugun4 = katılımkonugun(4, parseInt(toplamgun) || 1, isgegitimkod);
 
+    const katilimlistesi = {
+        pageMargins: [25, 25, 25, 25],
+        content: []
+    };
+
+    function createParticipantTable(startIndex, endIndex, gunNo)
+    {
+    let tableBody = []; 
+    let tarih, konu, sure;
+    switch(gunNo) {
+        case 1:
+            tarih = tarih1;
+            konu = konugun1;
+            sure = sure1;
+            break;
+        case 2:
+            tarih = tarih2;
+            konu = konugun2;
+            sure = sure2;
+            break;
+        case 3:
+            tarih = tarih3;
+            konu = konugun3;
+            sure = sure3;
+            break;
+        case 4:
+            tarih = tarih4;
+            konu = konugun4;
+            sure = sure4;
+            break;
+        default:
+            tarih = tarih1;
+            konu = konugun1;
+            sure = sure1;
+    }
+    tableBody.push(...katilimustbilgi(isyeriismi, tarih, egitimyeri, sure, konu));
+    for (let i = startIndex; i < endIndex; i++) {
+        const calisan = calisanliste[i];
+        tableBody.push([
+            { text: (i + 1).toString(), alignment: 'center', fontSize: 10, margin: [0, 11, 0, 11]},
+            { text: calisan.ad || '', alignment: 'left', fontSize: 10, margin: [0, 11, 0, 11]},
+            { text: calisan.un || '', alignment: 'left', fontSize: 10, margin: [0, 11, 0, 11]},
+            { text: ''}
+        ]);
+    }
+    tableBody.push(
+        [
+            { text: uzmanad, alignment: 'center', fontSize: 10, bold: true, colSpan: 2, margin: [0, 0] },
+            { text: ''},
+            { text: hekimad, alignment: 'center', fontSize: 10, bold: true, colSpan: 2, margin: [0, 0] },
+            { text: ''},
+        ],
+        [
+            { text: 'İş Güvenliği Uzmanı - Belge No: ' + uzmanno, alignment: 'center', fontSize: 10, colSpan: 2, margin: [0, 0] },
+            { text: '' },
+            { text: 'İşyeri Hekimi - Belge No: ' + hekimno, alignment: 'center', fontSize: 10, colSpan: 2, margin: [0, 0] },
+            { text: ''},
+        ],
+        [
+            { text: '', colSpan: 2, margin: [25, 25] },
+            { text: '' },
+            { text: '', colSpan: 2, margin: [25, 25] },
+            { text: ''},
+        ]
+    );    
+    return {
+        table: {
+            widths: [25, "*", "auto", 100],
+            body: tableBody
+        },
+    };
+    }
+    const chunkSize = 12;
+    for (let gun = 1; gun <= parseInt(toplamgun); gun++) {
+        for (let i = 0; i < calisanliste.length; i += chunkSize) {
+            const endIndex = Math.min(i + chunkSize, calisanliste.length);
+        
+            katilimlistesi.content.push(createParticipantTable(i, endIndex, gun));
+        
+            if (endIndex < calisanliste.length) {
+                katilimlistesi.content.push({ text: '', pageBreak: 'after' });
+            }
+        }
+        if (gun < parseInt(toplamgun)) {
+            katilimlistesi.content.push({ text: '', pageBreak: 'after' });
+        }
+    }
+    pdfMake.createPdf(katilimlistesi).getBlob(function(blob) {
+        saveAs(blob, 'Katılım Listesi.pdf');
+    });
+}
+function katilimustbilgi(i, t, e, s, k) {
+    return [
+        [{ text: 'TEMEL İŞ SAĞLIĞI ve GÜVENLİĞİ EĞİTİMİ - EĞİTİM KATILIM TUTANAĞI', colSpan: 4, alignment: 'center', fontSize: 11, bold: true, margin: [2, 2] }, '', '', ''],
+        [{ text: `İşyeri Unvanı: ${i}`, colSpan: 4, alignment: 'left', fontSize: 10, margin: [2, 2] }, '', '', ''],
+        [{ colSpan: 4, alignment: 'left', fontSize: 10, margin: [2, 2], text: [{ text: `Eğitim Tarihi: ${t}\t\t\t\tDüzenlendiği Yer: ${e}\t\t\t\tSüresi: ${s}` }] }, '', '', ''],
+        [{ text: 'EĞİTİM KONULARI', colSpan: 4, alignment: 'center', fontSize: 11, bold: true, margin: [2, 2] }, '', '', ''],
+        [{ text: k, colSpan: 4, alignment: 'justify', fontSize: 10, margin: [0, 5] }, '', '', ''],
+        [{ text: 'Sıra', alignment: 'center', fontSize: 10, margin: [1, 1], bold: true }, { text: 'Ad Soyad', alignment: 'center', fontSize: 10, margin: [1, 1], bold: true }, { text: 'Unvan', alignment: 'center', fontSize: 10, margin: [1, 1], bold: true }, { text: 'İmza', alignment: 'center', fontSize: 10, margin: [1, 1], bold: true }]
+    ];
+}
+function katılımkonugun(hangigun, toplamgun, isgegitimkod) {
+    let veri = "", json = { egitimkonusu: ["Çalışma mevzuatı ile ilgili bilgiler", "Çalışanların yasal hak ve sorumlulukları", "İşyeri temizliği ve düzeni", "İş kazası ve meslek hastalığından doğan hukuki sonuçlar", "Meslek hastalıklarının sebepleri", "Hastalıktan korunma prensipleri ve korunma tekniklerinin uygulanması", "Biyolojik ve psikososyal risk etmenleri", "İlkyardım", "Tütün ürünlerinin zararları ve pasif etkilenim", "Kimyasal, fiziksel ve ergonomik risk etmenleri", "Elle kaldırma ve taşıma", "Parlama, patlama, yangın ve yangından korunma", "İş ekipmanlarının güvenli kullanımı", "Ekranlı araçlarla çalışma", "Elektrik tehlikeleri, riskleri ve önlemleri", "Güvenlik ve sağlık işaretleri", "İş kazalarının sebepleri ve korunma prensipleri ile tekniklerinin uygulanması", "Kişisel koruyucu donanım kullanımı", "İş sağlığı ve güvenliği genel kuralları ve güvenlik kültürü", "Tahliye ve kurtarma"] }, ekKonular = ["Yapı işlerinde tehlikeler, riskler ve önlemler", "Radyasyon, tehlikeleri, riskleri ve önlemleri", "Trafik kuralları ve güvenli sürüş teknikleri", "Malzeme güvenlik bilgi formları", "Kapalı ortamda çalışma", "Kaynakla çalışma", "Yüksekte çalışma", "Hijyen Eğitimi"];
+    if (hangigun > toplamgun) return veri;
+    for (let i = 0; i < isgegitimkod.length && i < ekKonular.length; i++) if (isgegitimkod[i] === '1') json.egitimkonusu.push(ekKonular[i]);
+    let son = json.egitimkonusu.length, basla = 9, parca = (son - basla) / (toplamgun - 1), startIndex = hangigun === 1 ? 0 : basla + (parca * (hangigun - 2)), endIndex = hangigun === 1 ? basla : startIndex + parca;
+    return veri = toplamgun === 1 ? json.egitimkonusu.join(", ") : json.egitimkonusu.slice(startIndex, endIndex).join(", ");
+}
