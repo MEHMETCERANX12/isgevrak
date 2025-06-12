@@ -243,7 +243,7 @@ async function isgegitimsertifikayaz()
     }
     const finalBytes = await mergedPdf.save();
     const blob = new Blob([finalBytes], { type: "application/pdf" });
-    saveAs(blob, "Katılım Sertifikası.pdf");
+    saveAs(blob, "Sertifika.pdf");
 }
 function sertifikaarkaplan(sertifikapdfdosyasi) {
     sertifikapdfdosyasi.background = function (currentPage, pageSize) {
@@ -438,4 +438,107 @@ function katılımkonugun(hangigun, toplamgun, isgegitimkod) {
     for (let i = 0; i < isgegitimkod.length && i < ekKonular.length; i++) if (isgegitimkod[i] === '1') json.egitimkonusu.push(ekKonular[i]);
     let son = json.egitimkonusu.length, basla = 9, parca = (son - basla) / (toplamgun - 1), startIndex = hangigun === 1 ? 0 : basla + (parca * (hangigun - 2)), endIndex = hangigun === 1 ? basla : startIndex + parca;
     return veri = toplamgun === 1 ? json.egitimkonusu.join(", ") : json.egitimkonusu.slice(startIndex, endIndex).join(", ");
+}
+
+async function temelsinavsorusu()
+{
+    let calisanlistedata = store.get('calisansecimjsonx');
+    let calisanliste = [];
+    if (calisanlistedata)
+    {
+        try
+        {
+            calisanliste = JSON.parse(calisanlistedata);
+        }
+        catch
+        {
+            calisanliste = [];
+        }
+    }
+    if (!Array.isArray(calisanliste) || calisanliste.length === 0) {
+        calisanliste = Array.from({ length: 1 }, () => ({ ad: ""}));
+    }
+    const { Document, Packer, Paragraph, TextRun, AlignmentType, Table, TableRow, TableCell, WidthType, VerticalAlign, HeightRule } = docx;
+    let sinavjson = {"yuksektecalisma":[{"soru":"Yüksekten çalışma sırasında aşağıda belirtilen hangi güvenlik önlemi doğrudur?","dogru":"Yüksekte çalışırken mutlaka emniyet kemeri takılmalı ve güvenli bir noktaya bağlanmalıdır.","yanlis1":"Yüksekte çalışırken yalnızca dengeye dikkat etmek yeterlidir, ek bir güvenlik ekipmanına gerek yoktur.","yanlis2":"Yüksekte çalışırken hızlı hareket ederek işi bir an önce tamamlamak en güvenli yöntemdir.","yanlis3":"Yüksekte çalışma sırasında rüzgarlı hava koşulları varsa, çalışmaya devam edilir."},{"soru":"Yüksekte yapılan çalışmalara ilişkin aşağıda verilen bilgilerden hangisi doğrudur?","dogru":"Yüksekte çalışırken paraşüt tipi emniyet kemeri takmamıza gerekir.","yanlis1":"Yağmurlu, karlı ve rüzgarlı havalarda yüksekte çalışmak güvenlidir.","yanlis2":"Yüksekte çalışırken yukarıdan aşağıya malzeme atabiliriz.","yanlis3":"Yüksekte çalışırken, yüksekten düşmemizi engelleyen korkulukları istediğimiz zaman çıkarabiliriz."},{"soru":"Yapı/İnşaat işlerine ilişkin aşağıda verilen bilgilerden hangisi yanlıştır?","dogru":"Yapı alanına işi olmayan kişilerin girişi engellenmelidir.","yanlis1":"Sahada dolaşırken baret takmaya ve iş ayakkabısı giymeye gerek yoktur.","yanlis2":"Kazı alanının etrafı çevrilmeli ve uyarı levhaları konulmalıdır.","yanlis3":"İskelede çalışırken, uzanmak veya başka bir sebepten ötürü dışarıya uzanmamalıyız."}],"bakim":[{"soru":"Bakım onarım işleri ile ilgili aşağıda verilen bilgilerden hangisi yanlıştır?","dogru":"Bakım/onarım konusunda mesleki yeterliliğe sahip olan çalışanlar bu işi yapabilir.","yanlis1":"Bakım/onarım işinin yapıldığı alana meraklı olan kişiler girebilir ve işe yardımcı olabilir.","yanlis2":"Bakım/onarım işlemi sırasında ekipmanın acil stop butonuna basılmalı ve elektrik bağlantısı sökülmelidir.","yanlis3":"Bakım/onarım işlemi sırasında 'Dikkat Bakım Var' levhası asılmalıdır."}],"elektrik":[{"soru":"Elektrik ile ilgili aşağıda verilen güvenlik tedbirlerinden hangisi yanlıştır?","dogru":"Hasar görmüş veya kesilmiş elektrik kablosunu bantlayarak kullanmaya devam edebiliriz.","yanlis1":"Her türlü elektrikli ekipmana müdahale etmeden önce elektriği kesmemiz gerekir.","yanlis2":"Elektrik kesilmiş olsa dahi elektrik kesilip kesilmediği kontrol etmeden işe başlamamalıyız.","yanlis3":"Elektrik sistemlerinde topraklama, olası bir elektrik kaçağını toprağa verilmesini sağlayan güvenlik sistemidir."}],"isekipmani":[{"soru":"Aşağıda belirtilen iş ekipmanlarının kullanımına ilişkin bilgilerden hangisi yanlıştır?","dogru":"İş ekipmanları sadece tasarım ve imalat amacına uygun işler için kullanılmalıdır.","yanlis1":"İş ekipmanının arıza yapması halinde kimseye haber veremeden hemen müdahale edip onarmalıyız.","yanlis2":"El aletleri ile çalışmaya başlamadan önce kırık, çatlak veya yıpranma olup olmadığını kontrol etmeliyiz.","yanlis3":"İş ekipmanlarının üstünde yer alan uyarı ve ikazlara dikkat etmeliyiz ve buna göre çalışmalıyız."},{"soru":"Bir iş ekipmanını kullanırken aşağıdaki hareketlerden hangisinin yapılması yanlıştır?","dogru":"İş ekipmanı çok yıpranmış veya bozulmuş ise kullanılmamalıdır.","yanlis1":"İş ekipmanın koruyucu kapak ve donanımları işi yavaşlatıyorsa çıkartılabilir.","yanlis2":"İş ekipmanın kullanımı konusunda yeterli bilgiye sahip değilsek kullanamamalıyız.","yanlis3":"Tehlikeli bir durum oluştuğunda acil stop butonuna basılmalıdır."}],"tekniksoru":[{"soru":"Ergonomik risk etmenleri ile ilgili aşağıdaki bilgilerden hangisi yanlıştır?","dogru":"Bir yükü birden daha fazla kişi ile taşımak, tek olarak taşımaktan daha güvenlidir.","yanlis1":"Bir yükü kaldırma aracı ile değil öncelikle elle taşımalıyız.","yanlis2":"Uzun süreli oturmak, egzersiz yapmamak vücut kaslarımızın zayıflamasına sebep olur.","yanlis3":"Bir yükü elle taşırken yükü vücudumuza yakın tutmalıyız."},{"soru":"Acil durum çağrı merkezi telefon numarası aşağıdakilerinden hangisidir?","dogru":"112","yanlis1":"111","yanlis2":"110","yanlis3":"109"},{"soru":"İşyerinde çalışma alanı düzenine ilişkin aşağıdaki bilgilerden hangisi doğrudur?","dogru":"Düzenli çalışma alanı, iş kazalarını azaltır, verimliliği artırır ve çalışanların motivasyonunu olumlu etkiler.","yanlis1":"Düzenli bir çalışma alanı, yalnızca estetik görünüm sağlar.","yanlis2":"Çalışma zemininde bulunan kablolar herhangi bir tehlike oluşturmaz.","yanlis3":"Çalışma zemini ıslak veya kaygan vaziyette iken çalışmaya devam edilebilir."},{"soru":"Çalışma ortamında karşılaşabileceğiniz tehlikeli kimyasal maddelerle ilgili hangi önlem en doğru yaklaşımdır?","dogru":"Çalışmadan önce malzeme güvenlik bilgi formunu okunmalı ve uygun kişisel koruyucu donanım kullanılmalıdır.","yanlis1":"Kimyasal maddelere çıplak elle, eldiven takmadan temas etmekte sakınca yoktur.","yanlis2":"Kimyasal maddeler, havalandırılmayan veya kapalı bir ortamda güvenli şekilde kullanılabilir.","yanlis3":"Kimyasal maddeleri karıştırıp birleştirmek tehlikeli değildir."},{"soru":"Aşağıdakilerden hangisi kimyasal maddelerle güvenli çalışmanın temel kurallarındandır?","dogru":"Kimyasal maddeler uygun şekilde etiketlenmeli ve kapalı ortamlarda saklanmalıdır.","yanlis1":"Kimyasal maddeler çalışma alanında açık ve ulaşılabilir şekilde bırakılmalıdır.","yanlis2":"Kimyasallarla çalışırken eldiven, maske gibi koruyucuların kullanılması gerekli değildir.","yanlis3":"Kimyasal maddeler yiyeceklerle aynı dolapta saklanabilir, bu herhangi bir risk oluşturmaz."},{"soru":"Aşağıda fiziksel risk etmenleri ile verilen bilgilerden hangisi doğrudur?","dogru":"Yüksek ve uzun süreli gürültüye maruziyet işitme kaybına neden olabilir.","yanlis1":"Kimyasal madde buharlarının solunması risk oluşturmaz.","yanlis2":"Tozlu çalışma ortamında maske kullanmak zorunlu değildir.","yanlis3":"Ortam sıcaklığı, çalışma performansını etkilemez."},{"soru":"Elle kaldırma ve taşıma işlemlerinde aşağıdakilerden hangisi doğru bir uygulamadır?","dogru":"Yük, dizlerden destek alınarak ve bel düz tutulacak şekilde kaldırılmalıdır.","yanlis1":"Yük mümkün olduğunca uzaktan kavranmalı ve hızlıca kaldırılmalıdır.","yanlis2":"Yük taşırken ani dönme ve eğilme hareketleri yapılmalıdır.","yanlis3":"Ağır yükler tek başına ve aniden kaldırılmalıdır."},{"soru":"Aşağıdakilerden hangisi yangın riskini azaltmaya yönelik doğru bir uygulamadır?","dogru":"Yanıcı maddeler uygun kaplarda saklanmalı ve ateş kaynaklarından uzak tutulmalıdır.","yanlis1":"Yanıcı maddeler açıkta ve kontrolsüz şekilde depolanabilir.","yanlis2":"Elektrik kablolarının zarar görmesi yangın riski oluşturmaz.","yanlis3":"Yangın söndürme ekipmanlarının bakımına gerek yoktur."},{"soru":"Acil bir durumda yapılması uygun olmayan davranış aşağıdakilerden hangisidir? (yangın, deprem vb.)","dogru":"Acil durumda asansör kullanılarak tahliye yapılmasında sakınca yoktur.","yanlis1":"Acil çıkış işaretlerini takip ederek tahliye olmalıyız.","yanlis2":"Acil durum yolları ve çıkışları her zaman açık tutulmalı ve önüne bir malzeme koymamalıyız.","yanlis3":"Acil durum anında paniğe kapılmamalı ve soğukkanlılığımızı korumalıyız."},{"soru":"Aşağıdakilerden hangisi elektrikle çalışmalarda güvenliği sağlamaya yönelik doğru bir uygulamadır?","dogru":"Elektrik panoları kilitli olmalı ve yetkisiz kişilerin erişimi engellenmelidir.","yanlis1":"Elektrik kabloları açıkta ve suya yakın yerlerde bırakılabilir.","yanlis2":"Elektrik arızalarını herkesin müdahale edebilmesi için pano kapağı açık bırakılmalıdır.","yanlis3":"Islak ellerle elektrikli aletleri kullanmak güvenlik açısından sorun oluşturmaz."},{"soru":"Kişisel koruyucu donanımlarla ile ilgili aşağıdaki ifadelerden hangisi doğrudur?","dogru":"Kişisel koruyucu donanımlar, çalışanı tehlikeye karşı korumak amacıyla kullanılan ekipmanlardır.","yanlis1":"Yıpranmış veya bozulmuşta olsa kişisel koruyucu donanımı kullanmalıyız.","yanlis2":"Kişisel koruyucu donanımlar tehlikeleri ortadan kaldırdığı için başka hiçbir önleme gerek yoktur.","yanlis3":"Kişisel koruyucu donanımlar beden ölçülerimize uygun olmasada kullanılması sakınca yaratmaz."}],"genelsoru":[{"soru":"İş sağlığı ve güvenliğinin amacı aşağıdakilerden hangisi değildir?","dogru":"Mal ve hizmetin çok daha hızlı bir şekilde üretilmesini sağlamak.","yanlis1":"Çalışma ortamında bulunan tehlikeleri en aza indirmek.","yanlis2":"Çalışanların işin yürütümü sırasında meydana gelebilecek tehlikelerden korumak.","yanlis3":"İş kazası ve meslek hastalıklarını en aza indirmek."},{"soru":"İş sağlığı ve güvenliği kültürü ile ilgili aşağıdaki bilgilerden hangisi yanlıştır?","dogru":"İş sağlığı ve güvenliği kültüründe öncelik güvenlik değil işin bir an önce yapılmasıdır.","yanlis1":"İş sağlığı ve güvenliği eğitiminin bir amacı da iş güvenliği kültürünün gelişmesidir.","yanlis2":"İş sağlığı ve güvenliği kültürünün gelişmesinde devlet, işveren ve çalışanların rolü önemlidir.","yanlis3":"İş sağlığı ve güvenliği kültürünün gelişimi ile iş kazası ve meslek hastalıkları sayıca azalacaktır."},{"soru":"Çalışanların iş sağlığı ve güvenliği açısından yükümlülüğüne ilişkin aşağıdakilerden hangisi yanlıştır?","dogru":"Ciddi ve yakın hayati bir tehlike olsa dahi çalışmaya devam etmekle yükümlüdür.","yanlis1":"Her türlü iş ekipmanını amacına uygun ve güvenlik donanımlarıyla kullanmakla yükümlüdür.","yanlis2":"İş sağlığı ve güvenliği eğitimine ve güvenlik talimatlarına uygun şekilde çalışmakla yükümlüdür.","yanlis3":"Diğer çalışma arkadaşlarının sağlığını ve güvenliğini tehlikeye düşürmemekle yükümlüdür."},{"soru":"Yaralanmalı bir iş kazası meydana geldiğinde aşağıdaki davranışlardan hangisi yanlıştır?","dogru":"Hafif yaralanmalı bir kazaysa kimseye haber verilmemeli, aynı şekilde çalışmaya devam edilmelidir.","yanlis1":"İşveren vekiline yaralanmalı kaza ile ilgili derhal haber verilmelidir.","yanlis2":"Ağır yaralanmalı bir kaza ise derhal 112 acil durum çağrı merkezine haber verilmelidir.","yanlis3":"Yaralanan çalışana ilkyardım ekibi derhal ilk müdahaleyi yapmalıdır."},{"soru":"Aşağıdakilerden hangisi işyerinde temizlik ve düzenin sağlanmasının olumlu etkilerinden biridir?","dogru":"İş kazası risklerini azaltır ve çalışma verimliliğini artırır.","yanlis1":"Sadece işyerinin estetik görünmesini sağlar, iş güvenliği ile ilgisi yoktur.","yanlis2":"Çalışanların dikkatini dağıtır, iş verimini düşürür.","yanlis3":"Temizlik ve düzen, yöneticilerin sorumluluğunda olup çalışanları ilgilendirmez"},{"soru":"Aşağıdakilerden hangisi işyeri temizliği ve düzeniyle ilgili doğru bir uygulamadır?","dogru":"Çalışma bittikten sonra kullanılan ekipmanlar yerlerine kaldırılmalı ve alan temizlenmelidir.","yanlis1":"Çalışma alanında dökülen sıvılar kendi kendine kurur, hemen temizlemeye gerek yoktur.","yanlis2":"Temizlik işleri sadece temizlik çalışanın sorumluluğundadır, diğer çalışanların katkı sağlamasına gerek yoktur.","yanlis3":"Zemin üzerinde bulunan kabloların düzenlenmesine veya kaldırılmasına gerek yoktur."},{"soru":"Çalışma mevzuatı ile ilgili aşağıdaki bilgilerden hangisi doğrudur?","dogru":"Türkiye'de çalışma hayatını düzenleyen temel yasa 4857 sayılı İş Kanunudur.","yanlis1":"Haftalık çalışma süresi 60 saattir.","yanlis2":"Çalışanın genel sağlık durumu, işe uygun olup olmaması önemli değildir.","yanlis3":"Yeterli dinlenme sürelerinin iş sağlığı ve güvenliğiyle bir ilgisi yoktur."},{"soru":"İşveren ve çalışanların sorumlulukları ile ilgili aşağıdakilerden hangisi doğrudur?","dogru":"İşveren tarafından çalışana sağlanan kişisel koruyucu donanımı doğru kullanmak çalışanın sorumluluğudur.","yanlis1":"İşveren, iş kazası ve meslek hastalığı durumunda hiçbir sorumluluğu yoktur. ","yanlis2":"Çalışanlar, işveren tarafından verilen eğitim ve talimatlar doğrultusunda hareket etmek zorunda değildir.","yanlis3":"Sağlık ve güvenlik yönünden ciddi ve yakın bir tehlikeli durumu işverene bildirmek gerekli değildir."},{"soru":"Meslek hastalıklarına ilişkin aşağıdaki bilgilerden hangisi doğrudur?","dogru":"Çalışma ortamındaki tehlikelerin ortadan kaldırılması meslek hastalığının oluşmasını engeller.","yanlis1":"Tozlu veya gürültülü ortamlarda uzun süreli çalışmak meslek hastalığına sebep olmaz.","yanlis2":"Meslek hastalıkları bir anda oluşur ve basit ilaçlarla hemen tedavi edilir.","yanlis3":"Kişisel koruyucu donanım kullanımı meslek hastalıklarını önlemede etkisizdir."},{"soru":"Aşağıdaki işyerlerinden hangisi psikososyal risk etmeni açısından daha tehlikelidir?","dogru":"Uzun süre stres ve baskı altında çalışılan işyerleri.","yanlis1":"Yüksek gürültü seviyesinde çalışılan işyerleri.","yanlis2":"Tozlu ve kirli ortamları bulunan işyerleri.","yanlis3":"Yoğun kimyasal kullanılan işyerleri."},{"soru":"İlkyardımın amacı aşağıdakilerden hangisidir?","dogru":"Hasta veya yaralının durumunun kötüleşmesini önlemek ve hayati tehlikeyi azaltmak.","yanlis1":"Ambulans gelene kadar hastayı bir yerden bir yere taşımak.","yanlis2":"Kazazedeye ilaç vermek ve tedavi etmek.","yanlis3":"Kazaya uğrayan çalışanı görmezden gelip olay yerinden uzaklaşmak."}]};
+    let sinavicerigi = [];
+calisanliste.forEach((calisan, i) => {
+const usttablo = new Table({
+    width: { size: 100, type: WidthType.PERCENTAGE },
+    rows: [
+        new TableRow({ height: { value: 500, rule: HeightRule.EXACT }, children: [new TableCell({ children: [new Paragraph({ children: [new TextRun({ text: "TEMEL İSG EĞİTİMİ DEĞERLENDİRME SORULARI", font: "Calibri", size: 22, bold: true })], alignment: AlignmentType.CENTER })], columnSpan: 2, verticalAlign: VerticalAlign.CENTER })] }),
+        new TableRow({ height: { value: 400, rule: HeightRule.EXACT }, children: [
+            new TableCell({ width: { size: 12, type: WidthType.PERCENTAGE }, children: [new Paragraph({ indent: { left: 70, right: 70 }, children: [new TextRun({ text: "Ad Soyad", font: "Calibri", size: 22, bold: true })], alignment: AlignmentType.LEFT })], verticalAlign: VerticalAlign.CENTER }),
+            new TableCell({ width: { size: 88, type: WidthType.PERCENTAGE }, children: [new Paragraph({ indent: { left: 70, right: 70 }, children: [new TextRun({ text: calisan.ad || "", font: "Calibri", size: 22 })], alignment: AlignmentType.LEFT })], verticalAlign: VerticalAlign.CENTER })
+        ]})
+    ]
+});
+    const genelsorular = sinavsorusec(sinavjson.genelsoru, 7);
+    const tekniksorular = sinavsorusec(sinavjson.tekniksoru, 7);
+
+const sinavbirsorular = genelsorular.flatMap((soruObj, index) => {
+    const yanlislar = [soruObj.yanlis1, soruObj.yanlis2, soruObj.yanlis3];
+    const dogruCevapIndex = index % 4;
+    const siraliSecenekler = [];
+    for (let i = 0; i < 4; i++) siraliSecenekler.push(i === dogruCevapIndex ? soruObj.dogru : yanlislar.shift());
+    const sikHarfleri = ["a-)", "b-)", "c-)", "d-)"];
+    const secenekParagraflari = siraliSecenekler.map((secenek, i) =>
+        new Paragraph({ children: [new TextRun({ text: `${sikHarfleri[i]} ${secenek}`, font: "Calibri", size: 22 })], spacing: { after: i === 3 ? 125 : 50 }, alignment: AlignmentType.JUSTIFIED })
+    );
+    return [
+        new Paragraph({ children: [new TextRun({ text: `${index + 1}-)`, bold: true, font: "Calibri", size: 22 }), new TextRun({ text: ` ${soruObj.soru}`, font: "Calibri", size: 22 })], alignment: AlignmentType.JUSTIFIED, spacing: { after: 125 } }),
+        ...secenekParagraflari
+    ];
+});
+const sinavikisorular = tekniksorular.flatMap((soruObj, index) => {
+    const yanlislar = [soruObj.yanlis1, soruObj.yanlis2, soruObj.yanlis3];
+    const dogruCevapIndex = index % 4;
+    const siraliSecenekler = [];
+    for (let i = 0; i < 4; i++) siraliSecenekler.push(i === dogruCevapIndex ? soruObj.dogru : yanlislar.shift());
+    return [
+        new Paragraph({ children: [new TextRun({ text: `${index + 1}-)`, bold: true, font: "Calibri", size: 22 }), new TextRun({ text: ` ${soruObj.soru}`, font: "Calibri", size: 22 })], alignment: AlignmentType.JUSTIFIED, spacing: { after: 125 } }),
+        ...siraliSecenekler.map((secenek, i) =>
+            new Paragraph({ children: [new TextRun({ text: ["a-)", "b-)", "c-)", "d-)"][i] + ` ${secenek}`, font: "Calibri", size: 22 })], spacing: { after: i === 3 ? 125 : 50 }, alignment: AlignmentType.JUSTIFIED })
+        )
+    ];
+});
+    const kisininSinavi = [
+        usttablo,
+        new Paragraph({}),
+        ...sinavbirsorular,
+        new Paragraph({}),
+        new Paragraph({ children: [new TextRun({ text: `Başarılı  ☐   Başarısız  ☐`, font: "Calibri", size: 26 })], alignment: AlignmentType.CENTER, spacing: { after: 100, before: 100 } }),
+        new Paragraph({}),
+        new Paragraph({}),
+        new Paragraph({}),
+        usttablo,
+        new Paragraph({}),
+        ...sinavikisorular,
+        new Paragraph({}),
+        new Paragraph({ children: [new TextRun({ text: `Başarılı  ☐   Başarısız  ☐`, font: "Calibri", size: 26 })], alignment: AlignmentType.CENTER, spacing: { after: 100, before: 100 } }),
+        new Paragraph({}),
+        new Paragraph({}),
+        new Paragraph({}),
+    ];
+    sinavicerigi.push(...kisininSinavi);
+});
+    const doc = new Document({
+    sections: [{
+        properties: {
+            page: { margin: { top: 850, right: 850, bottom: 850, left: 850 } }
+        },
+        children: sinavicerigi,
+        }]
+    });
+    const blob = await Packer.toBlob(doc);
+    saveAs(blob, "Sınav.docx");
+}
+function sinavsorusec(soruDizisi, adet)
+{
+  let kopya = [...soruDizisi];
+    for (let i = kopya.length - 1; i > 0; i--)
+    {
+        const j = Math.floor(Math.random() * (i + 1));
+        [kopya[i], kopya[j]] = [kopya[j], kopya[i]];
+    }
+  return kopya.slice(0, adet);
 }
