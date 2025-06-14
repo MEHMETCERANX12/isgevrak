@@ -137,10 +137,8 @@ function datepickerjquery(input)
         nextText: "İleri",
         prevText: "Geri"
     });
-    if (!$(input).hasClass("hasDatepicker")) {
-        $(input).datepicker();
-    }
-    $(input).datepicker("show");
+    $(input).datepicker();
+    setTimeout(function () {$(input).datepicker("show");}, 10);
 }
 
 
