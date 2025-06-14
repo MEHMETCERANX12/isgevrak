@@ -49,14 +49,13 @@ function toggleBlock(showId, hideId) {
     }
 }
 
-// Sayfa yüklenince çalıştırılacak işlemler
+
 $(document).ready(function () {
     // Blokları başlangıçta gizle
     ['#blok1', '#blok2', '#blok3', '#blok4'].forEach(function (id) {
         $(id).hide();
     });
 
-    // Enter tuşunun varsayılan davranışını engelle
     $("input").keypress(function (event) {
         if (event.which === 13) { // 13: Enter tuşu
             event.preventDefault();
@@ -64,39 +63,11 @@ $(document).ready(function () {
     });
 });
 
-// Sayfa yeniden yüklendiğinde alertify mesajlarını temizle
 window.onload = function () {
     if (performance.navigation.type === performance.navigation.TYPE_BACK_FORWARD) {
         alertify.dismissAll();
     }
 };
-
-// Tarih formatlama ve datepicker ayarları
-$(document).ready(function () {
-    // Eğer tarih kutusu yoksa işlemi durdur
-    if ($(".csstextboxtarih").length === 0) {
-        return;
-    }
-
-    $(".csstextboxtarih").datepicker({
-        firstDay: 1,
-        dateFormat: "dd.mm.yy",
-        autoSize: false,
-        changeMonth: true,
-        changeYear: true,
-        dayNames: ["pazar", "pazartesi", "salı", "çarşamba", "perşembe", "cuma", "cumartesi"],
-        dayNamesMin: ["paz", "pzt", "sal", "çar", "per", "cum", "cmt"],
-        defaultDate: 0,
-        monthNamesShort: ["Ocak", "Şubat", "Mart", "Nisan", "Mayıs", "Haziran", "Temmuz", "Ağustos", "Eylül", "Ekim", "Kasım", "Aralık"],
-        nextText: "ileri",
-        prevText: "geri",
-        showAnim: "slideDown"
-    });
-});
-
-
-
-
 
 function acilisverisianasayfa()
 {
@@ -153,7 +124,24 @@ function duyuruicerikanasayfa()
     });
 }
 
-
+function datepickerjquery(input)
+{
+    $.datepicker.setDefaults({
+        dateFormat: "dd.mm.yy",
+        firstDay: 1,
+        changeMonth: true,
+        changeYear: true,
+        dayNames: ["Pazar", "Pazartesi", "Salı", "Çarşamba", "Perşembe", "Cuma", "Cumartesi"],
+        dayNamesMin: ["Paz", "Pzt", "Sal", "Çar", "Per", "Cum", "Cmt"],
+        monthNamesShort: ["Ocak", "Şubat", "Mart", "Nisan", "Mayıs", "Haziran", "Temmuz", "Ağustos", "Eylül", "Ekim", "Kasım", "Aralık"],
+        nextText: "İleri",
+        prevText: "Geri"
+    });
+    if (!$(input).hasClass("hasDatepicker")) {
+        $(input).datepicker();
+    }
+    $(input).datepicker("show");
+}
 
 
 
