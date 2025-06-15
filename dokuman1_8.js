@@ -428,7 +428,7 @@ function katilimustbilgi(i, t, e, s, k) {
     return [
         [{ text: 'TEMEL İŞ SAĞLIĞI ve GÜVENLİĞİ EĞİTİMİ - EĞİTİM KATILIM TUTANAĞI', colSpan: 4, alignment: 'center', fontSize: 11, bold: true, margin: [2, 2] }, '', '', ''],
         [{ text: `İşyeri Unvanı: ${i}`, colSpan: 4, alignment: 'left', fontSize: 10, margin: [2, 2] }, '', '', ''],
-        [{ colSpan: 4, alignment: 'left', fontSize: 10, margin: [2, 2], text: [{ text: `Eğitim Tarihi: ${t}\t\t\t\tDüzenlendiği Yer: ${e}\t\t\t\tSüresi: ${s}` }] }, '', '', ''],
+        [{ colSpan: 4, alignment: 'left', fontSize: 10, margin: [2, 2], text: [{ text: `Eğitim Tarihi: ${t}\t\t\t\tEğitim Şekli: ${e}\t\t\t\tSüresi: ${s}` }] }, '', '', ''],
         [{ text: 'EĞİTİM KONULARI', colSpan: 4, alignment: 'center', fontSize: 11, bold: true, margin: [2, 2] }, '', '', ''],
         [{ text: k, colSpan: 4, alignment: 'justify', fontSize: 10, margin: [0, 5] }, '', '', ''],
         [{ text: 'Sıra', alignment: 'center', fontSize: 10, margin: [1, 1], bold: true }, { text: 'Ad Soyad', alignment: 'center', fontSize: 10, margin: [1, 1], bold: true }, { text: 'Unvan', alignment: 'center', fontSize: 10, margin: [1, 1], bold: true }, { text: 'İmza', alignment: 'center', fontSize: 10, margin: [1, 1], bold: true }]
@@ -666,3 +666,133 @@ const docDefinition = {
     pdfcikti.getBlob((blob) => {saveAs(blob, egitimturdosya + '.pdf');});
 }
 function genelucluimzatablo(a,b,c,d,e){return{table:{widths:[47,207,207,207,47],body:[["",{text:a,alignment:"center",fontSize:11,bold:!0},{text:b,alignment:"center",fontSize:11,bold:!0},{text:c,alignment:"center",fontSize:11,bold:!0},""],["",{text:"İş Güvenliği Uzmanı",alignment:"center",fontSize:11},{text:"İşveren Vekili",alignment:"center",fontSize:11},{text:"İşyeri Hekimi",alignment:"center",fontSize:11},""],["",{text:"Belge No: "+d,alignment:"center",fontSize:11},"",{text:"Belge No: "+e,alignment:"center",fontSize:11},""]]},layout:"noBorders"}}
+
+
+async function digeregitimkatilimkontrol()
+{
+    $('#loading').show();
+    $.when(digerkatılımlistesiyaz())
+    .done(function ()
+    {
+        alertify.error("Dosya indirildi", 7);
+    })
+    .fail(function ()
+    {
+        alertify.error("Bir hata oluştu.", 7);
+    })
+    .always(function ()
+    {
+        $('#loading').hide();
+    });
+}
+
+async function digerkatılımlistesiyaz()
+{
+    let uzmanad = store.get("uzmanad");
+    let uzmanno = store.get("uzmanno");
+    let digeregitimveri = store.get('digeregitimveri');
+    digeregitimveri = JSON.parse(digeregitimveri || '{}');
+    let bossatir = parseInt(digeregitimveri.bossatir || "0");
+    let isyeri = store.get('xjsonfirma');
+    isyeri = JSON.parse(isyeri || '{}');
+    let hekimad = isyeri.hk;
+    let hekimno = isyeri.hn;
+    let calisanlistedata = store.get('calisansecimjsonx');
+    let calisanliste = [];
+    if (calisanlistedata)
+    {
+        try
+        {
+            calisanliste = JSON.parse(calisanlistedata);
+        }
+        catch (e) {
+            calisanliste = [];
+        }
+    }
+    if (!Array.isArray(calisanliste) || calisanliste.length === 0) {
+        calisanliste = Array.from({ length: 13 }, () => ({ ad: "", un: "" }));
+    }
+    else if (bossatir > 0)
+    {
+        calisanliste = calisanliste.concat(Array.from({ length: bossatir }, () => ({ ad: "", un: "" })));
+    }
+    let isyeriismi = isyeri.fi;
+    let egitimtsaat = digeregitimveri.saat || "2 Saat";
+    let egitimyeri = digeregitimveri.egitimyeri || "Örgün";
+    let tarih = digeregitimveri.tarih || "......./......./20.....";
+    const katilimlistesi = { pageMargins: [25, 25, 25, 25], content: [] };
+
+    let egitimturint = parseInt(digeregitimveri.egitimtur) || 1;
+    if (egitimturint === 1)
+    {egitimicerik = { "baslik": "İŞ EKİPMANLARIYLA GÜVENLİ ÇALIŞMA EĞİTİMİ KATILIM SERTİFİKASI", "katilim": "İŞ EKİPMANLARIYLA GÜVENLİ ÇALIŞMA - EĞİTİM KATILIM TUTANAĞI", "paragraf": "\u200B\t\t\tYukarıda adı soyadı yazılı çalışan, “İş Ekipmanlarının Kullanımında Sağlık ve Güvenlik Şartları Yönetmeliği” 10.ve 11.maddeleri çerçevesinde aşağıda yer alan konulardaki eğitim programına başarıyla tamamlayarak bu eğitim belgesini almaya hak kazanmıştır.", "maddeler": ["İş ekipmanı kumanda ve acil durdurma sistemleri", "İş ekipmanı bakım onarım işlerinde güvenlik", "İş ekipmanlarının ergonomik kullanımı", "İş ekipmanı kaynaklı iş kazaları ve meslek hastalıkları", "İş sağlığı ve güvenliği talimatı ve kullanım kılavuzları", "İş ekipmanlarının koruyucu donanımları"] }; }
+    if (egitimturint === 2)
+    {egitimicerik = { "baslik": "YÜKSEKTE ÇALIŞMA EĞİTİMİ KATILIM SERTİFİKASI", "katilim": "YÜKSEKTE GÜVENLİ ÇALIŞMA - EĞİTİM KATILIM TUTANAĞI", "paragraf": "\u200B\t\t\tYukarıda adı soyadı yazılı çalışan, “Yapı İşlerinde İş Sağlığı ve Güvenliği Yönetmeliği Ek-4 Madde-2/g” çerçevesinde aşağıda yer alan konulardaki eğitim programına başarıyla tamamlayarak bu eğitim belgesini almaya hak kazanmıştır.", "maddeler": ["Yükseklik ile ilgili tanımlar, yüksekte çalışmanın kuralları", "Toplu koruma yöntemleri ve kişisel korunma yöntemleri", "Kişisel koruyucu donanımlar ve doğru kullanım şekli", "Yüksekte çalışma ekipmanlarının güvenli kullanımı", "Yüksek düşmeye neden olan faktörler", "Yatay ve dikey yaşam hatlarının kullanımı"] }; }
+    if (egitimturint === 3)
+    {;egitimicerik = { "baslik": "KİMYASALLARLA GÜVENLİ ÇALIŞMA EĞİTİMİ KATILIM SERTİFİKASI", "katilim": "KİMYASALLARLA GÜVENLİ ÇALIŞMA - EĞİTİM KATILIM TUTANAĞI", "paragraf": "\u200B\t\t\tYukarıda adı soyadı yazılı çalışan, “Kimyasal Maddelerle Çalışmalarda Sağlık ve Güvenlik Önlemleri Hakkında Yönetmelik” 9. madde çerçevesinde aşağıda yer alan konulardaki eğitim programına başarıyla tamamlayarak bu eğitim belgesini almaya hak kazanmıştır.", "maddeler": ["Patlayıcı ortam ve patlamadan korunma tedbirleri", "Kimyasal risk işaretleri ve güvenlik tedbirleri", "Kimyasalların uygun şekilde depolanması", "Malzeme güvenlik bilgi formları", "Toplu koruma yöntemleri ve kişisel korunma yöntemleri"] }; }
+    if (egitimturint === 4)
+    {egitimicerik = { "baslik": "İŞ KAZASI SONRASI İŞE DÖNÜŞ EĞİTİM SERTİFİKASI", "katilim": "İŞ KAZASI SONRASI İŞE DÖNÜŞ - EĞİTİM KATILIM TUTANAĞI", "paragraf": "\u200B\t\t\tYukarıda adı soyadı yazılı çalışan, “Çalışanların İş Sağlığı ve Güvenliği Eğitimlerinin Usul ve Esasları Hakkında Yönetmelik” 6. madde çerçevesinde aşağıda yer alan konulardaki eğitim programına başarıyla tamamlayarak bu eğitim belgesini almaya hak kazanmıştır.", "maddeler": ["İş kazasının sebepleri", "İş kazasından korunma yöntemleri", "İş kazası ve meslek hastalığından doğan hukuki sonuçlar", "Güvenli çalışma yöntemleri", "Toplu koruma yöntemleri ve kişisel korunma yöntemleri", "Düzeltici ve önleyici faaliyetler hakkında bilgilendirme"] } };
+    if (egitimturint === 5)
+    {egitimicerik = { "baslik": "KİŞİSEL KORUYUCU DONANIM EĞİTİMİ SERTİFİKASI", "katilim": "KİŞİSEL KORUYUCU DONANIM - EĞİTİM KATILIM TUTANAĞI", "paragraf": "\u200B\t\t\tYukarıda adı soyadı yazılı çalışan, “Kişisel Koruyucu Donanımların İşyerlerinde Kullanılması Hakkında Yönetmelik” 5. madde çerçevesinde aşağıda yer alan konularda uygulamalı eğitim programını başarıyla tamamlayarak bu eğitim belgesini almaya hak kazanmıştır.", "maddeler": ["İş sağlığı ve güvenliği kültürü", "Toplu ve kişisel olarak korunma yöntemleri", "Kişisel koruyucu donanım tip ve çeşitleri", "Kişisel koruyucu donanım hijyeni ve temizliği", "Kişisel koruyucu donanım kullanımı önemi"] } };
+    let konu = egitimicerik.maddeler.join(', ');
+    function createParticipantTable(startIndex, endIndex)
+    {
+        let tableBody = [];
+        tableBody.push(...katilimustbilgi(isyeriismi, tarih, egitimyeri, egitimtsaat, konu, egitimicerik.katilim));
+        for (let i = startIndex; i < endIndex; i++) {
+            const calisan = calisanliste[i];
+            tableBody.push([
+                { text: (i + 1).toString(), alignment: 'center', fontSize: 10, margin: [0, 11, 0, 11] },
+                { text: calisan.ad || '', alignment: 'left', fontSize: 10, margin: [0, 11, 0, 11] },
+                { text: calisan.un || '', alignment: 'left', fontSize: 10, margin: [0, 11, 0, 11] },
+                { text: '' }
+            ]);
+        }
+        tableBody.push(
+            [
+                { text: uzmanad, alignment: 'center', fontSize: 10, bold: true, colSpan: 2, margin: [0, 0] },
+                { text: '' },
+                { text: hekimad, alignment: 'center', fontSize: 10, bold: true, colSpan: 2, margin: [0, 0] },
+                { text: '' },
+            ],
+            [
+                { text: 'İş Güvenliği Uzmanı - Belge No: ' + uzmanno, alignment: 'center', fontSize: 10, colSpan: 2, margin: [0, 0] },
+                { text: '' },
+                { text: 'İşyeri Hekimi - Belge No: ' + hekimno, alignment: 'center', fontSize: 10, colSpan: 2, margin: [0, 0] },
+                { text: '' },
+            ],
+            [
+                { text: '', colSpan: 2, margin: [25, 25] },
+                { text: '' },
+                { text: '', colSpan: 2, margin: [25, 25] },
+                { text: '' },
+            ]
+        );
+        return {
+            table: {
+                widths: [25, "*", "auto", 100],
+                body: tableBody
+            },
+        };
+    }
+    const chunkSize = 13;
+    for (let i = 0; i < calisanliste.length; i += chunkSize)
+    {
+        const endIndex = Math.min(i + chunkSize, calisanliste.length);
+        katilimlistesi.content.push(createParticipantTable(i, endIndex));
+        if (endIndex < calisanliste.length)
+        {
+        katilimlistesi.content.push({ text: '', pageBreak: 'after' });
+        }
+    }
+    pdfMake.createPdf(katilimlistesi).getBlob(function (blob) { saveAs(blob, 'Katılım Listesi.pdf');});
+}
+function katilimustbilgi(i, t, e, s, k, bas) {
+    return [
+        [{ text: bas, colSpan: 4, alignment: 'center', fontSize: 11, bold: true, margin: [2, 2] }, '', '', ''],
+        [{ text: `İşyeri Unvanı: ${i}`, colSpan: 4, alignment: 'left', fontSize: 10, margin: [2, 2] }, '', '', ''],
+        [{ colSpan: 4, alignment: 'left', fontSize: 10, margin: [2, 2], text: [{ text: `Eğitim Tarihi: ${t}\t\t\t\tEğitim Şekli: ${e}\t\t\t\tSüresi: ${s}` }] }, '', '', ''],
+        [{ text: 'EĞİTİM KONULARI', colSpan: 4, alignment: 'center', fontSize: 11, bold: true, margin: [2, 2] }, '', '', ''],
+        [{ text: k, colSpan: 4, alignment: 'justify', fontSize: 10, margin: [0, 5] }, '', '', ''],
+        [{ text: 'Sıra', alignment: 'center', fontSize: 10, margin: [1, 1], bold: true }, { text: 'Ad Soyad', alignment: 'center', fontSize: 10, margin: [1, 1], bold: true }, { text: 'Unvan', alignment: 'center', fontSize: 10, margin: [1, 1], bold: true }, { text: 'İmza', alignment: 'center', fontSize: 10, margin: [1, 1], bold: true }]
+    ];
+}
