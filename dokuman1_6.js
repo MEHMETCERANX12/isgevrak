@@ -192,7 +192,7 @@ async function isgegitimsertifikayaz()
             { text: 'Eğitim Süresi: ' + sertifikasaat, style: 'normalsatir', margin: [90, 0, 0, 5] },
             { text: 'Eğitim Şekli: ' + egitimyeri, style: 'normalsatir', margin: [90, 0, 0, 5] },
             { text: 'Yukarıda adı ve soyadı yazılı çalışan, Çalışanların  İş  Sağlığı  ve  Güvenliği  Eğitimlerinin  Usul  ve  Esasları  Hakkında  Yönetmelik', style: 'normalsatir', margin: [90, 0, 50, 5] },
-            { text: 'kapsamında verilen iş sağlığı ve güvenliği eğitimlerini başarıyla tamamlayarak bu eğitim belgesini almaya hak kazanmıştır.', style: 'normalsatir', margin: [50, 0, 0, 170] },
+            { text: 'kapsamında verilen iş sağlığı ve güvenliği eğitimlerini başarıyla tamamlayarak bu eğitim belgesini almaya hak kazanmıştır.', style: 'normalsatir', margin: [50, 0, 0, 165] },
             temelimzatablo(uzmanad, isverenvekili, hekimad, uzmanno, hekimno, uzmankurum)
         ];
         if (index < calisanliste.length - 1)
