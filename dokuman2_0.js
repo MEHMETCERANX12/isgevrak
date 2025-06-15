@@ -727,7 +727,7 @@ async function digerkatılımlistesiyaz()
     function createParticipantTable(startIndex, endIndex)
     {
         let tableBody = [];
-        tableBody.push(...katilimustbilgi(isyeriismi, tarih, egitimyeri, egitimtsaat, konu, egitimicerik.katilim));
+        tableBody.push(...digerkatilimustbilgi(isyeriismi, tarih, egitimyeri, egitimtsaat, konu, egitimicerik.katilim));
         for (let i = startIndex; i < endIndex; i++) {
             const calisan = calisanliste[i];
             tableBody.push([
@@ -776,7 +776,7 @@ async function digerkatılımlistesiyaz()
     }
     pdfMake.createPdf(katilimlistesi).getBlob(function (blob) { saveAs(blob, 'Katılım Listesi.pdf');});
 }
-function katilimustbilgi(i, t, e, s, k, bas) {
+function digerkatilimustbilgi(i, t, e, s, k, bas) {
     return [
         [{ text: bas, colSpan: 4, alignment: 'center', fontSize: 11, bold: true, margin: [2, 2] }, '', '', ''],
         [{ text: `İşyeri Unvanı: ${i}`, colSpan: 4, alignment: 'left', fontSize: 10, margin: [2, 2] }, '', '', ''],
