@@ -172,6 +172,7 @@ async function isgegitimsertifikayaz()
     let isverenvekili = isyeri.is;
     let toplamgun = isgegitimveri.toplamgun || "1";
     let toplamsaat = isgegitimveri.saat || "1";
+    let egitimyeri = isgegitimveri.egitimyeri || "Örgün";
     let katilimtarih = temeltarihbul(isgegitimveri);
     let sure1 = temelegitimsuregun("1", parseInt(toplamgun) || 1, toplamsaat);
     let sure2 = temelegitimsuregun("2", parseInt(toplamgun) || 1, toplamsaat);
@@ -189,8 +190,9 @@ async function isgegitimsertifikayaz()
             { text: 'Katılımcının Görev Unvanı: ' + calisan.un, style: 'normalsatir', margin: [90, 0, 0, 5] },
             { text: 'Tarih: ' + katilimtarih, style: 'normalsatir', margin: [90, 0, 0, 5] },
             { text: 'Eğitim Süresi: ' + sertifikasaat, style: 'normalsatir', margin: [90, 0, 0, 5] },
+            { text: 'Eğitim Şekli: ' + egitimyeri, style: 'normalsatir', margin: [90, 0, 0, 5] },
             { text: 'Yukarıda adı ve soyadı yazılı çalışan, Çalışanların  İş  Sağlığı  ve  Güvenliği  Eğitimlerinin  Usul  ve  Esasları  Hakkında  Yönetmelik', style: 'normalsatir', margin: [90, 0, 50, 5] },
-            { text: 'kapsamında verilen iş sağlığı ve güvenliği eğitimlerini başarıyla tamamlayarak bu eğitim belgesini almaya hak kazanmıştır.', style: 'normalsatir', margin: [50, 0, 0, 180] },
+            { text: 'kapsamında verilen iş sağlığı ve güvenliği eğitimlerini başarıyla tamamlayarak bu eğitim belgesini almaya hak kazanmıştır.', style: 'normalsatir', margin: [50, 0, 0, 170] },
             temelimzatablo(uzmanad, isverenvekili, hekimad, uzmanno, hekimno, uzmankurum)
         ];
         if (index < calisanliste.length - 1)
