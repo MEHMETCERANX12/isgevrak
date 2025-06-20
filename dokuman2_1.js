@@ -798,3 +798,179 @@ function digerkatilimustbilgi(i, t, e, s, k, bas) {
         [{ text: 'Sıra', alignment: 'center', fontSize: 10, margin: [1, 1], bold: true }, { text: 'Ad Soyad', alignment: 'center', fontSize: 10, margin: [1, 1], bold: true }, { text: 'Unvan', alignment: 'center', fontSize: 10, margin: [1, 1], bold: true }, { text: 'İmza', alignment: 'center', fontSize: 10, margin: [1, 1], bold: true }]
     ];
 }
+
+
+
+async function kkdzimmettutanakkontrol()
+{
+    $('#loading').show();
+    $.when(kkdzimmettutanakcikti())
+    .done(function ()
+    {
+        alertify.error("Dosya indirildi", 7);
+    })
+    .fail(function ()
+    {
+        alertify.error("Bir hata oluştu.", 7);
+    })
+    .always(function ()
+    {
+        $('#loading').hide();
+    });
+}
+
+async function kkdzimmettutanakcikti() {
+    let sorumlulukbeyani = "\t6331 sayılı İş Sağlığı ve Güvenliği Kanunu’nun 19. maddesinin 2. fıkrasının (b) bendi uyarınca, “Kendilerine sağlanan kişisel koruyucu donanımı doğru kullanmak ve korumak” yükümlülüğümü, işverenin bu konudaki talimatları ve 4857 sayılı İş Kanunu’nun 25. maddesinin 2. fıkrasında belirtilen haklı fesih nedenleri kapsamında işlem yapılabileceği konusunda bilgilendirildim. Aşağıda listelenen kişisel koruyucu donanımları işveren vekilinden eksiksiz olarak teslim aldım. Bu donanımların doğru ve güvenli kullanımı konusunda gerekli eğitimi aldım ve yeterli bilgiye sahip olduğumu beyan ederim. Bu donanımları iş sağlığı ve güvenliği kurallarına uygun şekilde düzenli olarak kullanacağımı, kullanılmayacak duruma geldiklerinde durumu derhal işveren vekiline bildirerek yenilerini temin etmek üzere başvuracağım. Ayrıca, tarafıma teslim edilen kişisel koruyucu donanımları kasıtlı olarak kullanmamak, uygunsuz şekilde kullanmak ya da talimatlara aykırı davranmak suretiyle maruz kalabileceğim iş kazası veya meslek hastalığı gibi durumlarda, doğabilecek zarar ve sonuçlardan kişisel sorumluluğumun bulunduğunu kabul ederim.";
+    let tarih = "Tarih: " + store.get('kkdzimmettarih');
+    let isyeri = JSON.parse(store.get('xjsonfirma'));
+    let isyeriismi = isyeri.fi;
+    let isyeriadresi = isyeri.ad;
+    let isveren = isyeri.is;
+    let kkdzimmetjson = store.get('kkdzimmetsonliste');
+    let calisanliste = JSON.parse(store.get('calisansecimjsonx') || "[]");
+
+    if (!Array.isArray(calisanliste) || calisanliste.length === 0)
+    {
+        calisanliste = [{ a: ".................", u: "................." }];
+    }
+    const { Document, Packer, Paragraph, TextRun, Table, TableRow, TableCell, WidthType, AlignmentType, VerticalAlign, BorderStyle, Header, Footer } = window.docx;
+    const header = new Header({
+        children: [
+            new Table({
+                width: { size: 100, type: WidthType.PERCENTAGE },
+                rows: [
+                    new TableRow({
+                        children: [
+                            new TableCell({
+                                width: { size: 100, type: WidthType.PERCENTAGE },
+                                borders: { top: { style: "single", size: 1, color: "000000" }, bottom: { style: "single", size: 1, color: "000000" }, left: { style: "single", size: 1, color: "000000" }, right: { style: "single", size: 1, color: "000000" } },
+                                children: [new Paragraph({ children: [new TextRun({ text: isyeriismi, font: "Calibri", size: 22 })], alignment: AlignmentType.CENTER })]
+                            })
+                        ]
+                    })
+                ]
+            })
+        ]
+    });
+    let footer = undefined;
+    if (isyeriadresi && isyeriadresi.trim() !== "") {
+        footer = new Footer({
+            children: [
+                new Table({
+                    width: { size: 100, type: WidthType.PERCENTAGE },
+                    rows: [
+                        new TableRow({
+                            children: [
+                                new TableCell({
+                                    width: { size: 100, type: WidthType.PERCENTAGE },
+                                    borders: { top: { style: "single", size: 1, color: "000000" }, bottom: { style: "single", size: 1, color: "000000" }, left: { style: "single", size: 1, color: "000000" }, right: { style: "single", size: 1, color: "000000" } },
+                                    children: [new Paragraph({ children: [new TextRun({ text: isyeriadresi, font: "Calibri", size: 22 })], alignment: AlignmentType.CENTER })]
+                                })
+                            ]
+                        })
+                    ]
+                })
+            ]
+        });
+    }
+    const sections = [];
+
+    calisanliste.forEach((calisan, index) => {
+        const tarihparagraf = new Paragraph({
+            children: [new TextRun({ text: tarih, font: { name: "Calibri" }, size: 22 })],
+            alignment: AlignmentType.RIGHT
+        });
+
+        const baslik = new Paragraph({
+            children: [new TextRun({ text: "KİŞİSEL KORUYUCU DONANIM ZİMMET TUTANAĞI", bold: true, font: { name: "Calibri" }, size: 22 })],
+            alignment: AlignmentType.CENTER
+        });
+
+        const sorparagraf = new Paragraph({
+            children: [new TextRun({ text: sorumlulukbeyani, font: { name: "Calibri" }, size: 22 })],
+            alignment: AlignmentType.JUSTIFIED
+        });
+        const kkdzimmettablo = [];
+
+        kkdzimmettablo.push(new TableRow({
+            children: [
+                new TableCell({
+                    columnSpan: 4,
+                    verticalAlign: VerticalAlign.CENTER,
+                    children: [new Paragraph({
+                        alignment: AlignmentType.CENTER,
+                        children: [new TextRun({ text: "Kişisel Koruyucu Donanım Tablosu", bold: true, font: { name: "Calibri" }, size: 22 })]
+                    })]
+                })
+            ]
+        }));
+
+        kkdzimmettablo.push(new TableRow({
+            children: [
+                new TableCell({ verticalAlign: VerticalAlign.CENTER, width: { size: 10, type: WidthType.PERCENTAGE }, children: [new Paragraph({ alignment: AlignmentType.CENTER, children: [new TextRun({ text: "No", bold: true, font: { name: "Calibri" }, size: 22 })] })] }),
+                new TableCell({ verticalAlign: VerticalAlign.CENTER, width: { size: 40, type: WidthType.PERCENTAGE }, children: [new Paragraph({ alignment: AlignmentType.CENTER, children: [new TextRun({ text: "Donanım Türü", bold: true, font: { name: "Calibri" }, size: 22 })] })] }),
+                new TableCell({ verticalAlign: VerticalAlign.CENTER, width: { size: 40, type: WidthType.PERCENTAGE }, children: [new Paragraph({ alignment: AlignmentType.CENTER, children: [new TextRun({ text: "Standart", bold: true, font: { name: "Calibri" }, size: 22 })] })] }),
+                new TableCell({ verticalAlign: VerticalAlign.CENTER, width: { size: 10, type: WidthType.PERCENTAGE }, children: [new Paragraph({ alignment: AlignmentType.CENTER, children: [new TextRun({ text: "Adet", bold: true, font: { name: "Calibri" }, size: 22 })] })] })
+            ]
+        }));
+
+        kkdzimmetjson.forEach((item, index) => {
+            kkdzimmettablo.push(new TableRow({
+                children: [
+                    new TableCell({ children: [new Paragraph({ alignment: AlignmentType.CENTER, children: [new TextRun({ text: String(index + 1), font: { name: "Calibri" }, size: 22 })] })] }),
+                    new TableCell({ children: [new Paragraph({ alignment: AlignmentType.LEFT, children: [new TextRun({ text: item.k, font: { name: "Calibri" }, size: 22 })] })] }),
+                    new TableCell({ children: [new Paragraph({ alignment: AlignmentType.LEFT, children: [new TextRun({ text: item.s, font: { name: "Calibri" }, size: 22 })] })] }),
+                    new TableCell({ children: [new Paragraph({ alignment: AlignmentType.CENTER, children: [new TextRun({ text: item.a, font: { name: "Calibri" }, size: 22 })] })] })
+                ]
+            }));
+        });
+
+        const kkdzimmettabloicerik = new Table({
+            width: { size: 100, type: WidthType.PERCENTAGE },
+            margins: { top: 70, bottom: 70, left: 50, right: 50 },
+            rows: kkdzimmettablo
+        });
+        const imzatablo = new Table({
+            width: { size: 100, type: WidthType.PERCENTAGE },
+            borders: {
+                top: { style: BorderStyle.NONE, size: 0, color: "FFFFFF" },
+                bottom: { style: BorderStyle.NONE, size: 0, color: "FFFFFF" },
+                left: { style: BorderStyle.NONE, size: 0, color: "FFFFFF" },
+                right: { style: BorderStyle.NONE, size: 0, color: "FFFFFF" },
+                insideHorizontal: { style: BorderStyle.NONE, size: 0, color: "FFFFFF" },
+                insideVertical: { style: BorderStyle.NONE, size: 0, color: "FFFFFF" },
+            },
+            rows: [
+                new TableRow({
+                    children: [
+                        new TableCell({ verticalAlign: VerticalAlign.CENTER, width: { size: 50, type: WidthType.PERCENTAGE }, children: [new Paragraph({ alignment: AlignmentType.CENTER, children: [new TextRun({ text: isveren, bold: true, font: "Calibri", size: 22 })] })] }),
+                        new TableCell({ verticalAlign: VerticalAlign.CENTER, width: { size: 50, type: WidthType.PERCENTAGE }, children: [new Paragraph({ alignment: AlignmentType.CENTER, children: [new TextRun({ text: calisan.a, bold: true, font: "Calibri", size: 22 })] })] })
+                    ]
+                }),
+                new TableRow({
+                    children: [
+                        new TableCell({ verticalAlign: VerticalAlign.CENTER, width: { size: 50, type: WidthType.PERCENTAGE }, children: [new Paragraph({ alignment: AlignmentType.CENTER, children: [new TextRun({ text: "İşveren Vekili", font: "Calibri", size: 22 })] })] }),
+                        new TableCell({ verticalAlign: VerticalAlign.CENTER, width: { size: 50, type: WidthType.PERCENTAGE }, children: [new Paragraph({ alignment: AlignmentType.CENTER, children: [new TextRun({ text: calisan.u, font: "Calibri", size: 22 })] })] })
+                    ]
+                }),
+                new TableRow({
+                    children: [
+                        new TableCell({ verticalAlign: VerticalAlign.CENTER, width: { size: 50, type: WidthType.PERCENTAGE }, children: [new Paragraph({ alignment: AlignmentType.CENTER, children: [new TextRun({ text: "İmza", font: "Calibri", size: 22 })] })] }),
+                        new TableCell({ verticalAlign: VerticalAlign.CENTER, width: { size: 50, type: WidthType.PERCENTAGE }, children: [new Paragraph({ alignment: AlignmentType.CENTER, children: [new TextRun({ text: "İmza", font: "Calibri", size: 22 })] })] })
+                    ]
+                })
+            ]
+        });
+        sections.push({
+            properties: { page: { margin: { top: 1134, right: 1134, bottom: 1134, left: 1134 } } },
+            headers: { default: header },
+            ...(footer ? { footers: { default: footer } } : {}),
+            children: [tarihparagraf, new Paragraph(''), baslik, new Paragraph(''), sorparagraf, new Paragraph(''), kkdzimmettabloicerik, new Paragraph(''), imzatablo]
+        });
+    });
+    const doc = new Document({ sections });
+    Packer.toBlob(doc).then(blob =>
+    {
+        saveAs(blob, "KKD Zimmet.docx");
+    });
+}
