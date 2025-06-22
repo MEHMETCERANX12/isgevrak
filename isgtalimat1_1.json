@@ -92,7 +92,13 @@
   {
     "anabaslik": "İş Ekipmanı",
     "baslik": "İş ekipmanı kesme, delme, taşlama vb. işlemler",
-    "icerik": "İş ekipmanlarıyla yapılan kesme, delme, taşlama veya benzeri işlemler sırasında oluşan çapaklar ya da kopan parçalar, yüksek hızla çevreye fırlayarak ciddi yaralanmalara neden olabilir. Koruyucu siperlikleri ve mekanik bariyerleri eksiksiz ve doğru şekilde yerleştirmiş olduğunuzdan emin olunuz. Çalışma sırasında mutlaka iş gözlüğü veya yüz siperi, iş eldiveni, uygun iş elbisesi ve iş ayakkabısı gibi kişisel koruyucu donanımlar eksiksiz olarak kullanılmalıdır. Ancak iş ekipmanının dönen aksamlarına müdahale edilmesi gerekiyorsa, eldiven kullanılmamalıdır. Çapak sıçraması sonucu bir iş kazası meydana gelmesi durumunda ekipman derhal güvenli konuma getirilerek işveren vekiline, ilkyardım eğitimi almış personele ve 112 Acil Durum Çağrı Merkezi’ne haber verilmelidir.\r\n",
+    "icerik": "İş ekipmanlarıyla yapılan kesme, delme, taşlama veya benzeri işlemler sırasında oluşan çapaklar ya da kopan parçalar, yüksek hızla çevreye fırlayarak ciddi yaralanmalara neden olabilir. Koruyucu siperlikleri ve mekanik bariyerleri eksiksiz ve doğru şekilde yerleştirmiş olduğunuzdan emin olunuz. Çalışma sırasında mutlaka iş gözlüğü veya yüz siperi, iş eldiveni, uygun iş elbisesi ve iş ayakkabısı gibi kişisel koruyucu donanımlar eksiksiz olarak kullanılmalıdır. Ancak iş ekipmanının dönen aksamlarına müdahale edilmesi gerekiyorsa, eldiven kullanılmamalıdır. Çapak sıçraması sonucu bir iş kazası meydana gelmesi durumunda ekipman derhal güvenli konuma getirilerek işveren vekiline, ilkyardım eğitimi almış personele ve 112 Acil Durum Çağrı Merkezi’ne haber verilmelidir.",
     "sira": 16
+  },
+  {
+    "anabaslik": "Deneme",
+    "baslik": "xxxxx",
+    "icerik": "yyyy",
+    "sira": 17
   }
 ]
