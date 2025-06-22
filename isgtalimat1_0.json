@@ -1,0 +1,98 @@
+[
+  {
+    "anabaslik": "İş Ekipmanı",
+    "baslik": "İş Ekipmanı Koruyucusu - Siviç",
+    "icerik": "Koruyucu kapağa entegre edilmiş siviçmsistemi her zaman çalışır durumda olmalı ve kesinlikle devre dışı bırakılmamalıdır. Bu sistem, uzuvlarınızın tehlikeli operasyon noktalarına girmesini önlemek amacıyla tesis edilmiş hayati bir güvenlik bileşenidir. Siviç, koruyucu kapak kapalı değilse ekipmanın çalışmasını engeller ve kullanıcıyı koruma altına alır. Sistemin işlevini engelleyecek her türlü müdahale, kasıtlı iptal, atlatma veya sabitleme gibi eylemler ciddi güvenlik riski oluşturur ve yasaktır. Siviç görevini yerine getirmiyorsa, yani kapak kapalı olduğu halde ekipman çalışmıyor ya da açık olmasına rağmen çalışmaya devam ediyorsa, veya siviç aktifken ekipman beklenmedik bir hareket gerçekleştiriyorsa, derhal ekipmanı durdurunuz ve durumu işveren vekiline bildiriniz.",
+    "sira": 1
+  },
+  {
+    "anabaslik": "İş Ekipmanı",
+    "baslik": "İş Ekipmanı Koruyucusu - Fotosel",
+    "icerik": "Tehlikeli operasyon noktalarına erişimi engellemek amacıyla tesis edilen fotosel güvenlik sistemi her zaman çalışır ve aktif durumda olmalıdır. Bu sistemin devre dışı bırakılması, iptal edilmesi veya geçersiz hale getirilmesi kesinlikle yasaktır. Fotoselin kapsadığı tehlikeli alana, ekipman durdurmadan ve acil stop butonuna basılı vaziyette değilken kesinlikle girmeyiniz. Fotosel sistemi, ışık kaynağını algılayarak çalışır ve bir engel algıladığında ekipmanın hareketini durdurur veya engeller. Fotosel donanımına herhangi bir çarpma, darbe veya yerinden oynama olması halinde, sistemin düzgün çalışıp çalışmadığını mutlaka kontrol ediniz. Malzeme geçişleri sırasında fotoselin devre dışı kalmasına neden olabilecek durumlara karşı dikkatli olunuz. Fotosel sistemi aktif değilse, hareketi algılamıyorsa ya da geç algılama yapıyorsa, bu durumu derhal işveren vekiline veya bakım birimine bildiriniz.",
+    "sira": 2
+  },
+  {
+    "anabaslik": "İş Ekipmanı",
+    "baslik": "İş Ekipmanı Koruyucusu -  Çift El Kumanda Sistemi",
+    "icerik": "İş ekipmanını çalıştırmak için kumanda panosunda bulunan iki butona her iki elinizle aynı anda basınız. Bu sistem, uzuvlarınızın tehlikeli bölgeye girmesini engellemek amacıyla tasarlanmış bir güvenlik önlemidir. Butonlardan birini sabit basılı tutarak veya mekanik olarak sıkıştırarak ekipmanı çalıştırmaya çalışmak ciddi güvenlik riski oluşturur ve kesinlikle yasaktır. Sisteme aynı anda iki butonla bastığınız halde ekipman çalışmıyorsa, sadece tek bir butonla çalışıyorsa ya da butonlara basıp elinizi çekmenize rağmen ekipman hareket etmeye devam ediyorsa, bu durum arızalı veya tehlikeli bir durumdur. Böyle bir durumda ekipmanı kullanmayı derhal durdurunuz ve durumu işveren vekiline bildiriniz.",
+    "sira": 3
+  },
+  {
+    "anabaslik": "İş Ekipmanı",
+    "baslik": "İş Ekipmanı Koruyucusu - Genel Kapaklar",
+    "icerik": "İş ekipmanının hareketli, döner veya risk oluşturan parçalarını kapatan tüm koruyucu kapaklar eksiksiz ve sağlam şekilde takılı olmadan ekipman kesinlikle çalıştırılmamalıdır. Koruyucu kapaklar, çalışanların uzuvlarının tehlikeli bölgelere temasını önlemek amacıyla tasarlanmış temel güvenlik donanımlarıdır ve bu kapaklar olmadan yapılan her türlü çalışma yasaktır. Kapaklardan herhangi biri eksikse, hasarlıysa ya da yerine sabitlenemiyorsa, ekipman kullanılmamalı ve durum derhal işveren vekiline veya ilgili teknik birime bildirilmelidir.",
+    "sira": 4
+  },
+  {
+    "anabaslik": "İş Ekipmanı",
+    "baslik": "İş Ekipmanı Koruyucusu - Acil Stop",
+    "icerik": "İş ekipmanında herhangi bir tehlike, arıza, beklenmedik hareket veya çalışanların sağlığını ve güvenliğini tehdit eden bir durum fark edildiğinde, derhal acil stop butonuna basılarak ekipman durdurulmalıdır. Acil stop butonu, makinenin ani ve güvenli bir şekilde durdurulması için tasarlanmış hayati bir güvenlik sistemidir. Bu buton, tehlike geçene kadar basılı şekilde bırakılmalı ve ekipman kesinlikle tekrar çalıştırılmamalıdır. Ekipman başında bulunulmayacaksa veya ekipman geçici olarak devre dışı bırakılacaksa, her ihtimale karşı acil stop aktif hale getirilerek ekipman güvenli konuma alınmalıdır. Acil stop butonunun çalışmadığını fark ederseniz ekipmanı kesinlikle kullanılmayınız ve durumu derhal işveren vekiline bildiriniz.",
+    "sira": 5
+  },
+  {
+    "anabaslik": "İş Ekipmanı",
+    "baslik": "İş Ekipmanı Koruyucusu - Şeffaf Siperlik",
+    "icerik": "İş ekipmanındaki tehlikeli operasyon noktalarına erişimi engellemek amacıyla tesis edilmiş şeffaf siperlik, her zaman doğru şekilde takılı ve kapalı pozisyonda olmalıdır. Operasyon sırasında bu siperliğin açık bırakılması kesinlikle yasaktır ve hayati risk oluşturur. Koruyucu şeffaf kapak yalnızca operasyon tamamen durduktan sonra veya acil durdurma butonuna basılmış ve ekipman tamamen güvenli duruma getirilmişken açılmalıdır. Siperliğin herhangi bir nedenle kırılması, çatlaması, yerinden çıkması ya da sabitlenememesi durumunda, ekipman kesinlikle çalıştırılmamalı ve durum derhal işveren vekiline bildirilmelidir.",
+    "sira": 6
+  },
+  {
+    "anabaslik": "İş Ekipmanı",
+    "baslik": "İş Ekipmanı Koruyucusu - Zincir ile Sınırlandırma",
+    "icerik": "Tehlikeli operasyon bölgelerini çevrelemek amacıyla tesis edilen zincirli sınırlandırmalar, çalışanların bu alanlara kontrolsüz şekilde girmesini engellemek için kullanılmaktadır ve önemli bir fiziksel güvenlik bariyeridir. Bu nedenle, zincir ile çevrili alanlara iş ekipmanı çalışırken giriş yapılmamalıdır. Zincirin, yerinden çıkmamasına, kopmamış ve sarkmamış olmasına, ayrıca her zaman sabit, görünür ve tehlikeli alana geçişi engelleyecek şekilde konumlandırılmış olmasına dikkat edilmelidir.",
+    "sira": 7
+  },
+  {
+    "anabaslik": "İş Ekipmanı",
+    "baslik": "İş Ekipmanı Koruyucusu - Siperlik / Bariyer",
+    "icerik": "Operasyon sırasında oluşan çapak veya parça sıçramalarını önlemek için siperliği yeterli mesafede ve doğru şekilde yerleştiriniz. Diğer çalışanların iş sağlığı ve güvenliğini gözetmek kanuni yükümlülüktür.",
+    "sira": 8
+  },
+  {
+    "anabaslik": "İş Ekipmanı",
+    "baslik": "İş Ekipmanı Bakım Onarım",
+    "icerik": "İş ekipmanında meydana gelen her türlü arıza, hasar veya olağan dışı durum derhal işveren vekiline bildirilmelidir. Ekipmanda bakım-onarım işlemleri, yalnızca bu konuda mesleki yeterliliğe sahip teknik personel veya üretici firma tarafından yetkilendirilmiş kişilerce yapılabilir. Bakım ve onarım işlemlerine başlamadan önce ekipman tamamen durdurulmalı, elektrik bağlantısı kesilmeli ve acil durdurma (emergency stop) butonuna basılarak ekipmanın güvenliği sağlanmalıdır. Ekipman üzerindeki hareketli parçaların durduğundan ve tüm enerji kaynaklarının izole edildiğinden emin olunmalıdır. Bakım sırasında koruyucu ekipmanlar (eldiven, gözlük, iş kıyafeti vb.) kullanılmalı ve çalışma alanı uyarı levhaları ile çevrelenmelidir. Bakım işlemi tamamlandıktan sonra ekipman tekrar devreye alınmadan önce yapılan işlemler kontrol edilmeli, tüm kapaklar ve koruyucular doğru şekilde takılmalı ve çevredeki çalışanlara bilgi verilmelidir. Bakım kayıtları eksiksiz olarak tutulmalı ve kayıt defterine işlenmelidir. Yetkisiz ve bilgisiz kişilerin bakım-onarım işlemi yapması kesinlikle yasaktır.",
+    "sira": 9
+  },
+  {
+    "anabaslik": "İş Ekipmanı",
+    "baslik": "İş Ekipmanı Yangın",
+    "icerik": "İş ekipmanında yangın çıkması durumunda öncelikle soğukkanlılığınızı koruyarak çevredeki çalışanları yüksek sesle uyarınız ve olası panik ortamını önleyiniz. Ardından, iş ekipmanının elektrik bağlantısını mümkünse güvenli bir şekilde kesiniz. Elektrik bağlantısı kesilmeden su ile söndürme yapılması hayati tehlike oluşturabilir (Elektrik çaprması). Yangına en yakın noktada bulunan uygun tipteki yangın söndürücü (Karbondioksit ya da kuru kimyevi tozlu tüpler) ile müdahale ediniz. Yangın küçük çaplı ve kontrol edilebilir durumdaysa söndürme işlemini hızlı ve dikkatli şekilde gerçekleştirmeye çalışınız. Yangın kontrol altına alınamıyorsa derhal alanı terk ederek yangın alarmını çalıştırınız ve 112 Acil Çağrı Merkezi’ni arayarak itfaiyeye bilgi veriniz.",
+    "sira": 10
+  },
+  {
+    "anabaslik": "İş Ekipmanı",
+    "baslik": "İş Ekipmanı - Ergonomi kurallarına uygun iş ekipmanına malzeme yükleme",
+    "icerik": "İş ekipmanına malzeme yerleştirme, indirme, taşıma veya alma gibi işlemleri gerçekleştirirken ergonomik kurallara uygun davranmak, hem kas-iskelet sistemi rahatsızlıklarını önlemek hem de iş kazası riskini azaltmak açısından büyük önem taşır. Bu işlemler sırasında mümkünse kaldırma ekipmanları (vinç, kaldırma aparatı, forklift vb.) kullanılmalı, ağır yüklerin elle taşınmasından kaçınılmalıdır. Elle taşıma zorunlu ise, yük mutlaka vücuda yakın ve iki elle dengeli şekilde kavranarak, bel dik pozisyonda ve dizler bükülerek kaldırılmalıdır. Ani dönme, eğilme veya yükü bir taraftan çekme hareketlerinden kaçınılmalıdır. Malzeme alma ve yerleştirme işlemleri, omuz hizasını geçmeyecek şekilde planlanmalı; gerekirse yükseklik ayarlı platformlar veya yardımcı ekipmanlar kullanılmalıdır. Yükler, ağırlık merkezini bozmayacak şekilde istiflenmeli, malzeme ekipmana yerleştirilirken zorlanma, uzanma veya sıkışmaya neden olabilecek pozisyonlardan kaçınılmalıdır.",
+    "sira": 11
+  },
+  {
+    "anabaslik": "İş Ekipmanı",
+    "baslik": "İş Ekipmanı - Elektrik",
+    "icerik": "İş ekipmanının bağlı olduğu elektrik bağlantı noktaları ve elektrik panosu, yalnızca bu konuda mesleki yeterliliğe ve yetkiye sahip elektrik teknik personeli tarafından kontrol edilmeli ve müdahale edilmelidir. Acil bir durum (yangın, kısa devre, duman, elektrik çarpması riski vb.) dışında, çalışanlar tarafından elektrik panosuna kesinlikle müdahale edilmemelidir. Elektrik panolarının kapakları sürekli kapalı tutulmalı, pano çevresinde en az 1 metre boşluk bırakılmalı ve önüne hiçbir şekilde malzeme istiflenmemelidir. Elektrik kabloları, fişler, prizler ve bağlantı noktaları düzenli olarak kontrol edilmeli; ezilmiş, soyulmuş, sarkmış veya ısınmış kablolar varsa, ekipman hemen durdurulmalı ve durum derhal işveren vekiline bildirilmelidir. Tek faz prizi, panoda tek faza, üç faz prizi panoda 3 faz prize bağlayınız.",
+    "sira": 12
+  },
+  {
+    "anabaslik": "İş Ekipmanı",
+    "baslik": "İş Ekipmanı - Dikkat / Cep Telefonu / Başında Durma",
+    "icerik": "İş ekipmanı ile çalışırken, tüm dikkatinizi yaptığınız işe ve ekipmanın işleyişine vermeniz zorunludur. Dikkat dağınıklığı, hem sizin hem de çevrenizde çalışan diğer kişilerin güvenliğini tehlikeye atabilir. Çalışma sırasında sohbet, cep telefonu kullanımı, gereksiz hareketler veya dikkati dağıtacak davranışlardan kesinlikle kaçınılmalıdır. Ayrıca, iş ekipmanı başındayken yetkisiz kişilerin ekipmana yaklaşmasına, ekipmanı kurcalamasına veya kontrolsüz bir şekilde müdahale etmesine izin vermeyiniz. İş ekipmanı çalışır durumdayken, ekipmanın başından ayrılmak kesinlikle yasaktır. Acil bir durum nedeniyle ekipmanın başından ayrılmanız gerekiyorsa, ekipmanı güvenli duruma getirerek, acil durdurma butonunu devreye alınız ve yetkili kişilere bilgi veriniz. ",
+    "sira": 13
+  },
+  {
+    "anabaslik": "İş Ekipmanı",
+    "baslik": "İş Ekipmanı - Amacı Dışında Kullanmama",
+    "icerik": "Yapılacak her türlü iş için, uygun ve amacına göre tasarlanmış iş ekipmanının kullanılması zorunludur. İş ekipmanları, üretici firmalar tarafından belirli operasyonları gerçekleştirmek amacıyla teknik kriterlere göre tasarlanmış ve test edilmiştir. Bu nedenle, ekipmanın kullanım amacı dışında çalıştırılması, hem makinenin yapısal bütünlüğünü bozabilir hem de çalışanların can güvenliğini ciddi şekilde tehlikeye atabilir.",
+    "sira": 14
+  },
+  {
+    "anabaslik": "İş Ekipmanı",
+    "baslik": "İş Ekipmanı - Havalandırma",
+    "icerik": "İş ekipmanının kullanımı sırasında ortaya çıkabilecek toz, duman, gaz, buhar veya zararlı partiküllerin ortam havasına karışmasını önlemek amacıyla tasarlanmış olan cebri çekişli havalandırma sistemi mutlaka operasyon süresince aktif olarak çalıştırılmalıdır. Havalandırma sistemi devreye alınmadan iş ekipmanı çalıştırılmamalı, sistemin hava çekiş gücü ve filtre durumu düzenli aralıklarla kontrol edilmelidir. Filtrelerin tıkanmış, fanların arızalı veya hava kanallarının hasarlı olduğu fark edilirse, ekipman derhal durdurulmalı ve durum işveren vekiline bildiriniz. Ayrıca, sistemin etkin çalışması için hava çıkış noktaları kapatılmamalı, havalandırma menfezleri önüne malzeme istiflenmemelidir.",
+    "sira": 15
+  },
+  {
+    "anabaslik": "İş Ekipmanı",
+    "baslik": "İş ekipmanı kesme, delme, taşlama vb. işlemler",
+    "icerik": "İş ekipmanlarıyla yapılan kesme, delme, taşlama veya benzeri işlemler sırasında oluşan çapaklar ya da kopan parçalar, yüksek hızla çevreye fırlayarak ciddi yaralanmalara neden olabilir. Koruyucu siperlikleri ve mekanik bariyerleri eksiksiz ve doğru şekilde yerleştirmiş olduğunuzdan emin olunuz. Çalışma sırasında mutlaka iş gözlüğü veya yüz siperi, iş eldiveni, uygun iş elbisesi ve iş ayakkabısı gibi kişisel koruyucu donanımlar eksiksiz olarak kullanılmalıdır. Ancak iş ekipmanının dönen aksamlarına müdahale edilmesi gerekiyorsa, eldiven kullanılmamalıdır. Çapak sıçraması sonucu bir iş kazası meydana gelmesi durumunda ekipman derhal güvenli konuma getirilerek işveren vekiline, ilkyardım eğitimi almış personele ve 112 Acil Durum Çağrı Merkezi’ne haber verilmelidir.\r\n",
+    "sira": 16
+  }
+]
