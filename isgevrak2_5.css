@@ -230,3 +230,4 @@ input[type="checkbox"]{width: 1.3vw;height: 1.3vw;}
 #duyurusecimanasayfa select{width:100%;padding:.5vw 0 .5vw .5vw;border:1px solid #bbb;box-sizing:border-box;cursor:pointer;transition:border-color .3s ease;font-family:Calibri;font-size:1vw;}  
 #duyurusecimanasayfa select:focus{border-color:#3a8ee6;outline:none;box-shadow:0 0 6px #3a8ee6;}  
 #duyuruaciklamakutu{width:100%;border:1px solid #ccc;background:#f9f9f9;border-radius:6px;color:#333;display:none;font-family:Calibri;font-size:1vw;padding:1vw;margin-top:10px;box-sizing:border-box;text-align:justify;}
+.alertify-notifier .ajs-message{font-family: Calibri, sans-serif !important;font-size: 1vw !important;}
