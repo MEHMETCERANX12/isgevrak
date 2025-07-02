@@ -974,3 +974,65 @@ async function kkdzimmettutanakcikti() {
         saveAs(blob, "KKD Zimmet.docx");
     });
 }
+
+async function talimatyazdirword(button)
+{
+    const { Document, Packer, Paragraph, TextRun, Table, TableRow, TableCell, WidthType, AlignmentType, Header, Footer, BorderStyle } = window.docx;
+    let isyerijson = store.get('xjsonfirma');
+    if (!isyerijson)
+    {
+        return alertify.error("İşyeri bilgisi alınamadı.");
+    }
+    try
+    {
+        isyerijson = JSON.parse(isyerijson);
+    }
+    catch
+    {
+        return alertify.error("İşyeri JSON verisi geçersiz.");
+    }
+    const isveren = isyerijson.is || "";
+    const adsoyad = (button.getAttribute("data-ad") || "").trim();
+    const unvan = (button.getAttribute("data-un") || "").trim();
+    const uzmanad = store.get("uzmanad") || "";
+    const talimatlarHam = [$('#HiddenField2').val(), $('#HiddenField3').val(), $('#HiddenField4').val()];
+    const sections = [];
+    const altbilgi = new Table({
+        rows:
+        [
+                new TableRow({ children: [new TableCell({ children: [new Paragraph({ children: [new TextRun({ text: uzmanad, font: "Calibri", size: 22, bold: true })], alignment: AlignmentType.CENTER })], verticalAlign: "center", width: { size: 31, type: WidthType.PERCENTAGE }, borders: { top: { style: BorderStyle.NONE, size: 0, color: "FFFFFF" }, bottom: { style: BorderStyle.NONE, size: 0, color: "FFFFFF" }, left: { style: BorderStyle.NONE, size: 0, color: "FFFFFF" }, right: { style: BorderStyle.NONE, size: 0, color: "FFFFFF" } } }), new TableCell({ children: [new Paragraph({ children: [new TextRun({ text: isveren, font: "Calibri", size: 22, bold: true })], alignment: AlignmentType.CENTER })], verticalAlign: "center", width: { size: 31, type: WidthType.PERCENTAGE }, borders: { top: { style: BorderStyle.NONE, size: 0, color: "FFFFFF" }, bottom: { style: BorderStyle.NONE, size: 0, color: "FFFFFF" }, left: { style: BorderStyle.NONE, size: 0, color: "FFFFFF" }, right: { style: BorderStyle.NONE, size: 0, color: "FFFFFF" } } }), new TableCell({ children: [new Paragraph({ children: [new TextRun({ text: adsoyad, font: "Calibri", size: 22, bold: true })], alignment: AlignmentType.CENTER })], verticalAlign: "center", width: { size: 38, type: WidthType.PERCENTAGE }, borders: { top: { style: BorderStyle.NONE, size: 0, color: "FFFFFF" }, bottom: { style: BorderStyle.NONE, size: 0, color: "FFFFFF" }, left: { style: BorderStyle.NONE, size: 0, color: "FFFFFF" }, right: { style: BorderStyle.NONE, size: 0, color: "FFFFFF" } } })] }),
+                new TableRow({ children: [new TableCell({ children: [new Paragraph({ children: [new TextRun({ text: "İş Güvenliği Uzmanı", font: "Calibri", size: 22 })], alignment: AlignmentType.CENTER })], verticalAlign: "center", borders: { top: { style: BorderStyle.NONE, size: 0, color: "FFFFFF" }, bottom: { style: BorderStyle.NONE, size: 0, color: "FFFFFF" }, left: { style: BorderStyle.NONE, size: 0, color: "FFFFFF" }, right: { style: BorderStyle.NONE, size: 0, color: "FFFFFF" } } }), new TableCell({ children: [new Paragraph({ children: [new TextRun({ text: "İşveren Vekili", font: "Calibri", size: 22 })], alignment: AlignmentType.CENTER })], verticalAlign: "center", borders: { top: { style: BorderStyle.NONE, size: 0, color: "FFFFFF" }, bottom: { style: BorderStyle.NONE, size: 0, color: "FFFFFF" }, left: { style: BorderStyle.NONE, size: 0, color: "FFFFFF" }, right: { style: BorderStyle.NONE, size: 0, color: "FFFFFF" } } }), new TableCell({ children: [new Paragraph({ children: [new TextRun({ text: unvan, font: "Calibri", size: 22})], alignment: AlignmentType.CENTER })], verticalAlign: "center", borders: { top: { style: BorderStyle.NONE, size: 0, color: "FFFFFF" }, bottom: { style: BorderStyle.NONE, size: 0, color: "FFFFFF" }, left: { style: BorderStyle.NONE, size: 0, color: "FFFFFF" }, right: { style: BorderStyle.NONE, size: 0, color: "FFFFFF" } } })] }),
+                new TableRow({ children: [new TableCell({ children: [new Paragraph({ children: [new TextRun({ text: "İmza", font: "Calibri", size: 22 })], alignment: AlignmentType.CENTER })], verticalAlign: "center", borders: { top: { style: BorderStyle.NONE, size: 0, color: "FFFFFF" }, bottom: { style: BorderStyle.NONE, size: 0, color: "FFFFFF" }, left: { style: BorderStyle.NONE, size: 0, color: "FFFFFF" }, right: { style: BorderStyle.NONE, size: 0, color: "FFFFFF" } } }), new TableCell({ children: [new Paragraph({ children: [new TextRun({ text: "İmza", font: "Calibri", size: 22 })], alignment: AlignmentType.CENTER })], verticalAlign: "center", borders: { top: { style: BorderStyle.NONE, size: 0, color: "FFFFFF" }, bottom: { style: BorderStyle.NONE, size: 0, color: "FFFFFF" }, left: { style: BorderStyle.NONE, size: 0, color: "FFFFFF" }, right: { style: BorderStyle.NONE, size: 0, color: "FFFFFF" } } }), new TableCell({ children: [new Paragraph({ children: [new TextRun({ text: "İmza", font: "Calibri", size: 22})], alignment: AlignmentType.CENTER })], verticalAlign: "center", borders: { top: { style: BorderStyle.NONE, size: 0, color: "FFFFFF" }, bottom: { style: BorderStyle.NONE, size: 0, color: "FFFFFF" }, left: { style: BorderStyle.NONE, size: 0, color: "FFFFFF" }, right: { style: BorderStyle.NONE, size: 0, color: "FFFFFF" } } })] }),
+        ],
+        width: { size: 100, type: WidthType.PERCENTAGE },
+        alignment: AlignmentType.CENTER
+    });
+    for (let i = 0; i < talimatlarHam.length; i++)
+    {
+        let t = talimatlarHam[i];
+        if (!t || t === "Yok") continue;
+        let icerik;
+        try
+        {
+            icerik = JSON.parse(t);
+        }
+        catch
+        {
+            continue;
+        }
+        const baslik = Object.keys(icerik)[0];
+        const paragraflar = (icerik[baslik] || []).map(p => p.i);
+        const headerTable=new Table({rows:[new TableRow({children:[new TableCell({children:[new Paragraph({children:[new TextRun({text:baslik,bold:true,font:"Calibri",size:24})],alignment:AlignmentType.CENTER})],verticalAlign:"center"})]})],width:{size:100,type:WidthType.PERCENTAGE},alignment:AlignmentType.CENTER});
+        sections.push
+        ({
+            properties:{page:{margin:{top:1134,bottom:1417,left:851,right:851,header:567,footer:1134}}},
+            headers: { default: new Header({ children: [headerTable] })},
+            footers: { default: new Footer({ children: [altbilgi] }) },
+            children:[...paragraflar.map(text=>new Paragraph({children:[new TextRun({text,font:"Calibri",size:22})],alignment:AlignmentType.JUSTIFIED,spacing:{after:100}})),]
+        });
+    }
+    if (sections.length === 0) return alertify.error("Hiçbir talimat içeriği alınamadı.");
+    const doc = new Document({ sections });
+    const blob = await Packer.toBlob(doc);
+    saveAs(blob, `${adsoyad} İSG Talimat.docx`);
+}
