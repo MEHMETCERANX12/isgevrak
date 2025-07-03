@@ -109,9 +109,6 @@ html{background-color: #ECF0F1;}
 .cssdropdown20{width: 20%;}
 .cssdropdown10{width: 10%;}
 .cssdropdown7{width: 7%;}
-.cssbutontamam, .cssbutonvazgec{height: 2vw;width: 6vw;font-size: 1vw;border-radius: 0.5vw;border: 0.1vw solid black;cursor: pointer;font-family: Calibri;}
-.cssbutontamam:hover{background-color: teal;color: white;}
-.cssbutonvazgec:hover{background-color: brown;color: white;}
 .cssdivortala{display: flex;justify-content: center;align-items: center;}
 .paddingleft0_5{padding-left: 0.5vw;}
 .cssmargin30{position:relative;margin-left: 30%;margin-right: 30%;}
@@ -231,3 +228,6 @@ input[type="checkbox"]{width: 1.3vw;height: 1.3vw;}
 #duyurusecimanasayfa select:focus{border-color:#3a8ee6;outline:none;box-shadow:0 0 6px #3a8ee6;}  
 #duyuruaciklamakutu{width:100%;border:1px solid #ccc;background:#f9f9f9;border-radius:6px;color:#333;display:none;font-family:Calibri;font-size:1vw;padding:1vw;margin-top:10px;box-sizing:border-box;text-align:justify;}
 .alertify-notifier .ajs-message{font-family: Calibri, sans-serif !important;font-size: 1vw !important;}
+.cssbutontamam{min-width:6vw;padding:0 0.8vw;font-size:1vw;border-radius:0.5vw;border:0.1vw solid #1a1a1a;cursor:pointer;font-family:'Calibri',sans-serif;white-space:nowrap;box-sizing:border-box;height:2vw;transition:all .3s ease;background:#fff;color:#1a1a1a;}
+.cssbutontamam:hover{background:#008080;color:#fff;transform:translateY(-2px);box-shadow:0 4px 6px rgba(0,0,0,.1);}
+.cssbutontamam:active{transform:translateY(0);box-shadow:none;}
