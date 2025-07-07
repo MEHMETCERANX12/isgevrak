@@ -1036,3 +1036,176 @@ async function talimatyazdirword(button)
     const blob = await Packer.toBlob(doc);
     saveAs(blob, `${adsoyad} İSG Talimat.docx`);
 }
+
+async function wordkapakyaz()
+{
+    let acildurumkonusecim = store.get("acildurumkonusecim");
+    let uzmanad = store.get("uzmanad");
+    let uzmanno = store.get("uzmanno");
+    let isyeri = store.get('xjsonfirma');
+    isyeri = JSON.parse(isyeri);
+    var tehlikesinifimap = { 1: "Az Tehlikeli", 2: "Tehlikeli", 3: "Çok Tehlikeli"};
+    let tehlikesinifi = tehlikesinifimap[isyeri.ts];
+    let tehlikeno = isyeri.ts;
+    let acildurumtarih = store.get("acildurumtarih");
+    let acildurumyil = acildurumtarih.split('.')[2];
+    let gecerlitarih = acildurumgecerlilik(acildurumtarih, tehlikeno);
+    let isyeriismi = isyeri.fi;
+    let isyeriadresi = isyeri.ad;
+    let isyerisehir = isyeri.sh;
+    let isveren = isyeri.is;
+    let hekimad = isyeri.hk;
+    let hekimno = isyeri.hn;
+    let kapaksecim = parseInt($('#kapaksecim').val());
+    let isyeribaslik = isyeribaslikayar(kapaksecim, isyeriismi);
+    let ustbaslik = "";
+    let altbaslik = "";
+    if (isyeribaslik)
+    {
+        ustbaslik = isyeribaslik.ustbaslik.toLocaleUpperCase("tr-TR");
+        altbaslik = isyeribaslik.altbaslik.toLocaleLowerCase('tr-TR').split(' ').map(w => w.charAt(0).toLocaleUpperCase('tr-TR') + w.slice(1)).join(' ');
+    }
+    const { Document, Packer, TextRun, Paragraph, BorderStyle, PageBreak, AlignmentType } = docx; 
+    const girisparagraflar =
+        [
+            new Paragraph({ children: [new TextRun({ text: "ACİL DURUM PLANI", bold: true, size: 24, font: "Calibri" })], spacing: { before: 0, after: 100 }, alignment: "center" }),
+            new Paragraph({ children: [new TextRun({ text: "İşyeri Unvanı", bold: true, size: 22, font: "Calibri" })], spacing: { before: 100, after: 100 }, alignment: "left" }),
+            new Paragraph({ children: [new TextRun({ text: isyeriismi, size: 22, font: "Calibri" })], spacing: { before: 100, after: 100 }, alignment: "left" }),
+            new Paragraph({ children: [new TextRun({ text: "İşyeri Adresi", bold: true, size: 22, font: "Calibri" })], spacing: { before: 100, after: 100 }, alignment: "left" }),
+            new Paragraph({ children: [new TextRun({ text: isyeriadresi, size: 22, font: "Calibri" })], spacing: { before: 100, after: 100 }, alignment: "left" }),
+            new Paragraph({ children: [new TextRun({ text: "İşveren Vekili Adı Soyadı", bold: true, size: 22, font: "Calibri" })], spacing: { before: 100, after: 100 }, alignment: "left" }),
+            new Paragraph({ children: [new TextRun({ text: isveren, size: 22, font: "Calibri" })], spacing: { before: 100, after: 100 }, alignment: "left" }),
+            new Paragraph({ children: [new TextRun({ text: "Acil Durum Plan Tarihi", bold: true, size: 22, font: "Calibri" })], spacing: { before: 100, after: 100 }, alignment: "left" }),
+            new Paragraph({ children: [new TextRun({ text: acildurumtarih, bold: false, size: 22, font: "Calibri" })], spacing: { before: 100, after: 100 }, alignment: "left" }),
+            new Paragraph({ children: [new TextRun({ text: "Acil Durum Planı Son Geçerlilik Tarihi", bold: true, size: 22, font: "Calibri" })], spacing: { before: 100, after: 100 }, alignment: "left" }),
+            new Paragraph({ children: [new TextRun({ text: gecerlitarih, size: 22, font: "Calibri" })], spacing: { before: 100, after: 100 }, alignment: "left" }),
+            new Paragraph({ children: [new TextRun({ text: "Acil Eylem Planı Revizyon Tarihi – Revizyon No", bold: true, size: 22, font: "Calibri" })], spacing: { before: 100, after: 100 }, alignment: "left" }),
+            new Paragraph({ children: [new TextRun({ text: "01.10.2024-3", size: 22, font: "Calibri" })], spacing: { before: 100, after: 100 }, alignment: "left" }),
+            new Paragraph({ children: [new TextRun({ text: "Hazırlayan Adı Soyadı - Unvanı", bold: true, size: 22, font: "Calibri" })], spacing: { before: 100, after: 100 }, alignment: "left" }),
+            new Paragraph({ children: [new TextRun({ text: uzmanad + " - İş Güvenliği Uzmanı / " + hekimad + " İşyeri Hekimi", bold: false, size: 22, font: "Calibri" })], spacing: { before: 100, after: 100 }, alignment: "left" }),
+            new Paragraph({ children: [new TextRun({ text: "Tehlike Sınıfı", bold: true, size: 22, font: "Calibri" })], spacing: { before: 100, after: 100 }, alignment: "left" }),
+            new Paragraph({ children: [new TextRun({ text: tehlikesinifi, size: 22, font: "Calibri" })], spacing: { before: 100, after: 100 }, alignment: "left" }),
+            new Paragraph({ children: [new TextRun({ text: "Çalışan Sayısı", bold: true, size: 22, font: "Calibri" })], spacing: { before: 100, after: 100 }, alignment: "left" }),
+            new Paragraph({ children: [new TextRun({ text: $("#calisansayi").val(), size: 22, font: "Calibri" })], spacing: { before: 100, after: 100 }, alignment: "left" }),
+            new Paragraph({ children: [new TextRun({ text: "İşyeri İletişim Bilgileri", bold: true, size: 22, font: "Calibri" })], spacing: { before: 100, after: 100 }, alignment: "left" }),
+            new Paragraph({ children: [new TextRun({ text: $("#isyeriiletisim").val(), size: 22, font: "Calibri" })], spacing: { before: 100, after: 100 }, alignment: "left" }),
+            ...Array(3).fill().map(() => new Paragraph({ text: "" })),
+            new Paragraph({ children: [new PageBreak()] }),
+            new Paragraph({ children: [new TextRun({ text: "\tTANIMLAR", bold: true, size: 24, font: "Calibri" })], spacing: { before: 0, after: 100 }, alignment: "left" }),
+            new Paragraph({ children: [new TextRun({ text: "\tAcil durum:", bold: true, font: "Calibri", size: 22 }), new TextRun({ text: " İşyerinin tamamında veya bir kısmında meydana gelebilecek veya işyerini dışarıdan etkileyebilecek yangın, patlama, tehlikeli kimyasal maddelerden kaynaklanan yayılım, zehirlenme, salgın hastalık, radyoaktif sızıntı, sabotaj ve doğal afet gibi ivedilikle müdahale gerektiren olayları ifade eder.", font: "Calibri", size: 22 })], alignment: AlignmentType.JUSTIFIED, spacing: { after: 100 } }),
+            new Paragraph({ children: [new TextRun({ text: "\tAcil durum planı:", bold: true, font: "Calibri", size: 22 }), new TextRun({ text: " İşyerlerinde meydana gelebilecek acil durumlarda yapılacak iş ve işlemler ile uygulamaya yönelik eylemlerin yer aldığı planı ifade eder.", font: "Calibri", size: 22 })], alignment: AlignmentType.JUSTIFIED, spacing: { after: 100 } }),
+            new Paragraph({ children: [new TextRun({ text: "\tToplanma yeri:", bold: true, font: "Calibri", size: 22 }), new TextRun({ text: " Acil durumların olumsuz sonuçlarından çalışanların etkilenmeyeceği mesafede veya korunakta belirlenmiş güvenli yeri ifade eder.", font: "Calibri", size: 22 })], alignment: AlignmentType.JUSTIFIED, spacing: { after: 100 } }),
+            new Paragraph({ children: [new TextRun({ text: "\tAcil Çağrı:", bold: true, font: "Calibri", size: 22 }), new TextRun({ text: " Acil durumlarda, etkilenen veya etkilenenleri gören kişi ya da acil durum algılayıcı cihazlar tarafından, telefon, telsiz, kısa mesaj, otomatik mesaj, sosyal medya, internet ve diğer iletişim araçları ile acil çağrı merkezlerine yapılan başvuruyu ifade eder.", font: "Calibri", size: 22 })], alignment: AlignmentType.JUSTIFIED, spacing: { after: 100 } }),
+            new Paragraph({ children: [new TextRun({ text: "\tAcil Çağrı Merkezi (112):", bold: true, font: "Calibri", size: 22 }), new TextRun({ text: " Kullanıcıların veya acil durum algılayıcı cihazların acil yardım talebinde bulunmak amacıyla acil yardım çağrı hizmeti numaralarına doğru yapacakları çağrılara cevap vermekle yetkili kurum veya kuruluşu ifade eder. Bu kapsamda, yasal düzenlemeye göre ülkemizde 112 acil çağrı merkezini ifade eder.", font: "Calibri", size: 22 })], alignment: AlignmentType.JUSTIFIED, spacing: { after: 100 } }),
+            new Paragraph({ children: [new TextRun({ text: "\tAcil Çıkış:", bold: true, font: "Calibri", size: 22 }), new TextRun({ text: " Tehlike anında kapalı mekândaki insanların süratle ve güvenli bir şekilde tahliye edilmesine imkân verecek yolu ve dışarıya doğru açılan kapıyı ifade eder.", font: "Calibri", size: 22 })], alignment: AlignmentType.JUSTIFIED, spacing: { after: 100 } }),
+            new Paragraph({ children: [new TextRun({ text: "\tAFAD:", bold: true, font: "Calibri", size: 22 }), new TextRun({ text: " Afet ve Acil Durum Yönetimi Başkanlığını ifade eder.", font: "Calibri", size: 22 })], alignment: AlignmentType.JUSTIFIED, spacing: { after: 100 } }),
+            new Paragraph({ children: [new TextRun({ text: "\tAcil Durum Risk Seviyesi:", bold: true, font: "Calibri", size: 22 }), new TextRun({ text: " Acil durumun yol açtığı ve acil duruma bağlı nedenlerle oluşabilecek can kayıpları, yaralanma ve sakat kalmalar, yapı ve altyapı hasarları gibi fiziksel hasarlarla ekonomik, sosyal ve psikolojik kayıpların tümünü ifade eder.", font: "Calibri", size: 22 })], alignment: AlignmentType.JUSTIFIED, spacing: { after: 100 } }),
+            new Paragraph({ children: [new TextRun({ text: "\tBoğulma:", bold: true, font: "Calibri", size: 22 }), new TextRun({ text: " Sel, deniz, göl, kuyu, sıvı birikintisi oluşabilecek çukurlar vb. alanlarda nefes borusuna sıvı dolması, suda nefessiz kalma, tank vb. kapalı alanlarda gazla zehirlenme, yangın anında oluşan karbon monoksit nedeniyle vücuttaki dokulara yeterli oksijen gitmemesi sonucu dokularda bozulma meydana gelmesi durumunu ifade eder.", font: "Calibri", size: 22 })], alignment: AlignmentType.JUSTIFIED, spacing: { after: 100 } }),
+        ];
+        if (acildurumkonusecim.yangin === 1)
+        {
+            girisparagraflar.push(new Paragraph({ children: [new TextRun({ text: "\tYangın:", bold: true, font: "Calibri", size: 22 }), new TextRun({ text: " Maddenin yeterli derecede ısı ve oksijen (hava) ile birleşmesi sonucunda yanarak kimyasal şekil değişliğine uğraması olayını ifade eder. Yangının oluşabilmesi için yanıcı madde, yüksek ısı ve oksijene ihtiyaç vardır. Kontrolsüz veya kontrol edilemeyen şekilde açığa çıkan, yakıcı etkisiyle madde ve eşyaları kullanılmaz hâle getiren, boğucu etkisiyle canlıların yaşamına son veren tehlikedir.", font: "Calibri", size: 22 })], alignment: AlignmentType.JUSTIFIED, spacing: { after: 100 } }),);
+        }
+        if (acildurumkonusecim.deprem === 1)
+        {
+            girisparagraflar.push(new Paragraph({ children: [new TextRun({ text: "\tDeprem:", bold: true, font: "Calibri", size: 22 }), new TextRun({ text: " Tektonik kuvvetlerin veya volkan faaliyetlerinin etkisiyle yer kabuğunun kırılması sonucunda ortaya çıkan enerjinin sismik dalgalar hâlinde yayılarak geçtikleri ortamları ve yeryüzünü kuvvetle sarsması olayını ifade eder.", font: "Calibri", size: 22 })], alignment: AlignmentType.JUSTIFIED, spacing: { after: 100 } }),);
+        }
+        if (acildurumkonusecim.sel === 1)
+        {
+            girisparagraflar.push(new Paragraph({ children: [new TextRun({ text: "\tSel:", bold: true, font: "Calibri", size: 22 }), new TextRun({ text: " Suların bulunduğu yerde yükselerek veya başka bir yerden gelerek, genellikle kuru olan yüzeyleri kaplaması olayı.", font: "Calibri", size: 22 })], alignment: AlignmentType.JUSTIFIED, spacing: { after: 100 } }),);
+        }
+        if (acildurumkonusecim.sabotaj === 1)
+        {
+            girisparagraflar.push(new Paragraph({ children: [new TextRun({ text: "\tSabotaj:", bold: true, font: "Calibri", size: 22 }), new TextRun({ text: " İşyeri veya çalışanlarını hedef alan ve idari yapının tamamen veya geçici bir süre için faaliyet dışı kalmasını sağlamak amacıyla tahribine yönelik saldırgan bir yıkıcı faaliyet şeklini ifade eder.", font: "Calibri", size: 22 })], alignment: AlignmentType.JUSTIFIED, spacing: { after: 100 } }),);
+            girisparagraflar.push(new Paragraph({ children: [new TextRun({ text: "\tGasp:", bold: true, font: "Calibri", size: 22 }), new TextRun({ text: " Başkasının zilyetliğindeki taşınabilir bir malı, zilyedinin rızası olmaksızın, faydalanmak amacıyla, cebir veya tehdit kullanarak bulunduğu yerden almayı ifade eder.", font: "Calibri", size: 22 })], alignment: AlignmentType.JUSTIFIED, spacing: { after: 100 } }),);
+            girisparagraflar.push(new Paragraph({ children: [new TextRun({ text: "\tKaçırılma:", bold: true, font: "Calibri", size: 22 }), new TextRun({ text: " Kişiyi hürriyetinden yoksun bırakmak amacıyla bir kişiyi hukuka aykırı yollarla, iradesi dışında, bir yere götürmek veya bir yerde bulundurmayı, alıkoymayı ifade eder.", font: "Calibri", size: 22 })], alignment: AlignmentType.JUSTIFIED, spacing: { after: 100 } }),);
+        }
+        if (acildurumkonusecim.elektrik === 1)
+        {
+            girisparagraflar.push(new Paragraph({ children: [new TextRun({ text: "\tElektrik:", bold: true, font: "Calibri", size: 22 }), new TextRun({ text: " Elektrik tesisatında veya elektrikli ekipmanlardan kaynaklanan hata akımı, yanlış müdahale/temas veya atlama sonucunda insanda oluşturduğu olumsuz etkiyi ifade eder. Alternatif akımda 50 Volt ve üzeri, doğru akımda ise 120 volt üzeri elektrik çarpması tehlikeli olarak kabul edilir.", font: "Calibri", size: 22 })], alignment: AlignmentType.JUSTIFIED, spacing: { after: 100 } }),);
+        }
+        if (acildurumkonusecim.salgin === 1)
+        {
+            girisparagraflar.push(new Paragraph({ children: [new TextRun({ text: "\tSalgın Hastalık:", bold: true, font: "Calibri", size: 22 }), new TextRun({ text: " Belirli bir alanda, belirli bir grup insan arasında, belirli bir süre boyunca bir biyolojik risk etmeninden kaynaklanan hastalığın bireylerde beklenenden daha fazla görülmesi, anormal miktarda artması durumu ve bulaşmasını ifade eder. Covid-19 bu hastalığa örnek gösterilebilir. Bir hastalığın beklenen görülme sıklığı ve salgın hastalık olup olmadığı Dünya Sağlık Örgütü ve T.C. Sağlık Bakanlığı tarafından belirlenir.", font: "Calibri", size: 22 })], alignment: AlignmentType.JUSTIFIED, spacing: { after: 100 } }),);
+            girisparagraflar.push(new Paragraph({ children: [new TextRun({ text: "\tBiyolojik Kaynaklı Yayılım/Sızıntı:", bold: true, font: "Calibri", size: 22 }), new TextRun({ text: " Biyolojik etkenle doğrudan çalışılan veya biyolojik etkenin kullanıldığı bir işyerinden biyolojik risk etmeninin sızıntısını ifade eder.", font: "Calibri", size: 22 })], alignment: AlignmentType.JUSTIFIED, spacing: { after: 100 } }),);
+        }
+        if (acildurumkonusecim.iskaza === 1)
+        {
+            girisparagraflar.push(new Paragraph({ children: [new TextRun({ text: "\tİş Kazası:", bold: true, font: "Calibri", size: 22 }), new TextRun({ text: " İşyerinde veya işin yürütümü nedeniyle meydana gelen, ölüme sebebiyet veren veya vücut bütünlüğünü ruhen ya da bedenen engelli hâle getiren olayı ifade eder.", font: "Calibri", size: 22 })], alignment: AlignmentType.JUSTIFIED, spacing: { after: 100 } }),);
+        }
+        if (acildurumkonusecim.gida === 1)
+        {
+            girisparagraflar.push(new Paragraph({ children: [new TextRun({ text: "\t Zehirlenme", bold: true, font: "Calibri", size: 22 }), new TextRun({ text: " Az miktarlarda solunduğunda, ağız yoluyla alındığında, deri yoluyla emildiğinde insan sağlığı üzerinde akut veya kronik hasarlar meydana getiren olayı ifade eder.", font: "Calibri", size: 22 })], alignment: AlignmentType.JUSTIFIED, spacing: { after: 100 } }),);
+        }
+        if (acildurumkonusecim.yildirim === 1)
+        {
+            girisparagraflar.push(new Paragraph({ children: [new TextRun({ text: "\tYıldırım Düşmesi:", bold: true, font: "Calibri", size: 22 }), new TextRun({ text: " Yeryüzü ile bulutlar arasında meydana gelen elektrik boşalması sonucunda oluşan yıldırımın, işyerine veya bir canlıya isabet etmesini ifade eder.", font: "Calibri", size: 22 })], alignment: AlignmentType.JUSTIFIED, spacing: { after: 100 } }),);
+        }
+        if (acildurumkonusecim.basiclikap === 1)
+        {
+            girisparagraflar.push(new Paragraph({ children: [new TextRun({ text: "\tBasınçlı Kap Patlaması:", bold: true, font: "Calibri", size: 22 }), new TextRun({ text: " Kaynaklı, 0,5 bar’dan daha yüksek iç basınca tabi tutulması amaçlanan bir kabın, içinde bulunan gazın azami basınç seviyesinin üzerine çıkarak aniden, kontrolsüz bir biçimde boşalması ve metal aksamın parçalanarak hızlı bir şekilde etrafa yayılmasıdır.", font: "Calibri", size: 22 })], alignment: AlignmentType.JUSTIFIED, spacing: { after: 100 } }),);
+        }
+        if (acildurumkonusecim.kmaruziyet === 1)
+        {
+            girisparagraflar.push(new Paragraph({ children: [new TextRun({ text: "\tKimyasal Maruziyet:", bold: true, font: "Calibri", size: 22 }), new TextRun({ text: " Belirli bir referans sürede çalışanların solunum bölgesindeki havada bulunan kimyasal madde konsantrasyonunun zaman ağırlıklı ortalamasının üst sınırını (STEL) veya çalışma süresinin herhangi bir anında çalışanların solunum bölgesindeki havada bulunan kimyasal madde konsantrasyonunun aşılmaması gereken üst sınırın aşılması sonucu oluşabilecek AKUT zehirlenme", font: "Calibri", size: 22 })], alignment: AlignmentType.JUSTIFIED, spacing: { after: 100 } }),);
+        }
+        if (acildurumkonusecim.ksizinti === 1)
+        {
+            girisparagraflar.push(new Paragraph({ children: [new TextRun({ text: "\tKimyasal Sızıntı:", bold: true, font: "Calibri", size: 22 }), new TextRun({ text: " Canlılar üzerinde tahriş edici, yakıcı, felç edici veya öldürücü etkileri olan, deri, solunum veya sindirim sistemi yoluyla bünyeye girebilen gaz, sıvı ya da katı şekildeki toksik kimyasal maddelerin kasten veya kazaen çevreye yayılmasına neden olabilecek her türlü olayı ifade eder.", font: "Calibri", size: 22 })], alignment: AlignmentType.JUSTIFIED, spacing: { after: 100 } }),);
+        }
+        if (acildurumkonusecim.patlama === 1)
+        {
+            girisparagraflar.push(new Paragraph({ children: [new TextRun({ text: "\tPatlayıcı Ortam:", bold: true, font: "Calibri", size: 22 }), new TextRun({ text: " Yanıcı maddelerin gaz, buhar, sis ve tozlarının atmosferik şartlar altında hava ile oluşturduğu ve herhangi bir tutuşturucu kaynakla temasında tümüyle yanabilen karışımı ifade eder.", font: "Calibri", size: 22 })], alignment: AlignmentType.JUSTIFIED, spacing: { after: 100 } }),);
+        }
+        if (acildurumkonusecim.bakimonarim === 1)
+        {
+            girisparagraflar.push(new Paragraph({ children: [new TextRun({ text: "\tBakım Onarım:", bold: true, font: "Calibri", size: 22 }), new TextRun({ text: " İşyeri iş akışında planlı/periyodik bakım işleri ile beklenmedik bir şekilde oluşan arızların ivedilikle yapılması için gerekli her türlü müdahaleyi ifade eder.", font: "Calibri", size: 22 })], alignment: AlignmentType.JUSTIFIED, spacing: { after: 100 } }),);
+        }
+        if (acildurumkonusecim.hayvansokma === 1)
+        {
+            girisparagraflar.push(new Paragraph({ children: [new TextRun({ text: "\tHayvan Sokması/Isırması:", bold: true, font: "Calibri", size: 22 }), new TextRun({ text: " Çalışma alanında veya çevresinde bulunan arı, akrep, yılan, böcek, köpek gibi hayvanların sokması, ısırması veya saldırması sonucu çalışanlarda meydana gelen zehirlenme, alerjik reaksiyon, yara, enfeksiyon gibi sağlık sorunlarını ifade eder.", font: "Calibri", size: 22 })], alignment: AlignmentType.JUSTIFIED, spacing: { after: 100 } }),);
+        }        
+        girisparagraflar.push(new Paragraph({ children: [new TextRun({ text: "\tAMAÇ", bold: true, size: 24, font: "Calibri" })], spacing: { before: 0, after: 100 }, alignment: "left" }));
+        girisparagraflar.push(new Paragraph({ children: [new TextRun({ text: "\tİşyerinde yürütülen çalışma sırasında, olağan dışı olayların sonuçlarından en az kayıp ve zararla kurtulabilmesi için yapılması gereken iş ve işlemlerin, olaylar olmadan önce planlaması ve olay sırasında; uygulanmasını gerektiren tüm faaliyetler zamanında, hızlı ve etkili bir şekilde uygulanmasını amaçlamaktadır.", size: 22, font: "Calibri" })], spacing: { before: 100, after: 100 }, alignment: AlignmentType.JUSTIFIED }));
+        girisparagraflar.push(new Paragraph({ children: [new TextRun({ text: "\tDAYANAK", bold: true, size: 24, font: "Calibri" })], spacing: { before: 0, after: 100 }, alignment: "left" }));
+        girisparagraflar.push(new Paragraph({ children: [new TextRun({ text: "\tBu plan, İş sağlığı ve güvenliği kanunu 11,12 ve 30. maddeleri ile 18.06.2013 tarihli “İşyerlerinde Acil Durumlar Hakkında Yönetmelik” ve yine aynı yönetmeliğin 01.10.2021 tarihinde yapılan değişikliklere göre hazırlanmıştır.", size: 22, font: "Calibri" })], spacing: { before: 100, after: 100 }, alignment: AlignmentType.JUSTIFIED }));
+        girisparagraflar.push(new Paragraph({ children: [new TextRun({ text: "\tACİL DURUM EKİPLERİ GÖREV TANIMLARI", bold: true, size: 24, font: "Calibri" })], spacing: { before: 0, after: 100 }, alignment: "left" }));
+        girisparagraflar.push(new Paragraph({ children: [new TextRun({ text: "\tSöndürme ekibi:", bold: true, font: "Calibri", size: 22 }), new TextRun({ text: " İşyerinde çıkabilecek yangınlara derhal müdahale ederek mümkünse yangını kontrol altına almak, yangının genişlemesine mani olmak ve söndürme faaliyetlerini yürütmek.", font: "Calibri", size: 22 })], alignment: AlignmentType.JUSTIFIED, spacing: { after: 100 } }),);
+        girisparagraflar.push(new Paragraph({ children: [new TextRun({ text: "\tKurtarma ekibi:", bold: true, font: "Calibri", size: 22 }), new TextRun({ text: " İşyerlerinde acil durum sonrası; çalışanların, ziyaretçilerin ve diğer kişilerin arama ve kurtarma işlerini gerçekleştirmek.", font: "Calibri", size: 22 })], alignment: AlignmentType.JUSTIFIED, spacing: { after: 100 } }),);
+        girisparagraflar.push(new Paragraph({ children: [new TextRun({ text: "\tKoruma ekibi:", bold: true, font: "Calibri", size: 22 }), new TextRun({ text: " Acil durum nedeniyle ortaya çıkması muhtemel panik ve kargaşayı önlemek, acil durum ekipleri arasındaki koordinasyon işlerini gerçekleştirmek, sayım işlerini yürütmek, gerektiğinde ilgili ulusal ve yerel kurumların müdahale ekiplerine bilgi vermek.", font: "Calibri", size: 22 })], alignment: AlignmentType.JUSTIFIED, spacing: { after: 100 } }),);
+        girisparagraflar.push(new Paragraph({ children: [new TextRun({ text: "\tİlkyardım ekibi:", bold: true, font: "Calibri", size: 22 }), new TextRun({ text: " Acil durumdan olumsuz etkilenen kişilerin ilk yardım müdahalelerini gerçekleştirmek.", font: "Calibri", size: 22 })], alignment: AlignmentType.JUSTIFIED, spacing: { after: 100 } }),);
+        girisparagraflar.push(new Paragraph({ children: [new TextRun({ text: "\tDestek elemanı:", bold: true, font: "Calibri", size: 22 }), new TextRun({ text: " Asli görevinin yanında acil durumlara ilişkin ulusal ve yerel kurum ve kuruluşlarla irtibatı sağlamak, iş sağlığı ve güvenliği ile ilgili önleme, koruma, tahliye, yangınla mücadele, ilk yardım ve benzeri konularda özel olarak görevli olan kişidir.", font: "Calibri", size: 22 })], alignment: AlignmentType.JUSTIFIED, spacing: { after: 100 } }),);
+        girisparagraflar.push(new Paragraph({ children: [new TextRun({ text: "\tSorumluluk alanı:", bold: true, font: "Calibri", size: 22 }), new TextRun({ text: " Ekiplerde yer alan görevli kişilerin (destek elemanlarının) acil duruma ilişkin görevini gerçekleştireceği birim veya bölümü ifade eder.", font: "Calibri", size: 22 })], alignment: AlignmentType.JUSTIFIED, spacing: { after: 100 } }),);
+        girisparagraflar.push(new Paragraph({ children: [new TextRun({ text: "\tKoordinasyon:", bold: true, font: "Calibri", size: 22 }), new TextRun({ text: " Koordinasyonla görevli olan kişi, koruma ekibinde yer alıp ayrıca ekipler arasında iletişimi ve organizasyonu yapmakla da ayrıca görevlidirler.", font: "Calibri", size: 22 })], alignment: AlignmentType.JUSTIFIED, spacing: { after: 100 } }),);
+    const doc = new Document
+    ({
+        sections:
+        [
+            {
+                properties: { page: { margin: { top: 567, bottom: 567, left: 567, right: 567 }, borders: { pageBorderTop: { style: BorderStyle.SINGLE, size: 8, color: "000000" }, pageBorderBottom: { style: BorderStyle.SINGLE, size: 8, color: "000000" }, pageBorderLeft: { style: BorderStyle.SINGLE, size: 8, color: "000000" }, pageBorderRight: { style: BorderStyle.SINGLE, size: 8, color: "000000" }, pageBorders: { display: docx.PageBorderDisplay.FIRST_PAGE, offsetFrom: docx.PageBorderOffsetFrom.TEXT, zOrder: docx.PageBorderZOrder.FRONT } } } },
+                children:
+                [
+                    new Paragraph({ children: [new TextRun({ text: ustbaslik, bold: true, size: 36, font: "Tahoma" })], spacing: { before: 350, after: 200 }, alignment: "center" }),
+                    new Paragraph({ children: [new TextRun({ text: altbaslik, size: 28, font: "Tahoma" })], spacing: { before: 200, after: 100 }, alignment: "center" }),
+                    ...Array(26).fill().map(() => new Paragraph({ text: "" })),
+                    new Paragraph({ children: [new TextRun({ text: "ACİL DURUM PLANI", bold: true, size: 36, font: "Tahoma" })], alignment: "center" }),
+                    ...Array(31).fill().map(() => new Paragraph({ text: "" })),
+                    new Paragraph({ children: [new TextRun({ text: isyerisehir + " - " + acildurumyil, bold: true, size: 36, font: "Tahoma" })], alignment: "center" }),
+                ]
+            },
+            {
+                properties:{page:{margin:{top:1134,bottom:1701,left:1134,right:1134,footer: 1134}}},
+                children: [...girisparagraflar],
+                footers:
+                {
+                    default: new docx.Footer({ children: [docxucluimzadikey(uzmanad, uzmanno, hekimad, hekimno, isveren)]})
+                }
+            }
+        ],
+    });
+    const blob = await Packer.toBlob(doc);
+    saveAs(blob, "acil_durum.docx");
+}
+function docxucluimzadikey(uzman,uzmanno,hekim,hekimno,isveren){return new docx.Table({width:{size:100,type:docx.WidthType.PERCENTAGE},borders:{top:{style:docx.BorderStyle.NONE,size:0,color:"FFFFFF"},bottom:{style:docx.BorderStyle.NONE,size:0,color:"FFFFFF"},left:{style:docx.BorderStyle.NONE,size:0,color:"FFFFFF"},right:{style:docx.BorderStyle.NONE,size:0,color:"FFFFFF"},insideHorizontal:{style:docx.BorderStyle.NONE,size:0,color:"FFFFFF"},insideVertical:{style:docx.BorderStyle.NONE,size:0,color:"FFFFFF"}},rows:[new docx.TableRow({children:[new docx.TableCell({width:{size:33,type:docx.WidthType.PERCENTAGE},children:[new docx.Paragraph({alignment:docx.AlignmentType.CENTER,children:[new docx.TextRun({text:uzman,font:"Calibri",size:22,bold:!0})]})]}),new docx.TableCell({width:{size:34,type:docx.WidthType.PERCENTAGE},children:[new docx.Paragraph({alignment:docx.AlignmentType.CENTER,children:[new docx.TextRun({text:isveren,font:"Calibri",size:22,bold:!0})]})]}),new docx.TableCell({width:{size:33,type:docx.WidthType.PERCENTAGE},children:[new docx.Paragraph({alignment:docx.AlignmentType.CENTER,children:[new docx.TextRun({text:hekim,font:"Calibri",size:22,bold:!0})]})]})]}),new docx.TableRow({children:[new docx.TableCell({children:[new docx.Paragraph({alignment:docx.AlignmentType.CENTER,children:[new docx.TextRun({text:"İş Güvenliği Uzmanı",font:"Calibri",size:22})]})]}),new docx.TableCell({children:[new docx.Paragraph({alignment:docx.AlignmentType.CENTER,children:[new docx.TextRun({text:"İşveren Vekili",font:"Calibri",size:22})]})]}),new docx.TableCell({children:[new docx.Paragraph({alignment:docx.AlignmentType.CENTER,children:[new docx.TextRun({text:"İşyeri Hekimi",font:"Calibri",size:22})]})]})]}),new docx.TableRow({children:[new docx.TableCell({children:[new docx.Paragraph({alignment:docx.AlignmentType.CENTER,children:[new docx.TextRun({text:"Belge No: "+uzmanno,font:"Calibri",size:22})]})]}),new docx.TableCell({children:[new docx.Paragraph({alignment:docx.AlignmentType.CENTER,children:[new docx.TextRun({text:"",font:"Calibri",size:22})]})]}),new docx.TableCell({children:[new docx.Paragraph({alignment:docx.AlignmentType.CENTER,children:[new docx.TextRun({text:"Belge No: "+hekimno,font:"Calibri",size:22})]})]})]})]})}
+function acildurumgecerlilik(tarih, tehlike) { if (!tarih) return ""; const [g, a, y] = tarih.split(".").map(Number); if (!g || !a || !y) return ""; let e = 0; switch (tehlike) { case 1: e = 6; break; case 2: e = 4; break; case 3: e = 2; break; default: return "" }const d = new Date(y + e, a - 1, g), p = n => n.toString().padStart(2, "0"); return `${p(d.getDate())}.${p(d.getMonth() + 1)}.${d.getFullYear()}` }
+function isyeribaslikayar(a, v) { if (!v || typeof v !== "string" || v.trim().length === 0) { alert("Lütfen geçerli bir veri girin!"); return } const k = v.trim().split(" ").filter(k => k.length > 0); if (k.length === 0) { alert("Geçerli veri girin!"); return } let s = {}; switch (a) { case 1: s = { ustbaslik: k[0], altbaslik: k.slice(1).join(" ") }; break; case 2: if (k.length < 2) { alert("Script 2 için en az 2 kelime gerekli!"); return } s = { ustbaslik: k.slice(0, 2).join(" "), altbaslik: k.slice(2).join(" ") }; break; case 3: if (k.length < 3) { alert("Script 3 için en az 3 kelime gerekli!"); return } s = { ustbaslik: k.slice(0, 3).join(" "), altbaslik: k.slice(3).join(" ") }; break; default: alertify.error("Geçersiz giriş (1, 2 veya 3 olmalı)"); return }return s }
