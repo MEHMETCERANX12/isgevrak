@@ -1037,7 +1037,7 @@ async function talimatyazdirword(button)
     saveAs(blob, `${adsoyad} İSG Talimat.docx`);
 }
 
-async function wordkapakyaz()
+async function acildurumgirisyazdocx()
 {
     let acildurumkonusecim = store.get("acildurumkonusecim");
     let uzmanad = store.get("uzmanad");
