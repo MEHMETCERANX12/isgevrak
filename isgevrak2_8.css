@@ -187,7 +187,7 @@ input[type="checkbox"]{width: 1.3vw;height: 1.3vw;}
 .csssolsagbosluk10{margin-left: 10%;margin-right: 10%;}
 .csssolsagbosluk5{margin-left: 5%;margin-right: 5%;}
 .gridtablo thead tr{color: white; text-align:center;}
-.gridtablo td{border: 0.1mm solid #d5d8dc;}
+.gridtablo td{border: 0.1mm solid #d5d8dc;padding-left: 0.4vw;padding-right: 0.4vw;}
 .gridtablo thead th{background-color: #34495e;border: 0.1mm solid #5d6169;height:2vw;}
 .gridtablo{border-collapse: collapse;border-spacing: 0;text-align: center;}
 .gridtablo tr{border: 0 none;}
