@@ -1260,3 +1260,77 @@ async function acildurumkonusecimdocx()
 
 function acildurumkonuliste(){const a={yangin:"Yangın",deprem:"Deprem",sel:"Sel",sabotaj:"Sabotaj",iskaza:"İş Kazası",elektrik:"Elektrik Çarpması",salgin:"Salgın Hastalık (Covid - 19 vb.)",gida:"Gıda Zehirlenmesi",yildirim:"Yıldırım Düşmesi",basiclikap:"Basınçlı Kap Patlaması",kmaruziyet:"Kimyasal Maruziyet",ksizinti:"Kimyasal Sızıntı",patlama:"Patlayıcı Ortam",bakimonarim:"Bakım Onarım",hayvansokma:"Hayvan Sokması Isırması"},b=store.get("acildurumkonusecim");if(!b)return[];const c=[];$.each(b,function(d,e){e==1&&a[d]&&c.push({ad:a[d]})});return c}
 
+async function acildurumisyeririsk()
+{
+    const liste = [];
+    $('table.gridtablo tbody tr').each(function ()
+    {
+        const unvan = $(this).find('input[name="isyeriunvani"]').val()?.trim();
+        const faaliyet = $(this).find('input[name="faaliyetkonu"]').val()?.trim();
+        const select = $(this).find('select[name="riskseviyesi"]');
+        const riskval = select.val();
+        const risktext = select.find('option:selected').text().trim();
+        if (!riskval || riskval === "0") return;
+        liste.push({isyeri: unvan || '', faaliyet: faaliyet || '', risk: risktext});
+    });
+    if (liste.length === 0)
+    {
+        for (let i = 0; i < 3; i++)
+        {
+            liste.push({ isyeri: '', faaliyet: '', risk: '' });
+        }
+    }
+    let uzmanad = store.get("uzmanad");
+    let uzmanno = store.get("uzmanno");
+    let isyeri = store.get('xjsonfirma');
+    isyeri = JSON.parse(isyeri);
+    let isveren = isyeri.is;
+    let hekimad = isyeri.hk;
+    let hekimno = isyeri.hn;
+    const { Document, Packer, TextRun, Paragraph, Table, TableRow, TableCell, WidthType, BorderStyle, AlignmentType, PageOrientation  } = docx;
+    const baslik =
+    [
+        new Paragraph({children:[new TextRun({text:"İŞYERİNİ DIŞARIDAN ETKİLEYEBİLECEK DİĞER İŞYERLERİ",bold:true,size:24,font:"Calibri"})],spacing:{before:0,after:100},alignment:AlignmentType.CENTER}),
+    ];
+    const aciklama =
+    [
+        new Paragraph({children:[new TextRun({text:"\tKabul Edilebilir Risk Seviyesi:",bold:true,font:"Calibri",size:22}),new TextRun({text:" İşyeri çevresinde bulunan diğer işyerlerinde yangın vb. bir durum anında işyerimizde fiziksel hasar oluşma ihtimali mümkün, yaralanma veya can kaybı beklenmemektedir.",font:"Calibri",size:22})],alignment:AlignmentType.JUSTIFIED,spacing:{after:100}}),
+        new Paragraph({children:[new TextRun({text:"\tOlası Risk Seviyesi:",bold:true,font:"Calibri",size:22}),new TextRun({text:" İşyeri çevresinde bulunan diğer işyerlerinde yangın vb. bir durum anında işyerimizde fiziksel hasar oluşur, yaralanma ihtimali düşük ve can kaybı beklenmemektedir.",font:"Calibri",size:22})],alignment:AlignmentType.JUSTIFIED,spacing:{after:100}}),
+        new Paragraph({children:[new TextRun({text:"\tÖnemli Risk Seviyesi:",bold:true,font:"Calibri",size:22}),new TextRun({text:" İşyeri çevresinde bulunan diğer işyerlerinde yangın vb. bir durum anında işyerimizde fiziksel hasar ve yaralanma meydana gelebilir ve can kaybı olma ihtimali düşüktür.",font:"Calibri",size:22})],alignment:AlignmentType.JUSTIFIED,spacing:{after:100}}),
+        new Paragraph({children:[new TextRun({text:"\tYüksek Risk Seviyesi:",bold:true,font:"Calibri",size:22}),new TextRun({text:" İşyeri çevresinde bulunan diğer işyerlerinde yangın vb. bir durum anında işyerimizde fiziksel hasar ve yaralanma meydana gelebilir ve can kaybı olma ihtimali yüksektir.",font:"Calibri",size:22})],alignment:AlignmentType.JUSTIFIED,spacing:{after:100}}),
+        new Paragraph({children:[new TextRun({text:"\tRisk seviyesinin belirlenmesinde, işyerinin kaçış mesafesi, acil durum kapı sayısı ve bulunduğu yönler, işyerinin kat sayısı, çalışan sayısı ve yoğunluğu ve diğer işyerinin oluşturabileceği maksimum risk seviyesine göre değerlendirme yapılmıştır.",font:"Calibri",size:22})],spacing:{before:100,after:100},alignment:AlignmentType.JUSTIFIED})
+    ];
+    const tablosatirlari = [];
+    tablosatirlari.push(new TableRow({
+        children:
+        [
+            new TableCell({width:{size:4,type:WidthType.PERCENTAGE},children:[new Paragraph({alignment:AlignmentType.CENTER,spacing:{before:140,after:140},children:[new TextRun({text:"NO",bold:true,size:22,font:"Calibri"})]})]}),
+            new TableCell({width:{size:38,type:WidthType.PERCENTAGE},children:[new Paragraph({alignment:AlignmentType.CENTER,spacing:{before:140,after:140},children:[new TextRun({text:"İŞYERİ UNVANI",bold:true,size:22,font:"Calibri"})]})]}),
+            new TableCell({width:{size:38,type:WidthType.PERCENTAGE},children:[new Paragraph({alignment:AlignmentType.CENTER,spacing:{before:140,after:140},children:[new TextRun({text:"FAALİYET KONUSU",bold:true,size:22,font:"Calibri"})]})]}),
+            new TableCell({width:{size:20,type:WidthType.PERCENTAGE},children:[new Paragraph({alignment:AlignmentType.CENTER,spacing:{before:140,after:140},children:[new TextRun({text:"ACİL DURUM RİSK SEVİYESİ",bold:true,size:22,font:"Calibri"})]})]})
+        ]
+    }));
+    liste.forEach((item, index) => {
+        tablosatirlari.push(new TableRow({
+            children:
+            [
+                new TableCell({width:{size:4,type:WidthType.PERCENTAGE},children:[new Paragraph({alignment:AlignmentType.CENTER,spacing:{before:140,after:140},children:[new TextRun({text:(index+1).toString(),bold:true,size:22,font:"Calibri"})]})]}),
+                new TableCell({width:{size:38,type:WidthType.PERCENTAGE},children:[new Paragraph({alignment:AlignmentType.LEFT,spacing:{before:140,after:140},indent:{left:60},children:[new TextRun({text:item.isyeri,size:22,font:"Calibri"})]})]}),
+                new TableCell({width:{size:38,type:WidthType.PERCENTAGE},children:[new Paragraph({alignment:AlignmentType.LEFT,spacing:{before:140,after:140},indent:{left:60},children:[new TextRun({text:item.faaliyet,size:22,font:"Calibri"})]})]}),
+                new TableCell({width:{size:20,type:WidthType.PERCENTAGE},children:[new Paragraph({alignment:AlignmentType.CENTER,spacing:{before:140,after:140},children:[new TextRun({text:item.risk,size:22,font:"Calibri"})]})]})
+            ]
+        }));
+    });
+    const tablo=new Table({width:{size:100,type:WidthType.PERCENTAGE},rows:tablosatirlari,borders:{top:{style:BorderStyle.SINGLE,size:1,color:"000000"},bottom:{style:BorderStyle.SINGLE,size:1,color:"000000"},left:{style:BorderStyle.SINGLE,size:1,color:"000000"},right:{style:BorderStyle.SINGLE,size:1,color:"000000"},insideHorizontal:{style:BorderStyle.SINGLE,size:1,color:"000000"},insideVertical:{style:BorderStyle.SINGLE,size:1,color:"000000"}}});
+    const doc = new Document
+    ({
+        sections:
+        [{
+            properties:{page:{size:{orientation:PageOrientation.LANDSCAPE},margin:{top:1134,bottom:1134,left:1134,right:1134}}},
+            children: [...baslik, new Paragraph({ text: "" }), tablo, new Paragraph({ text: "" }), ...aciklama],
+            footers: { default: new docx.Footer({ children: [docxucluimzadikey(uzmanad, uzmanno, hekimad, hekimno, isveren)]})}
+        }]
+    });
+    const blob = await Packer.toBlob(doc);
+    saveAs(blob, "Acil Durum Diğer İşyerleri.docx");
+}
