@@ -16,8 +16,6 @@ html{background-color: #ECF0F1;}
 .mastermenubutoncss3 .icon{padding-left: 1.85vw;}
 .mastermenubutoncss4 .icon{padding-left: 3.3vw;}
 .mastermenubutoncss5 .icon{padding-left: 5.05vw;}
-.ajs-message{font-family: 'Arial';font-size: 0.9vw;color: white;}
-.cizgi{position: absolute;top: 1.5%;right: 91.7vw;line-height: 35vw;width: 100%;background-color: aqua;z-index: 1000;}
 .mastermenualtbutoncssalt, .mastermenualtbutoncssust, .mastermenualtbutoncssorta, .mastermenualtbutoncsstek{background-color: transparent;color: white;font-family: Calibri;font-size: 1vw;border: none;height: 100%;width: 100%;display: block;text-align: left;padding-left: 0.7em;cursor: pointer;}
 .mastermenualtbutoncssalt:hover, .mastermenualtbutoncssust:hover, .mastermenualtbutoncssorta:hover, .mastermenualtbutoncsstek:hover{background-color: brown;color: white;}
 .mastermenualtbutoncssalt:hover{border-bottom-left-radius: 0.4vw;border-bottom-right-radius: 0.4vw;}
@@ -31,8 +29,6 @@ html{background-color: #ECF0F1;}
 .mastermesajicerik{position:fixed;bottom: 0.75vw;left: 11%;width: 12vw;height: 3vw;display: none;margin: auto;z-index: 99;color: white;font-size: 1vw;vertical-align:middle;text-align: center;font-family:Calibri;opacity:1;}
 .mastermesajortala{position: relative;top: 50%;transform: translateY(-50%);}
 .masterlabelcss{padding-left: 0.5vw;}
-.masteranimasyon{animation: animate 0.75s ease;}
-@keyframes animate{0%{left: 75%;}100%{left: 11%;}}
 .masteracmakapamacss{border:none;font-size: 1vw;font-family:Calibri;color: white;font-family: Calibri;font-size: 1vw;border: none;height: 100%;width: 100%;display: block;text-align: center;padding: 0px;background-color:transparent;}
 .masteracmakapamacss:hover{background-color: teal;color: white;}
 .masteracmakapamakutusu{position:fixed;left: 0;top: 0;background-color: brown;z-index: 0;width: 2%;font-size: 1vw;border:none;height: 100%;}
@@ -113,10 +109,7 @@ html{background-color: #ECF0F1;}
 .cssdropdown20{width: 20%;}
 .cssdropdown10{width: 10%;}
 .cssdropdown7{width: 7%;}
-.cssbutontamam, .cssbutonvazgec{height: 2vw;width: 6vw;font-size: 1vw;border-radius: 0.5vw;border: 0.1vw solid black;cursor: pointer;font-family: Calibri;}
-.cssbutontamam:hover{background-color: teal;color: white;}
-.cssbutonvazgec:hover{background-color: brown;color: white;}
-.cssdivortala{position: relative;margin: auto;text-align: center;width: 100%;}
+.cssdivortala{display: flex;justify-content: center;align-items: center;}
 .paddingleft0_5{padding-left: 0.5vw;}
 .cssmargin30{position:relative;margin-left: 30%;margin-right: 30%;}
 .csslineheight1_5{line-height: 1.5vw;color: black;font-size: 1vw;text-align: left;font-family: Calibri;}
@@ -151,12 +144,6 @@ html{background-color: #ECF0F1;}
 .csslistboxkonum{margin: auto;width: 40%;}
 .cssduyurubaslik{width: 100%;background-color: brown;color: white;font-size: 2vh;line-height: 4vh;text-align: center;font-family: Calibri;font-weight: bold;}
 .cssaciklamabaslik{width: 100%;color: black;font-size: 2vh;line-height: 2.8vh;text-align: justify;text-justify: inter-word;font-family: Calibri;}
-.diyalog1{display: none;position: fixed;z-index: 1;left: 0;top: 0;width: 100%;height: 100%;background-color: rgba(229, 231, 233, 0.95);}
-.diyalog1-content{background-color: #fefefe;margin: 15% auto;text-align: center;padding: 1vw 1vw 1.8vw 1vw;border: 0.1vw solid #888;width: 30%;}
-.diyalog2{display: none;position: fixed;z-index: 1;left: 0;top: 0;width: 100%;height: 100%;background-color: rgba(229, 231, 233, 0.95);}
-.diyalog2-content{background-color: #fefefe;margin: 15% auto;text-align: center;padding: 1vw 1vw 1.8vw 1vw;border: 0.1vw solid #888;width: 30%;}
-.diyalog3{display: none;position: fixed;z-index: 1;left: 0;top: 0;width: 100%;height: 100%;background-color: rgba(229, 231, 233, 0.95);}
-.diyalog3-content{background-color: #fefefe;margin: 15% auto;text-align: center;padding: 1vw;border: 0.1vw solid #888;width: 30%;height: 17%;}
 .cssflexortala{width: 100%;display: flex;justify-content: center;}
 .cssbutonortala{display: flex;justify-content: center;grid-gap: 2vw;width: 100%;}
 .ui-datepicker-title{display: flex;justify-content: space-between;align-items: center;}
@@ -178,8 +165,6 @@ html{background-color: #ECF0F1;}
 .csstablotextboxcss, .csstablodropcss{width: 90%;height: 2vw;-webkit-box-sizing: border-box;-moz-box-sizing: border-box;box-sizing: border-box;font-family: Calibri;font-size: 1vw;padding-left: 0.25vw;}
 .cssegitimlabel{font-size: 1vw;font-family: Calibri;font-weight: normal;padding-left: 0.3vw;}
 .csstabloyazisol{text-align: left;}
-.diyalog4{display: none;position: fixed;z-index: 1;left: 0;top: 0;width: 100%;height: 100%;background-color: rgba(229, 231, 233, 0.95);}
-.diyalog4-content{background-color: #e8f8f5;text-align: center;padding: 0.5vw;border: 0.2vw solid #888;width: 70%;height: 70vh;position: absolute;top: 50%;left: 50%;transform: translate(-50%, -50%);box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);border-radius: 2vw;}
 .cssbutongeri100{box-shadow: 0px 0.2vw 0.9vw -0.1vw #276873;background-color: crimson;border-radius:0.2vw;border:0.1vw solid #566573;cursor:pointer;color: white;font-family:Calibri;font-size: 1vw;height: 2vw;text-align: center;display: flex;justify-content: center;align-items: center;width: 100%;}
 .cssbutongeri100:hover{background-color: #EB984E;color: black;}
 .cssbutongeri{display: flex;justify-content: center;align-items: center;height: 2vw;width: 6vw;font-size: 1vw;border-radius: 0.5vw;border: 0.1vw solid black;cursor: pointer;font-family: Calibri;}
@@ -202,7 +187,7 @@ input[type="checkbox"]{width: 1.3vw;height: 1.3vw;}
 .csssolsagbosluk10{margin-left: 10%;margin-right: 10%;}
 .csssolsagbosluk5{margin-left: 5%;margin-right: 5%;}
 .gridtablo thead tr{color: white; text-align:center;}
-.gridtablo td{border: 0.1mm solid #d5d8dc;}
+.gridtablo td{border: 0.1mm solid #d5d8dc;padding-left: 0.4vw;padding-right: 0.4vw;}
 .gridtablo thead th{background-color: #34495e;border: 0.1mm solid #5d6169;height:2vw;}
 .gridtablo{border-collapse: collapse;border-spacing: 0;text-align: center;}
 .gridtablo tr{border: 0 none;}
@@ -217,6 +202,32 @@ input[type="checkbox"]{width: 1.3vw;height: 1.3vw;}
 .aspgridgenel tbody tr:not(:first-child):nth-child(odd){background-color: #fffef8;height: 3vw;}
 .aspgridgenel tbody tr:not(:first-child):nth-child(even){background-color: white;height: 3vw;}
 .aspgridgenel tbody tr:hover {background-color: #D1FF00 !important;}
-.diyalog{display: none;position: fixed;z-index: 1;left: 0;top: 0;width: 100%;height: 100%;background-color: rgba(229, 231, 233, 0.95);}
-.diyalog-content{background-color: #ecf0f1;padding: 2vw;border: 0.2vw solid #888;width: 50%;position: absolute;top: 50%;left: 50%;transform: translate(-50%, -50%);box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);border-radius: 2vw;}
-</style>
+.dylg{display: none;position: fixed;z-index: 1;left: 0;top: 0;width: 100%;height: 100%;background-color: rgba(0, 0, 0, 0.6);}
+.dylg-content{background-color: #fff;padding: 1.5vw;border: 0.1vw solid #888;width: 30%;position: absolute;top: 5%;left: 50%;transform: translateX(-50%);box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);border-radius: 0.5vw;}
+.dylgbaslik{display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #ccc;}
+.dylgbaslikic{margin: 0;font-size: 1.5vw; font-weight:bold;}
+.dylgkapat{ background-color: #e5e8e8; border: none; font-size: 2vw; cursor: pointer;}
+.dylgkapat:hover{background-color: #a93226;color: #ffffff; border: none; font-size: 2vw;cursor: pointer;}
+.dylgyazi{padding-top: 1vw; padding-bottom: 0.5vw}
+.dylgbuton{padding-top: 1.5vw; text-align:center;}
+.menuicerik{display:none;padding-left:0;margin-left:0}
+.menuicerik li{list-style:none;padding:0;margin:0}
+.menukutusu{width:40%;margin:0 auto}
+.menukutusu li{list-style:none;padding:0;margin:0}
+.menusecenekstil{width:100%;color:black;display:block;border:0.1vw solid #abb2b9;border-radius:0.4vw;background-color:#f4f6f7;margin-bottom:0.1vw;padding:0.7vw;font-family:Calibri;font-size:1vw;font-weight:400;text-align:left}
+.menusecenekstil:hover{background-color:brown;color:#fff}
+.menuicerikbuton{width:100%;display:block;position:relative;color:#fff;background-color:#343A40;text-decoration:none;text-align:center;padding:0.7vw;margin-bottom:0.1vw;border:0;font-family:"Segoe UI",sans-serif;font-size:0.9vw;font-weight:bold}
+.menuicerikbuton:hover{color:#dbfe03}
+#aciklamakutusu{width:40%;background-color:#eef6fb;color:#333;padding:1.4vw;border-radius:1vw;border:3px solid #e5e7e9;font-family:'Segoe UI',sans-serif;font-size:1.2rem;box-shadow:0.5vw 0.5vw 0.5vw rgba(0,0,0,0.2);text-align:justify;}
+.loaderdosya{position:fixed;top:0;left:0;width:100vw;height:100vh;background-color:rgba(0,0,0,0.5);z-index:9999;display:flex;flex-direction:column;justify-content:center;align-items:center}
+.loaderdosya-wheel{animation:spin 1s infinite linear;border:8px solid #f3f3f3;border-radius:50%;border-top:8px solid #ffef00;border-right:8px solid #ffef00;border-bottom:8px solid #163962;border-left:8px solid #163962;height:60px;width:60px;margin-bottom:20px}
+.loaderdosya-text{color:#fff;font-weight:bold;font-family:Arial,sans-serif;font-size:18px}
+@keyframes spin{0% { transform: rotate(0deg); }25% { transform: rotate(90deg) scale(1.05); }50% { transform: rotate(180deg); }75% { transform: rotate(270deg) scale(1.05); }100% { transform: rotate(360deg);}}
+#duyurusecimanasayfa{width:70%;margin:auto;}  
+#duyurusecimanasayfa select{width:100%;padding:.5vw 0 .5vw .5vw;border:1px solid #bbb;box-sizing:border-box;cursor:pointer;transition:border-color .3s ease;font-family:Calibri;font-size:1vw;}  
+#duyurusecimanasayfa select:focus{border-color:#3a8ee6;outline:none;box-shadow:0 0 6px #3a8ee6;}  
+#duyuruaciklamakutu{width:100%;border:1px solid #ccc;background:#f9f9f9;border-radius:6px;color:#333;display:none;font-family:Calibri;font-size:1vw;padding:1vw;margin-top:10px;box-sizing:border-box;text-align:justify;}
+.alertify-notifier .ajs-message{font-family: Calibri, sans-serif !important;font-size: 1vw !important;}
+.cssbutontamam{min-width:6vw;padding:0 0.8vw;font-size:1vw;border-radius:0.5vw;border:0.1vw solid #1a1a1a;cursor:pointer;font-family:'Calibri',sans-serif;white-space:nowrap;box-sizing:border-box;height:2vw;transition:all .3s ease;background:#fff;color:#1a1a1a;}
+.cssbutontamam:hover{background:#008080;color:#fff;transform:translateY(-2px);box-shadow:0 4px 6px rgba(0,0,0,.1);}
+.cssbutontamam:active{transform:translateY(0);box-shadow:none;}
