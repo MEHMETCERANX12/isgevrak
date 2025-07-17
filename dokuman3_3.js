@@ -1469,8 +1469,28 @@ async function acildurumsayfaacilis()
                 $(thead).find('th').css('text-align', 'center');
             }
         });
+        let acildurumgooglelink = [{ "acildurum": "Yangın", "link": "https://drive.google.com/uc?export=download&id=1K0idDKFidSghUpVnG2UPAOiYJBazVDjL", "konu": "yangin" }, { "acildurum": "Deprem", "link": "https://drive.google.com/uc?export=download&id=1YOQ5X9krcn55vx0jJiolTV1PAdPc1oH1", "konu": "deprem" }, { "acildurum": "Sel", "link": "https://drive.google.com/uc?export=download&id=1GQDqRWm-T6N0EFgm1f6LsPfx7bu9t9JF", "konu": "sel" }, { "acildurum": "Sabotaj", "link": "https://drive.google.com/uc?export=download&id=1J55hgcFR85ZSHC6dybC4lm2A3cTJDFTI", "konu": "sabotaj" }, { "acildurum": "İş Kazası", "link": "https://drive.google.com/uc?export=download&id=1ZRAENBf-RrBT9eT6VBp0S6rPSzOH_lZ7", "konu": "iskaza" }, { "acildurum": "Elektrik Çarpması", "link": "https://drive.google.com/uc?export=download&id=1n3d2lu8wFqCeoV0yX_Lp0bNY8zQBO2qj", "konu": "elektrik" }, { "acildurum": "Salgın Hastalık (Covid - 19 vb.)", "link": "https://drive.google.com/uc?export=download&id=1dJp6Rix_YT9NjlocTRNlLNgzzPnDoA5o", "konu": "salgin" }, { "acildurum": "Gıda Zehirlenmesi", "link": "https://drive.google.com/uc?export=download&id=1eumlJE9GHzEZiwx_VNrryP4BPy8yof8z", "konu": "gida" }, { "acildurum": "Yıldırım Düşmesi", "link": "https://drive.google.com/uc?export=download&id=1_J6G1QIAfD_ydMcYGAVWJOACg3Q9a-QI", "konu": "yildirim" }, { "acildurum": "Basınçlı Kap Patlaması", "link": "https://drive.google.com/uc?export=download&id=1gTiwQuIfJIKxBldX4Oe2LjWkuX0DmNTE", "konu": "basinc" }, { "acildurum": "Kimyasal Maruziyet", "link": "https://drive.google.com/uc?export=download&id=13qvbOMkoLTVSR4IlA36AR9higd6BsA_j", "konu": "kmaruziyet" }, { "acildurum": "Kimyasal Sızıntı", "link": "https://drive.google.com/uc?export=download&id=1M6aKr0kVO0rtu48ddRsZSfHs-gouruYv", "konu": "ksizinti" }, { "acildurum": "Patlayıcı Ortam", "link": "https://drive.google.com/uc?export=download&id=1KVUpzRsfRhUg5988_Ih37FCW-icumoPt", "konu": "patlama" }, { "acildurum": "Bakım Onarım", "link": "https://drive.google.com/uc?export=download&id=1zqvfOiLz51VVo7oZjmpfatruS91XYKhX", "konu": "bakim" }, { "acildurum": "Hayvan Sokması Isırması", "link": "https://drive.google.com/uc?export=download&id=1CWMa-5gaeXNsnc6f9H2QOHE7w8PruJgf", "konu": "hayvan" }];
+        const acildurumlistelink = store.get("acildurumkonusecim");
+        acildurumgooglelink = acildurumgooglelink.filter(item => acildurumlistelink[item.konu] === 1);
+        $('#acildurumyontem').DataTable
+        ({
+            data: acildurumgooglelink,
+            ordering: false,
+            dom: 't',
+            columns:
+            [
+                { title: "Acil Durum Müdahale Yöntemleri", data: "acildurum", orderable: false },
+                { title: "Acil Durum Plan Konuları", data: "link", orderable: false, render: function (data) {return `<input type="button" class="cssbutontamam" value="İndir" onclick='alertify.error("Lütfen Bekleyiniz...", 2);window.location.href="${data}";' />`;}}
+            ],
+            createdRow: function (row, data, rowIndex)
+            {
+                $(row).find('td').eq(0).css('text-align', 'left');
+                $(row).find('td').eq(1).css('text-align', 'center');
+            },
+            headerCallback: thead => $(thead).find('th').css('text-align', 'center')
+        });        
         $('.dt-search input').css({"background-color": "white", 'margin-bottom': '0.7vw'}).attr("autocomplete", "off");
-        $('.dt-length select').css({ "background-color": "white" });
+        $('.dt-length select').css({ "background-color": "white" });        
     }
     catch (err)
     {
