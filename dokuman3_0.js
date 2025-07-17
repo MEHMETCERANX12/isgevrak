@@ -1334,3 +1334,280 @@ async function acildurumisyeririsk()
     const blob = await Packer.toBlob(doc);
     saveAs(blob, "Acil Durum Diğer İşyerleri.docx");
 }
+
+
+async function acildurumsayfaacilis()
+{
+    try
+    {
+        const urls =
+        [
+            'https://cdn.jsdelivr.net/gh/MEHMETCERANX12/isgevrak@main/acildurumgenel1_3.json',
+            'https://cdn.jsdelivr.net/gh/MEHMETCERANX12/isgevrak@main/acildurumozel1_4.json'
+            ];
+        const responses = await Promise.all(urls.map(url => fetch(url)));
+        if (responses.some(r => !r.ok)) throw new Error('JSON dosyalarından biri indirilemedi');
+        const [geneljson, ozeljson] = await Promise.all(responses.map(r => r.json()));
+        let acildurumjsononlem = geneljson;
+        let acildurumjsonozel = ozeljson;
+        store.set("acildurumgeneljson", acildurumjsononlem);
+        store.set("acildurumozeljson", acildurumjsonozel);
+        const tarih = store.get("acildurumtarih");
+        if (tarih) $("#tarih").val(tarih);
+        const acildurumliste = acildurumkonuliste();
+        $('#acildurumlistesi').DataTable({
+            data: acildurumliste,
+            ordering: false,
+            dom: 't',
+            columns: [{ title: "Acil Durum Plan Konuları", data: "ad", orderable: false }],
+            createdRow: row => $(row).find('td').eq(0).css('text-align', 'left'),
+            headerCallback: thead => $(thead).find('th').css('text-align', 'center')
+        });
+        $('#digerisyeri').on('change', 'select[name="riskseviyesi"]', function ()
+        {
+            const v = $(this).val(), r = $(this).closest('tr');
+            let h = '', y = '', c = '';
+            switch (v) {
+                case '1': h = 'Mümkün'; y = 'Yok'; c = 'Yok'; break;
+                case '2': h = 'Oluşur'; y = 'Düşük'; c = 'Yok'; break;
+                case '3': h = 'Oluşur'; y = 'Oluşur'; c = 'Düşük'; break;
+                case '4': h = 'Oluşur'; y = 'Oluşur'; c = 'Yüksek'; break;
+            }
+            r.find('td').eq(3).css('text-align', 'center').text(h);
+            r.find('td').eq(4).css('text-align', 'center').text(y);
+            r.find('td').eq(5).css('text-align', 'center').text(c);
+        });
+        const acildurumsecim = store.get("acildurumkonusecim");
+        if (!acildurumsecim || typeof acildurumsecim !== 'object') {
+            console.warn("Seçim verisi bulunamadı veya geçersiz.");
+            return;
+        }
+        let geneltabloveri = [];
+        let ozeltabloveri = [];
+        const seviyetedbir = parseInt($("#seviyetedbir").val());
+        geneltabloveri = acildurumfiltregenel(acildurumjsononlem, seviyetedbir, acildurumsecim);
+        ozeltabloveri = acildurumfiltreozel(acildurumjsonozel, seviyetedbir, acildurumsecim);
+        $("#seviyetedbir").on("change", function ()
+        {
+            const yeniseviye = parseInt($(this).val());
+            geneltabloveri = acildurumfiltregenel(acildurumjsononlem, yeniseviye, acildurumsecim);
+            ozeltabloveri = acildurumfiltreozel(acildurumjsonozel, yeniseviye, acildurumsecim);
+            geneltabo.clear().rows.add(geneltabloveri).draw();
+            ozeltabo.clear().rows.add(ozeltabloveri).draw();
+        });
+        var geneltabo = $('#geneltablo').DataTable(
+        {
+            data: geneltabloveri,
+            dom: 'ft',
+            pageLength: -1,
+            lengthChange: false,
+            orderable: false,
+            ordering: false,
+            columns:
+            [
+                {title:"Konu",data:"konu",orderable:false},
+                {title:"Acil Durum Tedbirleri (Genel)",data:"onlem",orderable:false},
+                {title:"Dahil Et",data:null,orderable:false,render:function(){return'<input type="checkbox" class="onlemsec" checked>';}},
+                {title:"Uygun",data:null,orderable:false},
+                {title: "Uygun Değil", data: null, orderable: false },
+                {data: "id", visible: false },
+            ],
+            language:
+            {
+                search: "Önlem Ara:",
+                zeroRecords: "Böyle bir önlem bulunamadı",
+                emptyTable: "Böyle bir önlem bulunamadı"
+            },
+            createdRow: function (row, data, rowIndex)
+            {
+                const randomName = "secim_" + Math.random().toString(36).substring(2, 10);
+                $(row).find('td').eq(0).css('text-align', 'left');
+                $(row).find('td').eq(1).css('text-align', 'left');
+                $(row).find('td').eq(2).css('text-align', 'center');
+                $(row).find('td').eq(3).html(`<input type="radio" name="${randomName}" value="1" checked>`).css('text-align', 'center');
+                $(row).find('td').eq(4).html(`<input type="radio" name="${randomName}" value="0">`).css('text-align', 'center');
+            },
+            headerCallback: function (thead)
+            {
+                $(thead).find('th').css('text-align', 'center');
+            }
+        });
+        var ozeltabo = $('#ozeltablo').DataTable(
+        {
+            data: ozeltabloveri,
+            dom: 'ft',
+            pageLength: -1,
+            lengthChange: false,
+            orderable: false,
+            ordering: false,
+            columns:
+            [
+                {title:"Konu",data:"konu",orderable:false},
+                {title:"Acil Durum Tedbirleri (Konulara Göre)",data:"onlem",orderable:false},
+                {title:"Dahil Et",data:null,orderable:false,render:function(){return'<input type="checkbox" class="onlemsec" checked>';}},
+                {title:"Uygun",data:null,orderable:false},
+                {title: "Uygun Değil", data: null, orderable: false },
+                {data: "konuindex", visible: false },
+            ],
+            language:
+            {
+                search: "Önlem Ara:",
+                zeroRecords: "Böyle bir önlem bulunamadı",
+                emptyTable: "Böyle bir önlem bulunamadı"
+            },
+            createdRow: function (row, data, rowIndex)
+            {
+                const randomName = "secim_" + Math.random().toString(36).substring(2, 10);
+                $(row).find('td').eq(0).css('text-align', 'left');
+                $(row).find('td').eq(1).css('text-align', 'left');
+                $(row).find('td').eq(2).css('text-align', 'center');
+                $(row).find('td').eq(3).html(`<input type="radio" name="${randomName}" value="1" checked>`).css('text-align', 'center');
+                $(row).find('td').eq(4).html(`<input type="radio" name="${randomName}" value="0">`).css('text-align', 'center');
+            },
+            headerCallback: function (thead)
+            {
+                $(thead).find('th').css('text-align', 'center');
+            }
+        });
+        $('.dt-search input').css({"background-color": "white", 'margin-bottom': '0.7vw'}).attr("autocomplete", "off");
+        $('.dt-length select').css({ "background-color": "white" });
+    }
+    catch (err)
+    {
+        alertify.error("Beklenmedik bir hata oluştu: " + err);
+    }
+}
+function acildurumfiltregenel(veri, seciliseviye, secimler)
+{
+    return veri.filter(item => {
+        if (seciliseviye === 1 && item.seviye !== 1) return false;
+        let secilenVarMi = false;
+        for (const key in secimler) {
+            if (secimler[key] === 1 && item[key] === 1) {
+                secilenVarMi = true;
+                break;
+            }
+        }
+        return secilenVarMi;
+    });
+}
+function acildurumfiltreozel(veri, seciliseviye, secimler)
+{
+    return veri.filter(item => {
+        if (seciliseviye === 1 && item.seviye !== 1) return false;
+        for (const key in secimler) {
+            const kullaniciSecimi = secimler[key];
+            const kayitDegeri = item[key];
+            if (kullaniciSecimi === 0 && kayitDegeri === 1) {
+                return false;
+            }
+        }
+        return true;
+    });
+}
+function acildurumtedbirjsonuret()
+{
+    const genelData = [];
+    const ozelData = [];
+    $('#geneltablo tbody tr').each(function () {
+        const row = $(this);
+        const onlem = row.find('td').eq(1).text().trim();
+        const dahilet = row.find('input[type="checkbox"]').is(':checked') ? 1 : 0;
+
+        if (dahilet === 1) {
+            const uygunluk = row.find('input[type="radio"]:checked').val() === "1" ? "Uygun" : "Uygun Değil";
+            const id = $('#geneltablo').DataTable().row(row).data().id;
+            genelData.push({
+                onlem: onlem,
+                dahil: dahilet,
+                uygun: uygunluk,
+                id: id
+            });
+        }
+    });
+
+    $('#ozeltablo tbody tr').each(function () {
+        const row = $(this);
+        const acildurumkonusu = row.find('td').eq(0).text().trim();
+        const onlem = row.find('td').eq(1).text().trim();
+        const index = $('#ozeltablo').DataTable().row(row).data().konuindex;
+        const dahilet = row.find('input[type="checkbox"]').is(':checked') ? 1 : 0;
+
+        if (dahilet === 1) {
+            const uygunluk = row.find('input[type="radio"]:checked').val() === "1" ? "Uygun" : "Uygun Değil";
+            ozelData.push({
+                konu: acildurumkonusu,
+                onlem: onlem,
+                uygun: uygunluk,
+                konuindex: index
+            });
+        }
+    });
+    const sonuc =
+    {
+        genel: genelData,
+        ozel: ozelData
+    };
+    let acildurumgeneljson = genelDataDetayliJsonOlustur(genelData);
+    let acildurumozeljson = ozelData;
+    let konular = [{ "konu": "Yangın", "konuindex": 10, "id": "yangin" }, { "konu": "Deprem", "konuindex": 11, "id": "deprem" }, { "konu": "Sel", "konuindex": 12, "id": "sel" }, { "konu": "Sabotaj", "konuindex": 13, "id": "sabotaj" }, { "konu": "Elektrik Çarpması", "konuindex": 14, "id": "elektrik" }, { "konu": "Biyolojik Risk (Salgın)", "konuindex": 15, "id": "salgin" }, { "konu": "Gıda Zehirlenmesi", "konuindex": 16, "id": "gida" }, { "konu": "Yıldırım", "konuindex": 17, "id": "yildirim" }, { "konu": "Basınçlı Kap Patlaması", "konuindex": 18, "id": "basinc" }, { "konu": "Patlayıcı Ortam", "konuindex": 19, "id": "kmaruziyet" }, { "konu": "Kimyasal Sızıntı", "konuindex": 20, "id": "ksizinti" }, { "konu": "Kimyasal Maruziyet", "konuindex": 21, "id": "patlama" }, { "konu": "Hayvan Sokması", "konuindex": 22, "id": "bakim" }, { "konu": "Bakım Onarım", "konuindex": 23, "id": "hayvan" }, { "konu": "İş Kazası", "konuindex": 99, "id": "iskaza" }];
+    let genelsecim = store.get("acildurumkonusecim");
+    konular = konular.filter(k => genelsecim[k.id] === 1);
+    const acildurumgenelsonuc = [];
+    konular.forEach(k => {
+      acildurumgeneljson.forEach(item => {
+        if (item[k.id] === 1) {
+          acildurumgenelsonuc.push({
+            konu: k.konu,
+            konuindex: k.konuindex,
+            onlem: item.onlem,
+            uygun: item.uygun === 1 || item.uygun === "Uygun" ? "Uygun" : "Uygun Değil"
+          });
+        }
+      });
+    });
+    let wordjson = [];
+    let tumIndexler = [...new Set([...acildurumgenelsonuc.map(x => x.konuindex), ...acildurumozeljson.map(x => x.konuindex)])];
+    tumIndexler.sort((a, b) => a - b);
+        tumIndexler.forEach(index =>
+        {
+      acildurumgenelsonuc
+        .filter(x => x.konuindex === index)
+        .forEach(x => wordjson.push(x));
+      acildurumozeljson
+        .filter(x => x.konuindex === index)
+        .forEach(x => wordjson.push(x));
+    });
+    return wordjson;
+}
+function acildurumekipjson(){const e={0:"Görevli Değil",1:"İlkyardım Ekibi - Ekip Başı",2:"İlkyardım Ekibi - Ekip Personeli",3:"Söndürme Ekibi - Ekip Başı",4:"Söndürme Ekibi - Ekip Personeli",5:"Koruma Ekibi - Ekip Başı + Koordinasyon",6:"Koruma Ekibi - Ekip Personeli + Koordinasyon",7:"Koruma Ekibi - Ekip Personeli",8:"Kurtarma Ekibi - Ekip Başı",9:"Kurtarma Ekibi - Ekip Personeli",10:"Destek Elemanı"};let n=$('#HiddenField1').val();if("string"==typeof n)try{n=JSON.parse(n)}catch(t){console.error("JSON parse hatası:",t),n=[]}const i=[];return $.each(n,function(n,t){t.a&&0!==t.a&&i.push({ad:t.ad,un:t.un,ekipgorev:e[t.a]||"Tanımsız",ekipkod:t.a})}),i}
+function genelDataDetayliJsonOlustur(genelData) {
+    const acildurumgeneljson = store.get("acildurumgeneljson");
+    const yeniJson = genelData
+        .map(gItem => {
+            const detay = acildurumgeneljson.find(jItem => jItem.id == gItem.id);
+            if (!detay) return null;
+            return {
+                onlem: gItem.onlem,
+                id: gItem.id,
+                uygun: gItem.uygun,
+                yangin: detay.yangin,
+                deprem: detay.deprem,
+                sel: detay.sel,
+                sabotaj: detay.sabotaj,
+                iskaza: detay.iskaza,
+                elektrik: detay.elektrik,
+                salgin: detay.salgin,
+                gida: detay.gida,
+                yildirim: detay.yildirim,
+                basinc: detay.basinc,
+                kmaruziyet: detay.kmaruziyet,
+                ksizinti: detay.ksizinti,
+                patlama: detay.patlama,
+                bakim: detay.bakim,
+                hayvan: detay.hayvan
+            };
+        })
+        .filter(item => item !== null);
+    return yeniJson;
+}
