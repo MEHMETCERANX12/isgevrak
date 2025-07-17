@@ -1611,3 +1611,73 @@ function genelDataDetayliJsonOlustur(genelData) {
         .filter(item => item !== null);
     return yeniJson;
 }
+
+
+function acildurumtedbirdocxyaz()
+{
+    let uzmanad = store.get("uzmanad");
+    let uzmanno = store.get("uzmanno");
+    let wordjson = acildurumtedbirjsonuret();
+    let isyeri = store.get('xjsonfirma');
+    isyeri = JSON.parse(isyeri);
+    let isveren = isyeri.is;
+    let hekimad = isyeri.hk;
+    let hekimno = isyeri.hn;
+    const { Document, Packer, Paragraph, Table, TableCell, TableRow, WidthType, TextRun, AlignmentType, PageOrientation, HeightRule  } = docx;
+    const tableRows = [];
+    const headerRow = () => new docx.TableRow({
+        height: { value: 680, rule: docx.HeightRule.EXACT },
+        children:
+        [
+            new docx.TableCell({width: { size: 15, type: WidthType.PERCENTAGE },verticalAlign: docx.VerticalAlign.CENTER, children: [new docx.Paragraph({ alignment: docx.AlignmentType.CENTER, children: [new docx.TextRun({ text: "ACİL DURUM", bold: true, font: "Calibri", size: 22 })]})]}),
+            new docx.TableCell({width: { size: 75, type: WidthType.PERCENTAGE },verticalAlign:docx.VerticalAlign.CENTER,children:[new docx.Paragraph({alignment: docx.AlignmentType.CENTER, children:[new docx.TextRun({text:"ÖNLEYİCİ ve SINIRLANDIRICI TEDBİRLER",bold:true,font:"Calibri",size:22})]})]}),
+            new docx.TableCell({width: { size: 10, type: WidthType.PERCENTAGE },verticalAlign: docx.VerticalAlign.CENTER, children: [new docx.Paragraph({ alignment: docx.AlignmentType.CENTER, children: [new docx.TextRun({ text: "UYGUNLUK", bold: true, font: "Calibri", size: 22 })] })] })
+        ]
+    });
+    tableRows.push(headerRow());
+    wordjson.forEach((item, index) => {
+
+        if (index > 0 && index % 12 === 0)
+        {
+            tableRows.push(headerRow());
+        }
+        tableRows.push(new TableRow(
+        {
+            height: { value: 680, rule: HeightRule.EXACT },
+            children:
+            [
+                new TableCell({verticalAlign:docx.VerticalAlign.CENTER,children:[new Paragraph({alignment:docx.AlignmentType.CENTER,children:[new TextRun({text:item.konu,font:"Calibri",size:22})]})]}),
+                new TableCell({margins:{left:150, right:150},verticalAlign:docx.VerticalAlign.CENTER,children:[new Paragraph({alignment:docx.AlignmentType.JUSTIFIED,children:[new TextRun({text:item.onlem,font:"Calibri",size:22})]})]}),
+                new TableCell({verticalAlign:docx.VerticalAlign.CENTER,children:[new Paragraph({alignment:docx.AlignmentType.CENTER,children:[new TextRun({text:item.uygun,font:"Calibri",size:22})]})]})
+            ]
+        }
+        ));
+    });
+
+    const table = new Table({
+        rows: tableRows,
+        width: {
+            size: 100,
+            type: WidthType.PERCENTAGE
+        }
+    });
+
+    const doc = new Document({
+        sections: [{
+            properties: {
+                page: {
+                    margin: {top: 850, bottom: 1950, left: 850, right: 850, footer:1100},
+                    size:
+                    {
+                        orientation: PageOrientation.LANDSCAPE,
+                    }
+                }
+            },
+            children: [table],
+            footers: { default: new docx.Footer({ children: [docxucluimzadikey(uzmanad, uzmanno, hekimad, hekimno, isveren)]})}
+        }]
+    });
+    Packer.toBlob(doc).then(blob => { saveAs(blob, "Acil Durum Kontrol Listesi.docx");});
+}
+
+
