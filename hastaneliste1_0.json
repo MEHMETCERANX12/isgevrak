@@ -1,1 +1,569 @@
-[{"il":"Kırıkkale","hastane":"Kırıkkale Yüksek İhtisas Hastanesi","adres":"Bağlarbaşı, Ahmet Ay Caddesi, 71300 Merkez/Kırıkkale","telefon":"0318 215 10 10","ilce":"Merkez"},{"il":"Kırıkkale","hastane":"Kırıkkale Yüksek İhtisas Hastanesi Semt Polikliniği","adres":"Fabrikalar Mahallesi, Ağbey Pehlivanlı Bulvarı No:9/i 71100 Merkez/Kırıkkale","telefon":"0318 234 08 08","ilce":"Merkez"},{"il":"Kırıkkale","hastane":"Delice İlçe Devlet Hastanesi","adres":"Fatih, Kırıkkale -Çorum Kara Yolu, 71700 Delice/Kırıkkale","telefon":"0318 618 61 41","ilce":"Delice"},{"il":"Kırıkkale","hastane":"Karakeçili İlçe Devlet Hastanesi","adres":"Zafer, Karakeçili Kaman Yolu, 71500 Karakeçili/Kırıkkale","telefon":"0318 474 34 52","ilce":"Karakeçili"},{"il":"Kırıkkale","hastane":"Keskin İlçe Devlet Hastanesi","adres":"Merkez, Kayseri Yolu Cd. 1. Km, 71800 Keskin/Kırıkkale","telefon":"0318 515 32 06","ilce":"Keskin"},{"il":"Kırıkkale","hastane":"Sulakyurt İlçe Devlet Hastanesi","adres":"Yeni Mah.Koru cad.No/40 Kırıkkale/Sulakyurt","telefon":"0318 812 76 71","ilce":"Sulakyurt"},{"il":"Konya","hastane":"Konya Şehir Hastanesi","adres":"Akabe Mahallesi Yeni İstanbul Caddesi No:135 Karatay/Konya","telefon":"0 332 310 50 00","ilce":"Karatay"},{"il":"Konya","hastane":"Konya Sağlık Bilimleri Üniversitesi Beyhekim Eğitim ve Araştırma Hastanesi","adres":"Beyhekim Mahallesi Turgut Özal Caddesi No:10 Selçuklu/Konya","telefon":"0 332 224 30 00","ilce":"Selçuklu"},{"il":"Konya","hastane":"Konya Numune Hastanesi","adres":"Yenişehir Mahallesi Hastane Caddesi No:15 Selçuklu/Konya","telefon":"0 332 235 45 00","ilce":"Selçuklu"},{"il":"Konya","hastane":"Meram Devlet Hastanesi","adres":"Ayanbey Mahallesi Yeni Meram Caddesi No:97 Meram/Konya","telefon":"0 332 221 00 00","ilce":"Meram"},{"il":"Konya","hastane":"Dr. Ali Kemal Belviranlı Kadın Doğum ve Çocuk Hastalıkları Hastanesi","adres":"Halkapınar Mahallesi İhsaniye Caddesi No: 20 Selçuklu/Konya","telefon":"0 332 323 60 00","ilce":"Selçuklu"},{"il":"Konya","hastane":"Akşehir Devlet Hastanesi","adres":"Şehit Hasan Kaya Caddesi No:2 Akşehir/Konya","telefon":"0 332 813 16 24","ilce":"Akşehir"},{"il":"Konya","hastane":"Altınekin Devlet Hastanesi","adres":"Fatih Mahallesi Atatürk Caddesi No:12 Altınekin/Konya","telefon":"0 332 843 40 25","ilce":"Altınekin"},{"il":"Konya","hastane":"Beyşehir Devlet Hastanesi","adres":"Yenidoğan Mahallesi Cumhuriyet Caddesi No:1 Beyşehir/Konya","telefon":"0 332 614 20 31","ilce":"Beyşehir"},{"il":"Konya","hastane":"Bozkır Devlet Hastanesi","adres":"Zafer Mahallesi Hastane Caddesi No:5 Bozkır/Konya","telefon":"0 332 751 30 00","ilce":"Bozkır"},{"il":"Konya","hastane":"Cihanbeyli Devlet Hastanesi","adres":"Cumhuriyet Mahallesi Atatürk Caddesi No:15 Cihanbeyli/Konya","telefon":"0 332 715 11 00","ilce":"Cihanbeyli"},{"il":"Konya","hastane":"Çumra Devlet Hastanesi","adres":"Meydan Mahallesi Hastane Caddesi No:29 Çumra/Konya","telefon":"0 332 447 50 01","ilce":"Çumra"},{"il":"Konya","hastane":"Doğanhisar Devlet Hastanesi","adres":"İstiklal Mahallesi Atatürk Caddesi No:8 Doğanhisar/Konya","telefon":"0 332 765 10 00","ilce":"Doğanhisar"},{"il":"Konya","hastane":"Ereğli Devlet Hastanesi","adres":"Toros Mahallesi Şehit Metin Düzgün Caddesi No: 1/A Ereğli/Konya","telefon":"0 332 223 50 00","ilce":"Ereğli"},{"il":"Konya","hastane":"Konya Ereğli Ceza İnfaz Kurumu Devlet Hastanesi","adres":"Sarıtopallı Mahellesi Konya Ereğli Caddesi 1690/S Ereğli/Konya","telefon":"0 332 717 00 64","ilce":"Ereğli"},{"il":"Konya","hastane":"Hadim Devlet Hastanesi","adres":"Cumhuriyet Mahallesi, Atatürk Caddesi No:6 Hadim/Konya","telefon":"0 332 757 12 00","ilce":"Hadim"},{"il":"Konya","hastane":"Hüyük Devlet Hastanesi","adres":"İstiklal Mahallesi Hükümet Caddesi No:2 Hüyük/Konya","telefon":"0 332 745 11 00","ilce":"Hüyük"},{"il":"Konya","hastane":"Dr. Vefa Tanır Ilgın Devlet Hastanesi","adres":"İstasyon Mahallesi Hastane Caddesi No:1 Ilgın/Konya","telefon":"0 332 516 20 00","ilce":"Ilgın"},{"il":"Konya","hastane":"Kadınhanı Refik Saime Koyuncu Devlet Hastanesi","adres":"Merkez Mahallesi Hastane Caddesi No:4 Kadınhanı/Konya","telefon":"0 332 748 10 00","ilce":"Kadınhanı"},{"il":"Konya","hastane":"Karapınar Devlet Hastanesi","adres":"Karapınar Merkez Konya Caddesi No:7 Karapınar/Konya","telefon":"0 332 612 12 00","ilce":"Karapınar"},{"il":"Konya","hastane":"Kulu Devlet Hastanesi","adres":"İstiklal Mahallesi Hastane Caddesi No:8 Kulu Merkez Kulu/Konya","telefon":"0 332 721 10 00","ilce":"Kulu"},{"il":"Konya","hastane":"Sarayönü Devlet Hastanesi","adres":"Merkez Mahallesi Atatürk Caddesi No:12 Sarayönü/Konya","telefon":"0 332 778 10 00","ilce":"Sarayönü"},{"il":"Konya","hastane":"Seydişehir Devlet Hastanesi","adres":"İstasyon Mahallesi Hastane Caddesi No:9 Seydişehir/Konya","telefon":"0 332 714 12 00","ilce":"Seydişehir"},{"il":"Konya","hastane":"Yunak Hacı İzzet Baysal Devlet Hastanesi","adres":"Yunak Eşme Mahallesi 170525 Sokak No:29 Yunak/Konya","telefon":"0 332 714 13 00","ilce":"Yunak"},{"il":"Ankara","hastane":"29 Mayıs Devlet Hastanesi","adres":"Aydınlar Mahallesi Dikmen Caddesi No:312 Çankaya/Ankara","telefon":"0 312 593 29 29","ilce":"Çankaya"},{"il":"Ankara","hastane":"Akyurt Devlet Hastanesi","adres":"Yıldırım Mahallesi Dr. Neslihan Özenli Caddesi No:11/2 Akyurt/Ankara","telefon":"0 312 844 30 10","ilce":"Akyurt"},{"il":"Ankara","hastane":"Bala Devlet Hastanesi","adres":"Şentepe Mahallesi Atatürk Bulvarı Bala/ANKARA","telefon":"0 312 876 18 18","ilce":"Bala"},{"il":"Ankara","hastane":"Beştepe Devlet Hastanesi","adres":"Beştepe Mahallesi Alparslan Türkeş Caddesi No:57 Yenimahalle/Ankara","telefon":"0 312 412 30 00","ilce":"Yenimahalle"},{"il":"Ankara","hastane":"Beypazarı Devlet Hastanesi","adres":"Ayvaşık Mahallesi Dr. Hamdi Soysal Sokak No:1 Beypazarı/Ankara","telefon":"0 312 763 07 75","ilce":"Beypazarı"},{"il":"Ankara","hastane":"Beytepe Şehit Murat Erdi Eker Devlet Hastanesi","adres":"Ahlatlıbel Mahallesi 1746 Sokak Beytepe/Ankara","telefon":"0 312 763 07 75","ilce":"Çankaya"},{"il":"Ankara","hastane":"Ceza İnfaz Kurumları Kampüs Devlet Hastanesi","adres":"Adalet Mahallesi Adalet Sokak Yenikent Sincan/Ankara","telefon":"0 312 254 02 70","ilce":"Sincan"},{"il":"Ankara","hastane":"Çubuk Halil Şıvgın Devlet Hastanesi","adres":"Cumhuriyet Mahallesi Ankara Bulvarı No:54 Çubuk/Ankara","telefon":"0 312 837 81 10","ilce":"Çubuk"},{"il":"Ankara","hastane":"Elmadağ Dr. Hulusi Alataş Devlet Hastanesi","adres":"Yenice Mahallesi Soğukpınar Sokak No:3 Elmadağ/Ankara","telefon":"0 312 863 10 41","ilce":"Elmadağ"},{"il":"Ankara","hastane":"Etimesgut Şehit Sait Ertürk Devlet Hastanesi","adres":"İstasyon Mahallesi Leylak Caddesi No:5 Etimesgut/Ankara","telefon":"0 312 552 55 00","ilce":"Etimesgut"},{"il":"Ankara","hastane":"Gazi Mustafa Kemal Mesleki ve Çevresel Hastalıklar Hastanesi","adres":"Emniyet Mahallesi, Silahtar Cad. No:6 Yenimahalle/Ankara","telefon":"0 312 212 66 66","ilce":"Yenimahalle"},{"il":"Ankara","hastane":"Gölbaşı Şehit Ahmet Özsoy Devlet Hastanesi","adres":"Seğmenler Mahallesi Cumhuriyet Caddesi No:134 Gölbaşı/Ankara","telefon":"0 312 484 03 22","ilce":"Gölbaşı"},{"il":"Ankara","hastane":"Güdül İlçe Entegre Devlet Hastanesi","adres":"Emirler Mahallesi Sağlık Sokak No:8 Güdül/Ankara","telefon":"0 312 728 02 09","ilce":"Güdül"},{"il":"Ankara","hastane":"Haymana Devlet Hastanesi","adres":"Seyran Mahallesi Hastane Caddesi No:14 Haymana/Ankara","telefon":"0 312 658 30 41 42","ilce":"Haymana"},{"il":"Ankara","hastane":"Kahramankazan Devlet Hastanesi","adres":"Atatürk Mahallesi Fevzi Çakmak Caddesi No:10 Kahramankazan/Ankara","telefon":"0 312 814 14 14","ilce":"Kahramankazan"},{"il":"Ankara","hastane":"Kalecik İlçe Entegre Devlet Hastanesi","adres":"Halitcevriaslangil Mahallesi 26. Sokak No:1 Kalecik/Ankara","telefon":"0 312 857 25 23","ilce":"Kalecik"},{"il":"Ankara","hastane":"Kızılcahamam Devlet Hastanesi","adres":"Çayır Mahallesi Ankara Caddesi No:16 Kızılcahamam/Ankara","telefon":"0 312 843 24 22","ilce":"Kızılcahamam"},{"il":"Ankara","hastane":"Mamak Devlet Hastanesi","adres":"Huzur Mahallesi Atatürk Bulvarı No: 58 Mamak/Ankara","telefon":"0 312 566 11 00","ilce":"Mamak"},{"il":"Ankara","hastane":"Nallıhan Devlet Hastanesi","adres":"Hürriyet Mahallesi Dörtler Sokak No: 1 Nallıhan/Ankara","telefon":"0 312 844 11 80","ilce":"Nallıhan"},{"il":"Ankara","hastane":"Polatlı Duatepe Devlet Hastanesi","adres":"Yenidoğan Mahallesi İstasyon Caddesi No: 10 Polatlı/Ankara","telefon":"0 312 678 26 00","ilce":"Polatlı"},{"il":"Ankara","hastane":"Pursaklar Devlet Hastanesi","adres":"Mimar Sinan Mahallesi Çağatay Sokak No:39 Pursaklar/Ankara","telefon":"0 312 509 70 00","ilce":"Pursaklar"},{"il":"Ankara","hastane":"Şereflikoçhisar Devlet Hastanesi","adres":"Atatürk Mahallesi Hastane Caddesi No:1 Şereflikoçhisar/Ankara","telefon":"0 312 714 10 10","ilce":"Şereflikoçhisar"},{"il":"Adana","hastane":"Adana Şehir Eğitim ve Araştırma Hastanesi","adres":"Dr. Mithat Özsan Bulvarı Kışla Mahallesi 4522 Sokaka No:1 Yüreğir/Adana","telefon":"0 322 455 90 00","ilce":"Yüreğir"},{"il":"Adana","hastane":"Çukurova Devlet Hastanesi","adres":"Kurttepe Mahallesi Süleyman Demirel Bulvarı 83027 Sokak No:9 Çukurova/Adana","telefon":"0 322 460 43 50","ilce":"Çukurova"},{"il":"Adana","hastane":"Seyhan Devlet Hastanesi","adres":"Yenibaraj Mahallesi Hacı Ömer Sabancı Caddesi Seyhan/Adana","telefon":"0 322 225 93 29","ilce":"Seyhan"},{"il":"Adana","hastane":"Yüreğir Devlet Hastanesi","adres":"Serinevler Mahallesi Ege Bagatur Bulvarı No:236 01240 Yüreğir/Adana","telefon":"0 322 321 5752","ilce":"Yüreğir"},{"il":"Adana","hastane":"Dr. Ekrem Tok Ruh Sağlığı ve Hastalıkları Hastanesi","adres":"Belediye Evleri Mahallesi Turgut Özal Bulvarı No:230 Çukurova/Adana","telefon":"0 322 239 04 75","ilce":"Çukurova"},{"il":"Adana","hastane":"Adana 5 Ocak Devlet Hastanesi","adres":"Yeşiloba Mah. Turhan Cemal Beriker Bulvarı No:48/9 Seyhan/Adana","telefon":"0 322 225 14 94","ilce":"Seyhan"},{"il":"Adana","hastane":"Adana Karşıyaka Devlet Hastanesi","adres":"Karataş Bulvarı Seyhan Mahallesi No:6 Yüreğir/Adana","telefon":"0 322 503 55 66","ilce":"Yüreğir"},{"il":"Adana","hastane":"Fatma Kemal Timuçin Ağız ve Diş Sağlığı Hastanesi","adres":"Adnan Kahveci Bulvarı İller Bankası Karşısı Çukurova/Adana","telefon":"0 322 256 39 60","ilce":"Çukurova"},{"il":"Adana","hastane":"Yüreğir Karşıyaka Ağız ve Diş Sağlığı Hastanesi","adres":"Sinanpaşa Mahallesi Kozan Caddesi No:91 Yüreğir/Adana","telefon":"0 322 460 42 14","ilce":"Yüreğir"},{"il":"Adana","hastane":"Ceyhan Devlet Hastanesi","adres":"Ulus Mahallesi Hastane Caddesi Ceyhan/Adana","telefon":"0 322 613 33 62","ilce":"Ceyhan"},{"il":"Adana","hastane":"Kozan Devlet Hastanesi","adres":"Karacaoğlan Mahallesi Feke Caddesi No:1/150 Kozan/Adana","telefon":"0 322 515 83 06","ilce":"Kozan"},{"il":"Adana","hastane":"İmamoğlu Devlet Hastanesi","adres":"Hürriyet Mahallesi Şehit Osman Tatar Caddesi No:30 İmamoğlu/Adana","telefon":"0 322 891 37 01","ilce":"İmamoğlu"},{"il":"Adana","hastane":"Karaisalı Devlet Hastanesi","adres":"Çeceli Mahallesi Cumhuriyet Caddesi No:22 Karaisalı/Adana","telefon":"0 322 551 25 24","ilce":"Karaisalı"},{"il":"Adana","hastane":"Pozantı 80. Yıl Devlet Hastanesi","adres":"Zafer Mah. Hastane Caddesi No:81 01470 Pozantı/Adana","telefon":"0 322 581 39 20","ilce":"Pozantı"},{"il":"Adana","hastane":"Tufanbeyli Devlet Hastanesi","adres":"Cumhuriyet Mahallesi Hastane Caddesi No:1 Tufanbeyli/Adana","telefon":"0 322 781 94 96","ilce":"Tufanbeyli"},{"il":"Adana","hastane":"Aladağ İlçe Devlet Hastanesi","adres":"Sinanpaşa Mahallesi Sinanpaşa Caddesi No:121 Aladağ/Adana","telefon":"0 322 591 27 27","ilce":"Aladağ"},{"il":"Adana","hastane":"Feke İlçe Devlet Hastanesi","adres":"İslam Mahallesi Kocayurdan Mevkii Feke/Adana","telefon":"0 322 741 22 24","ilce":"Feke"},{"il":"Adana","hastane":"Saimbeyli Şehit Uzman Çavuş Adem Ambarcı İlçe Devlet Hastanesi","adres":"Fatih Mahallesi Cezaevi Caddesi No:1 Saimbeyli/Adana","telefon":"0 322 761 27 27","ilce":"Saimbeyli"}]
+[
+    {
+        "il": "Kırıkkale",
+        "hastane": "Kırıkkale Yüksek İhtisas Hastanesi",
+        "adres": "Bağlarbaşı, Ahmet Ay Caddesi, 71300 Merkez/Kırıkkale",
+        "telefon": "0318 215 10 10",
+        "ilce": "Merkez"
+    },
+    {
+        "il": "Kırıkkale",
+        "hastane": "Kırıkkale Yüksek İhtisas Hastanesi Semt Polikliniği",
+        "adres": "Fabrikalar Mahallesi, Ağbey Pehlivanlı Bulvarı No:9/i 71100 Merkez/Kırıkkale",
+        "telefon": "0318 234 08 08",
+        "ilce": "Merkez"
+    },
+    {
+        "il": "Kırıkkale",
+        "hastane": "Delice İlçe Devlet Hastanesi",
+        "adres": "Fatih, Kırıkkale -Çorum Kara Yolu, 71700 Delice/Kırıkkale",
+        "telefon": "0318 618 61 41",
+        "ilce": "Delice"
+    },
+    {
+        "il": "Kırıkkale",
+        "hastane": "Karakeçili İlçe Devlet Hastanesi",
+        "adres": "Zafer, Karakeçili Kaman Yolu, 71500 Karakeçili/Kırıkkale",
+        "telefon": "0318 474 34 52",
+        "ilce": "Karakeçili"
+    },
+    {
+        "il": "Kırıkkale",
+        "hastane": "Keskin İlçe Devlet Hastanesi",
+        "adres": "Merkez, Kayseri Yolu Cd. 1. Km, 71800 Keskin/Kırıkkale",
+        "telefon": "0318 515 32 06",
+        "ilce": "Keskin"
+    },
+    {
+        "il": "Kırıkkale",
+        "hastane": "Sulakyurt İlçe Devlet Hastanesi",
+        "adres": "Yeni Mah.Koru cad.No/40 Kırıkkale/Sulakyurt",
+        "telefon": "0318 812 76 71",
+        "ilce": "Sulakyurt"
+    },
+    {
+        "il": "Konya",
+        "hastane": "Konya Şehir Hastanesi",
+        "adres": "Akabe Mahallesi Yeni İstanbul Caddesi No:135 Karatay/Konya",
+        "telefon": "0 332 310 50 00",
+        "ilce": "Karatay"
+    },
+    {
+        "il": "Konya",
+        "hastane": "Konya Sağlık Bilimleri Üniversitesi Beyhekim Eğitim ve Araştırma Hastanesi",
+        "adres": "Beyhekim Mahallesi Turgut Özal Caddesi No:10 Selçuklu/Konya",
+        "telefon": "0 332 224 30 00",
+        "ilce": "Selçuklu"
+    },
+    {
+        "il": "Konya",
+        "hastane": "Konya Numune Hastanesi",
+        "adres": "Yenişehir Mahallesi Hastane Caddesi No:15 Selçuklu/Konya",
+        "telefon": "0 332 235 45 00",
+        "ilce": "Selçuklu"
+    },
+    {
+        "il": "Konya",
+        "hastane": "Meram Devlet Hastanesi",
+        "adres": "Ayanbey Mahallesi Yeni Meram Caddesi No:97 Meram/Konya",
+        "telefon": "0 332 221 00 00",
+        "ilce": "Meram"
+    },
+    {
+        "il": "Konya",
+        "hastane": "Dr. Ali Kemal Belviranlı Kadın Doğum ve Çocuk Hastalıkları Hastanesi",
+        "adres": "Halkapınar Mahallesi İhsaniye Caddesi No: 20 Selçuklu/Konya",
+        "telefon": "0 332 323 60 00",
+        "ilce": "Selçuklu"
+    },
+    {
+        "il": "Konya",
+        "hastane": "Akşehir Devlet Hastanesi",
+        "adres": "Şehit Hasan Kaya Caddesi No:2 Akşehir/Konya",
+        "telefon": "0 332 813 16 24",
+        "ilce": "Akşehir"
+    },
+    {
+        "il": "Konya",
+        "hastane": "Altınekin Devlet Hastanesi",
+        "adres": "Fatih Mahallesi Atatürk Caddesi No:12 Altınekin/Konya",
+        "telefon": "0 332 843 40 25",
+        "ilce": "Altınekin"
+    },
+    {
+        "il": "Konya",
+        "hastane": "Beyşehir Devlet Hastanesi",
+        "adres": "Yenidoğan Mahallesi Cumhuriyet Caddesi No:1 Beyşehir/Konya",
+        "telefon": "0 332 614 20 31",
+        "ilce": "Beyşehir"
+    },
+    {
+        "il": "Konya",
+        "hastane": "Bozkır Devlet Hastanesi",
+        "adres": "Zafer Mahallesi Hastane Caddesi No:5 Bozkır/Konya",
+        "telefon": "0 332 751 30 00",
+        "ilce": "Bozkır"
+    },
+    {
+        "il": "Konya",
+        "hastane": "Cihanbeyli Devlet Hastanesi",
+        "adres": "Cumhuriyet Mahallesi Atatürk Caddesi No:15 Cihanbeyli/Konya",
+        "telefon": "0 332 715 11 00",
+        "ilce": "Cihanbeyli"
+    },
+    {
+        "il": "Konya",
+        "hastane": "Çumra Devlet Hastanesi",
+        "adres": "Meydan Mahallesi Hastane Caddesi No:29 Çumra/Konya",
+        "telefon": "0 332 447 50 01",
+        "ilce": "Çumra"
+    },
+    {
+        "il": "Konya",
+        "hastane": "Doğanhisar Devlet Hastanesi",
+        "adres": "İstiklal Mahallesi Atatürk Caddesi No:8 Doğanhisar/Konya",
+        "telefon": "0 332 765 10 00",
+        "ilce": "Doğanhisar"
+    },
+    {
+        "il": "Konya",
+        "hastane": "Ereğli Devlet Hastanesi",
+        "adres": "Toros Mahallesi Şehit Metin Düzgün Caddesi No: 1/A Ereğli/Konya",
+        "telefon": "0 332 223 50 00",
+        "ilce": "Ereğli"
+    },
+    {
+        "il": "Konya",
+        "hastane": "Konya Ereğli Ceza İnfaz Kurumu Devlet Hastanesi",
+        "adres": "Sarıtopallı Mahellesi Konya Ereğli Caddesi 1690/S Ereğli/Konya",
+        "telefon": "0 332 717 00 64",
+        "ilce": "Ereğli"
+    },
+    {
+        "il": "Konya",
+        "hastane": "Hadim Devlet Hastanesi",
+        "adres": "Cumhuriyet Mahallesi, Atatürk Caddesi No:6 Hadim/Konya",
+        "telefon": "0 332 757 12 00",
+        "ilce": "Hadim"
+    },
+    {
+        "il": "Konya",
+        "hastane": "Hüyük Devlet Hastanesi",
+        "adres": "İstiklal Mahallesi Hükümet Caddesi No:2 Hüyük/Konya",
+        "telefon": "0 332 745 11 00",
+        "ilce": "Hüyük"
+    },
+    {
+        "il": "Konya",
+        "hastane": "Dr. Vefa Tanır Ilgın Devlet Hastanesi",
+        "adres": "İstasyon Mahallesi Hastane Caddesi No:1 Ilgın/Konya",
+        "telefon": "0 332 516 20 00",
+        "ilce": "Ilgın"
+    },
+    {
+        "il": "Konya",
+        "hastane": "Kadınhanı Refik Saime Koyuncu Devlet Hastanesi",
+        "adres": "Merkez Mahallesi Hastane Caddesi No:4 Kadınhanı/Konya",
+        "telefon": "0 332 748 10 00",
+        "ilce": "Kadınhanı"
+    },
+    {
+        "il": "Konya",
+        "hastane": "Karapınar Devlet Hastanesi",
+        "adres": "Karapınar Merkez Konya Caddesi No:7 Karapınar/Konya",
+        "telefon": "0 332 612 12 00",
+        "ilce": "Karapınar"
+    },
+    {
+        "il": "Konya",
+        "hastane": "Kulu Devlet Hastanesi",
+        "adres": "İstiklal Mahallesi Hastane Caddesi No:8 Kulu Merkez Kulu/Konya",
+        "telefon": "0 332 721 10 00",
+        "ilce": "Kulu"
+    },
+    {
+        "il": "Konya",
+        "hastane": "Sarayönü Devlet Hastanesi",
+        "adres": "Merkez Mahallesi Atatürk Caddesi No:12 Sarayönü/Konya",
+        "telefon": "0 332 778 10 00",
+        "ilce": "Sarayönü"
+    },
+    {
+        "il": "Konya",
+        "hastane": "Seydişehir Devlet Hastanesi",
+        "adres": "İstasyon Mahallesi Hastane Caddesi No:9 Seydişehir/Konya",
+        "telefon": "0 332 714 12 00",
+        "ilce": "Seydişehir"
+    },
+    {
+        "il": "Konya",
+        "hastane": "Yunak Hacı İzzet Baysal Devlet Hastanesi",
+        "adres": "Yunak Eşme Mahallesi 170525 Sokak No:29 Yunak/Konya",
+        "telefon": "0 332 714 13 00",
+        "ilce": "Yunak"
+    },
+    {
+        "il": "Ankara",
+        "hastane": "29 Mayıs Devlet Hastanesi",
+        "adres": "Aydınlar Mahallesi Dikmen Caddesi No:312 Çankaya/Ankara",
+        "telefon": "0 312 593 29 29",
+        "ilce": "Çankaya"
+    },
+    {
+        "il": "Ankara",
+        "hastane": "Akyurt Devlet Hastanesi",
+        "adres": "Yıldırım Mahallesi Dr. Neslihan Özenli Caddesi No:11/2 Akyurt/Ankara",
+        "telefon": "0 312 844 30 10",
+        "ilce": "Akyurt"
+    },
+    {
+        "il": "Ankara",
+        "hastane": "Bala Devlet Hastanesi",
+        "adres": "Şentepe Mahallesi Atatürk Bulvarı Bala/ANKARA",
+        "telefon": "0 312 876 18 18",
+        "ilce": "Bala"
+    },
+    {
+        "il": "Ankara",
+        "hastane": "Beştepe Devlet Hastanesi",
+        "adres": "Beştepe Mahallesi Alparslan Türkeş Caddesi No:57 Yenimahalle/Ankara",
+        "telefon": "0 312 412 30 00",
+        "ilce": "Yenimahalle"
+    },
+    {
+        "il": "Ankara",
+        "hastane": "Beypazarı Devlet Hastanesi",
+        "adres": "Ayvaşık Mahallesi Dr. Hamdi Soysal Sokak No:1 Beypazarı/Ankara",
+        "telefon": "0 312 763 07 75",
+        "ilce": "Beypazarı"
+    },
+    {
+        "il": "Ankara",
+        "hastane": "Beytepe Şehit Murat Erdi Eker Devlet Hastanesi",
+        "adres": "Ahlatlıbel Mahallesi 1746 Sokak Beytepe/Ankara",
+        "telefon": "0 312 763 07 75",
+        "ilce": "Çankaya"
+    },
+    {
+        "il": "Ankara",
+        "hastane": "Ceza İnfaz Kurumları Kampüs Devlet Hastanesi",
+        "adres": "Adalet Mahallesi Adalet Sokak Yenikent Sincan/Ankara",
+        "telefon": "0 312 254 02 70",
+        "ilce": "Sincan"
+    },
+    {
+        "il": "Ankara",
+        "hastane": "Çubuk Halil Şıvgın Devlet Hastanesi",
+        "adres": "Cumhuriyet Mahallesi Ankara Bulvarı No:54 Çubuk/Ankara",
+        "telefon": "0 312 837 81 10",
+        "ilce": "Çubuk"
+    },
+    {
+        "il": "Ankara",
+        "hastane": "Elmadağ Dr. Hulusi Alataş Devlet Hastanesi",
+        "adres": "Yenice Mahallesi Soğukpınar Sokak No:3 Elmadağ/Ankara",
+        "telefon": "0 312 863 10 41",
+        "ilce": "Elmadağ"
+    },
+    {
+        "il": "Ankara",
+        "hastane": "Etimesgut Şehit Sait Ertürk Devlet Hastanesi",
+        "adres": "İstasyon Mahallesi Leylak Caddesi No:5 Etimesgut/Ankara",
+        "telefon": "0 312 552 55 00",
+        "ilce": "Etimesgut"
+    },
+    {
+        "il": "Ankara",
+        "hastane": "Gazi Mustafa Kemal Mesleki ve Çevresel Hastalıklar Hastanesi",
+        "adres": "Emniyet Mahallesi, Silahtar Cad. No:6 Yenimahalle/Ankara",
+        "telefon": "0 312 212 66 66",
+        "ilce": "Yenimahalle"
+    },
+    {
+        "il": "Ankara",
+        "hastane": "Gölbaşı Şehit Ahmet Özsoy Devlet Hastanesi",
+        "adres": "Seğmenler Mahallesi Cumhuriyet Caddesi No:134 Gölbaşı/Ankara",
+        "telefon": "0 312 484 03 22",
+        "ilce": "Gölbaşı"
+    },
+    {
+        "il": "Ankara",
+        "hastane": "Güdül İlçe Entegre Devlet Hastanesi",
+        "adres": "Emirler Mahallesi Sağlık Sokak No:8 Güdül/Ankara",
+        "telefon": "0 312 728 02 09",
+        "ilce": "Güdül"
+    },
+    {
+        "il": "Ankara",
+        "hastane": "Haymana Devlet Hastanesi",
+        "adres": "Seyran Mahallesi Hastane Caddesi No:14 Haymana/Ankara",
+        "telefon": "0 312 658 30 41 42",
+        "ilce": "Haymana"
+    },
+    {
+        "il": "Ankara",
+        "hastane": "Kahramankazan Devlet Hastanesi",
+        "adres": "Atatürk Mahallesi Fevzi Çakmak Caddesi No:10 Kahramankazan/Ankara",
+        "telefon": "0 312 814 14 14",
+        "ilce": "Kahramankazan"
+    },
+    {
+        "il": "Ankara",
+        "hastane": "Kalecik İlçe Entegre Devlet Hastanesi",
+        "adres": "Halitcevriaslangil Mahallesi 26. Sokak No:1 Kalecik/Ankara",
+        "telefon": "0 312 857 25 23",
+        "ilce": "Kalecik"
+    },
+    {
+        "il": "Ankara",
+        "hastane": "Kızılcahamam Devlet Hastanesi",
+        "adres": "Çayır Mahallesi Ankara Caddesi No:16 Kızılcahamam/Ankara",
+        "telefon": "0 312 843 24 22",
+        "ilce": "Kızılcahamam"
+    },
+    {
+        "il": "Ankara",
+        "hastane": "Mamak Devlet Hastanesi",
+        "adres": "Huzur Mahallesi Atatürk Bulvarı No: 58 Mamak/Ankara",
+        "telefon": "0 312 566 11 00",
+        "ilce": "Mamak"
+    },
+    {
+        "il": "Ankara",
+        "hastane": "Nallıhan Devlet Hastanesi",
+        "adres": "Hürriyet Mahallesi Dörtler Sokak No: 1 Nallıhan/Ankara",
+        "telefon": "0 312 844 11 80",
+        "ilce": "Nallıhan"
+    },
+    {
+        "il": "Ankara",
+        "hastane": "Polatlı Duatepe Devlet Hastanesi",
+        "adres": "Yenidoğan Mahallesi İstasyon Caddesi No: 10 Polatlı/Ankara",
+        "telefon": "0 312 678 26 00",
+        "ilce": "Polatlı"
+    },
+    {
+        "il": "Ankara",
+        "hastane": "Pursaklar Devlet Hastanesi",
+        "adres": "Mimar Sinan Mahallesi Çağatay Sokak No:39 Pursaklar/Ankara",
+        "telefon": "0 312 509 70 00",
+        "ilce": "Pursaklar"
+    },
+    {
+        "il": "Ankara",
+        "hastane": "Şereflikoçhisar Devlet Hastanesi",
+        "adres": "Atatürk Mahallesi Hastane Caddesi No:1 Şereflikoçhisar/Ankara",
+        "telefon": "0 312 714 10 10",
+        "ilce": "Şereflikoçhisar"
+    },
+    {
+        "il": "Adana",
+        "hastane": "Adana Şehir Eğitim ve Araştırma Hastanesi",
+        "adres": "Dr. Mithat Özsan Bulvarı Kışla Mahallesi 4522 Sokaka No:1 Yüreğir/Adana",
+        "telefon": "0 322 455 90 00",
+        "ilce": "Yüreğir"
+    },
+    {
+        "il": "Adana",
+        "hastane": "Çukurova Devlet Hastanesi",
+        "adres": "Kurttepe Mahallesi Süleyman Demirel Bulvarı 83027 Sokak No:9 Çukurova/Adana",
+        "telefon": "0 322 460 43 50",
+        "ilce": "Çukurova"
+    },
+    {
+        "il": "Adana",
+        "hastane": "Seyhan Devlet Hastanesi",
+        "adres": "Yenibaraj Mahallesi Hacı Ömer Sabancı Caddesi Seyhan/Adana",
+        "telefon": "0 322 225 93 29",
+        "ilce": "Seyhan"
+    },
+    {
+        "il": "Adana",
+        "hastane": "Yüreğir Devlet Hastanesi",
+        "adres": "Serinevler Mahallesi Ege Bagatur Bulvarı No:236 01240 Yüreğir/Adana",
+        "telefon": "0 322 321 5752",
+        "ilce": "Yüreğir"
+    },
+    {
+        "il": "Adana",
+        "hastane": "Dr. Ekrem Tok Ruh Sağlığı ve Hastalıkları Hastanesi",
+        "adres": "Belediye Evleri Mahallesi Turgut Özal Bulvarı No:230 Çukurova/Adana",
+        "telefon": "0 322 239 04 75",
+        "ilce": "Çukurova"
+    },
+    {
+        "il": "Adana",
+        "hastane": "Adana 5 Ocak Devlet Hastanesi",
+        "adres": "Yeşiloba Mah. Turhan Cemal Beriker Bulvarı No:48/9 Seyhan/Adana",
+        "telefon": "0 322 225 14 94",
+        "ilce": "Seyhan"
+    },
+    {
+        "il": "Adana",
+        "hastane": "Adana Karşıyaka Devlet Hastanesi",
+        "adres": "Karataş Bulvarı Seyhan Mahallesi No:6 Yüreğir/Adana",
+        "telefon": "0 322 503 55 66",
+        "ilce": "Yüreğir"
+    },
+    {
+        "il": "Adana",
+        "hastane": "Fatma Kemal Timuçin Ağız ve Diş Sağlığı Hastanesi",
+        "adres": "Adnan Kahveci Bulvarı İller Bankası Karşısı Çukurova/Adana",
+        "telefon": "0 322 256 39 60",
+        "ilce": "Çukurova"
+    },
+    {
+        "il": "Adana",
+        "hastane": "Yüreğir Karşıyaka Ağız ve Diş Sağlığı Hastanesi",
+        "adres": "Sinanpaşa Mahallesi Kozan Caddesi No:91 Yüreğir/Adana",
+        "telefon": "0 322 460 42 14",
+        "ilce": "Yüreğir"
+    },
+    {
+        "il": "Adana",
+        "hastane": "Ceyhan Devlet Hastanesi",
+        "adres": "Ulus Mahallesi Hastane Caddesi Ceyhan/Adana",
+        "telefon": "0 322 613 33 62",
+        "ilce": "Ceyhan"
+    },
+    {
+        "il": "Adana",
+        "hastane": "Kozan Devlet Hastanesi",
+        "adres": "Karacaoğlan Mahallesi Feke Caddesi No:1/150 Kozan/Adana",
+        "telefon": "0 322 515 83 06",
+        "ilce": "Kozan"
+    },
+    {
+        "il": "Adana",
+        "hastane": "İmamoğlu Devlet Hastanesi",
+        "adres": "Hürriyet Mahallesi Şehit Osman Tatar Caddesi No:30 İmamoğlu/Adana",
+        "telefon": "0 322 891 37 01",
+        "ilce": "İmamoğlu"
+    },
+    {
+        "il": "Adana",
+        "hastane": "Karaisalı Devlet Hastanesi",
+        "adres": "Çeceli Mahallesi Cumhuriyet Caddesi No:22 Karaisalı/Adana",
+        "telefon": "0 322 551 25 24",
+        "ilce": "Karaisalı"
+    },
+    {
+        "il": "Adana",
+        "hastane": "Pozantı 80. Yıl Devlet Hastanesi",
+        "adres": "Zafer Mah. Hastane Caddesi No:81 01470 Pozantı/Adana",
+        "telefon": "0 322 581 39 20",
+        "ilce": "Pozantı"
+    },
+    {
+        "il": "Adana",
+        "hastane": "Tufanbeyli Devlet Hastanesi",
+        "adres": "Cumhuriyet Mahallesi Hastane Caddesi No:1 Tufanbeyli/Adana",
+        "telefon": "0 322 781 94 96",
+        "ilce": "Tufanbeyli"
+    },
+    {
+        "il": "Adana",
+        "hastane": "Aladağ İlçe Devlet Hastanesi",
+        "adres": "Sinanpaşa Mahallesi Sinanpaşa Caddesi No:121 Aladağ/Adana",
+        "telefon": "0 322 591 27 27",
+        "ilce": "Aladağ"
+    },
+    {
+        "il": "Adana",
+        "hastane": "Feke İlçe Devlet Hastanesi",
+        "adres": "İslam Mahallesi Kocayurdan Mevkii Feke/Adana",
+        "telefon": "0 322 741 22 24",
+        "ilce": "Feke"
+    },
+    {
+        "il": "Adana",
+        "hastane": "Saimbeyli Şehit Uzman Çavuş Adem Ambarcı İlçe Devlet Hastanesi",
+        "adres": "Fatih Mahallesi Cezaevi Caddesi No:1 Saimbeyli/Adana",
+        "telefon": "0 322 761 27 27",
+        "ilce": "Saimbeyli"
+    },
+    {
+        "il": "Ankara",
+        "ilce": "Keçiören",
+        "hastane": "Ankara Atatürk Sanatoryum Eğitim ve Araştırma Hastanesi",
+        "adres": "Sanatoryum Caddesi Pınarbaşı Mahallesi Ardahan Sokak No: 25 Keçiören/Ankara",
+        "telefon": "0 312 567 70 00"
+    },
+    {
+        "il": "Ankara",
+        "ilce": "Çankaya",
+        "hastane": "Ankara Bilkent Şehir Hastanesi",
+        "adres": "Üniversiteler Mahallesi Dumlupınar Bulvarı 6001. Cadde No: 9 Çankaya/Ankara",
+        "telefon": "0 312 552 60 00"
+    },
+    {
+        "il": "Ankara",
+        "ilce": "Altındağ",
+        "hastane": "Ankara Eğitim ve Araştırma Hastanesi",
+        "adres": "Hacettepe Mahallesi Ulucanlar Caddesi No:89 Altındağ/Ankara",
+        "telefon": "0 312 595 30 00"
+    },
+    {
+        "il": "Ankara",
+        "ilce": "Keçiören",
+        "hastane": "Ankara Etlik Şehir Hastanesi",
+        "adres": "Varlık Mahallesi Halil Sezai Erkut Caddesi No: 5 Keçiören/Ankara",
+        "telefon": "0 312 797 00 00"
+    },
+    {
+        "il": "Ankara",
+        "ilce": "Altındağ",
+        "hastane": "Dışkapı Yıldırım Beyazıt Eğitim ve Araştırma Hastanesi",
+        "adres": "Ziraat Mahallesi Şehit Ömer Halisdemir Bulvarı No: 1 Altındağ/Ankara",
+        "telefon": "0 312 596 20 00"
+    },
+    {
+        "il": "Ankara",
+        "ilce": "Yenimahalle",
+        "hastane": "Abdurrahman Yurtaslan Ankara Onkoloji Eğitim ve Araştırma Hastanesi",
+        "adres": "Mehmet Akif Ersoy Mahallesi 13. Cadde No: 56 Yenimahalle/Ankara",
+        "telefon": "0 312 336 09 09"
+    },
+    {
+        "il": "Ankara",
+        "ilce": "Keçiören",
+        "hastane": "Gülhane Eğitim ve Araştırma Hastanesi",
+        "adres": "General Dr. Tevfik Sağlam Cd. No:1 Etlik/Ankara",
+        "telefon": "0 312 304 20 00"
+    },
+    {
+        "il": "Ankara",
+        "ilce": "Altındağ",
+        "hastane": "Dr. Sami Ulus Çocuk Sağlığı ve Hastalıkları Eğitim ve Araştırma Hastanesi",
+        "adres": "Plevene Mahallesi Babür Caddesi No: 44 Altındağ/Ankara",
+        "telefon": "0 312 305 60 00"
+    },
+    {
+        "il": "Ankara",
+        "ilce": "Gölbaşı",
+        "hastane": "Gaziler Fizik Tedavi ve Rehabilitasyon Eğitim ve Araştırma Hastanesi",
+        "adres": "Bilkent Yolu 16. km Gölbaşı/Ankara",
+        "telefon": "0 312 291 21 00"
+    },
+    {
+        "il": "Ankara",
+        "ilce": "Sincan",
+        "hastane": "Sincan Eğitim ve Araştırma Hastanesi",
+        "adres": "Gökçek Mahallesi 250. Cad. No: 2/A Sincan/Ankara",
+        "telefon": "0 312 272 62 40"
+    },
+    {
+        "il": "Ankara",
+        "ilce": "Altındağ",
+        "hastane": "Ulucanlar Göz Eğitim ve Araştırma Hastanesi",
+        "adres": "Kale Mahallesi, Ulucanlar Cad. No: 59 Altındağ/Ankara",
+        "telefon": "0 312 312 62 61"
+    },
+    {
+        "il": "Ankara",
+        "ilce": "Yenimahalle",
+        "hastane": "Yenimahalle Eğitim ve Araştırma Hastanesi",
+        "adres": "Yeni Batı Mahallesi 2367. Sok. No: 4 Batıkent Yenimahalle/Ankara",
+        "telefon": "0 312 587 20 00"
+    }
+]
