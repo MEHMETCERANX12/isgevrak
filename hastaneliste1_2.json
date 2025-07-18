@@ -394,7 +394,7 @@
     {
         "il": "Adana",
         "hastane": "Adana 5 Ocak Devlet Hastanesi",
-        "adres": "Yeşiloba Mah. Turhan Cemal Beriker Bulvarı No:48/9 Seyhan/Adana",
+        "adres": "Yeşiloba Mahallesi Turhan Cemal Beriker Bulvarı No:48/9 Seyhan/Adana",
         "telefon": "0 322 225 14 94",
         "ilce": "Seyhan"
     },
@@ -528,7 +528,7 @@
         "il": "Ankara",
         "ilce": "Keçiören",
         "hastane": "Gülhane Eğitim ve Araştırma Hastanesi",
-        "adres": "General Dr. Tevfik Sağlam Cd. No:1 Etlik/Ankara",
+        "adres": "General Dr. Tevfik Sağlam Caddesi No:1 Etlik/Ankara",
         "telefon": "0 312 304 20 00"
     },
     {
@@ -549,21 +549,21 @@
         "il": "Ankara",
         "ilce": "Sincan",
         "hastane": "Sincan Eğitim ve Araştırma Hastanesi",
-        "adres": "Gökçek Mahallesi 250. Cad. No: 2/A Sincan/Ankara",
+        "adres": "Gökçek Mahallesi 250. Caddesi No: 2/A Sincan/Ankara",
         "telefon": "0 312 272 62 40"
     },
     {
         "il": "Ankara",
         "ilce": "Altındağ",
         "hastane": "Ulucanlar Göz Eğitim ve Araştırma Hastanesi",
-        "adres": "Kale Mahallesi, Ulucanlar Cad. No: 59 Altındağ/Ankara",
+        "adres": "Kale Mahallesi Ulucanlar Caddesi No: 59 Altındağ/Ankara",
         "telefon": "0 312 312 62 61"
     },
     {
         "il": "Ankara",
         "ilce": "Yenimahalle",
         "hastane": "Yenimahalle Eğitim ve Araştırma Hastanesi",
-        "adres": "Yeni Batı Mahallesi 2367. Sok. No: 4 Batıkent Yenimahalle/Ankara",
+        "adres": "Yeni Batı Mahallesi 2367. Sokak No: 4 Batıkent Yenimahalle/Ankara",
         "telefon": "0 312 587 20 00"
     }
 ]
