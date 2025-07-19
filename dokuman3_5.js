@@ -1794,3 +1794,32 @@ async function ulusalacildurumnumarayaz()
     const blob = await Packer.toBlob(doc);
     saveAs(blob, "Acil Durum Numaraları.docx");
 }
+
+function acildurumhastaneyaz()
+{
+    const secilenIl = $('#hastaneil').val();
+    const secilenIlce = $('#hastaneilce').val();
+    const secilenHastane = $('#hastaneisim').val();
+    if (!secilenIl || !secilenIlce || !secilenHastane)
+    {
+        alert('Lütfen İl, İlçe ve Hastane seçiniz.');
+        return;
+    }
+    const hastaneListesi = store.get("hastanebilgi") || [];
+    const secilen = hastaneListesi.find(h =>
+        h.il === secilenIl &&
+        h.ilce === secilenIlce &&
+        h.hastane === secilenHastane
+    );
+    if (secilen)
+    {
+        $('#hastaneadi').val(secilen.hastane);
+        $('#hastaneadres').val(secilen.adres);
+        $('#hastanetel').val(secilen.telefon);
+        $('#hastanebulucu').fadeOut();
+    }
+    else
+    {
+        alert('Seçilen hastane bilgisi bulunamadı.');
+    }
+}
