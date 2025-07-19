@@ -1700,4 +1700,97 @@ function acildurumtedbirdocxyaz()
     Packer.toBlob(doc).then(blob => { saveAs(blob, "Acil Durum Kontrol Listesi.docx");});
 }
 
-
+async function ulusalacildurumnumarayaz()
+{
+    let uzmanad = store.get("uzmanad");
+    let uzmanno = store.get("uzmanno");
+    let isyeri = store.get('xjsonfirma');
+    isyeri = JSON.parse(isyeri);
+    let isveren = isyeri.is;
+    let hekimad = isyeri.hk;
+    let hekimno = isyeri.hn;
+    const { Document, Packer, Paragraph, Table, TableRow, TableCell, WidthType, TextRun, AlignmentType, BorderStyle } = window.docx;
+    const tableRows = [];
+    tableRows.push(
+    new docx.TableRow
+    ({
+        height: { value: 566, rule: docx.HeightRule.EXACT },
+        children:[new docx.TableCell({columnSpan:2,children:[new docx.Paragraph({alignment:docx.AlignmentType.CENTER,children:[new docx.TextRun({text:"Ulusal Acil Durum Numaraları",bold:true,font:"Calibri",size:22})]})],width:{size:100,type:docx.WidthType.PERCENTAGE},verticalAlign:docx.VerticalAlign.CENTER})]
+    }));
+    tableRows.push(new docx.TableRow
+    ({
+        height: { value: 566, rule: docx.HeightRule.EXACT },
+        children:
+        [
+            new docx.TableCell({children:[new docx.Paragraph({alignment:docx.AlignmentType.CENTER,children:[new docx.TextRun({text:"Kurum Adı",bold:true,font:"Calibri",size:22})]})],width:{size:80,type:docx.WidthType.PERCENTAGE},verticalAlign:docx.VerticalAlign.CENTER}),
+            new docx.TableCell({children:[new docx.Paragraph({alignment:docx.AlignmentType.CENTER,children:[new docx.TextRun({text:"Telefon No",bold:true,font:"Calibri",size:22})]})],width:{size:20,type:docx.WidthType.PERCENTAGE},verticalAlign:docx.VerticalAlign.CENTER})
+        ]
+    }));
+    tableRows.push(new docx.TableRow
+    ({
+        height: { value: 566, rule: docx.HeightRule.EXACT },
+        children:
+        [
+            new docx.TableCell({margins:{left:75},children:[new docx.Paragraph({alignment:docx.AlignmentType.LEFT,children:[new docx.TextRun({text:"İtfaiye",font:"Calibri",size:22,bold:false})]})],verticalAlign:docx.VerticalAlign.CENTER}),
+            new docx.TableCell({children:[new docx.Paragraph({alignment:docx.AlignmentType.CENTER,children:[new docx.TextRun({text:"112",bold:false,font:"Calibri",size:22})]})],rowSpan:7,verticalAlign:docx.VerticalAlign.CENTER})
+        ]
+    }));
+    ["Polis", "Sağlık - Ambulans", "AFAD", "Jandarma", "Orman Yangın", "Sahil Güvenlik"].forEach(name =>{
+    tableRows.push(new docx.TableRow
+    ({
+        height: { value: 566, rule: docx.HeightRule.EXACT },
+        children:[new docx.TableCell({margins:{left:75},children:[new docx.Paragraph({alignment:docx.AlignmentType.LEFT,children:[new docx.TextRun({text:name,bold:false,font:"Calibri",size:22})]})],verticalAlign:docx.VerticalAlign.CENTER})]}));
+    });
+    const others =
+    [
+        { kurum: "Ulusal Zehir Danışma Merkezi", tel: "114" },
+        { kurum: "Sağlık Bakanlığı İletişim Merkezi", tel: "184" },
+        { kurum: "Doğalgaz Arıza", tel: "187" },
+        { kurum: "Telefon Arıza", tel: "121" },
+        { kurum: "Su Arıza", tel: "185" },
+        { kurum: "Elektrik Arıza", tel: "186" },
+        { kurum: "Gıda İhbar Hattı", tel: "174" },
+        { kurum: "Zabıta", tel: "153" },
+    ];
+    others.forEach(({ kurum, tel }) =>
+    {
+        tableRows.push(new docx.TableRow({
+            height: { value: 566, rule: docx.HeightRule.EXACT },
+            children:
+            [
+                new docx.TableCell({ children: [new docx.Paragraph({ children: [new docx.TextRun({ text: kurum, font: "Calibri", size: 22 })] })], verticalAlign: docx.VerticalAlign.CENTER, margins: { left: 75 } }),
+                new docx.TableCell({ children: [new docx.Paragraph({ alignment: docx.AlignmentType.CENTER, children: [new docx.TextRun({ text: tel, font: "Calibri", size: 22 })] })], verticalAlign: docx.VerticalAlign.CENTER })
+            ]
+        }));
+    });
+    let hastaneadi = $('#hastaneadi').val();
+    let hastaneadres = $('#hastaneadres').val();
+    let hastanetel = $('#hastanetel').val();
+    if (hastaneadi && hastaneadi.trim() !== "")
+    {
+        tableRows.push(new docx.TableRow({
+            height: { value: 566, rule: docx.HeightRule.AT_LEAST },
+            children:
+            [
+                new docx.TableCell({ children: [new docx.Paragraph({ children: [new docx.TextRun({ text: hastaneadi, font: "Calibri", size: 22 }), new docx.TextRun({ break: 1 }), new docx.TextRun({ text: hastaneadres, font: "Calibri", size: 22 })] })], verticalAlign: docx.VerticalAlign.CENTER, margins: { left: 75 } }),
+                new docx.TableCell({ children: [new docx.Paragraph({ alignment: docx.AlignmentType.CENTER, children: [new docx.TextRun({ text: hastanetel, font: "Calibri", size: 22 })] })], verticalAlign: docx.VerticalAlign.CENTER })
+            ]
+        }));
+    }
+    const table = new Table
+    ({
+        rows: tableRows,
+        width: { size: 100, type: WidthType.PERCENTAGE },
+        alignment: AlignmentType.CENTER,
+    });
+    const doc = new Document({
+        sections:
+        [{
+            properties: { page: {margin: {top: 850, bottom: 1950, left: 850, right: 850, footer:1100}}},
+            children: [table],
+            footers: { default: new docx.Footer({ children: [docxucluimzadikey(uzmanad, uzmanno, hekimad, hekimno, isveren)]})}
+        }]
+    });
+    const blob = await Packer.toBlob(doc);
+    saveAs(blob, "Acil Durum Numaraları.docx");
+}
