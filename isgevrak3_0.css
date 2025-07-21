@@ -232,5 +232,5 @@ input[type="checkbox"]{width: 1.3vw;height: 1.3vw;}
 .cssbutontamam:hover{background:#008080;color:#fff;transform:translateY(-2px);box-shadow:0 4px 6px rgba(0,0,0,.1);}
 .cssbutontamam:active{transform:translateY(0);box-shadow:none;}
 input[type="radio"]{width:1.3vw;height:1.3vw;cursor:pointer;vertical-align:middle;margin:0 auto;display:block}
-.cssbutontumu{background-color:#117a65;border:none;border-radius:0.5vw;color:white;font-family:Calibri;font-size:1vw;padding:0.5vw 1vw;box-shadow:0.3vw 0.3vw 0.7vw rgba(0,0,0,0.3);cursor:pointer;transition:background 0.3s ease,color 0.3s ease,transform 0.1s ease;white-space:nowrap}
+.cssbutontumu{background-color:#cb4335;border:none;border-radius:0.5vw;color:white;font-family:Calibri;font-size:1vw;padding:0.5vw 1vw;box-shadow:0.3vw 0.3vw 0.7vw rgba(0,0,0,0.3);cursor:pointer;transition:background 0.3s ease,color 0.3s ease,transform 0.1s ease;white-space:nowrap}
 .cssbutontumu:hover{transform:scale(1.03);font-family:Calibri}
