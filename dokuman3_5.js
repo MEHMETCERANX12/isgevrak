@@ -1823,3 +1823,171 @@ function acildurumhastaneyaz()
         alert('Seçilen hastane bilgisi bulunamadı.');
     }
 }
+
+async function acildurumekiplistesidocx()
+{
+    let uzmanad = store.get("uzmanad");
+    let uzmanno = store.get("uzmanno");
+    let isyeri = store.get('xjsonfirma');
+    isyeri = JSON.parse(isyeri);
+    let adres = isyeri.ad;
+    let isyerisicil = isyeri.sc;
+    let isveren = isyeri.is;
+    let isyeriadi = isyeri.fi;
+    let hekimad = isyeri.hk;
+    let hekimno = isyeri.hn;
+    let acldurumekiplistesijson = acildurumekipjson();
+    const { Document, Packer, Paragraph, TextRun, TableCell, WidthType, AlignmentType, PageBreak} = window.docx;
+    let analiste = [];
+    analiste.push(new docx.TableRow
+    ({
+        height: { value: 567, rule: docx.HeightRule.EXACT },
+        children:
+        [
+            new TableCell({ width: { size: 25, type: WidthType.PERCENTAGE }, children: [new Paragraph({ alignment: AlignmentType.CENTER, children: [new TextRun({ text: "Çalışan Ad Soyadı", font: "Calibri", size: 24, bold: true })] })], verticalAlign: docx.VerticalAlign.CENTER }),
+            new TableCell({ width: { size: 30, type: WidthType.PERCENTAGE }, children: [new Paragraph({ alignment: AlignmentType.CENTER, children: [new TextRun({ text: "Acil Durum Ekip Görevi", font: "Calibri", size: 24, bold: true })] })], verticalAlign: docx.VerticalAlign.CENTER }),
+            new TableCell({ width: { size: 15, type: WidthType.PERCENTAGE }, children: [new Paragraph({ alignment: AlignmentType.CENTER, children: [new TextRun({ text: "Sorumluluk Alanı", font: "Calibri", size: 24, bold: true })] })], verticalAlign: docx.VerticalAlign.CENTER }),
+            new TableCell({ width: { size: 15, type: WidthType.PERCENTAGE }, children: [new Paragraph({ alignment: AlignmentType.CENTER, children: [new TextRun({ text: "İletişim No", font: "Calibri", size: 24, bold: true })] })], verticalAlign: docx.VerticalAlign.CENTER }),
+            new TableCell({ width: { size: 15, type: WidthType.PERCENTAGE }, children: [new Paragraph({ alignment: AlignmentType.CENTER, children: [new TextRun({ text: "İmza", font: "Calibri", size: 24, bold: true })] })], verticalAlign: docx.VerticalAlign.CENTER })
+        ]
+    }));
+    acldurumekiplistesijson.forEach(person =>
+    {
+        analiste.push(new docx.TableRow({
+            height: { value: 850, rule: docx.HeightRule.EXACT },
+            children: [
+                new TableCell({margins: { left: 75 }, children: [new Paragraph({ alignment: AlignmentType.LEFT, children: [new TextRun({ text: person.ad, font: "Calibri", size: 22 })] })], verticalAlign: docx.VerticalAlign.CENTER }),
+                new TableCell({margins: { left: 75 }, children: [new Paragraph({ alignment: AlignmentType.LEFT, children: [new TextRun({ text: person.ekipgorev, font: "Calibri", size: 22 })] })], verticalAlign: docx.VerticalAlign.CENTER }),
+                new TableCell({margins: { left: 75 }, children: [new Paragraph({ alignment: AlignmentType.CENTER, children: [new TextRun({ text: " ", font: "Calibri", size: 22 })] })], verticalAlign: docx.VerticalAlign.CENTER }),
+                new TableCell({ children: [new Paragraph({ alignment: AlignmentType.CENTER, children: [new TextRun({ text: " ", font: "Calibri", size: 22 })] })], verticalAlign: docx.VerticalAlign.CENTER }),
+                new TableCell({ children: [new Paragraph({ alignment: AlignmentType.CENTER, children: [new TextRun({ text: " ", font: "Calibri", size: 22 })] })], verticalAlign: docx.VerticalAlign.CENTER })
+            ],
+            
+        }));
+    });
+    let acildurumanatablo = new docx.Table({ rows: analiste, width: { size: 100, type: docx.WidthType.PERCENTAGE } });
+    ////////////////////////////////////////
+    const gorevlendirmesayfa = [];
+    let calisanunvan = "";
+    acldurumekiplistesijson.forEach((calisan, index) =>
+    {
+        const ekipindex = parseInt(calisan.ekipkod, 10);
+        let imzaliste = [];
+        if(ekipindex===5||ekipindex===6||ekipindex===7)calisanunvan="Koruma Ekibi";else if(ekipindex===3||ekipindex===4)calisanunvan="Söndürme Ekibi";else if(ekipindex===1||ekipindex===2)calisanunvan="İlkyardım Ekibi";else if(ekipindex===8||ekipindex===9)calisanunvan="Kurtarma Ekibi";else calisanunvan="Destek Elemanı";
+        imzaliste.push
+        (
+            new docx.TableRow
+            ({
+                height: { value: 300, rule: docx.HeightRule.EXACT },
+                children:
+                [
+                    new TableCell({ width: { size: 50, type: docx.WidthType.PERCENTAGE }, borders: { top: { size: 0, color: "FFFFFF" }, bottom: { size: 0, color: "FFFFFF" }, left: { size: 0, color: "FFFFFF" }, right: { size: 0, color: "FFFFFF" } }, verticalAlign: docx.VerticalAlign.CENTER, children: [new Paragraph({ alignment: AlignmentType.CENTER, children: [new TextRun({ text: calisan.ad, font: "Calibri", size: 22, bold: true })] })] }),
+                    new TableCell({width:{size:50,type:docx.WidthType.PERCENTAGE},borders:{top:{size:0,color:"FFFFFF"},bottom:{size:0,color:"FFFFFF"},left:{size:0,color:"FFFFFF"},right:{size:0,color:"FFFFFF"}},verticalAlign:docx.VerticalAlign.CENTER,children:[new Paragraph({alignment:AlignmentType.CENTER,children:[new TextRun({text:isveren,font:"Calibri",size:22, bold: true })]})]})
+                ],            
+            }),
+            new docx.TableRow
+            ({
+                height: { value: 300, rule: docx.HeightRule.EXACT },
+                children:
+                [
+                    new TableCell({ borders: { top: { size: 0, color: "FFFFFF" }, bottom: { size: 0, color: "FFFFFF" }, left: { size: 0, color: "FFFFFF" }, right: { size: 0, color: "FFFFFF" } }, verticalAlign: docx.VerticalAlign.CENTER, children: [new Paragraph({ alignment: AlignmentType.CENTER, children: [new TextRun({ text: calisanunvan, font: "Calibri", size: 22})] })] }),
+                    new TableCell({ borders:{top:{size:0,color:"FFFFFF"},bottom:{size:0,color:"FFFFFF"},left:{size:0,color:"FFFFFF"},right:{size:0,color:"FFFFFF"}},verticalAlign:docx.VerticalAlign.CENTER,children:[new Paragraph({alignment:AlignmentType.CENTER,children:[new TextRun({text:"İşveren Vekili" ,font:"Calibri",size:22})]})]})
+                ],            
+            }),
+            new docx.TableRow
+            ({
+                height: { value: 300, rule: docx.HeightRule.EXACT },
+                children:
+                [
+                    new TableCell({ borders: { top: { size: 0, color: "FFFFFF" }, bottom: { size: 0, color: "FFFFFF" }, left: { size: 0, color: "FFFFFF" }, right: { size: 0, color: "FFFFFF" } }, verticalAlign: docx.VerticalAlign.CENTER, children: [new Paragraph({ alignment: AlignmentType.CENTER, children: [new TextRun({ text: "İmza", font: "Calibri", size: 22})] })] }),
+                    new TableCell({ borders:{top:{size:0,color:"FFFFFF"},bottom:{size:0,color:"FFFFFF"},left:{size:0,color:"FFFFFF"},right:{size:0,color:"FFFFFF"}},verticalAlign:docx.VerticalAlign.CENTER,children:[new Paragraph({alignment:AlignmentType.CENTER,children:[new TextRun({text:"İmza" ,font:"Calibri",size:22})]})]})
+                ],            
+            })
+        );
+        let imzatablo = new docx.Table({ rows: imzaliste, width: { size: 100, type: docx.WidthType.PERCENTAGE } });
+        gorevlendirmesayfa.push
+        (
+            new Paragraph({ text: `ACİL DURUM MÜDAHALE EKİP GÖREVLENDİRMESİ`, spacing: { after: 200 }, style: "Baslik" }),
+            new Paragraph({ text: `\tİşyeri Unvanı: ${isyeriadi}`, spacing: { after: 100 }, style: "Normal" }),
+        );
+        if (adres && adres.trim() !== "")
+        {
+            gorevlendirmesayfa.push(new Paragraph({ text: `\tAdres: ${adres}`, spacing: { after: 100 }, style: "Normal" }));
+        }
+        if (isyerisicil && isyerisicil.trim() !== "")
+        {
+            gorevlendirmesayfa.push(new Paragraph({ text: `\tSGK Sicil No: ${isyerisicil}`, spacing: { after: 100 }, style: "Normal" }));
+        }
+        gorevlendirmesayfa.push(new Paragraph({ text: `\tÇalışan Ad Soyadı: ${calisan.ad}`, spacing: { after: 100 }, style: "Normal" }));
+        if (calisan.un && calisan.un.trim() !== "")
+        {
+            gorevlendirmesayfa.push(new Paragraph({ text: `\tÇalışan Unvan: ${calisan.un}`, spacing: { after: 100 }, style: "Normal" }));
+        };
+        gorevlendirmesayfa.push(new Paragraph({ text: `\tEkip Görevi: ${calisan.ekipgorev || ""}`, spacing: { after: 200 }, style: "Normal" }));
+        gorevlendirmesayfa.push(new Paragraph({ text: `\tİşyeri unvanı ve adı soyadı yukarıda yazılı olan çalışan, 6331 Sayılı İş Sağlığı ve Güvenliği Kanununu 11.Maddesi ile İşyerlerinde Acil Durumlar Hakkında Yönetmelik kapsamında aşağıda belirtilen görevleri yürütmek ve uygulamak amacı ile atama yolu ile görevlendirilmiştir. 6698 Sayılı Kişisel Verilerin Korunması Kanunu çerçevesinde kimlik ve iletişim bilgilerimin işyerinde ilan edilerek aktarılacağı konusunda bilgilendirildim ve özgür iradem ile açık rıza gösterdim.`, spacing: { after: 200 }, style: "Normal" }));
+        if (ekipindex === 5 || ekipindex === 6 || ekipindex === 7)
+        {
+            gorevlendirmesayfa.push(new Paragraph({ text: `\tKoruma Ekibinin Görevleri`, spacing: { after: 100 }, style: "Kalin" }));
+            gorevlendirmesayfa.push(new Paragraph({ text: `\t1-) Acil durum planında belirtilen müdahale ve hareket planına uygun şekilde hızlı ve etkin hareket etmek,`, spacing: { after: 100 }, style: "Normal" }));
+            gorevlendirmesayfa.push(new Paragraph({ text: `\t2-) Olay yerine gelen çalışan yakınlarını sakinleştirmek ve uygun bilgilendirmeyi sağlamak,`, spacing: { after: 100 }, style: "Normal" }));
+            gorevlendirmesayfa.push(new Paragraph({ text: `\t3-) Güvenlik amacıyla olay yerinde kontrollü alan oluşturmak, sadece yetkili kişilerin (İtfaiye, ambulans, polis vb.) geçişine izin vermek,`, spacing: { after: 100 }, style: "Normal" }));
+            gorevlendirmesayfa.push(new Paragraph({ text: `\t4-) Söndürme, ilkyardım ve diğer ekiplerle etkin iletişim ve koordinasyonu sağlamak,`, spacing: { after: 100 }, style: "Normal" }));
+            gorevlendirmesayfa.push(new Paragraph({ text: `\t5-) Acil çıkış yollarının ve toplanma alanlarının açık ve güvenli kalmasını sağlamak, kalabalık veya panik oluşumunu önlemek,`, spacing: { after: 100 }, style: "Normal" }));
+            gorevlendirmesayfa.push(new Paragraph({ text: `\t6-) Tahliye sırasında özel ihtiyaç sahibi çalışanlara yardımcı olmak. (engelliler, hamileler vb.)`, spacing: { after: 100 }, style: "Normal" }));
+            gorevlendirmesayfa.push(new Paragraph({ text: `\t`, style: "Normal" }), imzatablo);
+        }
+        else if (ekipindex === 3 || ekipindex === 4)
+        {
+            gorevlendirmesayfa.push(new Paragraph({ text: `\tSöndürme Ekibinin Görevleri`, spacing: { after: 100 }, style: "Kalin" }));
+            gorevlendirmesayfa.push(new Paragraph({ text: `\t1-) İşyerinde hazırlanmış acil durum planındaki müdahale adımlarına uygun şekilde yangın olaylarına müdahale etmek.`, spacing: { after: 100 }, style: "Normal" }));
+            gorevlendirmesayfa.push(new Paragraph({ text: `\t2-) Yangın söndürme ekipmanlarının (yangın tüpleri, hortumlar vb.) sürekli çalışır durumda ve erişilebilir olmasını sağlamak.`, spacing: { after: 100 }, style: "Normal" }));
+            gorevlendirmesayfa.push(new Paragraph({ text: `\t3-) Yangın çıktığında, en kısa sürede olay yerine intikal ederek yangına uygun ekipmanla güvenli şekilde ilk müdahaleyi yapmak.`, spacing: { after: 100 }, style: "Normal" }));
+            gorevlendirmesayfa.push(new Paragraph({ text: `\t4-) Yangın tamamen söndürüldükten sonra, yeniden alevlenme riskine karşı olay yerini gözetim altında tutmak ve terk etmemek.`, spacing: { after: 100 }, style: "Normal" }));
+            gorevlendirmesayfa.push(new Paragraph({ text: `\t5-) Koruma, Kurtarma ve İlkyardım ekipleriyle koordinasyon içinde çalışarak yangının büyümesini ve can kaybını önlemeye yönelik görev almak.`, spacing: { after: 100 }, style: "Normal" }));
+            gorevlendirmesayfa.push(new Paragraph({ text: `\t`, style: "Normal" }), imzatablo);
+        }
+        else if (ekipindex === 1 || ekipindex === 2)
+        {
+            gorevlendirmesayfa.push(new Paragraph({ text: `\tİlkyardım Ekibinin Görevleri`, spacing: { after: 100 }, style: "Kalin" }));
+            gorevlendirmesayfa.push(new Paragraph({ text: `\t1-) İşyerinde hazırlanmış acil durum planındaki hareket ve müdahale adımlarına uygun şekilde hareket etmek,`, spacing: { after: 100 }, style: "Normal" }));
+            gorevlendirmesayfa.push(new Paragraph({ text: `\t2-) Acil durumda anında yaralıların tespitini yapmak; durumu ağır olandan başlamak üzere ilkyardım uygulamak,`, spacing: { after: 100 }, style: "Normal" }));
+            gorevlendirmesayfa.push(new Paragraph({ text: `\t3-) Yaralının ambulans gelene kadar hayati fonksiyonlarını sürdürebilmesi için gerekli müdahaleleri yapmak,`, spacing: { after: 100 }, style: "Normal" }));
+            gorevlendirmesayfa.push(new Paragraph({ text: `\t4-) Sağlık ekipleri geldikten sonra durumu aktarmak ve sağlık ekiplerine gerekli desteği sağlamak,`, spacing: { after: 100 }, style: "Normal" }));
+            gorevlendirmesayfa.push(new Paragraph({ text: `\t5-) Olay yeri ve kişisel güvenliği sağlamak; yaralıları tehlike kaynağından uzaklaştırarak güvenli bir alanda müdahale etmek,`, spacing: { after: 100 }, style: "Normal" }));
+            gorevlendirmesayfa.push(new Paragraph({ text: `\t`, style: "Normal" }), imzatablo);
+        }
+        else if (ekipindex === 8 || ekipindex === 9)
+        {
+            gorevlendirmesayfa.push(new Paragraph({ text: `\tKurtarma Ekibinin Görevleri`, spacing: { after: 100 }, style: "Kalin" }));
+            gorevlendirmesayfa.push(new Paragraph({ text: `\tİşyerinde hazırlanmış acil durum planında belirtilen hareket ve müdahale planına uygun şekilde müdahale etmek,`, spacing: { after: 100 }, style: "Normal" }));
+            gorevlendirmesayfa.push(new Paragraph({ text: `\tAcil durum anında tehlikeli bölgede bulunan kişileri hızlı ve güvenli bir şekilde tahliye etmek,`, spacing: { after: 100 }, style: "Normal" }));
+            gorevlendirmesayfa.push(new Paragraph({ text: `\tYaralı veya kendi başına tahliye olamayan kişilerin güvenli bir şekilde tehlikeli bölgeden çıkarılmasını sağlamak,`, spacing: { after: 100 }, style: "Normal" }));
+            gorevlendirmesayfa.push(new Paragraph({ text: `\tPolis, İtfaiye, AFAD, Ambulans vb. resmi müdahale ekipleriyle koordinasyon sağlamak ve ihtiyaç duyulursa olayla veya kişilerin durumu ile ilgili bilgi vermek,`, spacing: { after: 100 }, style: "Normal" }));
+            gorevlendirmesayfa.push(new Paragraph({ text: `\tKoruma, Söndürme ve İlkyardım ekipleriyle koordineli şekilde çalışmak.`, spacing: { after: 100 }, style: "Normal" }));
+            gorevlendirmesayfa.push(new Paragraph({ text: `\t`, style: "Normal" }), imzatablo);
+        }
+        if (index !== acldurumekiplistesijson.length - 1)
+        {
+            gorevlendirmesayfa.push(new Paragraph({ children: [new PageBreak()] }));
+        }
+    });
+    const doc = new docx.Document
+    ({
+        styles:
+        {
+            paragraphStyles:
+            [
+                {id: "Normal", run: { font: "Calibri", size: 22 }, paragraph: {alignment: AlignmentType.JUSTIFIED }},
+                {id: "Kalin", run: { font: "Calibri", size: 22, bold: true }, paragraph: {alignment: AlignmentType.JUSTIFIED }},
+                {id: "Baslik", run: { font: "Calibri", size: 24, bold: true }, paragraph: { alignment: AlignmentType.CENTER }}
+            ]
+        },
+        sections:
+        [
+            {properties:{page:{size:{orientation:docx.PageOrientation.PORTRAIT},margin:{top:1134,right:851,bottom:1134,left:851}}},children:[...gorevlendirmesayfa],footers:{default:new docx.Footer({children:[]})}},
+            {properties:{page: { size: { orientation: docx.PageOrientation.LANDSCAPE }, margin: { top: 1134, right: 851, bottom: 1134, left: 851 } } }, children: [acildurumanatablo], footers: { default: new docx.Footer({ children: [docxucluimzadikey(uzmanad, uzmanno, hekimad, hekimno, isveren)] }) } },
+        ]
+    });
+    const blob = await Packer.toBlob(doc);
+    saveAs(blob, "Acil Durum Ekip Listesi.docx");
+}
