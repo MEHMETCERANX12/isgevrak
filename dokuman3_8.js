@@ -1343,7 +1343,9 @@ async function acildurumsayfaacilis()
         const urls = ['https://cdn.jsdelivr.net/gh/MEHMETCERANX12/isgevrak@main/acildurumgenel1_3.json', 'https://cdn.jsdelivr.net/gh/MEHMETCERANX12/isgevrak@main/acildurumozel1_4.json'];
         const responses = await Promise.all(urls.map(url => fetch(url)));
         if (responses.some(r => !r.ok)) throw new Error('JSON dosyalarından biri indirilemedi');
-        const [geneljson, ozeljson] = await Promise.all(responses.map(r => r.json()));        
+        const [geneljson, ozeljson] = await Promise.all(responses.map(r => r.json()));
+        const acildurumjsononlem = geneljson;
+        const acildurumjsonozel = ozeljson;
         store.set("acildurumgeneljson", geneljson);
         store.set("acildurumozeljson", ozeljson);
         const hastaneResponse = await fetch("https://cdn.jsdelivr.net/gh/MEHMETCERANX12/isgevrak@main/hastaneliste1_2.json");
