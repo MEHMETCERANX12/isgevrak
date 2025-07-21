@@ -1340,18 +1340,64 @@ async function acildurumsayfaacilis()
 {
     try
     {
-        const urls =
-        [
-            'https://cdn.jsdelivr.net/gh/MEHMETCERANX12/isgevrak@main/acildurumgenel1_3.json',
-            'https://cdn.jsdelivr.net/gh/MEHMETCERANX12/isgevrak@main/acildurumozel1_4.json'
-            ];
+        const urls = ['https://cdn.jsdelivr.net/gh/MEHMETCERANX12/isgevrak@main/acildurumgenel1_3.json', 'https://cdn.jsdelivr.net/gh/MEHMETCERANX12/isgevrak@main/acildurumozel1_4.json'];
         const responses = await Promise.all(urls.map(url => fetch(url)));
         if (responses.some(r => !r.ok)) throw new Error('JSON dosyalarından biri indirilemedi');
-        const [geneljson, ozeljson] = await Promise.all(responses.map(r => r.json()));
-        let acildurumjsononlem = geneljson;
-        let acildurumjsonozel = ozeljson;
-        store.set("acildurumgeneljson", acildurumjsononlem);
-        store.set("acildurumozeljson", acildurumjsonozel);
+        const [geneljson, ozeljson] = await Promise.all(responses.map(r => r.json()));        
+        store.set("acildurumgeneljson", geneljson);
+        store.set("acildurumozeljson", ozeljson);
+        const hastaneResponse = await fetch("https://cdn.jsdelivr.net/gh/MEHMETCERANX12/isgevrak@main/hastaneliste1_2.json");
+        if (!hastaneResponse.ok) throw new Error("Hastane JSON indirilemedi");
+        const hastaneListesi = await hastaneResponse.json();
+        store.set("hastanebilgi", hastaneListesi);
+        let hastaneil = [...new Set(hastaneListesi.map(h => h.il))].sort((a, b) => a.localeCompare(b, 'tr', { sensitivity: 'base' }));
+        const $hastaneselect = $('#hastaneil');
+        $hastaneselect.empty();
+        $hastaneselect.append('<option value="">İl Seçiniz</option>');
+        hastaneil.forEach(il => $hastaneselect.append(`<option value="${il}">${il}</option>`));
+        $('#hastaneil').on('change', function ()
+        {
+            const secilenIl = $(this).val();
+            const hastaneListesi = store.get("hastanebilgi") || [];
+            const ilceler = [...new Set(hastaneListesi.filter(h => h.il === secilenIl).map(h => h.ilce))].sort((a, b) => a.localeCompare(b, 'tr', { sensitivity: 'base' }));
+            const $ilceSelect = $('#hastaneilce');
+            $ilceSelect.empty();
+            $ilceSelect.append('<option value="">İlçe Seçiniz</option>');
+            ilceler.forEach(ilce => { $ilceSelect.append(`<option value="${ilce}">${ilce}</option>`);   });
+        });
+        $('#hastaneilce').on('change', function ()
+        {
+            const secilenIl = $('#hastaneil').val();
+            const secilenIlce = $(this).val();
+            const hastaneListesi = store.get("hastanebilgi") || [];
+            const hastaneler = hastaneListesi.filter(h => h.il === secilenIl && h.ilce === secilenIlce).map(h => h.hastane).filter((value, index, self) => self.indexOf(value) === index).sort((a, b) => a.localeCompare(b, 'tr', { sensitivity: 'base' }));
+            const $hastaneisimSelect = $('#hastaneisim');
+            $hastaneisimSelect.empty();
+            $hastaneisimSelect.append('<option value="">Hastane Seçiniz</option>');
+            hastaneler.forEach(h => {$hastaneisimSelect.append(`<option value="${h}">${h}</option>`);});
+        });
+        let acldurumekiplistesijson = acildurumekipjson();
+        $('#acildurumekiptablo').DataTable({
+            data: acldurumekiplistesijson,
+            ordering: false,
+            dom: 't',
+            columns:
+            [
+                { title: "Ad Soyad", data: "ad", orderable: false },
+                { title: "Unvan", data: "un", orderable: false },
+                { title: "Acil Durum Görevi", data: "ekipgorev", orderable: false }
+            ],
+            createdRow: function (row, data)
+            {
+                $(row).find('td').eq(0).css('text-align', 'left');
+                $(row).find('td').eq(1).css('text-align', 'left');
+                $(row).find('td').eq(2).css('text-align', 'left');
+            },
+            headerCallback: function (thead)
+            {
+                $(thead).find('th').css('text-align', 'center');
+            }
+        });        
         const tarih = store.get("acildurumtarih");
         if (tarih) $("#tarih").val(tarih);
         const acildurumliste = acildurumkonuliste();
