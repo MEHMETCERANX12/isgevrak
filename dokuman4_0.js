@@ -2129,3 +2129,89 @@ async function acildurumegitimpdf()
     });
     saveAs(blob, 'ADME Eğitim.pdf');
 }
+
+async function acildurumkatılımlistesiyaz()
+{
+    let uzmanad = store.get("uzmanad");
+    let uzmanno = store.get("uzmanno");
+    let isyeri = store.get('xjsonfirma');
+    isyeri = JSON.parse(isyeri || '{}');
+    let hekimad = isyeri.hk;
+    let hekimno = isyeri.hn;
+    let calisanliste = acildurumekipjson();
+    if (!Array.isArray(calisanliste) || calisanliste.length === 0)
+    {
+        calisanliste = Array.from({ length: 13 }, () => ({ ad: "", un: "" }));
+    }
+    let isyeriismi = isyeri.fi;
+    let egitimsaat = $("#admesaat").val();
+    let egitimyeri = "Örgün";
+    let egitimtarih = $("#admetarih").val() || "......./......./20...";
+    const katilimlistesi = { pageMargins: [25, 25, 25, 25], content: [] };
+    let egitimicerik = {"katilim": "ACİL DURUM EĞİTİMİ - EĞİTİM KATILIM TUTANAĞI", "baslik": "ACİL DURUM EĞİTİMİ KATILIM SERTİFİKASI", "paragraf": "\u200B\t\t\tAdı ve soyadı yukarıda yazılı olan çalışan, “İşyerlerinde Acil Durumlar Hakkında Yönetmeliği Madde-15” kapsamında aşağıda yer alan konularda eğitim programına katılmış ve başarılı olmuştur.", "maddeler": ["İşyerinde oluşabilecek acil durumlar", "Acil durum sırasında alınacak tedbirler ve hareket planı", "İlkyardım ekibinin görev ve sorumlulukları", "Yangın söndürme ekibinin görev ve sorumlulukları", "Arama, kurtarma ve tahliye ekibinin görev ve sorumlulukları", "Koordinasyon ve koruma ekibinin görev ve sorumlulukları"] };
+    let konu = egitimicerik.maddeler.join(', ');
+    function createParticipantTable(startIndex, endIndex)
+    {
+        let tableBody = [];
+        tableBody.push(...digerkatilimustbilgi(isyeriismi, egitimtarih, egitimyeri, egitimsaat, konu, egitimicerik.katilim));
+        for (let i = startIndex; i < endIndex; i++)
+        {
+            const calisan = calisanliste[i];
+            tableBody.push([
+                { text: (i + 1).toString(), alignment: 'center', fontSize: 10, margin: [0, 11, 0, 11] },
+                { text: calisan.ad || '', alignment: 'left', fontSize: 10, margin: [0, 11, 0, 11] },
+                { text: calisan.un || '', alignment: 'left', fontSize: 10, margin: [0, 11, 0, 11] },
+                { text: '' }
+            ]);
+        }
+        tableBody.push(
+            [
+                { text: uzmanad, alignment: 'center', fontSize: 10, bold: true, colSpan: 2, margin: [0, 0] },
+                { text: '' },
+                { text: hekimad, alignment: 'center', fontSize: 10, bold: true, colSpan: 2, margin: [0, 0] },
+                { text: '' },
+            ],
+            [
+                { text: 'İş Güvenliği Uzmanı - Belge No: ' + uzmanno, alignment: 'center', fontSize: 10, colSpan: 2, margin: [0, 0] },
+                { text: '' },
+                { text: 'İşyeri Hekimi - Belge No: ' + hekimno, alignment: 'center', fontSize: 10, colSpan: 2, margin: [0, 0] },
+                { text: '' },
+            ],
+            [
+                { text: '', colSpan: 2, margin: [25, 25] },
+                { text: '' },
+                { text: '', colSpan: 2, margin: [25, 25] },
+                { text: '' },
+            ]
+        );
+        return {
+            table: {
+                widths: [25, "*", "auto", 100],
+                body: tableBody
+            },
+        };
+    }
+    const chunkSize = 13;
+    for (let i = 0; i < calisanliste.length; i += chunkSize)
+    {
+        const endIndex = Math.min(i + chunkSize, calisanliste.length);
+        katilimlistesi.content.push(createParticipantTable(i, endIndex));
+        if (endIndex < calisanliste.length)
+        {
+        katilimlistesi.content.push({ text: '', pageBreak: 'after' });
+        }
+    }
+    pdfMake.createPdf(katilimlistesi).getBlob(function (blob) { saveAs(blob, 'Katılım Listesi.pdf');});
+}
+function acildurumustbilgi(i, t, e, s, k, bas)
+{
+    return [
+        [{ text: bas, colSpan: 4, alignment: 'center', fontSize: 11, bold: true, margin: [2, 2] }, '', '', ''],
+        [{ text: `İşyeri Unvanı: ${i}`, colSpan: 4, alignment: 'left', fontSize: 10, margin: [2, 2] }, '', '', ''],
+        [{ colSpan: 4, alignment: 'left', fontSize: 10, margin: [2, 2], text: [{ text: `Eğitim Tarihi: ${t}\t\t\t\tEğitim Şekli: ${e}\t\t\t\tSüresi: ${s}` }] }, '', '', ''],
+        [{ text: 'EĞİTİM KONULARI', colSpan: 4, alignment: 'center', fontSize: 11, bold: true, margin: [2, 2] }, '', '', ''],
+        [{ text: k, colSpan: 4, alignment: 'justify', fontSize: 10, margin: [0, 5] }, '', '', ''],
+        [{ text: 'Sıra', alignment: 'center', fontSize: 10, margin: [1, 1], bold: true }, { text: 'Ad Soyad', alignment: 'center', fontSize: 10, margin: [1, 1], bold: true }, { text: 'Unvan', alignment: 'center', fontSize: 10, margin: [1, 1], bold: true }, { text: 'İmza', alignment: 'center', fontSize: 10, margin: [1, 1], bold: true }]
+    ];
+}
+
