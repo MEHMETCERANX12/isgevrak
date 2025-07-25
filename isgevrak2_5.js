@@ -124,7 +124,7 @@ function duyuruicerikanasayfa()
     });
 }
 
-function datepickerjqueryx(input) {
+function datepickerjquery(input) {
     $.datepicker.setDefaults({
         dateFormat: "dd.mm.yy",
         firstDay: 1,
