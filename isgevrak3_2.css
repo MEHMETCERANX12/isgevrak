@@ -146,11 +146,12 @@ html{background-color: #ECF0F1;}
 .cssaciklamabaslik{width: 100%;color: black;font-size: 2vh;line-height: 2.8vh;text-align: justify;text-justify: inter-word;font-family: Calibri;}
 .cssflexortala{width: 100%;display: flex;justify-content: center;}
 .cssbutonortala{display: flex;justify-content: center;grid-gap: 2vw;width: 100%;}
-.ui-datepicker-title{display: flex;justify-content: space-between;align-items: center;}
-.ui-datepicker-month{margin-right: 1vw;}
-.ui-datepicker{width: 14vw;font-size: 0.9vw;}
-.ui-datepicker-title select{width: auto;}
-.ui-datepicker-calendar td a{display: block;text-align: center;}
+.ui-datepicker-title{display:flex;justify-content:space-between;align-items:center;}
+.ui-datepicker-month{margin-right:1vw;}
+.ui-datepicker{width:14vw;font-size:0.9vw;}
+.ui-datepicker-title select{width:auto;}
+.ui-datepicker td{text-align:center!important;vertical-align:middle;padding:0.2em;box-sizing:border-box;overflow:hidden;white-space:nowrap;}
+.ui-datepicker td a{display:block;width:100%;height:100%;line-height:1.5;text-align:center;box-sizing:border-box;overflow:hidden;white-space:nowrap;padding:0.2em;font-size:1vw;}
 .csskurulsayfabuton{margin-right: 50%;margin-top: 0;}
 .cssflexyariyariyagenel{display: flex;width: 100%;position: relative;}
 .cssflexyariyariyasol, .cssflexyariyariyasag{justify-content: center;align-items: center;}
