@@ -124,8 +124,7 @@ function duyuruicerikanasayfa()
     });
 }
 
-function datepickerjquery(input)
-{
+function datepickerjqueryx(input) {
     $.datepicker.setDefaults({
         dateFormat: "dd.mm.yy",
         firstDay: 1,
@@ -135,8 +134,21 @@ function datepickerjquery(input)
         dayNamesMin: ["Paz", "Pzt", "Sal", "Çar", "Per", "Cum", "Cmt"],
         monthNamesShort: ["Ocak", "Şubat", "Mart", "Nisan", "Mayıs", "Haziran", "Temmuz", "Ağustos", "Eylül", "Ekim", "Kasım", "Aralık"],
         nextText: "İleri",
-        prevText: "Geri"
-    });
+        prevText: "Geri",
+        beforeShow: function() {
+            setTimeout(function ()
+            {
+                $('.ui-datepicker td a').css({
+                    'display': 'flex',
+                    'align-items': 'center',
+                    'justify-content': 'center',
+                    'text-align': 'center',
+                    'width': '100%',
+                    'height': '100%'
+                });
+            }, 1);
+        }
+    });    
     $(input).datepicker();
     setTimeout(function () {$(input).datepicker("show");}, 10);
 }
