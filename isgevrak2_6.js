@@ -1,3 +1,22 @@
+function mastermenugizle()
+{
+    $('#mastermenuackapa').fadeOut();
+    $('#menuacma').fadeIn();
+    var $element = $('#aspicerik');
+    $element.css({ left: "3%", margin: "auto", width: "96%"});
+}
+function mastermenugoster()
+{
+    $('#mastermenuackapa').fadeIn();
+    $('#menuacma').fadeOut();
+    var $element = $('#aspicerik');
+    $element.css({ left: "11%", margin: "auto", width: "88%"});
+}
+
+
+
+
+
 function dokumansecimsayfamenu(btn)
 {
     var $btn = $(btn);
@@ -22,32 +41,6 @@ function menublok(showId, hideIds) {
     }
 }
 
-function toggleBlock(showId, hideId) {
-    var $showElement = $('#' + showId);
-    var $hideElement = $('#' + hideId);
-
-    // Gösterilecek bloğu aç
-    if ($showElement.is(':hidden')) {
-        $showElement.slideDown();
-    }
-
-    // Gizlenecek bloğu kapat
-    if ($hideElement.is(':visible')) {
-        $hideElement.slideUp();
-    }
-
-    // Ana içerik genişliğini ayarla
-    var element = document.getElementById('aspicerik');
-    if (showId === 'menuacma') {
-        element.style.left = "3%";
-        element.style.margin = "auto";
-        element.style.width = "96%";
-    } else if (showId === 'mastermenuackapa') {
-        element.style.left = "11%";
-        element.style.margin = "auto";
-        element.style.width = "88%";
-    }
-}
 
 
 $(document).ready(function () {
