@@ -1,4 +1,4 @@
-function mastermenugizle()
+function mastermenugizle()//2025
 {
     $('#mastermenuackapa').fadeOut();
     $('#menuacma').fadeIn();
@@ -13,7 +13,21 @@ function mastermenugoster()
     $element.css({ left: "11%", margin: "auto", width: "88%"});
 }
 
-
+function mastermenublok(button)//2025
+{
+    var $clickedButton = $(button);
+    var $clickedMenuDiv = $clickedButton.closest('.mastermenunesne');
+    var $targetBlock = $clickedMenuDiv.next('[id^="blok"]');
+    $('[id^="blok"]').not($targetBlock).slideUp();
+    if ($targetBlock.is(':visible'))
+    {
+        $targetBlock.slideUp();
+    }
+    else
+    {
+        $targetBlock.slideDown();
+    }
+}
 
 
 
@@ -25,21 +39,7 @@ function dokumansecimsayfamenu(btn)
     $submenu.slideToggle();
 }
 
-function menublok(showId, hideIds) {
-    var $showElement = $('#' + showId);
 
-    // Gizlenecek ID'leri kapat
-    hideIds.forEach(function (id) {
-        $('#' + id).slideUp();
-    });
-
-    // Gösterilecek ID açık ise kapat, kapalı ise aç
-    if ($showElement.is(':visible')) {
-        $showElement.slideUp();
-    } else {
-        $showElement.slideDown();
-    }
-}
 
 
 
