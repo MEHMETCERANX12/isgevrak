@@ -1044,7 +1044,14 @@ async function talimatyazdirword(button)
     if (sections.length === 0) return alertify.error("Hiçbir talimat içeriği alınamadı.");
     const doc = new Document({ sections });
     const blob = await Packer.toBlob(doc);
-    saveAs(blob, `${adsoyad} İSG Talimat.docx`);
+    if (button.id === "bosyazdir")
+    { 
+        saveAs(blob, `Boş İSG Talimat.docx`);
+    }
+    else
+    {
+        saveAs(blob, `${adsoyad} İSG Talimat.docx`);
+    }
 }
 
 async function acildurumgirisyazdocx()
