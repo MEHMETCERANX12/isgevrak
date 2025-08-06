@@ -992,8 +992,18 @@ async function talimatyazdirword(button)
         return alertify.error("İşyeri JSON verisi geçersiz.");
     }
     const isveren = isyerijson.is || "";
-    const adsoyad = (button.getAttribute("data-ad") || "").trim();
-    const unvan = (button.getAttribute("data-un") || "").trim();
+    let adsoyad = "";
+    let unvan = "";
+    if (button.id === "bosyazdir")
+    { 
+        adsoyad = "......................"; 
+        unvan = "Çalışan";
+    }
+    else
+    {
+        adsoyad = (button.getAttribute("data-ad") || "").trim();
+        unvan = (button.getAttribute("data-un") || "").trim(); 
+    }
     const uzmanad = store.get("uzmanad") || "";
     const talimatlarHam = [$('#HiddenField2').val(), $('#HiddenField3').val(), $('#HiddenField4').val()];
     const sections = [];
