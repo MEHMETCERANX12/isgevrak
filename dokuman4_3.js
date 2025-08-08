@@ -1005,7 +1005,7 @@ async function talimatyazdirword(button)
         unvan = (button.getAttribute("data-un") || "").trim(); 
     }
     const uzmanad = store.get("uzmanad") || "";
-    const talimatlarHam = [$('#HiddenField2').val(), $('#HiddenField3').val(), $('#HiddenField4').val()];
+    const talimatlarHam = [$('#HiddenField2').val(), $('#HiddenField3').val(), $('#HiddenField4').val(), $('#HiddenField5').val(), $('#HiddenField6').val()];
     const sections = [];
     const altbilgi = new Table({
         rows:
