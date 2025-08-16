@@ -2455,3 +2455,70 @@ function isyerisilmeonay()
         return false;
     }
 }
+
+function isyerisecimload()
+{
+    const dropdown = $('#isyeri');
+    dropdown.append($('<option>', { text: 'Lütfen işyerini seçiniz', value: '', disabled: true, selected: true }));
+    let firmajson = firmajsonokuma();
+    if (firmajson.length > 0)
+    {
+        firmajson.sort((a, b) => a.fk.localeCompare(b.fk, 'tr', { sensitivity: 'base' }));
+        $.each(firmajson,function(_,row){dropdown.append($('<option>',{text:row.fk,value:row.id}));});
+    }
+    else
+    {
+        alertify.error("Kayıtlı işyeri bulunamadı");
+    }
+}
+function isyerisecimtamam()
+{
+    let firmajson = firmajsonokuma(); 
+    const firmaid = $('#isyeri').val();
+    if (!firmaid)
+    {
+        console.log("Henüz bir seçim yapılmadı.");
+        return;
+    }
+    firmajson = firmajson.find(f => f.id == firmaid);
+    store.set('xjsonfirma', firmajson);
+    store.set('xfirmaid', firmajson.id);
+    const link = new URLSearchParams(window.location.search);
+    const secim = link.get("id");
+    if (secim === '01')
+    {
+        window.location.href = "calisangenelliste.aspx?id=" + encodeURIComponent(firmajson.id);
+    }    
+    if (secim === '02')
+    {
+        window.location.href = "calisanexcelleduzenle1.aspx?id=" + encodeURIComponent(firmajson.id);
+    }    
+    if (secim === '03')
+    {
+        window.location.href = "gorevlendirmeacildurum.aspx?id=" + encodeURIComponent(firmajson.id);
+    }    
+    if (secim === '04')
+    {
+        window.location.href = "gorevlendirmecalisantemsilcisi.aspx?id=" + encodeURIComponent(firmajson.id);
+    }    
+    if (secim === '05')
+    {
+        window.location.href = "gorevlendirmeriskanaliziekip.aspx?id=" + encodeURIComponent(firmajson.id);
+    }    
+    if (secim === '06')
+    {
+        window.location.href = "gorevlendirmekurul.aspx?id=" + encodeURIComponent(firmajson.id);
+    }    
+    if (secim === '07')
+    {
+        window.location.href = "evrakkayitcalisan.aspx?id=" + encodeURIComponent(firmajson.id);
+    }    
+    if (secim === '08')
+    {
+        window.location.href = "evrakkayitisyeriyeni.aspx?id=" + encodeURIComponent(firmajson.id);
+    }    
+    if (secim === '09')
+    {
+        window.location.href = "raporlama.aspx?id=" + encodeURIComponent(firmajson.id);
+    }    
+}
