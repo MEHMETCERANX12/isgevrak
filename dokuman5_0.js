@@ -2672,3 +2672,23 @@ function calisansiralama(json)
     }
     return json.sort((a, b) => a.ad.localeCompare(b.ad, 'tr-TR', { sensitivity: 'base' }));
 }
+
+function calisanlistepdfyaz()
+{
+    let dosyaid = metinuret(3);
+    let json = calisangetir();
+    json = calisansiralama(json);
+    const icerik =
+    [
+        [{ text: 'No', style: 'header' }, { text: 'Çalışan Ad Soyad', style: 'header' }, { text: 'Çalışan Unvan', style: 'header' }],
+        ...json.map((x,i)=>[{text:i+1,alignment:'center'},x.ad,x.un])
+    ];
+    const dokuman =
+    {
+        pageSize: 'A4',
+        pageMargins: [30, 30, 30, 30],
+        content:[{table:{headerRows:1,widths:['7%','46%','47%'],body:icerik},layout:'solid'}],
+        styles:{header:{fontSize:12,bold:true,alignment:'center'}},
+    };
+    pdfMake.createPdf(dokuman).download('Çalışan Listesi - ' + dosyaid + '.pdf');
+}
