@@ -2309,5 +2309,25 @@ function basharfbuyuk(e){let t=e.value;t=t.replace(/\s+/g," ").trim().replace(/[
 function tekbosluk(e) { let t = e.value; t = t.replace(/\s+/g, " ").trim(); e.value = t }
 function adsoyadduzelt(e){let t=e.value;t=t.replace(/\s+/g," ").trim(),t=t.replace(/[^a-zA-ZçÇğĞıİöÖşŞüÜ\s'-]/g,"");if(!t.trim()){e.value="";return}let l=t.split(/(\s+)/),a=l.length-1;for(;a>=0&&""===l[a].trim();)a--;if(a<0){e.value=t;return}l[a]=l[a].toLocaleUpperCase("tr-TR");for(let t=0;t<a;t++)""!==l[t].trim()&&(l[t]=l[t].charAt(0).toLocaleUpperCase("tr-TR")+l[t].slice(1).toLocaleLowerCase("tr-TR"));e.value=l.join("")}
 function rakamvenokta(i){i.value=i.value.replace(/[^0-9.]/g,"").trim()}
-
+function firmajsonokuma()
+{
+    let firmajson = store.get('firmajson');
+    if (typeof firmajson === "string")
+    {
+        try
+        {
+            firmajson = JSON.parse(firmajson);
+        }
+        catch
+        {
+            alertify.error("Firma verisi okunamadı");
+            firmajson = [];
+        }
+    }
+    else if (!Array.isArray(firmajson))
+    {
+        firmajson = [];
+    }
+    return firmajson;
+}
 
