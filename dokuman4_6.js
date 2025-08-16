@@ -2331,3 +2331,70 @@ function firmajsonokuma()
     return firmajson;
 }
 
+function isyeriduzenlemeload()
+{
+    isyeriyeniload();
+    const link = new URLSearchParams(window.location.search);
+    const id = link.get('id');
+    let firmajson = firmajsonokuma();
+    firmajson = firmajson.find(item => item.id === id);
+    if (firmajson)
+    {
+        $("#fi").val(firmajson.fi || "");
+        $("#is").val(firmajson.is || "");
+        $("#sh").val(firmajson.sh || "");
+        $("#ts").val(String(firmajson.ts) || "");
+        let hkAd = firmajson.hk || "";
+        $("#hk option").each(function(){let t=$(this).val();if(t.startsWith(hkAd+"|")){$("#hk").val(t);return false}});
+        $("#fk").val(firmajson.fk || "");
+        $("#sc").val(firmajson.sc || "");
+        $("#ad").val(firmajson.ad || "");
+    }
+    else
+    {
+        alertify.error('Beklenmedik bir hata oluştu');
+    }
+}
+function isyeriduzenlemetamam()
+{
+    const link = new URLSearchParams(window.location.search);
+    const id = link.get('id');
+    if (id.length !== 10)
+    {
+        window.location.href = "isyerilistesi.aspx";
+        return false;
+    }
+    let firmajson = firmajsonokuma();
+    if (!Array.isArray(firmajson) || firmajson.length === 0)
+    {
+        alertify.error("Beklenmedik bir hata oluştu");
+        return false;
+    }
+    let fi = $('#fi').val().trim();
+    let isv = $('#is').val().trim();
+    let sh = $('#sh').val();
+    let tehlikesinifimap = new Map([["Az Tehlikeli",1],["Tehlikeli",2],["Çok Tehlikeli",3]]);
+    let tssecim = $("#ts option:selected").text();
+    let ts = tehlikesinifimap.get(tssecim) || 0;
+    if (!fi || !isv || !sh || ts === 0)
+    {
+        alertify.error("Zorunlu alanları doldurunuz.");
+        return false;
+    }
+    let guncelVeri = { id: id, fi: $("#fi").val().trim(), fk: $("#fk").val().trim(), is: $("#is").val().trim(), ad: $("#ad").val().trim(), ts: $("#ts").val(), sh: $("#sh").val().trim(), sc: $("#sc").val().trim(), hk: "", hn: "" };
+    let hkVal = $("#hk").val();
+    if(hkVal.includes("|")){let p=hkVal.split("|");guncelVeri.hk=p[0].trim();guncelVeri.hn=p[1].trim();}
+    let index = firmajson.findIndex(f => f.id === id);
+    if (index !== -1)
+    {
+        firmajson[index] = guncelVeri;
+        store.set("firmajson", firmajson);
+        $('#HiddenField1').val(JSON.stringify(firmajson));
+        return true;
+    }
+    else
+    {
+        alertify.error("Firma bulunamadı.");
+        return false;
+    }    
+}
