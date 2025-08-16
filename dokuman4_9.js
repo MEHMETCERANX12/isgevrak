@@ -2522,3 +2522,153 @@ function isyerisecimtamam()
         window.location.href = "raporlama.aspx?id=" + encodeURIComponent(firmajson.id);
     }    
 }
+
+function calisangenellisteload()
+{
+    var json = calisangetir();
+    if (json.length === 0)
+    {
+        return;
+    }
+    $('#tablo').DataTable
+    ({
+        data: json,
+        columns:
+        [
+            { title:"Ad", data:"ad" },
+            { title:"Unvan", data: "un" },
+            { title: "Düzenle", data: "id", orderable: false, searchable: false, render: function (d) { return '<input type="button" class="cssbutontamam" value="Düzenle" onclick="calisanduzenlegoster(\'' + d + '\')">'; } },
+            { title: "Sil", data: "id", orderable: false, searchable: false, render: function (d) { return '<input type="button" class="cssbutontamam" value="Sil" onclick="calisansilgoster(\'' + d + '\')">'; } }
+        ],
+        language:{search:"Çalışan Ara:",lengthMenu:"Sayfa başına _MENU_ kayıt göster",zeroRecords:"Böyle bir çalışan bulunamadı",info:"_TOTAL_ kayıttan _START_ ile _END_ arası gösteriliyor",infoEmpty:"Kayıt yok",infoFiltered:"(toplam _MAX_ kayıttan filtrelendi)",emptyTable:"Kayıtlı çalışan bulunamadı"},
+        createdRow: function (row)
+        {
+            $(row).find('td').eq(0).css('text-align', 'left');
+            $(row).find('td').eq(1).css('text-align', 'left');
+            $(row).find('td').eq(2).css('text-align', 'center');
+            $(row).find('td').eq(3).css('text-align', 'center');
+        },
+        headerCallback: function(thead) { $(thead).find('th').css('text-align', 'center');}
+    });
+    $('.dt-search input').css({ "background-color": "white" }).attr("autocomplete", "off");
+    $('.dt-length select').css({ "background-color": "white" });
+}
+
+function calisangetir()
+{
+    let json = $('#HiddenField1').val();
+    try
+    {
+        json = JSON.parse(json);
+    }
+    catch
+    {
+        json = [];
+    }
+    return json;
+}
+function calisanduzenlegoster(id)
+{
+    var json = calisangetir();
+    json = json.find(r => r.id == id);
+    if (json)
+    {
+        $('#adsoyad2').val(json.ad);
+        $('#unvan2').val(json.un);
+        store.set("calisanid", id);
+        $('#diyalogduzenle').fadeIn();
+    }
+}
+function calisanjsonguncelle()
+{
+    let data = calisangetir();
+    var calisanid = store.get("calisanid");
+    var calisanad = $('#adsoyad2').val().trim();
+    var unvan = $('#unvan2').val().trim();
+    if (!calisanad)
+    {
+        alertify.error("Ad Soyad boş olamaz.");
+        return false;
+    }
+    var kontrol = false;
+    for (var i = 0; i < data.length; i++)
+    {
+        if (data[i].id == calisanid)
+        {
+            data[i].ad = calisanad;
+            data[i].un = unvan;
+            kontrol = true;
+            break;
+        }
+    }
+    if (kontrol === false)
+    {
+        alertify.error("Güncellenecek çalışan bulunamadı.");
+        return false;
+    }
+    data = calisansiralama(data);
+    $('#HiddenField1').val(JSON.stringify(data));
+    $('#diyalogduzenle').fadeOut();
+    return true;
+}
+function gostercalisanekle()
+{
+    $('#adsoyad1').val('');
+    $('#unvan1').val('');
+    $('#diyalogekle').fadeIn();
+}
+function calisanjsonekle()
+{
+    let json = calisangetir();
+    var calisanad = $('#adsoyad1').val().trim();
+    var calisanunvan = $('#unvan1').val().trim();
+    if (!calisanad)
+    {
+        alertify.error("Ad Soyad boş olamaz.");
+        return false;
+    }
+    var yenicalisan={id:metinuret(3),ad:calisanad,un:calisanunvan,a:0,t:0,r:0,e:"",s:"",i:""};
+    json.push(yenicalisan);
+    json = calisansiralama(json);
+    $('#HiddenField1').val(JSON.stringify(json));
+    $('#diyalogekle').fadeOut();
+    return true;
+}
+function calisansilgoster(id)
+{
+    var json = calisangetir();
+    json = json.find(r => r.id == id);
+    if (json)
+    {
+        $('#silbilgi').text(json.ad + " adlı çalışanı silmek istediğinizden emin misiniz ?");
+        store.set("calisanid", id);
+        $('#diyalogsil').fadeIn();
+    }
+}
+function calisanjsonsil()
+{
+    try
+    {
+        let json = calisangetir();
+        var calisanid = store.get("calisanid");
+        json = json.filter(r => r.id != calisanid);
+        json = calisansiralama(json);
+        $('#HiddenField1').val(JSON.stringify(json));
+        $('#diyalogsil').fadeOut();
+        return true;
+    }
+    catch
+    {
+        $('#diyalogsil').fadeOut();
+        alertify.error("Çalışan silinemedi");
+        return false;
+    }
+}
+function calisansiralama(json)
+{
+    if (typeof json === "string")
+    {
+        json = JSON.parse(json);
+    }
+    return json.sort((a, b) => a.ad.localeCompare(b.ad, 'tr-TR', { sensitivity: 'base' }));
+}
