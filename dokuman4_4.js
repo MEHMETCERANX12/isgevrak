@@ -2232,3 +2232,82 @@ function acildurumustbilgi(i, t, e, s, k, bas)
     ];
 }
 
+
+function isyeriyeniload()
+{
+    let json = $('#HiddenField1').val();
+    if (json)
+    {
+        try
+        {
+            json = JSON.parse(json);
+            $.each(json,function(i,e){$("#hk").append($("<option>",{value:e.ad+"|"+e.no,text:e.ad}))});
+        }
+        catch (e)
+        {
+            alertify.error('Beklenmedik bir hata oluştu');
+        }
+    }
+}
+function isyeriekletamam()
+{
+    try
+    {
+        let id = metinuret(10);
+        $('#iduret').val(id);
+        let fi = $('#fi').val().trim();
+        let fk = $('#fk').val().trim();
+        let isv = $('#is').val().trim();
+        let ad = $('#ad').val().trim();
+        let sh = $('#sh').val();
+        let sc = $('#sc').val().trim();
+        let hk = $('#hk').val().split('|')[0];
+        let hn = $('#hk').val().split('|')[1];
+        let tehlikesinifimap = new Map([["Az Tehlikeli",1],["Tehlikeli",2],["Çok Tehlikeli",3]]);
+        let tssecim = $('#ts').val();
+        let ts = tehlikesinifimap.get(tssecim) || 0;
+        if (!fi || !isv || !sh || ts === 0)
+        {
+            alertify.error("Zorunlu alanları doldurunuz.");
+            return false;
+        }
+
+        let yeniFirma = { id: id, fi: fi, fk: fk, is: isv, ad: ad, ts: ts, sh: sh, sc: sc, hk: hk, hn: hn };
+        let firmajson = store.get('firmajson');
+        if (typeof firmajson === "string")
+        {
+            firmajson = JSON.parse(firmajson);
+        }
+        else if (!Array.isArray(firmajson))
+        {
+            firmajson = [];
+        }
+        firmajson.push(yeniFirma);
+        firmajson.sort((a, b) => a.fi.localeCompare(b.fi, 'tr'));
+        store.set('firmajson', firmajson);
+        $('#HiddenField1').val(JSON.stringify(firmajson));
+        return true;
+    }
+    catch (e)
+    {
+        alertify.error("Beklenmedik bir hata oluştu: " + e.message);
+        return false;
+    }
+}
+function metinuret(karaktersayisi)
+{
+    const harfler = "abcdefghijklmnopqrstuvwxyz0123456789";
+    let sifre = "";
+    for (let i = 0; i < karaktersayisi; i++)
+    {
+        const rastgeleIndex = Math.floor(Math.random() * harfler.length);
+        sifre += harfler[rastgeleIndex];
+    }
+    return sifre;
+}
+function basharfbuyuk(e){let t=e.value;t=t.replace(/\s+/g," ").trim().replace(/[^\p{L} ',.()\/-_]/gu,"");if(!t.trim()){e.value="";return}let n=t.toLocaleLowerCase("tr-TR").split(" ").map(e=>e.charAt(0).toLocaleUpperCase("tr-TR")+e.slice(1)).join(" ").replace(/ Ve /g," ve ");e.value=n}
+function tekbosluk(e) { let t = e.value; t = t.replace(/\s+/g, " ").trim(); e.value = t }
+function adsoyadduzelt(e){let t=e.value;t=t.replace(/\s+/g," ").trim(),t=t.replace(/[^a-zA-ZçÇğĞıİöÖşŞüÜ\s'-]/g,"");if(!t.trim()){e.value="";return}let l=t.split(/(\s+)/),a=l.length-1;for(;a>=0&&""===l[a].trim();)a--;if(a<0){e.value=t;return}l[a]=l[a].toLocaleUpperCase("tr-TR");for(let t=0;t<a;t++)""!==l[t].trim()&&(l[t]=l[t].charAt(0).toLocaleUpperCase("tr-TR")+l[t].slice(1).toLocaleLowerCase("tr-TR"));e.value=l.join("")}
+function rakamvenokta(i){i.value=i.value.replace(/[^0-9.]/g,"").trim()}
+
+
