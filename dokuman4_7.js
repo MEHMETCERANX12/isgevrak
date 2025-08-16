@@ -2398,3 +2398,60 @@ function isyeriduzenlemetamam()
         return false;
     }    
 }
+
+function isyerisilmeload()
+{
+    let firmajson = firmajsonokuma();
+    if (firmajson && Array.isArray(firmajson))
+    {
+        $('#isyeritablo').DataTable({
+            data: firmajson,
+            columns:
+            [
+                { data: 'fi', title: 'Firma İsmi' },
+                { data: 'fk', title: 'Kısa İsim' },
+                { data:'id',title:'Seç',orderable:false,render:function(d){return `<input type="button" class="cssbutontamam" value="Sil" onclick="idoku('${d}')" />`}}
+            ],
+            pageLength: 10,
+            lengthMenu: [ [10, 50, 100, 500, -1], ['10', '50', '100', '500', 'Tümü'] ],
+            order: [[0, 'asc']],
+            language:{search:"İşyeri Ara:",lengthMenu: "Sayfa başına _MENU_ kayıt göster",zeroRecords:"Eşleşen kayıt bulunamadı",info:"_TOTAL_ kayıttan _START_ ile _END_ arası gösteriliyor",infoEmpty:"Kayıt yok",infoFiltered:"(toplam _MAX_ kayıttan filtrelendi)",emptyTable:"Kayıtlı işyeri bulunamadı"},
+            createdRow: function (row)
+            {
+                $(row).find('td').eq(0).css('text-align', 'left');
+                $(row).find('td').eq(1).css('text-align', 'left');
+            },
+            headerCallback: function (thead){$(thead).find('th').css('text-align', 'center');}
+        });
+    }
+    else
+    {
+        alertify.error("Beklenmedik bir hata oluştu");
+    }
+    $('.dt-search input').css({ "background-color": "white" }).attr("autocomplete", "off");
+    $('.dt-length select').css({ "background-color": "white" });
+}
+function idoku(id)
+{
+    store.set("isyerisilmeid", id);
+    $("#isyersil").fadeIn();
+}
+function isyerisilmeonay()
+{
+    $('#isyersil').fadeOut();
+    let id = store.get("isyerisilmeid");
+    let firmajson = firmajsonokuma();
+    try 
+    {
+        firmajson = firmajson.filter(firmajson => firmajson.id != id); 
+        store.set('firmajson', firmajson);
+        $('#HiddenField1').val(JSON.stringify(firmajson));
+        $('#HiddenField2').val(id);
+        return true;
+    }
+    catch
+    {
+        alertify.error("Beklenmedik bir hata oluştu");
+        return false;
+    }
+}
