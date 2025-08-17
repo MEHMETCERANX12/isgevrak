@@ -2470,6 +2470,40 @@ function isyerisecimload()
     {
         alertify.error("Kayıtlı işyeri bulunamadı");
     }
+    const link = new URLSearchParams(window.location.search);
+    const secim = link.get("id");
+    if (secim === '01')
+    {
+        $("#baslik").text("ÇALIŞAN EKLEME DÜZENLEME VE SİLME - İŞYERİ SEÇİM");
+    } 
+    else if (secim === '02')
+    {
+        $("#baslik").text("EXCEL İLE ÇALIŞAN EKLEME DÜZENLEME ve SİLME - İŞYERİ SEÇİM");
+    } 
+    else if (secim === '03')
+    {
+        $("#baslik").text("ACİL DURUM EKİBİ GÖREVLENDİRME - İŞYERİ SEÇİM");
+    } 
+    else if (secim === '04')
+    {
+        $("#baslik").text("ÇALIŞAN TEMSİLCİSİ GÖREVLENDİRME - İŞYERİ SEÇİM");
+    } 
+    else if (secim === '05')
+    {
+        $("#baslik").text("RİSK DEĞERLENDİRME EKİBİ GÖREVLENDİRME - İŞYERİ SEÇİM");
+    } 
+    else if (secim === '06')
+    {
+        $("#baslik").text("İŞ SAĞLIĞI ve GÜVENLİĞİ KURULU ÜYELERİ - İŞYERİ SEÇİM");
+    } 
+    else if (secim === '07' || secim === '08')
+    {
+        $("#baslik").text("EVRAK KAYIT - İŞYERİ SEÇİM");
+    } 
+    else if (secim === '09')
+    {
+        $("#baslik").text("RAPORLAMA - İŞYERİ SEÇİM");
+    } 
 }
 function isyerisecimtamam()
 {
