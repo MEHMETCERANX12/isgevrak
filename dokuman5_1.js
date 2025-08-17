@@ -2726,3 +2726,55 @@ function calisanlistepdfyaz()
     };
     pdfMake.createPdf(dokuman).download('Çalışan Listesi - ' + dosyaid + '.pdf');
 }
+
+function calisanexcelduzenleload()
+{
+    const data = Array(500).fill(null).map(() => Array(2).fill(""));
+    const container = $("#excel")[0];   
+    let excel = new Handsontable(container,
+    {
+        data: data,
+        colHeaders: ["Ad Soyad", "Unvan"],
+        rowHeaders: true,
+        rowHeights: 30,
+        filters: false,
+        dropdownMenu: false,
+        stretchH: "all",
+        licenseKey: '00000-00000-00000-00000-00000',
+        manualColumnResize: true,
+        manualRowResize: true,
+        persistentState: true,
+        cells: function (row, col) { const cellProperties = {}; cellProperties.className = 'htMiddle'; return cellProperties; },
+        contextMenu: false,
+    });
+    $("#baslat").click(function() {calisanexcelduzenletamam(excel);});
+}
+function calisanexcelduzenletamam(excel)
+{
+    const tableData = excel.getData();
+    const excelveri = tableData.map(r=>({ad:adsoyadstring(r[0]),un:basharfstring(r[1])})).filter(r=>r.ad.trim()!=="");
+    if (excelveri.length === 0)
+    {
+        alertify.error("En az bir çalışan yazınız");
+        return false;
+    }
+    let mysqljson = $('#HiddenField1').val();
+    mysqljson = mysqljson ? JSON.parse(mysqljson) : [];
+    const sonjson = [];
+    excelveri.forEach(e=>{const m=mysqljson.find(x=>x.ad===e.ad);if(!m){sonjson.push({ad:e.ad,un:e.un,sonuc:1});}});//EKLE
+    mysqljson.forEach(m=>{const e=excelveri.find(x=>x.ad===m.ad);if(e){sonjson.push({ad:e.ad,un:e.un,a:m.a,t:m.t,r:m.r,e:m.e,s:m.s,i:m.i,id:m.id,sonuc:2});}else{sonjson.push({ad:m.ad,un:m.un,id:m.id,sonuc:0});}});//DÜZENLE SİL
+    const eklejson = sonjson.filter(x => x.sonuc === 1);
+    const siljson = sonjson.filter(x => x.sonuc === 0);
+    const gunceljson = sonjson.filter(x => x.sonuc === 2);
+    store.set('eklejson', JSON.stringify(eklejson));
+    store.set('siljson', JSON.stringify(siljson));
+    store.set('gunceljson', JSON.stringify(gunceljson));
+    store.set('mysqljson', JSON.stringify(mysqljson));
+    const link = new URLSearchParams(window.location.search);
+    const firmaid = link.get('id');
+    window.location.href = "calisanexcelleduzenle2.aspx?id=" + encodeURIComponent(firmaid);
+}
+
+function adsoyadstring(s){let t=s.replace(/\s+/g," ").trim().replace(/[^a-zA-ZçÇğĞıİöÖşŞüÜ\s'-]/g,"");if(!t.trim())return"";let p=t.split(/(\s+)/),l=p.length-1;while(l>=0&&p[l].trim()==="")l--;if(l<0)return t;p[l]=p[l].toLocaleUpperCase("tr-TR");for(let i=0;i<l;i++)p[i].trim()!==""&&(p[i]=p[i].charAt(0).toLocaleUpperCase("tr-TR")+p[i].slice(1).toLocaleLowerCase("tr-TR"));return p.join("")}
+function basharfstring(s){let t=s.replace(/\s+/g," ").trim().replace(/[^\p{L} ',.()\/-_]/gu,"");if(!t.trim())return"";return t.toLocaleLowerCase("tr-TR").split(" ").map(w=>w.charAt(0).toLocaleUpperCase("tr-TR")+w.slice(1)).join(" ").replace(/ Ve /g," ve")}
+
