@@ -1,36 +1,47 @@
-function mastermenugizle()//2025
+$(document).ready(function ()
 {
-    $('#mastermenuackapa').fadeOut();
-    $('#menuacma').fadeIn();
-    var $element = $('#aspicerik');
-    $element.css({ left: "3%", margin: "auto", width: "96%"});
-}
-function mastermenugoster()
-{
-    $('#mastermenuackapa').fadeIn();
-    $('#menuacma').fadeOut();
-    var $element = $('#aspicerik');
-    $element.css({ left: "11%", margin: "auto", width: "88%"});
-}
-
-function mastermenublok(button)//2025
-{
-    var $clickedButton = $(button);
-    var $clickedMenuDiv = $clickedButton.closest('.mastermenunesne');
-    var $targetBlock = $clickedMenuDiv.next('[id^="blok"]');
-    $('[id^="blok"]').not($targetBlock).slideUp();
-    if ($targetBlock.is(':visible'))
+    $("input").keypress(function (event)
     {
-        $targetBlock.slideUp();
+        if (event.which === 13) { // 13: Enter tuşu
+            event.preventDefault();
+        }
+    });
+});
+
+
+
+
+
+
+
+
+
+function mastermenublok(durum)
+{
+    var $blok = $("#blok" + durum);
+    if ($blok.is(":visible"))
+    {
+        $blok.slideUp();
     }
     else
     {
-        $targetBlock.slideDown();
+        $(".menublok").slideUp();
+        $blok.stop(true, true).slideDown();
     }
 }
-
-
-
+function mastermenugizle()
+{
+    $('#mastermenu').fadeOut();
+    $('#gizlimenu').fadeIn();
+    $("#gizlimenu").css("display", "flex");
+    $('#aspicerik').css({"margin-left": "3%", "width": "97%"});
+}
+function mastermenugoster()
+{
+    $('#mastermenu').fadeIn();
+    $('#gizlimenu').fadeOut();
+    $('#aspicerik').css({"margin-left": "10.7%","width": "89.3%"});
+}
 function dokumansecimsayfamenu(btn)
 {
     var $btn = $(btn);
@@ -38,30 +49,6 @@ function dokumansecimsayfamenu(btn)
     $('.menuicerik').not($submenu).slideUp();
     $submenu.slideToggle();
 }
-
-
-
-
-
-$(document).ready(function () {
-    // Blokları başlangıçta gizle
-    ['#blok1', '#blok2', '#blok3', '#blok4'].forEach(function (id) {
-        $(id).hide();
-    });
-
-    $("input").keypress(function (event) {
-        if (event.which === 13) { // 13: Enter tuşu
-            event.preventDefault();
-        }
-    });
-});
-
-window.onload = function () {
-    if (performance.navigation.type === performance.navigation.TYPE_BACK_FORWARD) {
-        alertify.dismissAll();
-    }
-};
-
 function acilisverisianasayfa()
 {
     let deger = $("#HiddenField4").val();
