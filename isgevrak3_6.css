@@ -1,37 +1,18 @@
 html{background-color: #ECF0F1;}
-.mastermenugenel{position:fixed;top:0px;left:0px;bottom:0px;width: 10%;min-height: 100% !important;height: 100%;background-color: #343434;box-shadow: 0.2vw 0px 0.35vw 0px black;z-index: 1;}
-.masterbaslik{position:relative;height: 5%;color: white;font-weight: bold;width: 100%;background-color: #C0392B;margin: auto;text-align:center;font-family: Calibri;font-size: 1vw;}
-.masterbaslikortala{position: relative;top: 50%;transform: translateY(-50%);}
-.mastermenunesne{position: relative;height:5%;width: 100%;}
-.mastermenugizle1, .mastermenugizle2{position: absolute;bottom: 0;left: 0;height: 5%;width: 100%;}
-.mastermenugizle2{bottom: 5%;}
-.mastermenunesnetek{position: relative;height:100%;width: 100%;}
-.mastermenunesneikili{position: relative;height:50%;width: 100%;}
-.mastermenunesneuclu{position: relative;height: 33.33%;width: 100%;}
-.mastermenunesnedortlu{position: relative;height: 25%;width: 100%;}
-.mastermenubutoncss, .mastermenubutoncss1, .mastermenubutoncss2, .mastermenubutoncss3, .mastermenubutoncss4, .mastermenubutoncss5{font-family: Calibri;text-align:left;background-color: transparent;color: white;font-size: 1vw;border: none;height: 100%;width: 100%;display: block;padding-left: 0.4vw;cursor: pointer;}
-.mastermenubutoncss:hover, .mastermenubutoncss1:hover, .mastermenubutoncss2:hover, .mastermenubutoncss3:hover, .mastermenubutoncss4:hover, .mastermenubutoncss5:hover{background-color: black;color: #DBFE03;}
-.mastermenubutoncss1 .icon{padding-left: 5.8vw;}
-.mastermenubutoncss2 .icon{padding-left: 5.05vw;}
-.mastermenubutoncss3 .icon{padding-left: 1.85vw;}
-.mastermenubutoncss4 .icon{padding-left: 3.3vw;}
-.mastermenubutoncss5 .icon{padding-left: 5.05vw;}
-.mastermenualtbutoncssalt, .mastermenualtbutoncssust, .mastermenualtbutoncssorta, .mastermenualtbutoncsstek{background-color: transparent;color: white;font-family: Calibri;font-size: 1vw;border: none;height: 100%;width: 100%;display: block;text-align: left;padding-left: 0.7em;cursor: pointer;}
-.mastermenualtbutoncssalt:hover, .mastermenualtbutoncssust:hover, .mastermenualtbutoncssorta:hover, .mastermenualtbutoncsstek:hover{background-color: brown;color: white;}
-.mastermenualtbutoncssalt:hover{border-bottom-left-radius: 0.4vw;border-bottom-right-radius: 0.4vw;}
-.mastermenualtbutoncssust:hover{border-top-left-radius: 0.4vw;border-top-right-radius: 0.4vw;}
-.mastermenualtbutoncsstek:hover{border-radius:0.4vw;}
-.masterblok4menu, .masterblok2menu, .masterblok1menu{position: relative;display: none;width: 90%;height: 15%;text-align: center;margin: auto;background-color: teal;border-radius: 0.4vw;}
-.masterblok5menu{position: relative;display: none;width: 90%;height: 10%;text-align: center;margin: auto;background-color: teal;border-radius: 0.4vw;}
-.masterblok3menu{position: relative;display: none;width: 90%;height: 20%;text-align: center;margin: auto;background-color: teal;border-radius: 0.4vw;}
-.masterbaslik:hover{background-color: teal;color: white;}
-.masteraspicerik{position:absolute;top: 1.5%;bottom: 0;left: 11%;display:block;width: 88%;margin: auto;font-size: 1vw;font-family: Calibri;}
-.mastermesajicerik{position:fixed;bottom: 0.75vw;left: 11%;width: 12vw;height: 3vw;display: none;margin: auto;z-index: 99;color: white;font-size: 1vw;vertical-align:middle;text-align: center;font-family:Calibri;opacity:1;}
-.mastermesajortala{position: relative;top: 50%;transform: translateY(-50%);}
-.masterlabelcss{padding-left: 0.5vw;}
-.masteracmakapamacss{border:none;font-size: 1vw;font-family:Calibri;color: white;font-family: Calibri;font-size: 1vw;border: none;height: 100%;width: 100%;display: block;text-align: center;padding: 0px;background-color:transparent;}
-.masteracmakapamacss:hover{background-color: teal;color: white;}
-.masteracmakapamakutusu{position:fixed;left: 0;top: 0;background-color: brown;z-index: 0;width: 2%;font-size: 1vw;border:none;height: 100%;}
+.mastermenu{display:flex;flex-direction:column;justify-content:flex-start;position:fixed;top:0;left:0;height:100vh;width:10%;background-color:#343434;color:white;font-size:1vw;}
+.menuustkisim{display: flex;flex-direction: column;}
+.menualtkisim { margin-top: auto; display: flex; flex-direction: column;}
+.masterbaslik{font-size: 1vw;font-family: Calibri;color: white;font-weight:bold;width:100%;background-color:#C0392B;text-align:center;display:flex;align-items:center;justify-content:center;user-select:none;line-height: 2.2vw;}
+.aspicerik{position:relative;margin:0.7% 0.7% 0.7% 10.7%;font-size:1vw;font-family:Calibri;box-sizing:border-box;}
+.menublok{position: relative; width: 92%; text-align: center; margin: auto; background-color: teal;border-radius: 0.4vw; display:none;}
+.menubuton, .menuustbuton, .menualtbuton, .menuortabuton, .gizlebuton{font-size: 1vw;font-family: Calibri;color: white; text-align:left;background-color: transparent;border: none;display: block;padding-left: 0.4vw;cursor: pointer; width:100%; line-height: 2.2vw;}
+.menubuton:hover, .gizlebuton:hover{background-color: black;color: #DBFE03;}
+.menualtbuton:hover{border-bottom-left-radius: 0.4vw;border-bottom-right-radius: 0.4vw;background-color: brown;}
+.menuustbuton:hover{border-top-left-radius: 0.4vw;border-top-right-radius: 0.4vw;background-color: brown;}
+.menuortabuton:hover{background-color: brown;}
+.gizlebuton{margin-top: auto;}
+.gizlemenu{display:none;align-items:center;justify-content:center;position:fixed;left:0;top:0;background-color:brown;width:2%;font-size:1vw;border:none;height:100%;cursor:pointer;color:white;}
+.gostermenu{font-size: 1.2vw;font-weight:bold}
 .cssarabaslik{text-align: center;height: 2vw;background-color: teal;color:white;font-size:1vw;font-weight: bold;display: flex; align-items: center;justify-content:center;transition:background-color 0.3s;}
 .cssarabaslik:hover{background-color: brown;}
 .cssboslukalt0_25{padding-bottom: 0.25vw;}
