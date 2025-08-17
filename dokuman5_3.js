@@ -2778,3 +2778,39 @@ function calisanexcelduzenletamam(excel)
 function adsoyadstring(s){let t=s.replace(/\s+/g," ").trim().replace(/[^a-zA-ZçÇğĞıİöÖşŞüÜ\s'-]/g,"");if(!t.trim())return"";let p=t.split(/(\s+)/),l=p.length-1;while(l>=0&&p[l].trim()==="")l--;if(l<0)return t;p[l]=p[l].toLocaleUpperCase("tr-TR");for(let i=0;i<l;i++)p[i].trim()!==""&&(p[i]=p[i].charAt(0).toLocaleUpperCase("tr-TR")+p[i].slice(1).toLocaleLowerCase("tr-TR"));return p.join("")}
 function basharfstring(s){let t=s.replace(/\s+/g," ").trim().replace(/[^\p{L} ',.()\/-_]/gu,"");if(!t.trim())return"";return t.toLocaleLowerCase("tr-TR").split(" ").map(w=>w.charAt(0).toLocaleUpperCase("tr-TR")+w.slice(1)).join(" ").replace(/ Ve /g," ve")}
 
+function isyerilistesiload()
+{
+    let firmajson = firmajsonokuma();
+    if (firmajson && Array.isArray(firmajson))
+    {
+        $('#isyeritablo').DataTable({
+            data: firmajson,
+            columns:
+            [
+                { data: 'fi', title: 'Firma İsmi' },
+                { data: 'fk', title: 'Kısa İsim' },
+                { data: 'id', title: 'Seç', orderable: !1, render: e => `<input type="button" name="duzenle" class="cssbutontamam" value="Düzenle" data-id="${e}"/>` }
+            ],
+            pageLength: 10,
+            lengthMenu: [ [10, 50, 100, 500, -1], ['10', '50', '100', '500', 'Tümü'] ],
+            order: [[0, 'asc']],
+            language:{search:"İşyeri Ara:",lengthMenu: "Sayfa başına _MENU_ kayıt göster",zeroRecords:"Eşleşen kayıt bulunamadı",info:"_TOTAL_ kayıttan _START_ ile _END_ arası gösteriliyor",infoEmpty:"Kayıt yok",infoFiltered:"(toplam _MAX_ kayıttan filtrelendi)",emptyTable:"Kayıtlı işyeri bulunamadı"},
+            createdRow: function (row)
+            {
+                $(row).find('td').eq(0).css('text-align', 'left');
+                $(row).find('td').eq(1).css('text-align', 'left');
+            },
+            headerCallback: function (thead){$(thead).find('th').css('text-align', 'center');}
+        });
+    }
+    else
+    {
+        alertify.error("Beklenmedik bir hata oluştu");
+    }
+    $('.dt-search input').css({ "background-color": "white" }).attr("autocomplete", "off");
+    $('.dt-length select').css({ "background-color": "white" });
+    $('#isyeritablo tbody').on('click', 'input[name="duzenle"]',function(){
+        let id = $(this).data('id');
+        window.location.href = "isyeriduzenleme.aspx?id=" + encodeURIComponent(id);
+    });
+}
