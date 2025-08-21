@@ -2814,3 +2814,48 @@ function isyerilistesiload()
         window.location.href = "isyeriduzenleme.aspx?id=" + encodeURIComponent(id);
     });
 }
+
+function sifredegistirmedogrulama()
+{
+    var eski = $("#eskisifre").val().trim();
+    var yeni = $("#yenisifre").val().trim();
+    var tekrar = $("#tekrarsifre").val().trim();
+    if (eski === "")
+    {
+        mesaj("Eski şifre alanı boş bırakılamaz.");
+        return false;
+    }
+    if (yeni === "")
+    {
+        mesaj("Yeni şifre alanı boş bırakılamaz.");
+        return false;
+    }
+    if (tekrar === "") {
+        mesaj("Yeni şifre tekrar alanı boş bırakılamaz.");
+        return false;
+    }
+    if (yeni.length < 6)
+    {
+        mesaj("Yeni şifre en az 6 karakter olmalıdır.");
+        return false;
+    }
+    if (yeni !== tekrar)
+    {
+        mesaj("Yeni şifre ile tekrarı aynı değil.");
+        return false;
+    }
+    var regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{6,}$/;
+    var turkceKarakter = /[çğıöşüÇĞİÖŞÜ]/;
+    if (!regex.test(yeni) || turkceKarakter.test(yeni))
+    {
+        mesaj("Şifreniz en az 6 karakter olmalı, büyük/küçük harf ve rakam içermeli, Özel/Türkçe karakter içermemelidir.");
+        return false;
+    }
+    $('#HiddenField1').val(eski);
+    $('#HiddenField2').val(yeni);
+}
+
+function mesaj(text)
+{
+    alertify.error(text);
+}
