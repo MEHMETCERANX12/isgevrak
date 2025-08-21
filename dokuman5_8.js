@@ -3083,7 +3083,7 @@ function gorevlendirmeacildurumpdf()
     if (!json || json.length === 0) { alertify.error("Görevli çalışan bulunamadı"); return false; }
     json = json.filter(x => x.a !== 0);
     if (!json || json.length === 0) { alertify.error("Görevli çalışan bulunamadı"); return false; }
-    json = json.filter(x => x.a !== 0).sort((a,b)=>a.a-b.a);
+    json.sort((a,b)=>a.a-b.a);
     let dosyaid = metinuret(3);
     const icerik =
     [
@@ -3112,3 +3112,113 @@ function gorevlendirmeacildurumpdf()
     };
     pdfMake.createPdf(dokuman).download('Acil Durum Ekibi - ' + dosyaid + '.pdf');
 }
+
+function gorevlendirmecalisanload()
+{
+    const ekipliste={0:"Görevli Değil",1:"Çalışan Temsilcisi",2:"Çalışan Baş Temsilcisi"};
+    let calisanjson = calisangetir();
+    const table = $('#tablo').DataTable
+    ({
+        data: calisanjson,
+        columns:
+        [
+            { data: 'ad', title: 'Ad Soyad' },
+            { data: 'un', title: 'Unvan' },
+            { data:'t', title:'Çalışan Temsilcisi',render:d=>ekipliste[parseInt(d)]||'Bilinmiyor'},
+            { data:null, title:'Görevlendirme',orderable:false,render:()=>'<input name="sec" type="button" class="cssbutontamam" value="Seç"/>'}
+        ],
+        order: [[0, 'asc']],
+        pageLength: 500,
+        lengthMenu: [[10, 25, 50, 100, 500], [10, 25, 50, 100, 500]],
+        columnDefs: [{ orderable: false, targets: '_all' }],
+        language:{search:"Çalışan Ara: ",lengthMenu:"Sayfa başına _MENU_ kayıt göster",zeroRecords:"Çalışan bulunamadı",info:"_TOTAL_ kayıttan _START_ ile _END_ arası gösteriliyor",infoEmpty:"Çalışan bulunamadı",infoFiltered:"(toplam _MAX_ kayıttan filtrelendi)",emptyTable:"Kayıtlı çalışan bulunamadı"},
+        createdRow:function(row){$(row).find("td").eq(0).css("text-align","left");$(row).find("td").eq(1).css("text-align","left");$(row).find("td").eq(2).css("text-align","center");},
+        headerCallback: function (thead) { $(thead).find('th').css('text-align', 'center');}
+    });
+    $('#tablo').off('click', 'input[name="sec"]').on('click', 'input[name="sec"]', function ()
+    {
+        const veri = table.row($(this).closest('tr')).data();
+        store.set('temsilcisecim', veri);
+        const mevcutGorev = veri.t ? parseInt(veri.t) : 0;
+        $('#gorevselect').val(mevcutGorev);
+        $('#dylgcalisantemsilcisi').fadeIn();
+    });
+    $('.dt-search input').css({ "background-color": "white" }).attr("autocomplete", "off");
+    $('.dt-length select').css({ "background-color": "white" });
+}
+
+function gorevlendirmetemsilciguncelle()
+{
+    const secilen = store.get('temsilcisecim');
+    if (!secilen || !secilen.id)
+    {
+        alertify.error("Seçilen çalışan bulunamadı.");
+        return;
+    }
+    const yeniGorev = parseInt($('#gorevselect').val());
+    let calisanlar = calisangetir();
+    const index = calisanlar.findIndex(x => x.id === secilen.id);
+    if (index !== -1)
+    {
+        calisanlar[index].t = yeniGorev;
+    }
+    else
+    {
+        alertify.error("Seçilen çalışan bulunamadı.");
+        return;
+    }
+    $('#HiddenField1').val(JSON.stringify(calisanlar));
+    const tablo = $('#tablo').DataTable();
+    const rowIndex = tablo.rows().eq(0).filter(function (i)
+    {
+        return tablo.row(i).data().id === secilen.id;
+    });
+    if (rowIndex.length > 0)
+    {
+        const rowData = tablo.row(rowIndex[0]).data();
+        rowData.t = yeniGorev;
+        tablo.row(rowIndex[0]).data(rowData).invalidate();
+    }
+    $('#dylgcalisantemsilcisi').fadeOut();
+}
+
+
+
+function gorevlendirmetemsilcipdf()
+{
+    const ekipliste={0:"Görevli Değil",1:"Çalışan Temsilcisi",2:"Çalışan Baş Temsilcisi"};
+    let json = calisangetir();
+    if (!json || json.length === 0) { alertify.error("Görevli çalışan bulunamadı"); return false; }
+    json = json.filter(x => x.t !== 0);
+    if (!json || json.length === 0) { alertify.error("Görevli temsilci bulunamadı"); return false; }
+    json.sort((a,b) => b.t - a.t); 
+    let dosyaid = metinuret(3);
+    const icerik =
+    [
+        [
+            { text: 'No', style: 'header' },
+            { text: 'Çalışan Ad Soyad', style: 'header' },
+            { text: 'Temsilci Görevi', style: 'header' }
+        ],
+        ...json.map((x,i)=>[{text:i+1,alignment:'center'},x.ad,ekipliste[x.t]||"Bilinmiyor"])
+    ];
+    const dokuman =
+    {
+        pageSize: 'A4',
+        pageMargins: [30, 30, 30, 30],
+        content:
+        [{
+            table:
+            {
+                headerRows:1,
+                widths:['7%','36%','57%'],
+                body:icerik
+            },
+            layout:'solid'
+        }],
+        styles:{ header:{fontSize:12,bold:true,alignment:'center'}},
+    };
+    pdfMake.createPdf(dokuman).download('Çalışan Temsilcisi - ' + dosyaid + '.pdf');
+}
+
+
