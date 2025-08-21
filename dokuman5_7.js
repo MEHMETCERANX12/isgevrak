@@ -3019,7 +3019,7 @@ function gorevlendirmeacildurumload()
             { data: 'ad', title: 'Ad Soyad' },
             { data: 'un', title: 'Unvan' },
             { data:"a",title:"Acil Durum Görevi",render:function(d){const k=parseInt(d);return typeof ekipliste[k]!=="undefined"?ekipliste[k]:"Bilinmiyor"}},
-            { data:null,title:"Görevlendirme",orderable:false,render:function(){return'<input type="button" class="cssbutontamam" value="Seç" onclick="gorevlendirmeacilsecim(this)"/>'}}
+            { data:null,title:"Görevlendirme",orderable:false,render:function(){return'<input type="button" name="sec" class="cssbutontamam" value="Seç"/>'}}
         ],
         order: [[0, 'asc']],
         pageLength: 500,
@@ -3031,15 +3031,16 @@ function gorevlendirmeacildurumload()
     });
     $('.dt-search input').css({ "background-color": "white" }).attr("autocomplete", "off");
     $('.dt-length select').css({ "background-color": "white" });
+    $('#tablo').on('click', 'input[name="sec"]', function()
+    {
+        const veri = $('#tablo').DataTable().row($(this).closest('tr')).data();
+        store.set('acildurumsecim', veri);
+        const mevcutGorev = veri.a ? parseInt(veri.a) : 0;
+        $('#gorevselect').val(mevcutGorev);
+        $('#dylgacildurum').fadeIn();
+    });
 }
-function gorevlendirmeacilsecim(btn)
-{
-    const veri = $('#tablo').DataTable().row($(btn).closest('tr')).data();
-    store.set('acildurumsecim', veri);
-    const mevcutGorev = veri.a ? parseInt(veri.a) : 0;
-    $('#gorevselect').val(mevcutGorev);    
-    $('#dylgacildurum').fadeIn();
-}
+
 function gorevlendirmeacildurumguncelle()
 {
     const secilen = store.get('acildurumsecim');
