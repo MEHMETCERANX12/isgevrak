@@ -2859,3 +2859,150 @@ function mesaj(text)
 {
     alertify.error(text);
 }
+
+
+function hekimtanimlamaload()
+{
+    let json = $('#HiddenField1').val();
+    data = calisansiralama(json);
+    var table = $('#kisitablo').DataTable
+    ({
+        data: data,
+        dom: 't',
+        ordering: false,
+        columns:
+        [
+            {title: "Ad Soyad", data: "ad", width: "50%", orderable: false },
+            {title: "Belge No", data: "no", width: "30%", orderable: false },
+            {title:"Düzenle",data:null,orderable:false,width:"10%",render:function(d,t,r,m){return'<input type="button" name="duzenle" class="cssbutontamam" value="Düzenle" data-id="'+r.id+'" data-ad="'+r.ad+'" data-no="'+r.no+'">';}},
+            {title:"Sil",data:null,orderable:false,width:"10%",render:function(d,t,r,m){return'<input type="button" name="sil" class="cssbutontamam" value="Sil" data-id="'+r.id+'" data-ad="'+r.ad+'" data-no="'+r.no+'">';}}
+        ],
+        language:{zeroRecords:"Eşleşen kayıt bulunamadı",infoEmpty:"Kayıtlı hekim bulunamadı",emptyTable:"Kayıtlı hekim bulunamadı"},
+        createdRow:function(row){$(row).find("td").eq(0).css("text-align","left");$(row).find("td").eq(1).css("text-align","center");},
+        headerCallback: function (thead) { $(thead).find('th').css('text-align', 'center');},
+    });
+    $('.dt-search input').css({"background-color": "white",}).attr("autocomplete", "off");
+    $('.dt-length select').css({ "background-color": "white", });
+    $('#kisitablo tbody').on('click', 'input[name="sil"]', function ()
+    {
+        $('#dylghekimsil').fadeIn();
+        var $row = $(this).closest('tr');
+        var rowData = table.row($row).data();
+        if (rowData)
+        {
+            $('#silbilgi').html(`${rowData.ad} adlı hekimi (${rowData.no}) SİLMEK istediğinizden emin misiniz ?`);
+            store.set("hekimid", rowData.id);
+            store.set("hekimad", rowData.ad);
+            store.set("hekimno", rowData.no);
+        }
+    });
+    $('#kisitablo tbody').on('click', 'input[name="duzenle"]', function ()
+    {
+        var $row = $(this).closest('tr');
+        var rowData = table.row($row).data();
+        if (rowData)
+        {
+            $('#adsoyad2').val(rowData.ad);
+            $('#no2').val(rowData.no);
+            store.set("hekimid", rowData.id);
+            store.set("hekimad", rowData.ad);
+            store.set("hekimno", rowData.no);
+            $('#dylghekimduzenle').fadeIn();
+        }
+    });
+}
+function hekimtanimekle()
+{
+    let ad = $('#adsoyad1').val().trim();
+    let no = $('#no1').val().trim();
+    if (!ad || !no)
+    {
+        alertify.error("Lütfen tüm alanları doldurunuz.");
+        return false;
+    }
+    let json = $('#HiddenField1').val();
+    data = calisansiralama(json);
+    let yeni = { id: metinuret(3), ad: ad, no: no};
+    data.push(yeni);
+    data.sort((a, b) => a.ad.localeCompare(b.ad, 'tr-TR', { sensitivity: 'base' }));
+    $('#HiddenField1').val(JSON.stringify(data));
+    $('#dylghekimekle').fadeOut();
+}
+
+function hekimtanimguncelle()
+{
+    let ad = $('#adsoyad2').val().trim();
+    let no = $('#no2').val().trim();
+    let secilen = store.get("hekimid");
+    if (!ad || !no || !secilen)
+    {
+        alertify.error("Lütfen bir hekim seçip tüm alanları doldurunuz.");
+        return false;
+    }
+    let json = $('#HiddenField1').val();
+    data = calisansiralama(json);
+    let index = data.findIndex(x => x.id === secilen);
+    if (index >= 0)
+    {
+        data[index].ad = ad;
+        data[index].no = no;
+        data = calisansiralama(data);
+        $('#HiddenField1').val(JSON.stringify(data));
+        let hekimad = store.get("hekimad");
+        let hekimno = store.get("hekimno");
+        data = [];
+        data = firmajsonokuma();
+        for (let i = 0; i < data.length; i++)
+        {
+            if (data[i].hk === hekimad || data[i].hn === hekimno)
+            {
+                data[i].hk = ad;
+                data[i].hn = no;
+            }
+        }
+        store.set("firmajson", data);
+        $('#HiddenField2').val(JSON.stringify(data));
+        $('#dylghekimduzenle').fadeOut();
+    }
+    else
+    {
+        alertify.error("Güncellenecek kayıt bulunamadı.");
+        return false;
+    }
+}
+function hekimtanimsil()
+{
+    let secilen = store.get("hekimid");
+    if (!secilen)
+    {
+        alertify.error("Lütfen bir hekim seçiniz.");
+        return false;
+    }
+    let json = $('#HiddenField1').val();
+    data = calisansiralama(json);
+    let ad = "";
+    let no = "";
+    let silinen = data.find(x => x.id === secilen);
+    if (silinen)
+    {
+        ad = silinen.ad || "";
+        no = silinen.no || "";
+    }
+    let yenidata = data.filter(x => x.id !== secilen);
+    yenidata.sort((a, b) => a.ad.localeCompare(b.ad, 'tr-TR', { sensitivity: 'base' }));
+    $('#HiddenField1').val(JSON.stringify(yenidata));
+    data = [];
+    data = firmajsonokuma();
+
+    for (let i = 0; i < data.length; i++)
+    {
+        if (data[i].hk === ad || data[i].hn === no)
+        {
+            data[i].hk = "";
+            data[i].hn = "";
+        }
+    }
+    store.set('firmajson', data);
+    $('#HiddenField2').val(JSON.stringify(data));
+    $('#dylghekimsil').fadeOut();
+}
