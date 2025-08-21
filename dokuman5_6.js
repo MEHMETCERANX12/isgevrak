@@ -3006,3 +3006,108 @@ function hekimtanimsil()
     $('#HiddenField2').val(JSON.stringify(data));
     $('#dylghekimsil').fadeOut();
 }
+
+function gorevlendirmeacildurumload()
+{
+    const ekipliste={0:"Görevli Değil",1:"İlkyardım Ekibi - Ekip Başı",2:"İlkyardım Ekibi - Ekip Personeli",3:"Söndürme Ekibi - Ekip Başı",4:"Söndürme Ekibi - Ekip Personeli",5:"Koruma Ekibi - Ekip Başı + Koordinasyon",6:"Koruma Ekibi - Ekip Personeli + Koordinasyon",7:"Koruma Ekibi - Ekip Personeli",8:"Kurtarma Ekibi - Ekip Başı",9:"Kurtarma Ekibi - Ekip Personeli",10:"Destek Elemanı"};
+    let calisanjson = calisangetir();
+    $('#tablo').DataTable
+    ({
+        data: calisanjson,
+        columns:
+        [
+            { data: 'ad', title: 'Ad Soyad' },
+            { data: 'un', title: 'Unvan' },
+            { data:"a",title:"Acil Durum Görevi",render:function(d){const k=parseInt(d);return typeof ekipliste[k]!=="undefined"?ekipliste[k]:"Bilinmiyor"}},
+            { data:null,title:"Görevlendirme",orderable:false,render:function(){return'<input type="button" class="cssbutontamam" value="Seç" onclick="gorevlendirmeacilsecim(this)"/>'}}
+        ],
+        order: [[0, 'asc']],
+        pageLength: 500,
+        lengthMenu: [[10, 25, 50, 100, 500], [10, 25, 50, 100, 500]],
+        columnDefs: [{ orderable: false, targets: '_all' }],
+        language:{search:"Çalışan Ara: ",lengthMenu:"Sayfa başına _MENU_ kayıt göster",zeroRecords:"Çalışan bulunamadı",info:"_TOTAL_ kayıttan _START_ ile _END_ arası gösteriliyor",infoEmpty:"Çalışan bulunamadı",infoFiltered:"(toplam _MAX_ kayıttan filtrelendi)",emptyTable:"Kayıtlı çalışan bulunamadı"},
+        createdRow:function(row){$(row).find("td").eq(0).css("text-align","left");$(row).find("td").eq(1).css("text-align","left");$(row).find("td").eq(2).css("text-align","center");},
+        headerCallback: function (thead) { $(thead).find('th').css('text-align', 'center');}
+    });
+    $('.dt-search input').css({ "background-color": "white" }).attr("autocomplete", "off");
+    $('.dt-length select').css({ "background-color": "white" });
+}
+function gorevlendirmeacilsecim(btn)
+{
+    const veri = $('#tablo').DataTable().row($(btn).closest('tr')).data();
+    store.set('acildurumsecim', veri);
+    const mevcutGorev = veri.a ? parseInt(veri.a) : 0;
+    $('#gorevselect').val(mevcutGorev);    
+    $('#dylgacildurum').fadeIn();
+}
+function gorevlendirmeacildurumguncelle()
+{
+    const secilen = store.get('acildurumsecim');
+    if (!secilen || !secilen.id)
+    {
+        alertify.error("Seçilen personel bulunamadı.");
+        return;
+    }
+    const yeniGorev = parseInt($('#gorevselect').val());
+    let calisanlar = calisangetir();
+    const index = calisanlar.findIndex(x => x.id === secilen.id);
+    if (index !== -1)
+    {
+        calisanlar[index].a = yeniGorev;
+    }
+    else
+    {
+        console.warn("Seçilen personel JSON içinde bulunamadı.");
+        return;
+    }
+    $('#HiddenField1').val(JSON.stringify(calisanlar));
+    const tablo = $('#tablo').DataTable();
+    const rowIndex = tablo.rows().eq(0).filter(function (i)
+    {
+        return tablo.row(i).data().id === secilen.id;
+    });
+    if (rowIndex.length > 0)
+    {
+        const rowData = tablo.row(rowIndex[0]).data();
+        rowData.a = yeniGorev;
+        tablo.row(rowIndex[0]).data(rowData).invalidate();
+    }
+    $('#dylgacildurum').fadeOut();
+}
+
+function gorevlendirmeacildurumpdf()
+{
+    const ekipliste={0:"Görevli Değil",1:"İlkyardım Ekibi - Ekip Başı",2:"İlkyardım Ekibi - Ekip Personeli",3:"Söndürme Ekibi - Ekip Başı",4:"Söndürme Ekibi - Ekip Personeli",5:"Koruma Ekibi - Ekip Başı + Koordinasyon",6:"Koruma Ekibi - Ekip Personeli + Koordinasyon",7:"Koruma Ekibi - Ekip Personeli",8:"Kurtarma Ekibi - Ekip Başı",9:"Kurtarma Ekibi - Ekip Personeli",10:"Destek Elemanı"};
+    let json = calisangetir();
+    if (!json || json.length === 0) { alertify.error("Görevli çalışan bulunamadı"); return false; }
+    json = json.filter(x => x.a !== 0);
+    if (!json || json.length === 0) { alertify.error("Görevli çalışan bulunamadı"); return false; }
+    json = json.filter(x => x.a !== 0).sort((a,b)=>a.a-b.a);
+    let dosyaid = metinuret(3);
+    const icerik =
+    [
+        [
+            { text: 'No', style: 'header' },
+            { text: 'Çalışan Ad Soyad', style: 'header' },
+            { text: 'Acil Durum Ekip Görevi', style: 'header' }
+        ],
+        ...json.map((x,i)=>[{text:i+1,alignment:'center'},x.ad,ekipliste[x.a]||"Bilinmiyor"])
+    ];
+    const dokuman =
+    {
+        pageSize: 'A4',
+        pageMargins: [30, 30, 30, 30],
+        content:
+        [{
+            table:
+            {
+                headerRows:1,
+                widths:['7%','36%','57%'],
+                body:icerik
+            },
+            layout:'solid'
+        }],
+        styles:{ header:{fontSize:12,bold:true,alignment:'center'}},
+    };
+    pdfMake.createPdf(dokuman).download('Acil Durum Ekibi - ' + dosyaid + '.pdf');
+}
