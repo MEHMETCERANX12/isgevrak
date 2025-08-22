@@ -3222,3 +3222,108 @@ function gorevlendirmetemsilcipdf()
 }
 
 
+function excelleduzenleload2()
+{
+    let mysqljson = store.get('mysqljson');
+    mysqljson = mysqljson ? JSON.parse(mysqljson) : [];
+    $('#HiddenField1').val(JSON.stringify(mysqljson));
+    const ekleData = JSON.parse(store.get('eklejson') || "[]");
+    const silData = JSON.parse(store.get('siljson') || "[]");
+    const guncelleData = JSON.parse(store.get('gunceljson') || "[]");
+    function tabloOlustur(tabloId, data)
+    {
+        $(`#${tabloId}`).DataTable
+        ({
+            destroy: true,
+            data: data,
+            order: [[0, 'asc']],
+            dom: 't',
+            language: {zeroRecords: "Bulunamadı", emptyTable: "Bulunamadı"},
+            columns:
+            [
+                { data: 'ad', title: 'Ad Soyad', className: 'text-left' },
+                { data: 'un', title: 'Unvan', className: 'text-left' }
+            ],
+            createdRow: function (row){$(row).find('td').eq(0).css('text-align', 'left'); $(row).find('td').eq(1).css('text-align', 'left');},
+            headerCallback: function (thead) { $(thead).find('th').css('text-align', 'center');}
+        });
+    }
+    tabloOlustur('ekletablo', ekleData);
+    tabloOlustur('siltablo', silData);
+    tabloOlustur('guncelletablo', guncelleData);
+}
+
+function excelleduzenleekle()
+{
+    const mysqljson = $('#HiddenField1').val();
+    let mysqlData = mysqljson ? JSON.parse(mysqljson) : [];
+    const eklejsonStr = store.get('eklejson');
+    if (!eklejsonStr)
+    {
+        alertify.error("Eklenmek üzere çalışan bulunamadı.");
+        return false;
+    }
+    const ekleData = JSON.parse(eklejsonStr);
+    if (ekleData.length === 0)
+    {
+        alertify.warning("Yeni eklenecek çalışan bulunamadı.");
+        return false;
+    }
+    const mevcutAdSet = new Set(mysqlData.map(x => x.ad));
+    ekleData.forEach(c=>{if(!mevcutAdSet.has(c.ad)){mysqlData.push({ad:c.ad,un:c.un,a:0,t:0,r:0,e:"",s:"",i:"",id:metinuret(3)});mevcutAdSet.add(c.ad)}});
+    mysqlData = calisansiralama(mysqlData);
+    store.set('mysqljson', JSON.stringify(mysqlData));
+    $('#HiddenField1').val(JSON.stringify(mysqlData));
+    store.set('eklejson', '[]');
+    $('#ekletablo').DataTable().clear().draw();
+}
+
+function excelleduzenlesil()
+{
+    const mysqljson = $('#HiddenField1').val();
+    let mysqlData = mysqljson ? JSON.parse(mysqljson) : [];
+    const siljsonStr = store.get('siljson');
+    if (!siljsonStr)
+    {
+        alertify.error("Silinecek çalışan bilgisi bulunamadı.");
+        return false;
+    }
+    const silData = JSON.parse(siljsonStr);
+    const silinecekler = silData.map(x => x.id);
+    if (silinecekler.length === 0)
+    {
+        alertify.warning("Silinecek çalışan bulunamadı.");
+        return false;
+    }
+    mysqlData = mysqlData.filter(calisan => !silinecekler.includes(calisan.id));
+    mysqlData = calisansiralama(mysqlData);
+    $('#HiddenField1').val(JSON.stringify(mysqlData));
+    store.set('mysqljson', JSON.stringify(mysqlData));
+    store.set('siljson', '[]');
+    $('#siltablo').DataTable().clear().draw();
+}
+
+function excelleduzenleguncelleme()
+{
+    const mysqljson = $('#HiddenField1').val();
+    let mysqlData = mysqljson ? JSON.parse(mysqljson) : [];
+    const gunceljsonStr = store.get('gunceljson');
+    if (!gunceljsonStr)
+    {
+        alertify.error("Güncellenecek çalışan bilgisi bulunamadı.");
+        return false;
+    }
+    const guncelData = JSON.parse(gunceljsonStr);
+    if (guncelData.length === 0)
+    {
+        alertify.warning("Güncellenecek çalışan bulunamadı.");
+        return false;
+    }
+    const guncelleMap = new Map(guncelData.map(x => [x.id, x]));
+    mysqlData=mysqlData.map(c=>guncelleMap.has(c.id)?{...c,ad:guncelleMap.get(c.id).ad,un:guncelleMap.get(c.id).un}:c);
+    mysqlData = calisansiralama(mysqlData);
+    store.set('mysqljson', JSON.stringify(mysqlData));
+    $('#HiddenField1').val(JSON.stringify(mysqlData));
+    store.set('gunceljson', '[]');
+    $('#guncelletablo').DataTable().clear().draw();
+}
