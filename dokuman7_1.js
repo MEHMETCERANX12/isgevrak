@@ -281,10 +281,6 @@ function temelkatılımlistesikontrol()
 function temelkatılımlistesiyaz() {
      let uzmanad = store.get("uzmanad");
     let uzmanno = store.get("uzmanno");
-    let uzmankurum = store.get("uzmankurum");
-    if (uzmankurum) {
-        uzmankurum = "Eğitimi Veren Kurumun Unvanı: " + uzmankurum;
-    }
     let isgegitimveri = store.get('isgegitimveri');
     isgegitimveri = JSON.parse(isgegitimveri || '{}');
     let isyeri = store.get('xjsonfirma');
@@ -305,11 +301,11 @@ function temelkatılımlistesiyaz() {
         }
     }
     if (!Array.isArray(calisanliste) || calisanliste.length === 0) {
-        calisanliste = Array.from({ length: 12 }, () => ({ ad: "", un: "" }));
+        calisanliste = Array.from({ length: 12 }, () => ({ a: "", u: "" }));
     }
     else if (bossatir > 0)
     {
-        calisanliste = calisanliste.concat(Array.from({ length: bossatir }, () => ({ ad: "", un: "" })));
+        calisanliste = calisanliste.concat(Array.from({ length: bossatir }, () => ({ a: "", u: "" })));
     }
     let isyeriismi = isyeri.fi;
     let toplamsaat = isgegitimveri.saat || "1";
