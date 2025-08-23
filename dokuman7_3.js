@@ -3625,3 +3625,19 @@ function dokumancalisansecim()
     store.set("calisansecimjsonx", JSON.stringify(calisanjson));
     return calisanjson;
 }
+
+function firmasecimoku()
+{
+    let jsonfirmatumu = firmajsonokuma();
+    let firmaid = $('#isyeri').val();
+    var firmasatir = $.grep(jsonfirmatumu, function (f) { return f.id == firmaid; })[0];
+    if (!firmasatir)
+    {
+        alertify.error("Lütfen bir işyeri seçiniz", 7);
+        return;
+    }
+    store.set('xjsonfirma', JSON.stringify(firmasatir));
+    store.set('xfirmaid', firmaid);
+    return firmaid;
+}
+
