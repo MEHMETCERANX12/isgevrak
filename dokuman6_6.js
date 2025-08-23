@@ -3580,3 +3580,25 @@ function kurulgorevlendirmeyaz()
     });
     $('#HiddenField1').val(JSON.stringify(data));
 }
+
+function dokumancalisanload()
+{
+    let calisanjson = calisangetir();
+    $('#tablo').DataTable
+    ({
+        data: calisanjson,
+        order: [[1, 'asc']],
+        columns:
+        [
+            { data:null,title:"Seç",render:(d,t,r)=>`<input type="checkbox" class="row-checkbox" data-id="${r.ad}|${r.un}">`,orderable:false},
+            { data: "ad", title: "Ad Soyad" },
+            { data: "un", title: "Unvan" },
+        ],
+        language:{search:"Çalışan Ara:",lengthMenu:"Sayfa başına _MENU_ kayıt göster",zeroRecords:"Çalışan bulunamadı",info:"_TOTAL_ kayıttan _START_ ile _END_ arası gösteriliyor",infoEmpty:"Çalışan bulunamadı",infoFiltered:"(toplam _MAX_ kayıttan filtrelendi)",emptyTable:"Çalışan bulunamadı"},
+        createdRow:function(r){$(r).find("td").eq(1).css("text-align","left");$(r).find("td").eq(2).css("text-align","left");},
+        headerCallback: function (thead) {$(thead).find('th').css('text-align', 'center');}
+    });
+    $('.dt-search input').css({ "background-color": "white" }).attr("autocomplete", "off");
+    $('.dt-length select').css({ "background-color": "white" });
+}
+
