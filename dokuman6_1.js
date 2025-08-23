@@ -3331,3 +3331,21 @@ function excelleduzenleguncelleme()
     store.set('gunceljson', '[]');
     $('#guncelletablo').DataTable().clear().draw();
 }
+
+function isyerigetir()
+{
+    const dropdown = $('#isyeri');
+    dropdown.empty();
+    dropdown.append($('<option>', { text: 'Lütfen işyerini seçiniz', value: '', disabled: true, selected: true }));
+    let firmajson = firmajsonokuma();
+    if (firmajson.length > 0)
+    {
+        firmajson.sort((a, b) => a.fk.localeCompare(b.fk, 'tr', { sensitivity: 'base' }));
+        $.each(firmajson, function (_, row) { dropdown.append($('<option>', { text: row.fk, value: row.id }));});
+    }
+    else
+    {
+        alertify.error("Kayıtlı işyeri bulunamadı");
+    }
+    dropdown.select2({ placeholder: "Lütfen işyerini seçiniz", theme: "classic",  allowClear: true, language: { noResults: function () { return "Sonuç bulunamadı";}}});
+}
