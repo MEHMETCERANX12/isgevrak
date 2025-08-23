@@ -3390,3 +3390,144 @@ function calisanexcelduzenletamam1()
     const firmaid = link.get('id');
     window.location.href = "calisanexcelleduzenle2.aspx?id=" + encodeURIComponent(firmaid);
 }
+
+function gorevlendirmeriskload()
+{
+    const urlParams = new URLSearchParams(window.location.search);
+    const firmaid = urlParams.get('id');
+    if (!firmaid)
+    {
+        window.location.href = "anasayfa.aspx";
+        return false;
+    }
+    let isyerijson = firmajsonokuma();
+    var firma = isyerijson.find(item => item.id === firmaid);
+    if (!firma)
+    {
+        window.location.href = "anasayfa.aspx";
+        return false;
+    }
+    var uzman = store.get('uzmanad') + ' - ' + store.get('uzmanno');
+    if (uzman)
+    {
+        var $uzmanSelect = $('#uzman');
+        $uzmanSelect.append($('<option>', { text: uzman }));
+    }
+    $('#hekim').append($('<option>', { text: firma.hk + ' - ' + firma.hn }));
+    $('#isveren').append($('<option>', { text: firma.is }));
+    let calisanjson = calisangetir();
+    const dropdownlar = ['#DropDownList1', '#DropDownList2', '#DropDownList3'];
+    dropdownlar.forEach(function(dropid){const $ddl=$(dropid);$ddl.empty();$ddl.append($('<option>',{text:'Görevli Değil',value:''}));$.each(calisanjson,function(i,calisan){$ddl.append($('<option>',{value:calisan.id,text:calisan.ad}))});});
+    calisanjson.forEach(function(calisan){if(calisan.r==1){$('#DropDownList1').val(calisan.id);}else if(calisan.r==2){$('#DropDownList2').val(calisan.id);}else if(calisan.r==3){$('#DropDownList3').val(calisan.id);}});
+    secimkontrolgorev();
+}
+function destekelemaniguncelle()
+{
+    let calisanjson = calisangetir();
+    calisanjson.forEach(c=>{if(c.r==1)c.r=0;});
+    const secilenId = $('#DropDownList1').val();
+    if (secilenId)
+    {
+        const eslesenCalisan = calisanjson.find(c => c.id == secilenId);
+        if (eslesenCalisan)
+        {
+            eslesenCalisan.r = 1;
+        }
+        else
+        {
+            return false;
+        }
+    }
+    else
+    {
+        return false;
+    }
+    $('#HiddenField1').val(JSON.stringify(calisanjson));    
+    secimkontrolgorev();
+    return true;
+}
+function temsilciguncelle()
+{
+    let calisanjson = calisangetir();
+    calisanjson.forEach(c=>{if(c.r==2)c.r=0;});
+    const secilenId = $('#DropDownList2').val();
+    if (secilenId)
+    {
+        const eslesenCalisan = calisanjson.find(c => c.id == secilenId);
+        if (eslesenCalisan)
+        {
+            eslesenCalisan.r = 2;
+        }
+        else
+        {
+            return false;
+        }
+    }
+    else
+    {
+        return false;
+    }
+    $('#HiddenField1').val(JSON.stringify(calisanjson));
+    secimkontrolgorev();
+    return true;
+}
+function bilgilicalisanguncelle()
+{
+    let calisanjson = calisangetir();
+    calisanjson.forEach(c=>{if(c.r==3)c.r=0;});
+    const secilenId = $('#DropDownList3').val();
+    if (secilenId)
+    {
+        const eslesenCalisan = calisanjson.find(c => c.id == secilenId);
+        if (eslesenCalisan) {
+            eslesenCalisan.r = 3;
+        }
+        else
+        {
+            return false;
+        }
+    }
+    else
+    {
+        return false;
+    }
+    $('#HiddenField1').val(JSON.stringify(calisanjson));
+    secimkontrolgorev();
+    return true;
+}
+function secimkontrolgorev()
+{
+    let secilenler={DropDownList1:$('#DropDownList1').val(),DropDownList2:$('#DropDownList2').val(),DropDownList3:$('#DropDownList3').val()};
+    ['#DropDownList1','#DropDownList2','#DropDownList3'].forEach(function(ddlId){$(ddlId+' option').prop('disabled',false);});
+    Object.entries(secilenler).forEach(([ddlName,secilenId])=>{if(secilenId){['DropDownList1','DropDownList2','DropDownList3'].forEach(otherDDL=>{if(otherDDL!==ddlName){$(`#${otherDDL} option`).each(function(){if($(this).val()===secilenId){$(this).prop('disabled',true);}});}});}});
+}
+function riskdegerlendirmepdfyazdir()
+{
+    let calisanjson = calisangetir();
+    calisanjson = calisanjson.filter(x => x.r !== 0);
+    calisanjson = calisanjson.map(x=>({adsoyad:x.ad,unvan:x.un,gorev:x.r===1?"Destek Elemanı":x.r===2?"Çalışan Temsilcisi":x.r===3?"Bilgi Sahibi Çalışan":"Bilinmiyor"}));
+    const tableBody=[[{text:"Ad Soyad",bold:!0,alignment:"center"},{text:"Unvan",bold:!0,alignment:"center"},{text:"Ekip Görevi",bold:!0,alignment:"center"}],...calisanjson.map(x=>[{text:x.adsoyad,alignment:"left"},{text:x.unvan,alignment:"left"},{text:x.gorev,alignment:"left"}])];
+    const docDefinition =
+    {
+        content:
+        [
+            { text: 'Risk Değerlendirme Ekip Listesi', style: 'header' },
+            {style:"tableExample",table:{headerRows:1,widths:["33%","42%","25%"],body:tableBody}}
+        ],
+        styles:
+        {
+            header:
+            {
+                fontSize: 16,
+                bold: true,
+                margin: [0, 0, 0, 5],
+                alignment:"center"
+            },
+            tableExample:
+            {
+                margin: [0, 10, 0, 5]
+            }
+        }
+    };
+    pdfMake.createPdf(docDefinition).getBlob(blob=>saveAs(blob,"Risk Değerlendirme Ekibi - " + metinuret(2) + ".pdf"));
+}
