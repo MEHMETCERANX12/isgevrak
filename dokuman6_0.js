@@ -2459,17 +2459,19 @@ function isyerisilmeonay()
 function isyerisecimload()
 {
     const dropdown = $('#isyeri');
+    dropdown.empty();
     dropdown.append($('<option>', { text: 'Lütfen işyerini seçiniz', value: '', disabled: true, selected: true }));
     let firmajson = firmajsonokuma();
     if (firmajson.length > 0)
     {
         firmajson.sort((a, b) => a.fk.localeCompare(b.fk, 'tr', { sensitivity: 'base' }));
-        $.each(firmajson,function(_,row){dropdown.append($('<option>',{text:row.fk,value:row.id}));});
+        $.each(firmajson, function (_, row) { dropdown.append($('<option>', { text: row.fk, value: row.id }));});
     }
     else
     {
         alertify.error("Kayıtlı işyeri bulunamadı");
     }
+    dropdown.select2({ placeholder: "Lütfen işyerini seçiniz", theme: "classic",  allowClear: true, language: { noResults: function () { return "Sonuç bulunamadı";}}});
     const link = new URLSearchParams(window.location.search);
     const secim = link.get("id");
     if (secim === '01')
@@ -2505,6 +2507,8 @@ function isyerisecimload()
         $("#baslik").text("RAPORLAMA - İŞYERİ SEÇİM");
     } 
 }
+
+
 function isyerisecimtamam()
 {
     let firmajson = firmajsonokuma(); 
