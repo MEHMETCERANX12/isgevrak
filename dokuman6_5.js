@@ -2731,15 +2731,6 @@ function calisanlistepdfyaz()
     pdfMake.createPdf(dokuman).download('Çalışan Listesi - ' + dosyaid + '.pdf');
 }
 
-
-
-
-
-
-
-
-
-
 function adsoyadstring(s){let t=s.replace(/\s+/g," ").trim().replace(/[^a-zA-ZçÇğĞıİöÖşŞüÜ\s'-]/g,"");if(!t.trim())return"";let p=t.split(/(\s+)/),l=p.length-1;while(l>=0&&p[l].trim()==="")l--;if(l<0)return t;p[l]=p[l].toLocaleUpperCase("tr-TR");for(let i=0;i<l;i++)p[i].trim()!==""&&(p[i]=p[i].charAt(0).toLocaleUpperCase("tr-TR")+p[i].slice(1).toLocaleLowerCase("tr-TR"));return p.join("")}
 function basharfstring(s){let t=s.replace(/\s+/g," ").trim().replace(/[^\p{L} ',.()\/-_]/gu,"");if(!t.trim())return"";return t.toLocaleLowerCase("tr-TR").split(" ").map(w=>w.charAt(0).toLocaleUpperCase("tr-TR")+w.slice(1)).join(" ").replace(/ Ve /g," ve")}
 
@@ -3530,4 +3521,62 @@ function riskdegerlendirmepdfyazdir()
         }
     };
     pdfMake.createPdf(docDefinition).getBlob(blob=>saveAs(blob,"Risk Değerlendirme Ekibi - " + metinuret(2) + ".pdf"));
+}
+
+
+function kurulgorevlendirmeload()
+{
+    let unvanlar=["İSG Kurul Başkanı","İşveren Vekili","Çalışan Baş Temsilcisi","Çalışan Temsilcisi","İnsan Kaynakları","Mali İşler Sorumlusu","Muhasebe","Sivil Savunma Uzmanı","Formen","Ustabaşı","Usta","Alt İşveren Temsilcisi"];
+    let jsonData = calisangetir();
+    while (jsonData.length < 10)
+    {
+        jsonData.push({ a: '', u: '' });
+    }
+    $('#kurultablo').DataTable
+    ({
+        data: jsonData,
+        dom: 't',
+        ordering: false,
+        columns:
+        [
+            {data:null,title:'No',render:function(d,t,r,m){return m.row+1;}},
+            {data:'a',title:'Ad Soyad',render:function(d,t,r){return`<input type="text" value="${d}" class="csstextbox90">`;}},
+            {data:'u',title:'Kurul Unvan',render:function(d,t,r){return`<input type="text" value="${d}" class="csstextbox90">`;}},
+        ],
+        createdRow: function (r) { $(r).find('td').eq(0).css('text-align', 'center'); },
+        headerCallback: function (t) { $(t).find('th').css('text-align', 'center'); }
+    });
+    $('#unvantablo').DataTable
+    ({
+        data: unvanlar.map(u => [u, '']),
+        dom: 't',
+        ordering: false,
+        columns:
+        [
+            {title:"Sık Kullanılan Unvanlar"},
+            {title:"Kopyala",render:function(d,t,r){return`<input type="button" class="cssbutontamam" value="Kopyala" onclick="navigator.clipboard.writeText('${r[0]}').then(()=>alertify.error('${r[0]} Kopyalandı'))">`;}}
+        ],
+        createdRow:function(row){$(row).find('td').eq(0).css('text-align','left');},
+        headerCallback:function(thead){$(thead).find('th').css('text-align','center');}
+    });
+}
+function kurulgorevlendirmeyaz()
+{
+    const table = $('#kurultablo').DataTable();
+    const data = [];
+    table.rows().every(function ()
+    {
+        const row = this.node();
+        const adInput = $(row).find('td:eq(1) input');
+        const unvanInput = $(row).find('td:eq(2) input');
+        let adsoyad = adInput.length > 0 ? adInput.val().trim() : '';
+        let unvan = unvanInput.length > 0 ? unvanInput.val().trim() : '';
+        unvan = basharfstring(unvan);
+        adsoyad = adsoyadstring(adsoyad);
+        if (adsoyad !== '' && unvan !== '')
+        {
+            data.push({ a: adsoyad, u: unvan });
+        }
+    });
+    $('#HiddenField1').val(JSON.stringify(data));
 }
