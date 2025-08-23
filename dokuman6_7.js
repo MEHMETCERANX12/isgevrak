@@ -3602,3 +3602,17 @@ function dokumancalisanload()
     $('.dt-length select').css({ "background-color": "white" });
 }
 
+function dokumancalisansecim()
+{
+    var calisanjson = [];
+    $('#tablo').DataTable().rows().nodes().to$().find('.row-checkbox:checked').each(function ()
+    {
+        var rowKey = $(this).data('id');
+        if (rowKey)
+        {
+            var [adsoyad, unvan] = rowKey.split('|');
+            calisanjson.push({ a: adsoyad, u: unvan });
+        }
+    });
+    store.set("calisansecimjsonx", JSON.stringify(calisanjson));    
+}
