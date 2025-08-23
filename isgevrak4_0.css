@@ -179,7 +179,7 @@ input[type="radio"]{width:1.3vw;height:1.3vw;cursor:pointer;vertical-align:middl
 .cssbutontamam{min-width:6vw;padding:0 0.8vw;font-size:1vw;border-radius:0.5vw;border:0.1vw solid #1a1a1a;cursor:pointer;font-family:'Calibri',sans-serif;white-space:nowrap;box-sizing:border-box;height:2vw;transition:all .3s ease;background:#fff;color:#1a1a1a;}
 .cssbutontamam:hover{background:#008080;color:#fff;transform:translateY(-2px);box-shadow:0 4px 6px rgba(0,0,0,.1);}
 .cssbutontamam:active{transform:translateY(0);box-shadow:none;}
-.cssbutontumu{background-color:#cb4335;border:none;border-radius:0.5vw;color:white;font-family:Calibri;font-size:1vw;padding:0.5vw 1vw;box-shadow:0.3vw 0.3vw 0.7vw rgba(0,0,0,0.3);cursor:pointer;transition:background 0.3s ease,color 0.3s ease,transform 0.1s ease;white-space:nowrap}
+.cssbutontumu{min-width:6vw;background-color:#cb4335;border:none;border-radius:0.5vw;color:white;font-family:Calibri;font-size:1vw;padding:0.5vw 1vw;box-shadow:0.3vw 0.3vw 0.7vw rgba(0,0,0,0.3);cursor:pointer;transition:background 0.3s ease,color 0.3s ease,transform 0.1s ease;white-space:nowrap}
 .cssbutontumu:hover{transform:scale(1.03);font-family:Calibri}
 .ui-datepicker-title{display:flex;justify-content:space-between;align-items:center;}
 .ui-datepicker-month{margin-right:1vw;}
