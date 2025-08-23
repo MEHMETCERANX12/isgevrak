@@ -3310,3 +3310,83 @@ function isyerigetir()
     }
     dropdown.select2({ placeholder: "Lütfen işyerini seçiniz", theme: "classic",  allowClear: true, language: { noResults: function () { return "Sonuç bulunamadı";}}});
 }
+
+function excelleduzenleload1()
+{
+    var $container = $('#excelveri');
+    var containerWidth = $(window).width() * 0.8;
+    excelwebayar($container, containerWidth, "0");
+    $('#durum').on('change', function ()
+    {
+        let durum = $(this).val();
+        excelwebayar($container, containerWidth, durum);
+    });
+}
+function excelwebayar($container, containerWidth, durum)
+{
+    let options={tabs:false,toolbar:false,worksheets:[]};
+    if (durum === "0")
+    {
+        options.worksheets.push
+        ({
+            minDimensions: [2, 500],
+            columns: [
+                { width: containerWidth / 3, title: 'Ad Soyad' },
+                { width: containerWidth / 3, title: 'Unvan' }
+            ]
+        });
+    }
+    else if (durum === "1")
+    {
+        options.worksheets.push
+        ({
+            minDimensions: [3, 500],
+            columns: [
+                { width: containerWidth / 4, title: 'Ad' },
+                { width: containerWidth / 4, title: 'Soyad' },
+                { width: containerWidth / 4, title: 'Unvan' }
+            ]
+        });
+    }
+    $container.html("");
+    var spreadsheetInstance = jspreadsheet($container[0], options);
+    $container.css({width:'80%',margin:'0 auto'});
+    $container.data('spreadsheetInstance', spreadsheetInstance);
+}
+
+function calisanexcelduzenletamam1()
+{
+    var $container = $('#excelveri');
+    var spreadsheetInstance = $container.data('spreadsheetInstance');
+    if (!spreadsheetInstance)
+    {
+        alert("Spreadsheet yüklenmedi veya instance bulunamadı!");
+        return;
+    }
+    let durum = $('#durum').val();
+    var rawData = spreadsheetInstance[0].getData();
+    var excelveri = [];
+    if (durum === "0")
+    {
+        excelveri=$.map(rawData,function(row){return{ad:row[0]?adsoyadstring(row[0].toString().trim()):"",un:row[1]?basharfstring(row[1].toString().trim()):""};}).filter(function(row){return row.ad!=="";});
+    }
+    else if (durum === "1")
+    {
+        excelveri=$.map(rawData,function(row){let adsoyad="";if(row[0]||row[1]){adsoyad=(row[0]?row[0].toString().trim():"")+" "+(row[1]?row[1].toString().trim():"");}return{ad:adsoyad?adsoyadstring(adsoyad.trim()):"",un:row[2]?basharfstring(row[2].toString().trim()):""};}).filter(function(row){return row.ad!=="";});
+    }
+    let mysqljson = $('#HiddenField1').val();
+    mysqljson = mysqljson ? JSON.parse(mysqljson) : [];
+    const sonjson = [];
+    excelveri.forEach(e=>{const m=mysqljson.find(x=>x.ad===e.ad);if(!m){sonjson.push({ad:e.ad,un:e.un,sonuc:1});}});
+    mysqljson.forEach(m=>{const e=excelveri.find(x=>x.ad===m.ad);if(e){sonjson.push({ad:e.ad,un:e.un,a:m.a,t:m.t,r:m.r,e:m.e,s:m.s,i:m.i,id:m.id,sonuc:2});}else{sonjson.push({ad:m.ad,un:m.un,id:m.id,sonuc:0});}});
+    const eklejson = sonjson.filter(x => x.sonuc === 1);
+    const siljson = sonjson.filter(x => x.sonuc === 0);
+    const gunceljson = sonjson.filter(x => x.sonuc === 2);
+    store.set('eklejson', JSON.stringify(eklejson));
+    store.set('siljson', JSON.stringify(siljson));
+    store.set('gunceljson', JSON.stringify(gunceljson));
+    store.set('mysqljson', JSON.stringify(mysqljson));
+    const link = new URLSearchParams(window.location.search);
+    const firmaid = link.get('id');
+    window.location.href = "calisanexcelleduzenle2.aspx?id=" + encodeURIComponent(firmaid);
+}
