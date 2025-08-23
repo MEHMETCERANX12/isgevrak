@@ -189,3 +189,16 @@ input[type="radio"]{width:1.3vw;height:1.3vw;cursor:pointer;vertical-align:middl
 .cssyazisecme{user-select:none}
 .csssolsagbosluk1{margin-left:1vw;margin-right:1vw}
 .cssgapbuton{gap:2vw}
+.select2-container { height: 2vw !important; font-family: Calibri !important; font-size: 1vw; line-height: 1.3vw; }
+.select2-container--classic .select2-dropdown { max-height: 23vw; }
+.select2-container--classic .select2-selection--single { height: 2vw; border: 0.1vw solid #79716B; }
+.select2-container--classic .select2-results > .select2-results__options { max-height: 20vw; overflow-y: auto; }
+.select2-container--classic .select2-selection__rendered { line-height: 2vw !important; }
+.select2-container--classic .select2-selection__arrow { height: 2vw !important; }
+.select2-container--classic .select2-selection__clear { line-height: 2vw !important; height: 2vw !important; margin-right: 0.5vw; display: flex; align-items: center; }
+.select2-container--classic .select2-search--dropdown .select2-search__field { font-family: Calibri !important; font-size: 1vw; height: 1.5vw; line-height: 2vw; border: 0.1vw solid #79716B; border-radius: 0.3vw; }
+.select2-container--classic .select2-search--inline .select2-search__field { font-family: Calibri !important; font-size: 1vw; height: 2vw; line-height: 2vw; padding: 0.2vw 0.5vw; }
+.select2-container--classic .select2-results { padding: 0.5vw 0; } .select2-container--classic .select2-results__option { font-family: Calibri !important; font-size: 1vw; line-height: 2vw; height: 2vw; padding: 0 0.5vw; box-sizing: border-box; }
+.cssflexuclu{display:flex;justify-content:center;gap:1vw;flex-wrap:wrap}
+.cssflex30sutun{flex-grow:1;flex-shrink:1;flex-basis:30%}
+.csstablobaslik{text-align:center;font-weight:bold;font-size:1vw;padding:0.5vw;margin-bottom:1vw;background-color:#D6D3D1;border-radius:0.6vw;border:0.1vw solid #A6A09B}
