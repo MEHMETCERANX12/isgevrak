@@ -202,3 +202,6 @@ input[type="radio"]{width:1.3vw;height:1.3vw;cursor:pointer;vertical-align:middl
 .cssflexuclu{display:flex;justify-content:center;gap:1vw;flex-wrap:wrap}
 .cssflex30sutun{flex-grow:1;flex-shrink:1;flex-basis:30%}
 .csstablobaslik{text-align:center;font-weight:bold;font-size:1vw;padding:0.5vw;margin-bottom:1vw;background-color:#D6D3D1;border-radius:0.6vw;border:0.1vw solid #A6A09B}
+#excelveri{width:80%!important;margin:0 auto;}
+#excelveri .jspreadsheet{width:100%!important;}
+#excelveri table{width:100%!important;}
