@@ -278,145 +278,6 @@ function temelkatılımlistesikontrol()
 
 
 
-function temelkatılımlistesiyaz() {
-     let uzmanad = store.get("uzmanad");
-    let uzmanno = store.get("uzmanno");
-    let isgegitimveri = store.get('isgegitimveri');
-    isgegitimveri = JSON.parse(isgegitimveri || '{}');
-    let isyeri = store.get('xjsonfirma');
-    isyeri = JSON.parse(isyeri || '{}');
-    let hekimad = isyeri.hk;
-    let hekimno = isyeri.hn;
-    let bossatir = isgegitimveri.bossatir;
-    let calisanlistedata = store.get('calisansecimjsonx');
-    let calisanliste = [];
-    if (calisanlistedata)
-    {
-        try
-        {
-            calisanliste = JSON.parse(calisanlistedata);
-        }
-        catch (e) {
-            calisanliste = [];
-        }
-    }
-    if (!Array.isArray(calisanliste) || calisanliste.length === 0) {
-        calisanliste = Array.from({ length: 12 }, () => ({ a: "", u: "" }));
-    }
-    else if (bossatir > 0)
-    {
-        calisanliste = calisanliste.concat(Array.from({ length: bossatir }, () => ({ a: "", u: "" })));
-    }
-    let isyeriismi = isyeri.fi;
-    let toplamsaat = isgegitimveri.saat || "1";
-    let egitimyeri = isgegitimveri.egitimyeri || "İşyeri";
-    let isgegitimkod = isgegitimveri.isgegitimkod || "00000000";
-    let toplamgun = isgegitimveri.toplamgun || "1";
-    let sure1 = temelegitimsuregun("1", parseInt(toplamgun) || 1, toplamsaat);
-    let sure2 = temelegitimsuregun("2", parseInt(toplamgun) || 1, toplamsaat);
-    let sure3 = temelegitimsuregun("3", parseInt(toplamgun) || 1, toplamsaat);
-    let sure4 = temelegitimsuregun("4", parseInt(toplamgun) || 1, toplamsaat);
-    let tarih1 = isgegitimveri.tarih1 || "......./......./20....";
-    let tarih2 = isgegitimveri.tarih2 || "......./......./20....";
-    let tarih3 = isgegitimveri.tarih3 || "......./......./20....";
-    let tarih4 = isgegitimveri.tarih4 || "......./......./20....";
-    let konugun1 = katılımkonugun(1, parseInt(toplamgun) || 1, isgegitimkod);
-    let konugun2 = katılımkonugun(2, parseInt(toplamgun) || 1, isgegitimkod);
-    let konugun3 = katılımkonugun(3, parseInt(toplamgun) || 1, isgegitimkod);
-    let konugun4 = katılımkonugun(4, parseInt(toplamgun) || 1, isgegitimkod);
-
-    const katilimlistesi = {
-        pageMargins: [25, 25, 25, 25],
-        content: []
-    };
-
-    function createParticipantTable(startIndex, endIndex, gunNo)
-    {
-    let tableBody = []; 
-    let tarih, konu, sure;
-    switch(gunNo) {
-        case 1:
-            tarih = tarih1;
-            konu = konugun1;
-            sure = sure1;
-            break;
-        case 2:
-            tarih = tarih2;
-            konu = konugun2;
-            sure = sure2;
-            break;
-        case 3:
-            tarih = tarih3;
-            konu = konugun3;
-            sure = sure3;
-            break;
-        case 4:
-            tarih = tarih4;
-            konu = konugun4;
-            sure = sure4;
-            break;
-        default:
-            tarih = tarih1;
-            konu = konugun1;
-            sure = sure1;
-    }
-    tableBody.push(...katilimustbilgi(isyeriismi, tarih, egitimyeri, sure, konu));
-    for (let i = startIndex; i < endIndex; i++) {
-        const calisan = calisanliste[i];
-        tableBody.push([
-            { text: (i + 1).toString(), alignment: 'center', fontSize: 10, margin: [0, 11, 0, 11]},
-            { text: calisan.ad || '', alignment: 'left', fontSize: 10, margin: [0, 11, 0, 11]},
-            { text: calisan.un || '', alignment: 'left', fontSize: 10, margin: [0, 11, 0, 11]},
-            { text: ''}
-        ]);
-    }
-    tableBody.push(
-        [
-            { text: uzmanad, alignment: 'center', fontSize: 10, bold: true, colSpan: 2, margin: [0, 0] },
-            { text: ''},
-            { text: hekimad, alignment: 'center', fontSize: 10, bold: true, colSpan: 2, margin: [0, 0] },
-            { text: ''},
-        ],
-        [
-            { text: 'İş Güvenliği Uzmanı - Belge No: ' + uzmanno, alignment: 'center', fontSize: 10, colSpan: 2, margin: [0, 0] },
-            { text: '' },
-            { text: 'İşyeri Hekimi - Belge No: ' + hekimno, alignment: 'center', fontSize: 10, colSpan: 2, margin: [0, 0] },
-            { text: ''},
-        ],
-        [
-            { text: '', colSpan: 2, margin: [25, 25] },
-            { text: '' },
-            { text: '', colSpan: 2, margin: [25, 25] },
-            { text: ''},
-        ]
-    );    
-    return {
-        table: {
-            widths: [25, "*", "auto", 100],
-            body: tableBody
-        },
-    };
-    }
-    const chunkSize = 12;
-    for (let gun = 1; gun <= parseInt(toplamgun); gun++) {
-        for (let i = 0; i < calisanliste.length; i += chunkSize) {
-            const endIndex = Math.min(i + chunkSize, calisanliste.length);
-        
-            katilimlistesi.content.push(createParticipantTable(i, endIndex, gun));
-        
-            if (endIndex < calisanliste.length) {
-                katilimlistesi.content.push({ text: '', pageBreak: 'after' });
-            }
-        }
-        if (gun < parseInt(toplamgun)) {
-            katilimlistesi.content.push({ text: '', pageBreak: 'after' });
-        }
-    }
-    pdfMake.createPdf(katilimlistesi).getBlob(function(blob) {
-        saveAs(blob, 'Katılım Listesi.pdf');
-    });
-}
-
 function temelkatılımlistesiyaz()
 {
     let uzmanad = store.get("uzmanad");
@@ -436,8 +297,7 @@ function temelkatılımlistesiyaz()
         {
             calisanliste = JSON.parse(calisanlistedata);
         }
-        catch (e)
-        {
+        catch (e) {
             calisanliste = [];
         }
     }
@@ -507,8 +367,8 @@ function temelkatılımlistesiyaz()
         const calisan = calisanliste[i];
         tableBody.push([
             { text: (i + 1).toString(), alignment: 'center', fontSize: 10, margin: [0, 11, 0, 11]},
-            { text: calisan.ad || '', alignment: 'left', fontSize: 10, margin: [0, 11, 0, 11]},
-            { text: calisan.un || '', alignment: 'left', fontSize: 10, margin: [0, 11, 0, 11]},
+            { text: calisan.a || '', alignment: 'left', fontSize: 10, margin: [0, 11, 0, 11]},
+            { text: calisan.u || '', alignment: 'left', fontSize: 10, margin: [0, 11, 0, 11]},
             { text: ''}
         ]);
     }
