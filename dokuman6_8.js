@@ -3614,5 +3614,6 @@ function dokumancalisansecim()
             calisanjson.push({ a: adsoyad, u: unvan });
         }
     });
-    store.set("calisansecimjsonx", JSON.stringify(calisanjson));    
+    store.set("calisansecimjsonx", JSON.stringify(calisanjson));
+    return calisanjson;
 }
