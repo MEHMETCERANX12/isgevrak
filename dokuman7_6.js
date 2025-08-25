@@ -3755,3 +3755,161 @@ function evrakisyerikaydet()
         return false;
     }
 }
+
+function isyersecimfirmaoku()
+{
+    let jsonfirmatumu = firmajsonokuma();
+    let firmaid = store.get('xfirmaid');
+    var firmasatir = $.grep(jsonfirmatumu, function (f) { return f.id == firmaid; })[0];
+    if (!firmasatir)
+    {
+        alertify.error("Lütfen bir işyeri seçiniz", 7);
+        return;
+    }
+    return firmasatir;
+}
+
+function raporlamasecim()
+{
+    var secim = $('#raportipi').val() + $('#dosyatipi').val();
+    switch(secim){case"11":calisanraporlamapdf();break;case"12":calisanraporlamaexcel();break;case"21":isyeriraporalpdf();break;case"22":isyeriraporalexcel();break;case"31":gorevlendirmeraporpdf();break;case"32":gorevlendirmeraporexcel();break;default:$('#raportipi').val()===""?alertify.error("Lütfen rapor tipini seçiniz."):$('#dosyatipi').val()===""?alertify.error("Lütfen dosya tipi seçiniz."):alertify.error("Geçersiz seçim.");}
+}
+
+function calisanraporlamaexcel()
+{
+    let firmajson = isyersecimfirmaoku();
+    var data = calisangetir();
+    let tehlike = firmajson.ts;
+    var workbook = new ExcelJS.Workbook();
+    var worksheet = workbook.addWorksheet("Rapor");
+    worksheet.pageSetup = { paperSize: 9, orientation: "landscape", fitToPage: true, fitToWidth: 1, fitToHeight: 0, horizontalCentered: true, margins: { left: 0.4, right: 0.4, top: 0.4, bottom: 0.4, header: 0.2, footer: 0.2 } };
+    worksheet.columns = [{width: 27.7 }, {width: 27.7 }, {width: 13.7 }, {width: 13.7 }, {width: 13.7}, {width: 13.7}, {width: 13.7}, {width: 13.7}, {width: 13.7}];
+    worksheet.getRow(1).height = 22;
+    worksheet.getRow(2).height = 22;
+    worksheet.views = [{ state: 'frozen', ySplit: 2 }];
+    worksheet.mergeCells('A1:B1');
+    worksheet.getCell('A1').value = "ÇALIŞAN BİLGİLERİ";
+    yesilbaslik(worksheet.getCell('A1'));
+    ortala(worksheet.getCell('A1'));
+    worksheet.getCell('A2').value = "Ad Soyad";
+    gribaslik(worksheet.getCell('A2'));
+    ortala(worksheet.getCell('A2'));
+    worksheet.getCell('B2').value = "Unvan";
+    gribaslik(worksheet.getCell('B2'));
+    ortala(worksheet.getCell('B2'));
+    worksheet.mergeCells('C1:D1');
+    worksheet.getCell('C1').value = "TEMEL İSG EĞİTİMİ";
+    yesilbaslik(worksheet.getCell('C1'));
+    ortala(worksheet.getCell('C1'));
+    worksheet.getCell('C2').value = "Eğitim Tarihi";
+    gribaslik(worksheet.getCell('C2'));
+    ortala(worksheet.getCell('C2'));
+    worksheet.getCell('D2').value = "Son Geçerlilik";
+    gribaslik(worksheet.getCell('D2'));
+    ortala(worksheet.getCell('D2'));
+    worksheet.mergeCells('E1:F1');
+    worksheet.getCell('E1').value = "SAĞLIK RAPORU";
+    yesilbaslik(worksheet.getCell('E1'));
+    ortala(worksheet.getCell('E1'));
+    worksheet.getCell('E2').value = "Rapor Tarihi";
+    gribaslik(worksheet.getCell('E2'));
+    ortala(worksheet.getCell('E2'));
+    worksheet.getCell('F2').value = "Son Geçerlilik";
+    gribaslik(worksheet.getCell('F2'));
+    ortala(worksheet.getCell('F2'));
+    worksheet.mergeCells('G1:H1');
+    worksheet.getCell('G1').value = "İLKYARDIM EĞİTİMİ";
+    yesilbaslik(worksheet.getCell('G1'));
+    ortala(worksheet.getCell('G1'));
+    worksheet.getCell('G2').value = "Eğitim Tarihi";
+    gribaslik(worksheet.getCell('G2'));
+    ortala(worksheet.getCell('G2'));
+    worksheet.getCell('H2').value = "Son Geçerlilik";
+    gribaslik(worksheet.getCell('H2'));
+    ortala(worksheet.getCell('H2'));
+    let gecerlitarih = '';
+    data.forEach((item, index) =>
+    {
+        const rowNumber = index + 3;
+        worksheet.getRow(rowNumber).height = 30;
+        worksheet.getCell(`A${rowNumber}`).value = item.ad;
+        adsoyadexcelrapor(worksheet.getCell(`A${rowNumber}`));
+        worksheet.getCell(`B${rowNumber}`).value = item.un;
+        adsoyadexcelrapor(worksheet.getCell(`B${rowNumber}`));
+        worksheet.getCell(`C${rowNumber}`).value = item.e;
+        tarihexcelrapor(worksheet.getCell(`C${rowNumber}`));
+        gecerlitarih = isgegitimgecerlilik(item.e, tehlike);
+        worksheet.getCell(`D${rowNumber}`).value = gecerlitarih;
+        tarihexcelrapor(worksheet.getCell(`D${rowNumber}`));
+        worksheet.getCell(`E${rowNumber}`).value = item.s;
+        tarihexcelrapor(worksheet.getCell(`E${rowNumber}`));
+        gecerlitarih = saglikgecerlilik(item.s, tehlike);
+        worksheet.getCell(`F${rowNumber}`).value = gecerlitarih;
+        tarihexcelrapor(worksheet.getCell(`F${rowNumber}`));
+        worksheet.getCell(`G${rowNumber}`).value = item.i;
+        tarihexcelrapor(worksheet.getCell(`G${rowNumber}`));
+        gecerlitarih = ilkyardimgecerlilik(item.i);
+        worksheet.getCell(`H${rowNumber}`).value = gecerlitarih;
+        tarihexcelrapor(worksheet.getCell(`H${rowNumber}`));
+    });
+    workbook.xlsx.writeBuffer().then(function(data){saveAs(new Blob([data],{type:"application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"}),"Çalışan Rapor.xlsx");});
+}
+
+function calisanraporlamapdf()
+{
+    let firmajson = isyersecimfirmaoku();
+    var data = calisangetir();
+    let tehlike = firmajson.ts;
+    let tableBody =
+    [
+        [
+            { text: "Ad Soyad", style: 'tableHeader' },
+            { text: "Unvan", style: 'tableHeader' },
+            { text: "Eğitim Tarihi", style: 'tableHeader' },
+            { text: "Son Geçerlilik", style: 'tableHeader' },
+            { text: "Rapor Tarihi", style: 'tableHeader' },
+            { text: "Son Geçerlilik", style: 'tableHeader' },
+            { text: "İlkyardım Eğt", style: 'tableHeader' },
+            { text: "Son Geçerlilik", style: 'tableHeader' }
+        ]
+    ];
+    data.forEach(item =>
+    {
+        let egitimGecerlilik = isgegitimgecerlilik(item.e, tehlike);
+        let saglikGecerlilik = saglikgecerlilik(item.s, tehlike);
+        let ilkyardimGecerlilik = ilkyardimgecerlilik(item.i);
+        tableBody.push
+        ([
+            { text: item.ad || '', style: 'leftCell' },
+            { text: item.un || '', style: 'leftCell' },
+            { text: item.e || '', style: 'cell' },
+            { text: egitimGecerlilik || '', style: 'cell' },
+            { text: item.s || '', style: 'cell' },
+            { text: saglikGecerlilik || '', style: 'cell' },
+            { text: item.i || '', style: 'cell' },
+            { text: ilkyardimGecerlilik || '', style: 'cell' }
+        ]);
+    });
+    var docDefinition =
+    {
+        pageOrientation: 'landscape',
+        pageMargins: [20, 20, 20, 20],
+        content:
+        [{
+            table:
+            {
+                headerRows: 1,
+                widths: ['auto', 'auto', '*', '*', '*', '*', '*', '*'],
+                body: tableBody
+            }
+        }],
+        styles:
+        {
+            header:{fontSize:18,bold:true},
+            tableHeader: { fillColor: '#eeeeee', bold: true, fontSize: 11, alignment: 'center' },
+            cell: { fontSize: 10, alignment: 'center' },
+            leftCell: { fontSize: 10, alignment: 'left' }
+        },
+    };
+    pdfMake.createPdf(docDefinition).download('Çalışan Rapor.pdf');
+}
