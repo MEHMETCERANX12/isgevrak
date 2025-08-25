@@ -4705,3 +4705,24 @@ function isgkurulgorevlendirmeyazdir()
     };
     pdfMake.createPdf(dokuman).download('İSG Kurul Üyeleri - ' + dosyaid + '.pdf');
 }
+
+    function isyerilistesiyazdir()
+    {
+        let json = firmajsonokuma();
+        if (!json || json.length === 0) { return false; }
+        let dosyaid = metinuret(3);
+        const icerik =
+        [
+            [{ text: 'No', style: 'header' }, { text: 'İşyeri Unvanı', style: 'header' }, { text: 'İşyeri Adresi', style: 'header' }, { text: 'İşyeri Hekimi', style: 'header' }, { text: 'İşveren Vekili', style: 'header' }],
+            ...json.map((x,i)=>[{text:i+1,alignment:'center'},x.fi,x.ad,x.hk,x.is])
+        ];
+        const dokuman =
+        {
+            pageSize: 'A4',
+            pageOrientation: 'landscape',
+            pageMargins: [20, 20, 20, 20],
+            content:[{table:{headerRows:1,widths:['4%','36%','36%','12%','12%'],body:icerik},layout:'solid'}],
+            styles:{header:{fontSize:12,bold:true,alignment:'center'}},
+        };
+        pdfMake.createPdf(dokuman).download('İşyeri Listesi - ' + dosyaid + '.pdf');
+    }
