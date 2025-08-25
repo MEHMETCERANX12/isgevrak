@@ -4706,23 +4706,88 @@ function isgkurulgorevlendirmeyazdir()
     pdfMake.createPdf(dokuman).download('İSG Kurul Üyeleri - ' + dosyaid + '.pdf');
 }
 
-    function isyerilistesiyazdir()
+function isyerilistesiyazdir()
+{
+    let json = firmajsonokuma();
+    if (!json || json.length === 0) { return false; }
+    let dosyaid = metinuret(3);
+    const icerik =
+    [
+        [{ text: 'No', style: 'header' }, { text: 'İşyeri Unvanı', style: 'header' }, { text: 'İşyeri Adresi', style: 'header' }, { text: 'İşyeri Hekimi', style: 'header' }, { text: 'İşveren Vekili', style: 'header' }],
+        ...json.map((x,i)=>[{text:i+1,alignment:'center'},x.fi,x.ad,x.hk,x.is])
+    ];
+    const dokuman =
     {
-        let json = firmajsonokuma();
-        if (!json || json.length === 0) { return false; }
-        let dosyaid = metinuret(3);
-        const icerik =
-        [
-            [{ text: 'No', style: 'header' }, { text: 'İşyeri Unvanı', style: 'header' }, { text: 'İşyeri Adresi', style: 'header' }, { text: 'İşyeri Hekimi', style: 'header' }, { text: 'İşveren Vekili', style: 'header' }],
-            ...json.map((x,i)=>[{text:i+1,alignment:'center'},x.fi,x.ad,x.hk,x.is])
-        ];
-        const dokuman =
-        {
-            pageSize: 'A4',
-            pageOrientation: 'landscape',
-            pageMargins: [20, 20, 20, 20],
-            content:[{table:{headerRows:1,widths:['4%','36%','36%','12%','12%'],body:icerik},layout:'solid'}],
-            styles:{header:{fontSize:12,bold:true,alignment:'center'}},
-        };
-        pdfMake.createPdf(dokuman).download('İşyeri Listesi - ' + dosyaid + '.pdf');
+        pageSize: 'A4',
+        pageOrientation: 'landscape',
+        pageMargins: [20, 20, 20, 20],
+        content:[{table:{headerRows:1,widths:['4%','36%','36%','12%','12%'],body:icerik},layout:'solid'}],
+        styles:{header:{fontSize:12,bold:true,alignment:'center'}},
+    };
+    pdfMake.createPdf(dokuman).download('İşyeri Listesi - ' + dosyaid + '.pdf');
+}
+
+function temelisgegitim1load()
+{
+    $('#gundrop').on('change',function(){const i=this.selectedIndex;for(let j=1;j<=4;j++)$('#alan'+j).toggle(j<=i+1)}).trigger('change');
+    let isyeri = isyersecimfirmaoku();
+    const saatSec = isyeri.ts;
+    const saatMap = { '1': '8 Saat', '2': '12 Saat', '3': '16 Saat' };
+    if (saatMap[saatSec])
+    {
+        $('#saat').val(saatMap[saatSec]);
     }
+    const firmaid = store.get('xfirmaid');
+    let ayar = store.get('ayar') || [];
+    if (!Array.isArray(ayar)) ayar = [];
+    const mevcut = ayar.find(obj => obj.id === firmaid);
+    if (mevcut && mevcut.e)
+    {
+        const eString = mevcut.e;
+        for (let i = 0; i < eString.length; i++)
+        {
+            const ch = eString.charAt(i);
+            const checkboxId = 's' + (1 + i);
+            $('#' + checkboxId).prop('checked', ch === '1');
+        }
+    }
+}
+
+function temelisgegitim1devam()
+{
+    let isgegitimkod = '';
+    for (let i = 1; i <= 8; i++)
+    {
+        isgegitimkod += $('#s' + i).is(':checked') ? '1' : '0';
+    }
+    const jsonData =
+    {
+        toplamgun: $('#gundrop').val(),
+        tarih1: $('#tarih1').val(),
+        tarih2: $('#tarih2').val(),
+        tarih3: $('#tarih3').val(),
+        tarih4: $('#tarih4').val(),
+        saat: $('#saat').val(),
+        egitimyeri: $('#egitimyeri').val(),
+        sinav: $('#sinav').val(),
+        bossatir: $('#bossatir').val(),
+        sertifika: $('#sertifika').val(),
+        isgegitimkod: isgegitimkod
+    };
+    const firmaid = store.get('xfirmaid');
+    let ayar = store.get('ayar') || [];
+    if (!Array.isArray(ayar)) ayar = [];
+    const mevcut = ayar.find(obj => obj.id === firmaid);
+    if (mevcut)
+    {
+        mevcut.e = isgegitimkod;
+    }
+    else
+    {
+        ayar.push({ e: isgegitimkod, i: "", id: firmaid });
+    }
+    store.set('isgegitimveri', JSON.stringify(jsonData));
+    store.set("isgegitimkayittarih", jsonData.tarih1);
+    store.set("ayar", ayar);
+    window.location.href = "temelisgegitim2.aspx?id=" + encodeURIComponent(firmaid);
+}
