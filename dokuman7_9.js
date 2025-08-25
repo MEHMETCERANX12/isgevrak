@@ -4675,3 +4675,33 @@ function ortala(cell) { cell.alignment = { vertical: 'middle', horizontal: 'cent
 function riskdegerlendirmegecerlilik(tarih,tehlike){if(!tarih)return"";const[g,a,y]=tarih.split(".").map(Number);if(!g||!a||!y)return"";let e=0;switch(tehlike){case 1:e=6;break;case 2:e=4;break;case 3:e=2;break;default:return""}const d=new Date(y+e,a-1,g),p=n=>n.toString().padStart(2,"0");return`${p(d.getDate())}.${p(d.getMonth()+1)}.${d.getFullYear()}`}
 function acildurumtatbikat(tarih){if(!tarih)return"";const[g,a,y]=tarih.split(".").map(Number);if(!g||!a||!y)return"";const d=new Date(y+1,a-1,g),p=n=>n.toString().padStart(2,"0");return`${p(d.getDate())}.${p(d.getMonth()+1)}.${d.getFullYear()}`}
 function isekipmanigecerlilik(tarih){if(!tarih)return"";const[g,a,y]=tarih.split(".").map(Number);if(!g||!a||!y)return"";const d=new Date(y+1,a-1,g),p=n=>n.toString().padStart(2,"0");return`${p(d.getDate())}.${p(d.getMonth()+1)}.${d.getFullYear()}`}
+function isgkurulgorevlendirmeyazdir()
+{
+    let json = $('#HiddenField1').val();
+    try
+    {
+        json = JSON.parse(json);
+    }
+    catch
+    {
+        alertify.error("Beklenmedik bir hata oluştu");
+    }
+    let firmajson = isyersecimfirmaoku();
+    let hekimad = firmajson.hk;
+    let uzmanad = store.get("uzmanad");
+    json.unshift({ a: uzmanad, u: "İş Güvenliği Uzmanı" }, { a: hekimad, u: "İşyeri Hekimi" });
+    let dosyaid = metinuret(3);
+    const icerik =
+    [
+        [{ text: 'No', style: 'header' }, { text: 'Kurul Üyesi Ad Soyad', style: 'header' }, { text: 'Kurul Üyesi Görevi', style: 'header' }],
+        ...json.map((x,i)=>[{text:i+1,alignment:'center'},x.a,x.u])
+    ];
+    const dokuman =
+    {
+        pageSize: 'A4',
+        pageMargins: [30, 30, 30, 30],
+        content:[{table:{headerRows:1,widths:['7%','46%','47%'],body:icerik},layout:'solid'}],
+        styles:{header:{fontSize:12,bold:true,alignment:'center'}},
+    };
+    pdfMake.createPdf(dokuman).download('İSG Kurul Üyeleri - ' + dosyaid + '.pdf');
+}
