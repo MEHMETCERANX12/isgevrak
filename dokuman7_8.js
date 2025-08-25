@@ -4490,3 +4490,188 @@ async function isyeriraporalexcel()
         alert('Excel dosyası oluşturulurken bir hata oluştu.');
     }
 }
+
+function gorevlendirmeraporexcel()
+{
+    let firmajson = isyersecimfirmaoku();
+    let isveren = firmajson.is;
+    let hekimad = firmajson.hk;
+    let hekimno = firmajson.hn;
+    let uzmanad = store.get("uzmanad") || '';
+    let uzmanno = store.get("uzmanno") || '';
+    var data = calisangetir();
+    const normalmetin={font:{name:'Calibri',size:11,bold:false},alignment:{horizontal:'left',vertical:'middle'},border:{top:{style:'thin'},left:{style:'thin'},bottom:{style:'thin'},right:{style:'thin'}}};
+    const tablobaslikstil={font:{bold:true,color:{argb:'FFFFFFFF'}},alignment:{horizontal:'center',vertical:'middle',wrapText:true},fill:{type:'pattern',pattern:'solid',fgColor:{argb:'FF545454'}},border:{top:{style:'thin'},left:{style:'thin'},bottom:{style:'thin'},right:{style:'thin'}}};
+    const altbaslik = {font: { name: 'Calibri', size: 11, bold: true }, alignment: { horizontal: 'center', vertical: 'middle' }};
+    const acilliste = { 0: "Görevli Değil", 1: "İlkyardım Ekibi - Ekip Başı", 2: "İlkyardım Ekibi - Ekip Personeli", 3: "Söndürme Ekibi - Ekip Başı", 4: "Söndürme Ekibi - Ekip Personeli", 5: "Koruma Ekibi - Ekip Başı + Koordinasyon", 6: "Koruma Ekibi - Ekip Personeli + Koordinasyon", 7: "Koruma Ekibi - Ekip Personeli", 8: "Kurtarma Ekibi - Ekip Başı", 9: "Kurtarma Ekibi - Ekip Personeli", 10: "Destek Elemanı" };
+    const temsilciliste = { 0: "Görevli Değil", 1: "Çalışan Temsilcisi", 2: "Çalışan Baş Temsilcisi"};
+    const riskliste = { 0: "Görevli Değil", 1: "Destek Elemanı", 2: "Çalışan Temsilcisi", 3: "Bilgi Sahibi Çalışan"};
+    let acildurumekibi = data.filter(person => person.a !== 0).sort((x, y) => x.a - y.a);
+    acildurumekibi = acildurumekibi.map(person => ({ ...person, a: acilliste[person.a] || 'Bilinmiyor' }));
+    var workbook = new ExcelJS.Workbook();
+    var worksheet = workbook.addWorksheet("Rapor");
+    worksheet.pageSetup = { paperSize: 9, orientation: "portrait", fitToPage: true, fitToWidth: 1, fitToHeight: 0, horizontalCentered: true, margins: { left: 0.2, right: 0.2, top: 0.4, bottom: 0.4, header: 0.2, footer: 0.2 } };
+    worksheet.columns = [{width: 27.7 }, {width: 27.7 }, {width: 42.7 }];
+    let hedefsatir = 1;
+    worksheet.mergeCells(hedefsatir, 1, hedefsatir, 3);
+    worksheet.getCell(hedefsatir, 1).value = 'ACİL DURUM EKİP GÖREVLENDİRMESİ';
+    worksheet.getCell(hedefsatir, 1).style = altbaslik;
+    worksheet.getRow(hedefsatir).height = 25;
+    hedefsatir = hedefsatir + 1;
+    worksheet.getCell(hedefsatir, 1).value = 'Ad Soyad';
+    worksheet.getCell(hedefsatir, 1).style = tablobaslikstil;
+    worksheet.getCell(hedefsatir, 2).value = 'Unvan';
+    worksheet.getCell(hedefsatir, 2).style = tablobaslikstil;
+    worksheet.getCell(hedefsatir, 3).value = 'Acil Durum Ekip Görevi';
+    worksheet.getCell(hedefsatir, 3).style = tablobaslikstil;
+    worksheet.getRow(hedefsatir).height = 20;
+    hedefsatir = hedefsatir + 1;
+    acildurumekibi.forEach((item) =>
+    {
+        worksheet.getRow(hedefsatir).height = 20;
+        worksheet.getCell(hedefsatir, 1).value = item.ad;
+        worksheet.getCell(hedefsatir, 1).style = normalmetin;
+        worksheet.getCell(hedefsatir, 2).value = item.un;
+        worksheet.getCell(hedefsatir, 2).style = normalmetin;
+        worksheet.getCell(hedefsatir, 3).value = item.a;
+        worksheet.getCell(hedefsatir, 3).style = normalmetin;
+        hedefsatir = hedefsatir + 1;
+    });
+    let temsilciekibi = data.filter(person => person.t !== 0).sort((x, y) => x.t - y.t);
+    temsilciekibi = temsilciekibi.map(person => ({ ...person, t: temsilciliste[person.t] || 'Bilinmiyor' }));
+    worksheet.mergeCells(hedefsatir, 1, hedefsatir, 3);
+    worksheet.getCell(hedefsatir, 1).value = 'ÇALIŞAN TEMSİLCİSİ GÖREVLENDİRMESİ';
+    worksheet.getCell(hedefsatir, 1).style = altbaslik;
+    worksheet.getRow(hedefsatir).height = 25;
+    hedefsatir = hedefsatir + 1;
+    worksheet.getCell(hedefsatir, 1).value = 'Ad Soyad';
+    worksheet.getCell(hedefsatir, 1).style = tablobaslikstil;
+    worksheet.getCell(hedefsatir, 2).value = 'Unvan';
+    worksheet.getCell(hedefsatir, 2).style = tablobaslikstil;
+    worksheet.getCell(hedefsatir, 3).value = 'Temsilci Görevi';
+    worksheet.getCell(hedefsatir, 3).style = tablobaslikstil;
+    worksheet.getRow(hedefsatir).height = 20;
+    hedefsatir = hedefsatir + 1;
+    temsilciekibi.forEach((item) =>
+    {
+        worksheet.getRow(hedefsatir).height = 20;
+        worksheet.getCell(hedefsatir, 1).value = item.ad;
+        worksheet.getCell(hedefsatir, 1).style = normalmetin;
+        worksheet.getCell(hedefsatir, 2).value = item.un;
+        worksheet.getCell(hedefsatir, 2).style = normalmetin;
+        worksheet.getCell(hedefsatir, 3).value = item.t;
+        worksheet.getCell(hedefsatir, 3).style = normalmetin;
+        hedefsatir = hedefsatir + 1;
+    });
+    let riskanaliziekibi = data.filter(person => person.r !== 0).sort((x, y) => x.r - y.r);
+    riskanaliziekibi = riskanaliziekibi.map(person => ({ ...person, r: riskliste[person.r] || 'Bilinmiyor' }));
+    worksheet.mergeCells(hedefsatir, 1, hedefsatir, 3);
+    worksheet.getCell(hedefsatir, 1).value = 'RİSK DEĞERLENDİRME EKİBİ';
+    worksheet.getCell(hedefsatir, 1).style = altbaslik;
+    worksheet.getRow(hedefsatir).height = 25;
+    hedefsatir = hedefsatir + 1;
+    worksheet.getCell(hedefsatir, 1).value = 'Ad Soyad';
+    worksheet.getCell(hedefsatir, 1).style = tablobaslikstil;
+    worksheet.getCell(hedefsatir, 2).value = 'Unvan / Belge No';
+    worksheet.getCell(hedefsatir, 2).style = tablobaslikstil;
+    worksheet.getCell(hedefsatir, 3).value = 'Risk Değerlendirme Görevi';
+    worksheet.getCell(hedefsatir, 3).style = tablobaslikstil;
+    worksheet.getRow(hedefsatir).height = 20;
+    hedefsatir = hedefsatir + 1;
+    worksheet.getRow(hedefsatir).height = 20;
+    worksheet.getCell(hedefsatir, 1).value = isveren;
+    worksheet.getCell(hedefsatir, 1).style = normalmetin;
+    worksheet.getCell(hedefsatir, 2).value = 'İşveren Vekili';
+    worksheet.getCell(hedefsatir, 2).style = normalmetin;
+    worksheet.getCell(hedefsatir, 3).value = 'İşveren Vekili';
+    worksheet.getCell(hedefsatir, 3).style = normalmetin;
+    hedefsatir = hedefsatir + 1;
+    worksheet.getRow(hedefsatir).height = 20;
+    worksheet.getCell(hedefsatir, 1).value = uzmanad;
+    worksheet.getCell(hedefsatir, 1).style = normalmetin;
+    worksheet.getCell(hedefsatir, 2).value = uzmanno;
+    worksheet.getCell(hedefsatir, 2).style = normalmetin;
+    worksheet.getCell(hedefsatir, 3).value = 'İş Güvenliği Uzmanı';
+    worksheet.getCell(hedefsatir, 3).style = normalmetin;
+    hedefsatir = hedefsatir + 1;
+    worksheet.getRow(hedefsatir).height = 20;
+    worksheet.getCell(hedefsatir, 1).value = hekimad;
+    worksheet.getCell(hedefsatir, 1).style = normalmetin;
+    worksheet.getCell(hedefsatir, 2).value = hekimno;
+    worksheet.getCell(hedefsatir, 2).style = normalmetin;
+    worksheet.getCell(hedefsatir, 3).value = 'İşyeri Hekimi';
+    worksheet.getCell(hedefsatir, 3).style = normalmetin;
+    hedefsatir = hedefsatir + 1;
+    riskanaliziekibi.forEach((item) => { worksheet.getRow(hedefsatir).height = 20; worksheet.getCell(hedefsatir, 1).value = item.ad; worksheet.getCell(hedefsatir, 1).style = normalmetin; worksheet.getCell(hedefsatir, 2).value = item.un; worksheet.getCell(hedefsatir, 2).style = normalmetin; worksheet.getCell(hedefsatir, 3).value = item.r; worksheet.getCell(hedefsatir, 3).style = normalmetin; hedefsatir = hedefsatir + 1; });
+    workbook.xlsx.writeBuffer().then(function(data){saveAs(new Blob([data],{type:"application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"}),"Çalışan Rapor.xlsx");});
+}
+
+function gorevlendirmeraporpdf()
+{
+    let firmajson = isyersecimfirmaoku();
+    let isveren = firmajson.is;
+    let hekimad = firmajson.hk;
+    let hekimno = firmajson.hn;
+    let uzmanad = store.get("uzmanad") || '';
+    let uzmanno = store.get("uzmanno") || '';
+    var data = calisangetir();
+    const acilliste = { 0: "Görevli Değil", 1: "İlkyardım Ekibi - Ekip Başı", 2: "İlkyardım Ekibi - Ekip Personeli", 3: "Söndürme Ekibi - Ekip Başı", 4: "Söndürme Ekibi - Ekip Personeli", 5: "Koruma Ekibi - Ekip Başı + Koordinasyon", 6: "Koruma Ekibi - Ekip Personeli + Koordinasyon", 7: "Koruma Ekibi - Ekip Personeli", 8: "Kurtarma Ekibi - Ekip Başı", 9: "Kurtarma Ekibi - Ekip Personeli", 10: "Destek Elemanı" };
+    const temsilciliste = { 0: "Görevli Değil", 1: "Çalışan Temsilcisi", 2: "Çalışan Baş Temsilcisi" };
+    const riskliste = { 0: "Görevli Değil", 1: "Destek Elemanı", 2: "Çalışan Temsilcisi", 3: "Bilgi Sahibi Çalışan" };
+    let acildurumekibi=data.filter(p=>p.a!==0).sort((a,b)=>a.a-b.a).map(p=>[p.ad,p.un,acilliste[p.a]||"Bilinmiyor"]);
+    let temsilciekibi=data.filter(p=>p.t!==0).sort((a,b)=>a.t-b.t).map(p=>[p.ad,p.un,temsilciliste[p.t]||"Bilinmiyor"]);
+    let riskanaliziekibi=data.filter(p=>p.r!==0).sort((a,b)=>a.r-b.r).map(p=>[p.ad,p.un,riskliste[p.r]||"Bilinmiyor"]);
+    riskanaliziekibi.unshift([isveren,"İşveren Vekili","İşveren Vekili"],[uzmanad,uzmanno,"İş Güvenliği Uzmanı"],[hekimad,hekimno,"İşyeri Hekimi"]);
+
+
+    function generateTable(title, headers, rows)
+    {
+        return [
+            { text: title, style: 'sectionTitle', margin: [0, 5, 0, 5] },
+            {
+                table:
+                {
+                    headerRows: 1,
+                    widths: ['30%', '30%', '40%'],
+                    body:
+                    [
+                        headers.map(h => ({ text: h, style: 'tableHeader' })),
+                        ...rows.map(row => row.map(cell => ({ text: cell, style: 'tableCell' })))
+                    ]
+                },
+                layout: 'lightGrid'
+            }
+        ];
+    }
+    let docDefinition =
+    {
+        pageOrientation: 'portrait',
+        pageMargins: [20, 20, 20, 20],
+        content:
+        [
+            ...generateTable("ACİL DURUM EKİP GÖREVLENDİRMESİ", ["Ad Soyad", "Unvan", "Acil Durum Ekip Görevi"], acildurumekibi),
+            ...generateTable("ÇALIŞAN TEMSİLCİSİ GÖREVLENDİRMESİ", ["Ad Soyad", "Unvan", "Temsilci Görevi"], temsilciekibi),
+            ...generateTable("RİSK DEĞERLENDİRME EKİBİ", ["Ad Soyad", "Unvan / Belge No", "Risk Değerlendirme Görevi"], riskanaliziekibi)
+        ],
+        styles:
+        {
+            mainTitle: { fontSize: 12, bold: true, alignment: 'center', margin: [0, 0, 0, 10] },
+            sectionTitle: { fontSize: 11, bold: true, alignment: 'center' },
+            tableHeader: { fillColor: '#545454', color: 'white', bold: true, fontSize: 10, alignment: 'center' },
+            tableCell: { fontSize: 10, margin: [1, 1, 1, 1] }
+        },
+        defaultStyle: { font: 'Roboto' }
+    };
+    pdfMake.createPdf(docDefinition).download('Çalışan Raporu.pdf');
+}
+function isgegitimgecerlilik(tarih,tehlike){if(!tarih)return"";const[gun,ay,yil]=tarih.split(".").map(Number);if(!gun||!ay||!yil)return"";let ekYil=0;switch(tehlike){case 1:ekYil=3;break;case 2:ekYil=2;break;case 3:ekYil=1;break;default:return""}const g=new Date(yil+ekYil,ay-1,gun),p=n=>n.toString().padStart(2,"0");return`${p(g.getDate())}.${p(g.getMonth()+1)}.${g.getFullYear()}`}
+function saglikgecerlilik(t,d){if(!t)return"";const[g,a,y]=t.split(".").map(Number);if(!g||!a||!y)return"";let e=0;switch(d){case 1:e=5;break;case 2:e=3;break;case 3:e=1;break;default:return""}const n=new Date(y+e,a-1,g),p=n=>n.toString().padStart(2,"0");return`${p(n.getDate())}.${p(n.getMonth()+1)}.${n.getFullYear()}`}
+function ilkyardimgecerlilik(t){if(!t)return"";const[g,a,y]=t.split(".").map(Number);if(!g||!a||!y)return"";const e=new Date(y+3,a-1,g),p=n=>n.toString().padStart(2,"0");return`${p(e.getDate())}.${p(e.getMonth()+1)}.${e.getFullYear()}`}
+function yesilbaslik(cell) { cell.fill = { type: 'pattern', pattern: 'solid', fgColor: { argb: 'FF4F81BD' } }; cell.font = { color: { argb: 'FFFFFFFF' }, bold: true, size: 11, name: 'Calibri' }; cell.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } };}
+function adsoyadexcelrapor(cell) { cell.font = { size: 11, name: 'Calibri' }; cell.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }; cell.alignment = { vertical: 'middle', horizontal: 'left', wrapText: true };}
+function tarihexcelrapor(cell) { cell.font = { size: 11, name: 'Calibri' }; cell.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }; cell.alignment = { vertical: 'middle', horizontal: 'center', wrapText: true };}
+function gribaslik(cell) { cell.fill = { type: 'pattern', pattern: 'solid', fgColor: { argb: 'FFE5E7E9' } }; cell.font = { color: { argb: 'FF000000' }, bold: true, size: 11, name: 'Calibri' }; cell.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } };}
+function ortala(cell) { cell.alignment = { vertical: 'middle', horizontal: 'center', wrapText: true };}
+function riskdegerlendirmegecerlilik(tarih,tehlike){if(!tarih)return"";const[g,a,y]=tarih.split(".").map(Number);if(!g||!a||!y)return"";let e=0;switch(tehlike){case 1:e=6;break;case 2:e=4;break;case 3:e=2;break;default:return""}const d=new Date(y+e,a-1,g),p=n=>n.toString().padStart(2,"0");return`${p(d.getDate())}.${p(d.getMonth()+1)}.${d.getFullYear()}`}
+function acildurumtatbikat(tarih){if(!tarih)return"";const[g,a,y]=tarih.split(".").map(Number);if(!g||!a||!y)return"";const d=new Date(y+1,a-1,g),p=n=>n.toString().padStart(2,"0");return`${p(d.getDate())}.${p(d.getMonth()+1)}.${d.getFullYear()}`}
+function isekipmanigecerlilik(tarih){if(!tarih)return"";const[g,a,y]=tarih.split(".").map(Number);if(!g||!a||!y)return"";const d=new Date(y+1,a-1,g),p=n=>n.toString().padStart(2,"0");return`${p(d.getDate())}.${p(d.getMonth()+1)}.${d.getFullYear()}`}
