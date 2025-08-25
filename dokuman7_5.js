@@ -3702,3 +3702,56 @@ function evrakkayitcalisanguncelle()
     $('#HiddenField1').val(JSON.stringify(data));
     return true;
 }
+
+function evrakkayitisyeriload()
+{
+    evrakkayitisyeritablo1('#risktablo');
+    evrakkayitisyeritablo1('#aciltablo');
+    evrakkayitisyeritablo1('#tatbikattablo');
+    evrakkayitisyeritablo1('#saglikraporutablo');
+    evrakkayitisyeritablo1('#isgegitimtablo');
+    evrakkayitisyeritablo2('#muhtablo');
+    evrakkayitisyeritablo2('#ortamtablo');
+    evrakkayitisyeritablo2('#sagliktablo');
+    var data = JSON.parse($('#HiddenField1').val());
+    $.each(data,function(id,value){var $el=$('#'+id);if(!$el.length)return;if($el.is('input')){var t=$el.attr('type');t==="checkbox"||t==="radio"?$el.prop('checked',value==1):$el.val(value)}else if($el.is('select')){$el.prop('selectedIndex',value)}});
+}
+
+function evrakkayitisyeritablo1(hangitablo)
+{
+    $(hangitablo).DataTable
+    ({
+        dom: 't',
+        order: false,
+        columns:[{width:"25%",orderable:false},{width:"75%",orderable:false}],
+        createdRow: function (row) { $(row).find('td').eq(0).css('text-align', 'left'); $(row).find('td').eq(1).css('text-align', 'center');},
+        headerCallback: function (thead) { $(thead).find('th').css('text-align', 'center');}
+    });
+}
+function evrakkayitisyeritablo2(hangitablo)
+{
+    $(hangitablo).DataTable
+    ({
+        dom: 't',
+        order: false,
+        columns:[{width:"25%",orderable:false},{width:"31%",orderable:false},{width:"31%",orderable:false},{width:"13%",orderable:false}],
+        createdRow: function (row) { $(row).find('td').eq(0).css('text-align', 'left');},
+        headerCallback: function (thead) { $(thead).find('th').css('text-align', 'center'); }
+    });
+}
+
+function evrakisyerikaydet()
+{
+    try
+    {
+        var data = {};
+        $('input[id]').filter(function(){var t=$(this).attr('type');return t==="text"||t==="number"||t==="date"||t==="checkbox"||t==="radio"}).each(function(){var id=$(this).attr('id'),t=$(this).attr('type');data[id]=t==="checkbox"||t==="radio"?$(this).is(':checked')?1:0:$(this).val()});
+        $('select[id]').each(function(){var id=$(this).attr('id');data[id]=this.selectedIndex;});
+        $('#HiddenField1').val(JSON.stringify(data));
+        return true;
+    }
+    catch
+    {
+        return false;
+    }
+}
