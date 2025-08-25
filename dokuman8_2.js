@@ -3779,7 +3779,7 @@ function calisanraporlamaexcel()
 {
     let firmajson = isyersecimfirmaoku();
     var data = calisangetir();
-    let tehlike = firmajson.ts;
+    let tehlike = parseInt(firmajson.ts);
     var workbook = new ExcelJS.Workbook();
     var worksheet = workbook.addWorksheet("Rapor");
     worksheet.pageSetup = { paperSize: 9, orientation: "landscape", fitToPage: true, fitToWidth: 1, fitToHeight: 0, horizontalCentered: true, margins: { left: 0.4, right: 0.4, top: 0.4, bottom: 0.4, header: 0.2, footer: 0.2 } };
@@ -3859,7 +3859,7 @@ function calisanraporlamapdf()
 {
     let firmajson = isyersecimfirmaoku();
     var data = calisangetir();
-    let tehlike = firmajson.ts;
+    let tehlike = parseInt(firmajson.ts);
     let tableBody =
     [
         [
@@ -3917,7 +3917,7 @@ function calisanraporlamapdf()
 function isyeriraporalpdf()
 {
     let firmajson = isyersecimfirmaoku();
-    let tehlike = firmajson.ts;
+    let tehlike = parseInt(firmajson.ts);
     var json = $('#HiddenField2').val();
     try
     {
@@ -4139,7 +4139,7 @@ function isyeriraporalpdf()
 async function isyeriraporalexcel()
 {
     let firmajson = isyersecimfirmaoku();
-    let tehlike = firmajson.ts;
+    let tehlike = parseInt(firmajson.ts);
     var json = $('#HiddenField2').val();
     try
     {
@@ -4622,8 +4622,6 @@ function gorevlendirmeraporpdf()
     let temsilciekibi=data.filter(p=>p.t!==0).sort((a,b)=>a.t-b.t).map(p=>[p.ad,p.un,temsilciliste[p.t]||"Bilinmiyor"]);
     let riskanaliziekibi=data.filter(p=>p.r!==0).sort((a,b)=>a.r-b.r).map(p=>[p.ad,p.un,riskliste[p.r]||"Bilinmiyor"]);
     riskanaliziekibi.unshift([isveren,"İşveren Vekili","İşveren Vekili"],[uzmanad,uzmanno,"İş Güvenliği Uzmanı"],[hekimad,hekimno,"İşyeri Hekimi"]);
-
-
     function generateTable(title, headers, rows)
     {
         return [
