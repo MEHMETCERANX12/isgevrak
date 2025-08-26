@@ -4789,3 +4789,39 @@ function temelisgegitim1devam()
     store.set("ayar", ayar);
     window.location.href = "temelisgegitim2.aspx?id=" + encodeURIComponent(firmaid);
 }
+function temelisgegitim2tamam()
+{
+    try
+    {
+        if (store.get("isgegitimkayittarih") === null || store.get("ayar") === null || store.get("isgegitimkayittarih") === null)
+        {
+            alertify.error("Doküman sayfasına dönüp tekrar deneyiniz");
+            return false;
+        }
+        let ayar = store.get("ayar") || [];
+        $('#HiddenField2').val(JSON.stringify(ayar));
+        let calisansecim = dokumancalisansecim();
+        var egitimtarihi = store.get("isgegitimkayittarih");
+        var jsonData = $('#HiddenField1').val();
+        var calisanjson = JSON.parse(jsonData);
+        calisansecim.forEach(function (secili)
+        {
+            calisanjson.forEach(function (item)
+            {
+                if (item.ad === secili.a && item.un === secili.u) {
+                    item.e = egitimtarihi;
+                }
+            });
+        });
+        $('#HiddenField1').val(JSON.stringify(calisanjson));
+        store.set("dosyaciktitipi", "1");
+        return true;
+    }
+    catch
+    {
+        alertify.error("Doküman sayfasına dönüp tekrar deneyiniz");
+        return false;
+    }
+}
+function tumunusec() {let table = $('#tablo').DataTable();table.page.len(-1).draw();let t=0;table.rows({page:"all"}).nodes().to$().find(".row-checkbox").each(function(){$(this).prop("checked",!0);t++});alertify.error(t+" çalışan seçildi",7);}
+function tumunukaldir() {let table = $('#tablo').DataTable();table.rows({page:"all"}).nodes().to$().find(".row-checkbox").prop("checked",!1);alertify.error("Tüm seçimler kaldırıldı",5);}
