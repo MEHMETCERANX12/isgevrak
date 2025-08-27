@@ -598,7 +598,7 @@ async function digeregitimsertifikayaz()
     }
     if (!Array.isArray(calisanliste) || calisanliste.length === 0)
     {
-        calisanliste = [{ ad: "", un: "" }];
+        calisanliste = [{ a: "", u: "" }];
     }
     let isyeriismi = isyeri.fi;
     let isverenvekili = isyeri.is;
@@ -635,8 +635,8 @@ const docDefinition = {
     const content = [
       { text: egitimicerik.baslik, style: 'ustbaslik', margin: [0, 50, 0, 10] },
       { text: 'İşyeri Unvanı: ' + isyeriismi, style: 'normalsatir', margin: [80, 0, 0, 5] },
-      { text: 'Katılımcı Adı Soyadı: ' + calisan.ad, style: 'normalsatir', margin: [80, 0, 0, 5] },
-      { text: 'Katılımcının Görev Unvanı: ' + calisan.un, style: 'normalsatir', margin: [80, 0, 0, 5] },
+      { text: 'Katılımcı Adı Soyadı: ' + calisan.a, style: 'normalsatir', margin: [80, 0, 0, 5] },
+      { text: 'Katılımcının Görev Unvanı: ' + calisan.u, style: 'normalsatir', margin: [80, 0, 0, 5] },
       { text: 'Tarih: ' + tarih, style: 'normalsatir', margin: [80, 0, 0, 5] },
       { text: 'Eğitim Süresi: ' + egitimtsaat, style: 'normalsatir', margin: [80, 0, 0, 5] },
       { text: 'Eğitim Şekli: ' + egitimyeri, style: 'normalsatir', margin: [80, 0, 0, 5] },
@@ -720,11 +720,11 @@ async function digerkatılımlistesiyaz()
         }
     }
     if (!Array.isArray(calisanliste) || calisanliste.length === 0) {
-        calisanliste = Array.from({ length: 13 }, () => ({ ad: "", un: "" }));
+        calisanliste = Array.from({ length: 13 }, () => ({ a: "", u: "" }));
     }
     else if (bossatir > 0)
     {
-        calisanliste = calisanliste.concat(Array.from({ length: bossatir }, () => ({ ad: "", un: "" })));
+        calisanliste = calisanliste.concat(Array.from({ length: bossatir }, () => ({ a: "", u: "" })));
     }
     let isyeriismi = isyeri.fi;
     let egitimtsaat = digeregitimveri.saat || "2 Saat";
@@ -752,8 +752,8 @@ async function digerkatılımlistesiyaz()
             const calisan = calisanliste[i];
             tableBody.push([
                 { text: (i + 1).toString(), alignment: 'center', fontSize: 10, margin: [0, 11, 0, 11] },
-                { text: calisan.ad || '', alignment: 'left', fontSize: 10, margin: [0, 11, 0, 11] },
-                { text: calisan.un || '', alignment: 'left', fontSize: 10, margin: [0, 11, 0, 11] },
+                { text: calisan.a || '', alignment: 'left', fontSize: 10, margin: [0, 11, 0, 11] },
+                { text: calisan.u || '', alignment: 'left', fontSize: 10, margin: [0, 11, 0, 11] },
                 { text: '' }
             ]);
         }
@@ -4862,4 +4862,11 @@ function digeregitimdevam1()
     };
     store.set("digeregitimveri", JSON.stringify(verijson));
     window.location.href = "digeregitim2.aspx?id=" + encodeURIComponent(firmaid);
+}
+
+function digeregitimdevam2()
+{
+    dokumancalisansecim();
+    store.set("dosyaciktitipi", "3");
+    window.location.href = "dosyacikti.aspx?id=3";
 }
