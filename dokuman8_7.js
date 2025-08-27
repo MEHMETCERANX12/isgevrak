@@ -4842,7 +4842,7 @@ function isebaslamatamam1()
     window.location.href = "isebaslamaegitim2.aspx?id=" + encodeURIComponent(firmaid);
 }
 
-function isebaslamamtamam2()
+function isebaslamatamam2()
 {
     dokumancalisansecim();
     store.set("dosyaciktitipi", "2");
