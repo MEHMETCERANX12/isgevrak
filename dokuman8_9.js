@@ -4870,3 +4870,153 @@ function digeregitimdevam2()
     store.set("dosyaciktitipi", "3");
     window.location.href = "dosyacikti.aspx?id=3";
 }
+
+function kkdsablonolusturload()
+{
+    store.set("kkdjsonsecim", []);
+    $('#sablonkaydet').hide();
+    fetch("https://cdn.jsdelivr.net/gh/MEHMETCERANX12/isgevrak@main/kkd.json").then(response => response.json()).then(data =>
+    {
+        store.set("kkdjsonveri", data);
+        let kkdjson = data;
+        kkdjson.sort((a, b) => a.sira - b.sira);
+        let table = $('#tablo').DataTable
+        ({
+            data: kkdjson,
+            pageLength: -1,
+            ordering: false,
+            dom: 't',
+            columns:
+            [
+                { data: "tur", title: "KKD Adı"},
+                { data: "aciklama", title: "Açıklama"},
+                { data: null, title:"Ekle",render:(d,t,r)=>`<input type="button" class="cssbutontamam" value="Ekle" data-id="${r.i}" onclick="kkdsablonekle(this);"/>`}
+            ],
+            createdRow:function(r){$(r).find("td").eq(0).css("text-align","left");$(r).find("td").eq(1).css("text-align","left");},
+            headerCallback: function (thead) { $(thead).find('th').css('text-align', 'center');}
+        });
+        $('#kkdselect').on('change', function ()
+        {
+            const secilen = $(this).val();
+            const index = this.selectedIndex;
+            if (index === 0)
+            {
+                table.clear().rows.add(kkdjson).draw();
+            }
+            else
+            {
+                const filtreli = kkdjson.filter(item => item.tur === secilen);
+                table.clear().rows.add(filtreli).draw();
+            }
+        });
+        $('#diyalogkkd').fadeIn()
+    })
+}
+
+function kkdsablonekle(button)
+{
+    let kkdjsonsecim = store.get("kkdjsonsecim") || [];
+    let kkdjsonveri = store.get("kkdjsonveri");
+    let i = button.getAttribute("data-id");
+    if (kkdjsonsecim.some(item => item.i === i))
+    {
+        alertify.error("Bu KKD zaten listede var");
+        return;
+    }
+    const satir = kkdjsonveri.find(item => item.i === i);
+    if (satir)
+    {
+        kkdjsonsecim.push({ k: satir.k, s: satir.s, i: satir.i, a: 1 });
+    }
+    else
+    {
+        alertify.error("Beklenmedik bir hata oluştu");
+        return;
+    }
+    $('#diyalogkkd').fadeOut();
+    store.set("kkdjsonsecim", kkdjsonsecim);
+    kkdsablontablo(kkdjsonsecim);
+}
+
+function kkdsablontablo(kkdjsonsecim)
+{
+    const jsonliste = kkdjsonsecim || [];
+    if (jsonliste.length > 0)
+    {
+        $('#sablonkaydet').show();
+    }
+    else
+    {
+        $('#sablonkaydet').hide();
+    }
+    if ($.fn.DataTable.isDataTable('#kkdtablo'))
+    {
+        let kkdtablo = $('#kkdtablo').DataTable();
+        kkdtablo.clear().rows.add(jsonliste).draw();
+        return;
+    }
+    $('#kkdtablo').DataTable
+    ({
+        data: jsonliste,
+        ordering: false,
+        dom: 't',
+        language:{zeroRecords:"Eklenmiş Kişisel Koruyucu Donanım Yok",infoEmpty:"Eklenmiş Kişisel Koruyucu Donanım Yok",emptyTable:"Eklenmiş Kişisel Koruyucu Donanım Yok"},
+        columns:
+        [
+            {data:"k",title:"KKD Adı",width:"30%",render:d=>`<input type="text" class="csstextbox100" value="${d}" />`},
+            {data:"s",title:"Standardı",width:"40%",render:d=>`<input type="text" class="csstextbox100" value="${d}" />`},
+            {data:"a",title:"Adet",width:"12%",render:d=>`<input type="text" class="csstextbox100" style="text-align:center;" value="${d}" />`},
+            {data:"i",title:"Sil",width:"18%",render:d=>`<input type="button" class="cssbutontamam" value="Sil" data-id="${d}" onclick="kkdsablonsil(this);"/>`}
+        ],
+        headerCallback: thead => { $(thead).find('th').css('text-align', 'center'); }
+    });
+}
+
+function kkdsablonsil(button)
+{
+    const id = button.getAttribute("data-id");
+    let kkdjsonsecim = store.get("kkdjsonsecim");
+    kkdjsonsecim = kkdjsonsecim.filter(item => item.i !== id);
+    store.set("kkdjsonsecim", kkdjsonsecim);
+    kkdsablontablo(kkdjsonsecim);
+}
+
+function kkdsablonkaydet()
+{
+    let ad = $('#kkdad').val().trim();    
+    if (ad.length < 3)
+    {
+        alertify.error("Lütfen en az 3 karakterden oluşan bir şablon adı giriniz.");
+        return false;
+    }
+    ad = basharfstring(ad);
+    const mevcutJsonStr = $('#HiddenField1').val();
+    let mevcutListe = [];
+    try
+    {
+        if (mevcutJsonStr)
+        {
+            mevcutListe = JSON.parse(mevcutJsonStr);
+        }
+    }
+    catch
+    {
+        mevcutListe = [];
+        return false;
+    }
+    const yeniListe = [];
+    $('#kkdtablo tbody tr').each(function ()
+    {
+        const k = $(this).find('td:eq(0) input').val().trim();
+        const s = $(this).find('td:eq(1) input').val().trim();
+        const a = $(this).find('td:eq(2) input').val().trim();
+        yeniListe.push({k, s, a});
+    });
+    const id = metinuret(3);
+    mevcutListe = mevcutListe.filter(item => item.ad !== ad);
+    mevcutListe.push({ ad: ad, id: id, x: yeniListe });
+    if (mevcutListe.length === 0) {return false;}
+    $('#HiddenField1').val(JSON.stringify(mevcutListe));
+    store.set("jsonkkdliste", mevcutListe);
+    return true;
+}
