@@ -4768,7 +4768,7 @@ function temelisgegitim1devam()
         saat: $('#saat').val(),
         egitimyeri: $('#egitimyeri').val(),
         sinav: $('#sinav').val(),
-        bossatir: $('#bossatir').val(),
+        bossatir: parseInt($("#bossatir").val()) || 0,
         sertifika: $('#sertifika').val(),
         isgegitimkod: isgegitimkod
     };
@@ -4842,9 +4842,24 @@ function isebaslamatamam1()
     window.location.href = "isebaslamaegitim2.aspx?id=" + encodeURIComponent(firmaid);
 }
 
-function isebaslamaegitimtamam2()
+function isebaslamamtamam2()
 {
     dokumancalisansecim();
     store.set("dosyaciktitipi", "2");
     window.location.href = "dosyacikti.aspx?id=2";
+}
+
+function digeregitimdevam1()
+{
+    let firmaid = firmasecimoku();
+    const verijson =
+    {
+        tarih: $("#tarih").val(),
+        egitimtur: $("#egitimtur").val(),
+        saat: $("#saat").val(),
+        egitimsekli: $("#egitimsekli").val(),
+        bossatir: parseInt($("#bossatir").val()) || 0
+    };
+    store.set("digeregitimveri", JSON.stringify(verijson));
+    window.location.href = "digeregitim2.aspx?id=" + encodeURIComponent(firmaid);
 }
