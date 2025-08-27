@@ -4841,3 +4841,10 @@ function isebaslamatamam1()
     store.set('isebaslamaveri', JSON.stringify(liste));
     window.location.href = "isebaslamaegitim2.aspx?id=" + encodeURIComponent(firmaid);
 }
+
+function isebaslamaegitimtamam2()
+{
+    dokumancalisansecim();
+    store.set("dosyaciktitipi", "2");
+    window.location.href = "dosyacikti.aspx?id=2";
+}
