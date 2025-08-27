@@ -4825,3 +4825,19 @@ function temelisgegitim2tamam()
 }
 function tumunusec() {let table = $('#tablo').DataTable();table.page.len(-1).draw();let t=0;table.rows({page:"all"}).nodes().to$().find(".row-checkbox").each(function(){$(this).prop("checked",!0);t++});alertify.error(t+" çalışan seçildi",7);}
 function tumunukaldir() {let table = $('#tablo').DataTable();table.rows({page:"all"}).nodes().to$().find(".row-checkbox").prop("checked",!1);alertify.error("Tüm seçimler kaldırıldı",5);}
+
+function isebaslamatamam1()
+{
+    let firmaid = firmasecimoku();
+    let secimjson = [];
+    $(".csscheckbox").each(function(){let id=$(this).attr("id"),checked=$(this).is(":checked")?1:0,obj={};obj[id]=checked;secimjson.push(obj);});
+    const liste =
+    {
+        tarih: $("#tarih").val().trim(),
+        adsoyad: adsoyadstring($("#adsoyad").val().trim()),
+        saat: $("#saat").val(),
+        secimler: secimjson
+    };
+    store.set('isebaslamaveri', JSON.stringify(liste));
+    window.location.href = "isebaslamaegitim2.aspx?id=" + encodeURIComponent(firmaid);
+}
