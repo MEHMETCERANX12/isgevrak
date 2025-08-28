@@ -5034,3 +5034,73 @@ function kkdzimmettamam2()
     dokumancalisansecim();
     window.location.href = "kkdzimmetcikti3.aspx";
 }
+
+function kkdzimmetcikti3load()
+{
+    let kkdjson = JSON.parse($('#HiddenField1').val());
+    const select = $('#kkddrop');
+    select.empty();
+    if (Array.isArray(kkdjson) && kkdjson.length > 0)
+    {
+        select.append('<option value="" disabled selected>Lütfen bir şablon seçiniz</option>');
+        kkdjson.forEach(item => { select.append(`<option value="${item.id}">${item.ad}</option>`); });
+    }
+    else
+    {
+        select.append('<option disabled value="" selected>KKD şablonu bulunamadı</option>');
+        return;
+    }
+    let table = $('#kkdtablo').DataTable
+    ({
+        data: [],
+        ordering: false,
+        dom: 't',
+        columns:
+        [
+            {data:"k",title:"KKD Adı",width:"30%",render:d=>`<input type="text" class="csstextbox100" value="${d}" />`},
+            {data:"s",title:"Standardı",width:"40%",render:d=>`<input type="text" class="csstextbox100" value="${d}" />`},
+            {data:"a",title:"Adet",width:"12%",render:d=>`<input type="text" class="csstextbox100" style="text-align:center;" value="${d}" />`}
+        ],
+        language: { zeroRecords: "Kayıtlı KKD Yok", infoEmpty: "Kayıtlı KKD Yok", emptyTable: "Kayıtlı KKD Yok"},
+        headerCallback: (thead) => { $(thead).find('th').css('text-align', 'center');}
+    });
+    $('#kkdtablo').hide();
+    $('#tamam').hide();
+    $('#kkddrop').on('change', function ()
+    {
+        $('#tamam').show();
+        $('#kkdtablo').show();
+        const secilenId = $(this).val();
+        const sablon = kkdjson.find(item => item.id === secilenId);
+
+        if (!sablon || !Array.isArray(sablon.x))
+        {
+            table.clear().draw();
+            return;
+        }
+        table.clear().rows.add(sablon.x).draw();
+    });
+}
+function kkdzimmettamam3()
+{
+    const $select = $("#kkddrop");
+    if ($select.length === 0 || $select.prop("selectedIndex") === 0)
+    {
+        alertify.error("Lütfen bir şablon seçiniz.");
+        return;
+    }
+    const liste = [];
+    $("#kkdtablo tbody tr").each(function ()
+    {
+        const $td = $(this).find("td");
+        liste.push
+        ({
+            k: $td.eq(0).find("input").val().trim(),
+            s: $td.eq(1).find("input").val().trim(),
+            a: $td.eq(2).find("input").val().trim()
+        });
+    });
+    store.set("kkdzimmetsonliste", liste);
+    store.set("dosyaciktitipi", "4");
+    window.location.href = "dosyacikti.aspx?id=4";
+}
