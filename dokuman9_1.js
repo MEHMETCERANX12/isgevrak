@@ -5104,3 +5104,93 @@ function kkdzimmettamam3()
     store.set("dosyaciktitipi", "4");
     window.location.href = "dosyacikti.aspx?id=4";
 }
+
+function kkdsablonduzenleload()
+{
+    let kkdjson = $('#HiddenField1').val();
+    if ($('#HiddenField2').val() === "1")
+    {
+        kkdjson = jsoncevir(kkdjson);
+        store.set("jsonkkdliste", kkdjson);
+    }
+    else if ($('#HiddenField2').val() === "0")
+    {
+        kkdjson = store.get("jsonkkdliste");
+        kkdjson = jsoncevir(kkdjson);
+    }
+    else
+    {
+        alertify.error("Beklenmedik bir hata oluştu");
+        return false;
+    }
+    $('#tablo').DataTable
+    ({
+        data: kkdjson,
+        pageLength: -1,
+        order: false,
+        lengthMenu: [[10, 25, 50, 100, -1], [10, 25, 50, 100, "Tümü"]],
+        columns:
+        [
+            { data: "ad", title: "KKD Şablon Adı", orderable: false, width: "60%" },
+            { data:null,title:"Düzenle",orderable:!1,width:"20%",render:(d,t,r)=>`<input type="button" class="cssbutontamam" value="Düzenle" data-id="${r.id}" onclick="jsonkkdsablonduzenle(this);"/>`},
+            { data:null,title:"Sil",orderable:!1,width:"20%",render:(d,t,r)=>`<input type="button" class="cssbutontamam" value="Sil" data-id="${r.id}" onclick="sildialog(this);"/>`}
+        ],
+        language:{search:"KKD Ara:",lengthMenu:"Sayfa başına _MENU_ kayıt göster",zeroRecords:"KKD şablon bulunamadı",info:"_TOTAL_ kayıttan _START_ ile _END_ arası gösteriliyor",infoEmpty:"KKD şablon bulunamadı",infoFiltered:"(toplam _MAX_ kayıttan filtrelendi)",emptyTable:"KKD şablon bulunamadı"},
+        createdRow: function (row) { $(row).find('td').eq(0).css('text-align', 'left'); },
+        headerCallback: function (thead) { $(thead).find('th').css('text-align', 'center');}
+    });
+    $('.dt-search input').css({ "background-color": "white" }).attr("autocomplete", "off");
+    $('.dt-length select').css({ "background-color": "white" });
+}
+function sildialog(button)
+{
+    let kkdsilid = button.getAttribute("data-id");
+    store.set("kkdsilid", kkdsilid);
+    $('#diyolagkkdsil').fadeIn();
+}
+function jsonkkdsablonsil()
+{
+    try
+    {
+        let kkdsilid = store.get("kkdsilid");
+        if (!kkdsilid)
+        {
+            alertify.error("Silinecek öğe bulunamadı.");
+            return false;
+        }
+        let table = $('#tablo').DataTable();
+        let liste = jsoncevir(store.get("jsonkkdliste"));
+        const guncelListe = liste.filter(item => item.id !== kkdsilid);
+        store.set("jsonkkdliste", guncelListe);
+        const rowsToRemove = table.rows((idx, data) => String(data.id) === String(kkdsilid));
+        rowsToRemove.remove().draw();
+        $('#diyolagkkdsil').fadeOut();
+        $('#HiddenField1').val(JSON.stringify(guncelListe));
+        kkdsilid = null;
+        return true;
+    }
+    catch (e)
+    {
+        $('#HiddenField1').val("[]")
+        alertify.error("Silme işlemi sırasında bir hata oluştu.");
+        return false;
+    }
+}
+function jsonkkdsablonduzenle(button)
+{
+    const id = button.getAttribute("data-id");
+    let liste = store.get("jsonkkdliste");
+    liste = jsoncevir(liste);
+    liste = liste.find(item => item.id === id);
+    if (liste)
+    {
+        store.set("jsonkkdsablonsecim", [liste]);
+    }
+    else
+    {
+        store.set("jsonkkdsablonsecim", []);
+    }
+    window.location.href = "kkdsablonduzenle2.aspx";
+}
+
+function jsoncevir(j) { if (typeof j === "string") { try { j = JSON.parse(j) } catch (e) { j = [] } } return j; }
