@@ -5020,3 +5020,17 @@ function kkdsablonkaydet()
     store.set("jsonkkdliste", mevcutListe);
     return true;
 }
+
+function kkdzimmettamam1()
+{
+    let firmaid = firmasecimoku()
+    let tarih = $('#tarih').val() || '....../....../20...';
+    store.set('kkdzimmettarih', tarih);
+    window.location.href = "kkdzimmetcikti2.aspx?id=" + encodeURIComponent(firmaid);
+}
+
+function kkdzimmettamam2()
+{
+    dokumancalisansecim();
+    window.location.href = "kkdzimmetcikti3.aspx";
+}
