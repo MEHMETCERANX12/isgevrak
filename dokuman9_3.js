@@ -5194,3 +5194,119 @@ function jsonkkdsablonduzenle(button)
 }
 
 function jsoncevir(j) { if (typeof j === "string") { try { j = JSON.parse(j) } catch (e) { j = [] } } return j; }
+
+function calisantemsilcisigorevlendirmeyaz()
+{
+    let temsilcijson = calisantemsilciekibi();
+    if ($('#HiddenField1').val() === "" || $('#HiddenField1').val() === null)
+    {
+        window.location.href = "calisantemsilcisievrak.aspx";
+    }
+    let gorevlendirmetarih =  store.get("gorevlendirmetarih");
+    gorevlendirmetarih = tarihreturn(gorevlendirmetarih);
+    let isyerijson = store.get('xjsonfirma');
+    isyerijson = jsoncevir(isyerijson);
+    const { Document, Packer, Paragraph, TextRun, Table, TableRow, TableCell } = docx;
+    const gorevlendirme = temsilcijson.map((json) =>
+    {
+        const temsilciaciklama =
+        [
+            new Paragraph({ children: [new TextRun({ text: `Tarih: ${gorevlendirmetarih}`, size: 24, font: "Calibri" })], alignment: "right", spacing: {after: 240}}),
+            new Paragraph({ children: [new TextRun({ text: `İŞ SAĞLIĞI ve GÜVENLİĞİ ÇALIŞAN TEMSİLCİSİ ATAMA YAZISI`, bold: true, size: 24, font: "Calibri" })], alignment: "center", spacing: {after: 240}}),
+            new Paragraph({ children: [new TextRun({ text: `\tİşyeri Unvanı: ${isyerijson.fi}`, size: 24, font: "Calibri" })], alignment: "left", spacing: {after: 120} }),
+            ...(isyerijson.ad ? [new Paragraph({ children:[new TextRun({text:`\tİşyeri Adresi: ${isyerijson.ad}`,size:24,font:"Calibri"})], alignment:"left", spacing:{after:120} })] : []),
+            ...(isyerijson.sc ? [new Paragraph({ children: [new TextRun({ text: `\tİşyeri Sicil No: ${isyerijson.sc}`, size: 24, font: "Calibri" })], alignment: "left", spacing: { after: 120 } })] : []),
+            new Paragraph({ children: [new TextRun({ text: `\tÇalışan Adı Soyadı: ${json.ad}`, size: 24, font: "Calibri" })], alignment: "left", spacing: { after: 120 } }),
+            new Paragraph({ children: [new TextRun({ text: `\tÇalışan Görev/Unvan: ${json.un}`, size: 24, font: "Calibri" })], alignment: "left", spacing: {after: 240 } }),
+            new Paragraph({ children: [new TextRun({ text: `\tYukarıda kimlik bilgileri yazılı çalışanımız 6331 sayılı İş Sağlığı ve Güvenliği Kanunu 20.Maddesinde belirtilen iş sağlığı ve güvenliği ile ilgili çalışmalara katılma, çalışmaları izleme, tedbir alınmasını isteme, tekliflerde bulunma ve benzeri konularda çalışanları temsil etme hususunda çalışan temsilcisi olarak atanmış ve iş bu görevi kabul etmiştir.`, size: 24, font: "Calibri" })], alignment: "both", spacing: { after: 240 } }),
+        ];
+        const imzatablo = new Table
+        ({
+            rows:
+            [
+                new TableRow({children:[new TableCell({width:{size:50,type:"pct"},children:[new Paragraph({alignment:"center",children:[new TextRun({text:json.ad,font:"Calibri",bold:true,size:24})]})]}),new TableCell({width:{size:50,type:"pct"},children:[new Paragraph({alignment:"center",children:[new TextRun({text:isyerijson.is,font:"Calibri",bold:true,size:24})]})]})]}),
+                new TableRow({children:[new TableCell({children:[new Paragraph({alignment:"center",children:[new TextRun({text:"Çalışan Temsilcisi",font:"Calibri",size:24})]})]}),new TableCell({children:[new Paragraph({alignment:"center",children:[new TextRun({text:"İşveren Vekili",font:"Calibri",size:24})]})]})]}),
+                new TableRow({children:[new TableCell({children:[new Paragraph({alignment:"center",children:[new TextRun({text:"İmza",font:"Calibri",size:24})]})]}),new TableCell({children:[new Paragraph({alignment:"center",children:[new TextRun({text:"İmza",font:"Calibri",size:24})]})]})]})
+            ],
+            borders: { top: { size: 0, color: "FFFFFF" }, bottom: { size: 0, color: "FFFFFF" }, left: { size: 0, color: "FFFFFF" }, right: { size: 0, color: "FFFFFF" }, insideHorizontal: { size: 0, color: "FFFFFF" }, insideVertical: { size: 0, color: "FFFFFF" } },
+            width: { size: 100, type: "pct" },
+        });
+        return { children: [...temsilciaciklama, imzatablo] };
+    });
+    if (temsilcijson.length > 1)
+    {
+        let calisanbastemsiciadsoyad = "";
+        let calisanbastemsiciunvan = "";
+        const bastemsilci = temsilcijson.find(x => x.ekipgorev === "Çalışan Baş Temsilcisi");
+        if (bastemsilci)
+        {
+            calisanbastemsiciadsoyad = bastemsilci.ad;
+            calisanbastemsiciunvan = bastemsilci.un;
+        }
+        let bastemsilciaciklama =
+        [
+            new Paragraph({ children: [new TextRun({ text: `Tarih: ${gorevlendirmetarih}`, size: 24, font: "Calibri" })], alignment: "right", spacing: {after: 240}}),
+            new Paragraph({ children: [new TextRun({ text: `İŞ SAĞLIĞI ve GÜVENLİĞİ ÇALIŞAN BAŞ TEMSİLCİSİ SEÇİM TUTANAĞI`, bold: true, size: 24, font: "Calibri" })], alignment: "center", spacing: {after: 240}}),
+            new Paragraph({ children: [new TextRun({ text: `\tİşyeri Unvanı: ${isyerijson.fi}`, size: 24, font: "Calibri" })], alignment: "left", spacing: {after: 120} }),
+            ...(isyerijson.ad ? [new Paragraph({ children:[new TextRun({text:`\tİşyeri Adresi: ${isyerijson.ad}`,size:24,font:"Calibri"})], alignment:"left", spacing:{after:120} })] : []),
+            ...(isyerijson.sc ? [new Paragraph({ children: [new TextRun({ text: `\tİşyeri Sicil No: ${isyerijson.sc}`, size: 24, font: "Calibri" })], alignment: "left", spacing: { after: 120 } })] : []),
+            new Paragraph({ children: [new TextRun({ text: `\tÇalışan Baş Temsilcisi Adı Soyadı: ${calisanbastemsiciadsoyad}`, size: 24, font: "Calibri" })], alignment: "left", spacing: {after: 120} }),
+            new Paragraph({ children: [new TextRun({ text: `\tÇalışan Baş Temsilcisi Görev/Unvan: ${calisanbastemsiciunvan}`, size: 24, font: "Calibri" })], alignment: "left", spacing: {after: 240 } }),
+            new Paragraph({ children: [new TextRun({ text: `\tİşyerinde görevli olan çalışan temsilcileri yukarıda adı soyadı ve unvanı yazılı olan kişiyi, çalışan baş temsilcisi olarak seçmişlerdir. Bu seçim, tüm temsilcilerin ortak onayı ile yapılmıştır.`, size: 24, font: "Calibri" })], alignment: "both", spacing: { after: 240 } }),
+        ];
+        const imzatablo = new Table
+        ({
+            rows:
+            [
+                new TableRow({children:[new TableCell({width:{size:50,type:"pct"},children:[new Paragraph({alignment:"center",children:[new TextRun({text:calisanbastemsiciadsoyad,font:"Calibri",bold:true,size:24})]})]}),new TableCell({width:{size:50,type:"pct"},children:[new Paragraph({alignment:"center",children:[new TextRun({text:isyerijson.is,font:"Calibri",bold:true,size:24})]})]})]}),
+                new TableRow({children:[new TableCell({children:[new Paragraph({alignment:"center",children:[new TextRun({text:"Çalışan Baş Temsilcisi",font:"Calibri",size:24})]})]}),new TableCell({children:[new Paragraph({alignment:"center",children:[new TextRun({text:"İşveren Vekili",font:"Calibri",size:24})]})]})]}),
+                new TableRow({children:[new TableCell({children:[new Paragraph({alignment:"center",children:[new TextRun({text:"İmza",font:"Calibri",size:24})]})]}),new TableCell({children:[new Paragraph({alignment:"center",children:[new TextRun({text:"İmza",font:"Calibri",size:24})]})]})]})
+            ],
+            borders: { top: { size: 0, color: "FFFFFF" }, bottom: { size: 0, color: "FFFFFF" }, left: { size: 0, color: "FFFFFF" }, right: { size: 0, color: "FFFFFF" }, insideHorizontal: { size: 0, color: "FFFFFF" }, insideVertical: { size: 0, color: "FFFFFF" } },
+            width: { size: 100, type: "pct" },
+        });
+        const temsilcitablo = new Table
+        ({
+            rows:
+            [
+                new TableRow({height:{value:600,rule:"atLeast"},children:[new TableCell({verticalAlign:"center",width:{size:45,type:"pct"},children:[new Paragraph({alignment:"center",children:[new TextRun({text:"Çalışan Adı Soyadı",bold:true,font:"Calibri",size:24})]})]}),new TableCell({verticalAlign:"center",width:{size:25,type:"pct"},children:[new Paragraph({alignment:"center",children:[new TextRun({text:"Temsilci Görevi",bold:true,font:"Calibri",size:24})]})]}),new TableCell({verticalAlign:"center",width:{size:30,type:"pct"},children:[new Paragraph({alignment:"center",children:[new TextRun({text:"İmza",bold:true,font:"Calibri",size:24})]})]})]}),
+                ...temsilcijson.map(item => new TableRow({height:{value:1000,rule:"atLeast"},children:[new TableCell({verticalAlign:"center",margins:{left:75},children:[new Paragraph({alignment:"left",children:[new TextRun({text:item.ad,font:"Calibri",size:24})]})]}),new TableCell({verticalAlign:"center",margins:{left:75},children:[new Paragraph({alignment:"left",children:[new TextRun({text:item.ekipgorev,font:"Calibri",size:24})]})]}),new TableCell({verticalAlign:"center",children:[new Paragraph({alignment:"center",children:[new TextRun({text:"",font:"Calibri",size:24})]})]})]}))
+            ],
+            width: { size: 100, type: "pct" },
+        });
+        gorevlendirme.push({children:[...bastemsilciaciklama,imzatablo,new Paragraph({text:""}),new Paragraph({text:""}),new Paragraph({text:""}),new Paragraph({text:""}),new Paragraph({text:""}),new Paragraph({text:""}), temsilcitablo]});
+    }
+    const doc = new Document({sections:gorevlendirme.map(s=>({properties:{page:{size:{width:11906,height:16838,orientation:"portrait"},margin:{top:1134,right:1134,bottom:1134,left:1134}}},children:s.children}))});
+    Packer.toBlob(doc).then(blob => saveAs(blob, "Çalışan Temsilcisi.docx"));
+}
+function calisantemsilciekibi()
+{
+    const ekipliste = {0:"Görevli Değil",1:"Çalışan Temsilcisi",2:"Çalışan Baş Temsilcisi"};
+    let json = calisangetir();
+    if (!json || json.length === 0) { alertify.error("Kayıtlı çalışan bulunamadı"); return false; }
+    json = json.filter(x => x.t !== 0);
+    if (!json || json.length === 0) { alertify.error("Çalışan temsilcisi bulunamadı"); return false; }
+    if (json.length === 1)
+    {
+        if (json[0].t !== 1)
+        {
+            alertify.error("Çalışan baş temsilcisisi değil, çalışan temsilcisi görevlendiriniz.");
+            return false;
+        }            
+    }
+    else
+    {
+        const t2Count = json.filter(x => x.t === 2).length;
+        const tInvalid = json.some(x => x.t !== 1 && x.t !== 2);
+        if (t2Count !== 1 || tInvalid)
+        {
+            alertify.error("Bir çalışan baş temsilcisi, diğerlerini çalışan temsilcisi olarak görevlendiriniz.");
+            return false;
+        }
+    }
+    json.sort((a, b) => b.t - a.t);
+    const temsilcijson=json.map(item=>({ad:item.ad,un:item.un,ekipgorev:ekipliste[item.t]||"Bilinmiyor"}));
+    return temsilcijson;
+}
+function tarihreturn(t){var r=/^(\d{2})\.(\d{2})\.(\d{4})$/;if(!r.test(t))return"....../....../20....";var p=t.match(r),d=parseInt(p[1],10),m=parseInt(p[2],10),y=parseInt(p[3],10),o=new Date(y,m-1,d);return o.getFullYear()===y&&o.getMonth()===m-1&&o.getDate()===d?t:"....../....../20...."}
+
