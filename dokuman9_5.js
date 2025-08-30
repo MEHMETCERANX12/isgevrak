@@ -5334,13 +5334,13 @@ function calisantemsilcisikatilimyaz()
     katilimlistesi.push(...temscilcikatilimustbilgi(isyeriismi, egitimtarih, egitimyeri, egitimsaat, konu));
     temsilcijson.forEach((item, index) =>
     {
-        katilimlistesi.push
-        ([
-            { text: (index + 1).toString(), alignment: 'center', fontSize: 10, margin:[0,15] },
-            { text: item.ad, alignment: 'left', fontSize: 10, margin:[0,15] },
-            { text: item.ekipgorev, alignment: 'left', fontSize: 10, margin:[0,15] },
-            { text: '', alignment: 'center', fontSize: 10, margin:[0,15] }
-        ]);
+    katilimlistesi.push
+    ([
+        { text: (index + 1).toString(), alignment: 'center', fontSize: 10, margin:[0,15] },
+        { text: item.ad, alignment: 'left', fontSize: 10, margin:[0,15] },
+        { text: item.ekipgorev, alignment: 'left', fontSize: 10, margin:[0,15] },
+        { text: '', alignment: 'center', fontSize: 10, margin:[0,15] }
+    ]);
     });
     katilimlistesi.push([{text:uzmanad,alignment:'center',fontSize:10,bold:true,colSpan:2,margin:[0,0]},{},{text:hekimad,alignment:'center',fontSize:10,bold:true,colSpan:2,margin:[0,0]},{}]);
     katilimlistesi.push([{text:'İş Güvenliği Uzmanı - Belge No: '+uzmanno,alignment:'center',fontSize:10,colSpan:2,margin:[0,0]},{},{text:'İşyeri Hekimi - Belge No: '+hekimno,alignment:'center',fontSize:10,colSpan:2,margin:[0,0]},{}]);
@@ -5353,11 +5353,9 @@ function calisantemsilcisikatilimyaz()
     };
     pdfMake.createPdf(pdficerik).download("Temsilci Katılım Listesi.pdf");
 }
-
 function temscilcikatilimustbilgi(i, t, e, s, k)
 {
-    return
-    [
+    return [
         [{ text: 'ÇALIŞAN TEMSİLCİSİ EĞİTİMİ - KATILIM TUTANAĞI', colSpan: 4, alignment: 'center', fontSize: 11, bold: true, margin: [2, 2] }, '', '', ''],
         [{ text: `İşyeri Unvanı: ${i}`, colSpan: 4, alignment: 'left', fontSize: 10, margin: [2, 2] }, '', '', ''],
         [{ colSpan: 4, alignment: 'left', fontSize: 10, margin: [2, 2], text: [{ text: `Eğitim Tarihi: ${t}\t\t\t\tEğitim Şekli: ${e}\t\t\t\tSüresi: ${s}` }] }, '', '', ''],
