@@ -5372,6 +5372,10 @@ function temscilcikatilimustbilgi(i, t, e, s, k)
 
 async function calisantemsilcisisertifikakontrol()
 {
+    if ($('#HiddenField1').val() === "" || $('#HiddenField1').val() === null)
+    {
+        window.location.href = "calisantemsilcisievrak.aspx";
+    }
     $('#loading').show();
     $.when(calisantemsilcisisertifikayaz())
     .done(function ()
