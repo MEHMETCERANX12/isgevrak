@@ -5277,7 +5277,7 @@ function calisantemsilcisigorevlendirmeyaz()
         gorevlendirme.push({children:[...bastemsilciaciklama,imzatablo,new Paragraph({text:""}),new Paragraph({text:""}),new Paragraph({text:""}),new Paragraph({text:""}),new Paragraph({text:""}),new Paragraph({text:""}), temsilcitablo]});
     }
     const doc = new Document({sections:gorevlendirme.map(s=>({properties:{page:{size:{width:11906,height:16838,orientation:"portrait"},margin:{top:1134,right:1134,bottom:1134,left:1134}}},children:s.children}))});
-    Packer.toBlob(doc).then(blob => saveAs(blob, "Çalışan Temsilcisi.docx"));
+    Packer.toBlob(doc).then(blob => saveAs(blob, "Temsilci Görevlendirme.docx"));
 }
 function calisantemsilciekibi()
 {
@@ -5308,5 +5308,66 @@ function calisantemsilciekibi()
     const temsilcijson=json.map(item=>({ad:item.ad,un:item.un,ekipgorev:ekipliste[item.t]||"Bilinmiyor"}));
     return temsilcijson;
 }
+
 function tarihreturn(t){var r=/^(\d{2})\.(\d{2})\.(\d{4})$/;if(!r.test(t))return"....../....../20....";var p=t.match(r),d=parseInt(p[1],10),m=parseInt(p[2],10),y=parseInt(p[3],10),o=new Date(y,m-1,d);return o.getFullYear()===y&&o.getMonth()===m-1&&o.getDate()===d?t:"....../....../20...."}
 
+function calisantemsilcisikatilimyaz()
+{
+    let temsilcijson = calisantemsilciekibi();
+    if ($('#HiddenField1').val() === "" || $('#HiddenField1').val() === null)
+    {
+        window.location.href = "calisantemsilcisievrak.aspx";
+    }
+    let egitimtarih =  store.get("egitimtarih");
+    egitimtarih = tarihreturn(egitimtarih);
+    let egitimsaat =  store.get("egitimsaat");
+    let isyerijson = store.get('xjsonfirma');
+    isyerijson = jsoncevir(isyerijson);
+    let uzmanad = store.get("uzmanad");
+    let uzmanno = store.get("uzmanno");
+    let hekimad = isyerijson.hk;
+    let hekimno = isyerijson.hn;
+    let isyeriismi = isyerijson.fi;
+    let egitimyeri = "Örgün";
+    let konu = "Çalışan temsilcilerinin görev, yetki ve sorumlulukları, Risk değerlendirme süreci, İş kazaları ve meslek hastalıkları, Acil durum önlemleri, İş sağlığı ve güvenliği mevzuatı, çalışanların hakları ve yükümlülükleri";
+    let katilimlistesi = [];
+    katilimlistesi.push(...temscilcikatilimustbilgi(isyeriismi, egitimtarih, egitimyeri, egitimsaat, konu));
+    temsilcijson.forEach((item, index) =>
+    {
+        katilimlistesi.push
+        ([
+            { text: (index + 1).toString(), alignment: 'center', fontSize: 10, margin:[0,15] },
+            { text: item.ad, alignment: 'left', fontSize: 10, margin:[0,15] },
+            { text: item.ekipgorev, alignment: 'left', fontSize: 10, margin:[0,15] },
+            { text: '', alignment: 'center', fontSize: 10, margin:[0,15] }
+        ]);
+    });
+    katilimlistesi.push([{text:uzmanad,alignment:'center',fontSize:10,bold:true,colSpan:2,margin:[0,0]},{},{text:hekimad,alignment:'center',fontSize:10,bold:true,colSpan:2,margin:[0,0]},{}]);
+    katilimlistesi.push([{text:'İş Güvenliği Uzmanı - Belge No: '+uzmanno,alignment:'center',fontSize:10,colSpan:2,margin:[0,0]},{},{text:'İşyeri Hekimi - Belge No: '+hekimno,alignment:'center',fontSize:10,colSpan:2,margin:[0,0]},{}]);
+    katilimlistesi.push([{text:'',colSpan:2,margin:[25,25]}, {}, {text:'',colSpan:2,margin:[25,25]}, {}]);
+    let pdficerik =
+    {
+        pageOrientation: 'portrait',
+        pageSize: 'A4',
+        content: [{table: { widths: ['7%', '43%', '25%', '25%'], body: katilimlistesi}}]
+    };
+    pdfMake.createPdf(pdficerik).download("Temsilci Katılım Listesi.pdf");
+}
+
+function temscilcikatilimustbilgi(i, t, e, s, k)
+{
+    return
+    [
+        [{ text: 'ÇALIŞAN TEMSİLCİSİ EĞİTİMİ - KATILIM TUTANAĞI', colSpan: 4, alignment: 'center', fontSize: 11, bold: true, margin: [2, 2] }, '', '', ''],
+        [{ text: `İşyeri Unvanı: ${i}`, colSpan: 4, alignment: 'left', fontSize: 10, margin: [2, 2] }, '', '', ''],
+        [{ colSpan: 4, alignment: 'left', fontSize: 10, margin: [2, 2], text: [{ text: `Eğitim Tarihi: ${t}\t\t\t\tEğitim Şekli: ${e}\t\t\t\tSüresi: ${s}` }] }, '', '', ''],
+        [{ text: 'EĞİTİM KONULARI', colSpan: 4, alignment: 'center', fontSize: 11, bold: true, margin: [2, 2] }, '', '', ''],
+        [{ text: k, colSpan: 4, alignment: 'justify', fontSize: 10, margin: [0, 5] }, '', '', ''],
+        [
+            { text: 'Sıra', alignment: 'center', fontSize: 10, margin: [0, 5], bold: true },
+            { text: 'Ad Soyad', alignment: 'center', fontSize: 10, margin: [0, 5], bold: true },
+            { text: 'Unvan', alignment: 'center', fontSize: 10, margin: [0, 5], bold: true },
+            { text: 'İmza', alignment: 'center', fontSize: 10, margin: [0, 5], bold: true }
+        ]
+    ];
+}
