@@ -5461,3 +5461,72 @@ function maskecoz(veri)
     const model = {'Ş':'A', 'Ü':'B', 'Ö':'C', 'Ğ':'Ç', 'İ':'D', 'Z':'E', 'Y':'F', 'V':'G', 'U':'Ğ', 'T':'H', 'S':'I', 'R':'İ', 'P':'J', 'O':'K', 'N':'L', 'Q':'M', 'L':'N', 'K':'O', 'J':'Ö', 'I':'P', 'H':'R', 'Ğ':'S', 'G':'Ş', 'F':'T', 'E':'U', 'D':'Ü', 'C':'V', 'Ç':'Y', 'B':'Z', 'ş':'a', 'ü':'b', 'ö':'c', 'ğ':'ç', 'i':'d', 'z':'e', 'y':'f', 'v':'g', 'u':'ğ', 't':'h', 's':'ı', 'r':'i', 'p':'j', 'o':'k', 'n':'l', 'w':'m', 'l':'n', 'k':'o', 'j':'ö', 'ı':'p', 'h':'r', 'ğ':'s', 'g':'ş', 'f':'t', 'e':'u', 'd':'ü', 'c':'v', 'ç':'y', 'b':'z', '5':'0', '6':'1', '7':'2', '8':'3', '9':'4', '0':'5', '1':'6', '2':'7', '3':'8', '4':'9', '€':'+', '£':'-', '¥':'(', '¤':')', '§':'=', '©':'?', '®':'*', '™':';', 'µ':',', '¶':':', '·':'.', '_':' '};
     return veri.split('').map(c => model[c] || c).join('');
 }
+
+function talimatduzenle1load()
+{
+    var json = jsoncevir($("#HiddenField1").val());
+    $('#talimattablo').DataTable
+    ({
+        data: json,
+        columns:
+        [
+            {data:'b',title:'İSG Talimat Adı',width:'80%'},
+            {data:'i',title:'Düzenle',orderable:false,width:'10%',render:data=>`<input name="duzenle" type="button" class="cssbutontamam" value="Düzenle" data-id="${data}"/>`},
+            {data:'i',title:'Sil',orderable:false,width:'10%',render:data=>`<input name="sil" type="button" class="cssbutontamam" value="Sil" data-id="${data}"/>`}
+        ],
+        language:{search:"İSG Talimat Ara:",lengthMenu:"Sayfa başına _MENU_ kayıt göster",zeroRecords:"Eşleşen kayıt bulunamadı",info:"_TOTAL_ kayıttan _START_ ile _END_ arası gösteriliyor",infoEmpty:"Kayıt yok",infoFiltered:"(toplam _MAX_ kayıttan filtrelendi)",emptyTable:"İSG Talimat Bulunamadı"},
+        createdRow: function (row) { $(row).find('td').eq(0).css('text-align', 'left');},
+        headerCallback: function (thead) { $(thead).find('th').css('text-align', 'center');}
+    });
+    $('.dt-search input').css({ "background-color": "white" }).attr("autocomplete", "off");
+    $('.dt-length select').css({ "background-color": "white" });
+    $(document).on('click', 'input[name="duzenle"]', function ()
+    {
+        var id = $(this).data('id');
+        var ad = $(this).closest('tr').find('td:eq(0)').text().trim();
+        store.set("talimatduzenlead", ad);
+        if (!Number.isInteger(id) || id <= 0)
+        {
+            alertify.error("Beklenmedik bir hata oluştu");
+            return false;
+        }
+        window.location.href = "talimatduzenle2.aspx?id=" + encodeURIComponent(id);
+    });
+    $(document).on('click', 'input[name="sil"]', function ()
+    {
+        var i = $(this).data('id');
+        var ad = $(this).closest('tr').find('td:eq(0)').text().trim();
+        store.set("talimatduzenlead", ad);
+        $("#mesajicerik").text(`${ad} SİLMEK istediğinizden emin misiniz?`);
+        $("#diyolagtalimatsil").fadeIn();
+        $('#HiddenField2').val(i);
+    });
+}
+function isgtalimatsilsql()
+{
+    let secimid = $('#HiddenField2').val();
+    secimid = parseInt(secimid, 10);
+    if (isNaN(secimid) || secimid <= 0)
+    {
+        alertify.error("Beklenmedik bir hata oluştu");
+        return false;
+    }
+    let json = jsoncevir($('#HiddenField1').val());
+    if (!json)
+    {
+        alertify.error("Veri bulunamadı");
+        return false;
+    }
+    try
+    {
+        json = json.filter(item => parseInt(item.i, 10) !== secimid);
+        $('#HiddenField1').val(JSON.stringify(json));
+        $("#diyolagtalimatsil").fadeOut();
+        $('#talimattablo').DataTable().clear().rows.add(json).draw();
+        return true;
+    }
+    catch
+    {
+        return false;
+    }
+}
