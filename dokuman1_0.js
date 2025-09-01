@@ -5728,3 +5728,19 @@ function isgtalimatadguncelle2()
         return false;
     }
 }
+
+function talimatyeni1tamam()
+{
+    let talimatad = $('#adverisi').val().trim();
+    if (talimatad.length < 4)
+    {
+        alertify.error("İSG Talimat adı minumum 4 karekter olmalıdır.");
+        return false;
+    }
+    let json = {};
+    json[talimatad] = [{ "i": "Düzenle butonuna basarak İSG talimatının ilk maddesini buraya yazabilir ardından yeni madde ekle butonuna basarak yeni içerik ekleyebilirsin." }];
+    $("#HiddenField1").val(talimatad);
+    $("#HiddenField2").val(JSON.stringify(json));
+    $("#HiddenField3").val(store.get("uzmanad"))
+    return true;
+}
