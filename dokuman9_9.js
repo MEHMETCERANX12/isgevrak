@@ -5530,3 +5530,201 @@ function isgtalimatsilsql()
         return false;
     }
 }
+
+function talimatduzenle2load()
+{
+    let talimat = jsoncevir($('#HiddenField1').val());
+    let baslik = Object.keys(talimat)[0];
+    $('#talimatad').val(baslik);
+    let talimatjson = talimat[baslik];
+    $('#talimaticerik').DataTable
+    ({
+        data: talimatjson,
+        ordering: false,
+        dom: 't',
+        pageLength: -1,
+        columns:
+        [
+            { title: "Talimat İçerik", width: "86%", data: "i" },
+            { title:"Düzenle",width:"7%",data:"duzenle",render:(d,t,r,i)=>`<input type="button" name="duzenle" class="cssbutontamam" value="Düzenle" data-id="${i}"/>`},
+            { title:"Sil",width:"7%",data:"sil",render:(d,t,r,i)=>`<input type="button" name="sil" class="cssbutontamam" value="Sil" data-id="${i}"/>`}
+        ],
+        language:{search:"",zeroRecords:"İsg talimat içeriği boş",info:"_TOTAL_ kayıttan _START_ ile _END_ arası gösteriliyor",infoEmpty:"İsg talimat içeriği boş",infoFiltered:"(toplam _MAX_ kayıttan filtrelendi)",emptyTable:"İsg talimat içeriği boş"},
+        headerCallback: function (thead) { $(thead).find('th').css('text-align', 'center');},
+        createdRow: function (row) { $(row).find('td').eq(0).css({ 'text-align': 'left' });}
+    });
+    fetch("https://cdn.jsdelivr.net/gh/MEHMETCERANX12/isgevrak@main/isgtalimat1_1.json").then(response => response.json()).then(data =>
+    {
+        talimatjson = data;
+        talimatjson.sort((a, b) => a.sira - b.sira);
+        $('#tablo').DataTable
+        ({
+            data: talimatjson,
+            pageLength: -1,
+            dom: 'ft',
+            ordering: false,
+            columns:
+            [
+                { data: "anabaslik", title: "Talimat Türü"},
+                { data: "baslik", title: "Açıklama"},
+                { data: null, title: "Ekle", render: (d, t, r) => `<input name="hizliekle" type="button" class="cssbutontamam" value="Ekle" data-icerik="${r.icerik}"/>`}
+            ],
+            language:{search:"",lengthMenu:"Sayfa başına _MENU_ kayıt göster",zeroRecords:"Böyle bir çalışan bulunamadı",info:"_TOTAL_ kayıttan _START_ ile _END_ arası gösteriliyor",infoEmpty:"Kayıt yok",infoFiltered:"(toplam _MAX_ kayıttan filtrelendi)",emptyTable:"Kayıtlı çalışan bulunamadı"},
+            createdRow: function (row) { $(row).find('td').eq(0).css('text-align', 'left'); $(row).find('td').eq(1).css('text-align', 'left');},
+            headerCallback: function (thead) { $(thead).find('th').css('text-align', 'center'); },
+        });
+        $('.dt-search').css({"text-align": "center", "margin": "1vw 1vw"});
+        $('.dt-search input').css({"background-color": "white", "width": "400px", "margin": "0 auto", "display": "inline-block", "font-size": "1vw", "font-family": "Calibri", "text-align": "center"}).attr("placeholder", "Hızlı Talimat İçeriği Ara");
+    });
+    $(document).on("click", "input[name='sil']", function ()
+    {
+        $('#diyalogtalimatsil').fadeIn();
+        let satir = $('#talimaticerik').DataTable().row($(this).closest('tr')).data();
+        store.set('isgtalimatsil', satir);
+    });
+    $(document).on("click", "input[name='duzenle']", function ()
+    {
+        $('#diyalogtalimatduzenle').fadeIn();
+        let satir = $('#talimaticerik').DataTable().row($(this).closest('tr')).data();
+        store.set('isgtalimatduzenle', satir);
+        $('#veriduzenle').val(satir.i);
+    });
+    $(document).on("click", "input[name='hizliekle']", function ()
+    {
+        let icerik = $(this).data('icerik');
+        store.set('hizliekleveri', icerik);
+        $('#Button5').click();
+    });
+}
+
+function isgtalimatekle2()
+{
+    try
+    {
+        let talimat = jsoncevir($('#HiddenField1').val());
+        let baslik = Object.keys(talimat)[0];
+        let yeniMetin = $('#veriekle').val().trim();
+        if (yeniMetin.length < 5)
+        {
+            alert("Lütfen en az 5 karakterlik bir içerik giriniz.");
+            return false;
+        }
+        let yeniObj = { i: yeniMetin };
+        talimat[baslik].push(yeniObj);
+        $('#HiddenField1').val(JSON.stringify(talimat));
+        $('#veriekle').val('');
+        return true;
+    } 
+    catch
+    {
+        alert("Talimat eklenirken bir hata oluştu.");
+        return false;
+    }
+}
+function isgtalimatsil2()
+{
+    try
+    {
+        let talimat = jsoncevir($('#HiddenField1').val());
+        let baslik = Object.keys(talimat)[0];
+        let talimatjson = talimat[baslik];        
+        let satir = store.get('isgtalimatsil');
+        let silinecek = satir.i;
+        talimat[baslik] = talimatjson.filter(item => item.i !== silinecek);
+        $('#HiddenField1').val(JSON.stringify(talimat));
+        store.remove('isgtalimatsil');
+        return true;
+    }
+    catch (e)
+    {
+        alert("Silme işlemi sırasında bir hata oluştu." + e);
+        return false;
+    }
+}
+function isgtalimatduzenle2()
+{
+    try
+    {
+        let satir = store.get('isgtalimatduzenle');
+        if (!satir)
+        {
+            alert("Düzenlenecek satır bulunamadı.");
+            return false;
+        }
+        let talimat = jsoncevir($('#HiddenField1').val());
+        let baslik = Object.keys(talimat)[0];
+        let talimatjson = talimat[baslik];
+        let yeniMetin = $('#veriduzenle').val().trim();
+        if (yeniMetin.length < 5)
+        {
+            alert("Lütfen en az 5 karakterlik bir içerik giriniz.");
+            return false;
+        }
+        for (let i = 0; i < talimatjson.length; i++)
+        {
+            if (talimatjson[i].i === satir.i) {
+                talimatjson[i].i = yeniMetin;
+                break;
+            }
+        }
+        $('#HiddenField1').val(JSON.stringify(talimat));
+        let table = $('#talimaticerik').DataTable();
+        table.clear().rows.add(talimatjson).draw();
+        $('#veriduzenle').val('');
+        store.remove('isgtalimatduzenle');
+        return true;
+    }
+    catch (e)
+    {
+        alert("Talimat düzenlenirken bir hata oluştu: " + e);
+        return false;
+    }
+}
+function isgtalimathizliekle2()
+{
+    try
+    {
+        let talimat = jsoncevir($('#HiddenField1').val());
+        let baslik = Object.keys(talimat)[0];
+        let yeniMetin = store.get('hizliekleveri').trim();
+        if (yeniMetin.length < 5)
+        {
+            alert("Lütfen en az 5 karakterlik bir içerik giriniz.");
+            return false;
+        }
+        let yeniObj = { i: yeniMetin };
+        talimat[baslik].push(yeniObj);
+        $('#HiddenField1').val(JSON.stringify(talimat));
+        return true;
+    } 
+    catch
+    {
+        alert("Talimat eklenirken bir hata oluştu.");
+        return false;
+    }
+}
+function isgtalimatadguncelle2()
+{
+    try
+    {
+        let talimat = jsoncevir($('#HiddenField1').val());
+        let eskibaslik = Object.keys(talimat)[0];
+        let yenibaslik = $('#talimatad').val().trim();
+        if (yenibaslik.length < 3)
+        {
+            alert("Lütfen geçerli bir talimat adı giriniz.");
+            return false;
+        }
+        let mevcuticerik = talimat[eskibaslik];
+        let yenitalimat = {};
+        yenitalimat[yenibaslik] = mevcuticerik;
+        $('#HiddenField1').val(JSON.stringify(yenitalimat));
+        $('#HiddenField2').val(yenibaslik);
+        return true;
+    }
+    catch
+    {
+        alert("Talimat adı güncellenirken bir hata oluştu");
+        return false;
+    }
+}
