@@ -5876,3 +5876,21 @@ function talimatcikti3load()
     $('.dt-search').css({"text-align": "right", "margin": "0.8vw 0 0.8vw 0"});
     $('.dt-search input').css({"background-color": "white", "width": "12vw", "margin": "0 auto", "display": "inline-block", "font-size": "1vw", "font-family": "Calibri", "text-align": "left"});
 }
+
+function acildurumdevam1()
+{
+    let tarih = $('#tarih').val().trim();
+    if (tarihkontrol(tarih) === false)
+    {
+        alertify.error("Lütfen geçerli bir tarih giriniz");
+        return;
+    }
+    store.set("acildurumtarih", tarih);
+    let sonuc = {};
+    $('.csscheckbox').each(function () { const id = $(this).attr('id'); if (id) { sonuc[id] = $(this).is(':checked') ? 1 : 0; }});
+    store.set("acildurumkonusecim", sonuc);
+    let firmaid = firmasecimoku();
+    window.location.href = "acildurum2.aspx?id=" + encodeURIComponent(firmaid);
+}
+
+function tarihkontrol(t) { var r = /^(\d{2})\.(\d{2})\.(\d{4})$/; if (!r.test(t)) return false; var p = t.match(r), d = parseInt(p[1], 10), m = parseInt(p[2], 10), y = parseInt(p[3], 10), o = new Date(y, m - 1, d); return o.getFullYear() === y && o.getMonth() === m - 1 && o.getDate() === d }
