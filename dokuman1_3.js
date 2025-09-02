@@ -5853,3 +5853,26 @@ function talimatciktidevam2()
     $("#HiddenField1").val(JSON.stringify(liste));
     $("#HiddenField2").val(store.get('xfirmaid'));
 }
+
+function talimatcikti3load()
+{
+    let calisanjson = calisangetir();
+    $('#tablo').DataTable
+    ({
+        data: calisanjson,
+        columns:
+        [
+            { data: "ad", title: "Ad Soyad" },
+            { data: "un", title: "Unvan" },
+            { title: "Yazdır", data: null, orderable: !1, searchable: !1, render: function (a, b, c, d) { return `<input type="button" value="Word Yazdır" class="cssbutontamam" data-ad="${c.ad}" data-un="${c.un}" onclick="talimatyazdirword(this);">` } }
+        ],
+        ordering: false,
+        pageLength: -1, 
+        dom: 'f',
+        language:{search:"Çalışan Ara:",lengthMenu:"Sayfa başına _MENU_ kayıt göster",zeroRecords:"Böyle bir çalışan bulunamadı",info:"_TOTAL_ kayıttan _START_ ile _END_ arası gösteriliyor",infoEmpty:"Kayıt yok",infoFiltered:"(toplam _MAX_ kayıttan filtrelendi)",emptyTable:"Kayıtlı çalışan bulunamadı"},
+        createdRow:function(row){$(row).find('td').eq(0).css('text-align','left');$(row).find('td').eq(1).css('text-align','left');},
+        headerCallback: function (thead) {$(thead).find('th').css('text-align', 'center');}
+    });
+    $('.dt-search').css({"text-align": "right", "margin": "0.8vw 0 0.8vw 0"});
+    $('.dt-search input').css({"background-color": "white", "width": "12vw", "margin": "0 auto", "display": "inline-block", "font-size": "1vw", "font-family": "Calibri", "text-align": "left"});
+}
