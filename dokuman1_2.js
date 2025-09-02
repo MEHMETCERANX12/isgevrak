@@ -5851,5 +5851,5 @@ function talimatciktidevam2()
         }
     });
     $("#HiddenField1").val(JSON.stringify(liste));
-    $("#HiddenField2").val(store.get('xjsonfirmaid'));
+    $("#HiddenField2").val(store.get('xfirmaid'));
 }
