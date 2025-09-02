@@ -5744,3 +5744,112 @@ function talimatyeni1tamam()
     $("#HiddenField3").val(store.get("uzmanad"))
     return true;
 }
+
+function talimatcikti2load()
+{
+    let data = jsoncevir($("#HiddenField1").val());
+    data.sort((a, b) => a.b.localeCompare(b.b, 'tr', { sensitivity: 'base' }));
+    $('#talimattablo').DataTable
+    ({
+        data: data,
+        ordering: false,
+        columns:
+        [
+            { data: 'b', title: 'İSG Talimat Adı', width: '80%' },
+            { data: 'o', title: 'Onay', width: '10%', render: function (d) { return d == 2 ? '✓' : ''; } },
+            { data: 'i', title: 'Ekle', orderable: false, width: '10%', render: function (d) { return `<input name="ekle" type="button" class="cssbutontamam" value="Ekle" data-id="${d}"/>`; } }
+        ],
+        language:{search:"İSG Talimat Ara:",lengthMenu:"Sayfa başına _MENU_ kayıt göster",zeroRecords:"Eşleşen kayıt bulunamadı",info:"_TOTAL_ kayıttan _START_ ile _END_ arası gösteriliyor",infoEmpty:"Kayıt yok",infoFiltered:"(toplam _MAX_ kayıttan filtrelendi)",emptyTable:"Kayıtlı İSG talimatı bulunamadı"},
+        createdRow: function (row) { $(row).find('td').eq(0).css('text-align', 'left');},
+        headerCallback: function (thead) { $(thead).find('th').css('text-align', 'center');}
+    });
+    $('.dt-search input').css({ "background-color": "white" }).attr("autocomplete", "off");
+    $('.dt-length select').css({ "background-color": "white" });
+    $("#diyalogtalimat").fadeIn();
+    let anatablo = $('#talimatliste').DataTable
+    ({
+        ordering: false,
+        dom: 't',
+        columns:
+        [
+            { data: 'b', title: "İSG Talimat Listesi", width: "100%" },
+            { data: 'i', title: 'Sil', width: '10%', render: d => `<input name="sil" type="button" class="cssbutontamam" value="Sil" data-id="${d}" onclick="talimatsilliste('${d}')" />` }
+        ],
+        language:{zeroRecords:"Henüz İSG talimatı eklenmedi",infoEmpty:"Henüz İSG talimatı eklenmedi",emptyTable:"Henüz İSG talimatı eklenmedi"},
+        headerCallback: function (thead) { $(thead).find('th').css('text-align', 'center'); },
+        createdRow: function (row) { $(row).find('td').eq(0).css({'text-align': 'left'});}
+    });
+    $(document).on('click', 'input[name="ekle"]', function ()
+    {
+        const id = $(this).data('id');
+        const satir = $('#talimattablo').DataTable().data().toArray().find(x => x.i == id);
+        if (satir)
+        {
+            anatablo.row.add({ b: satir.b, i: satir.i }).draw();
+        }
+        $("#diyalogtalimat").fadeOut();
+        $("#talimatlistediv").fadeIn();
+        if (anatablo.rows().count() === 5)
+        {
+            $("#talimateklebuton").fadeOut();
+            alertify.error("En fazla beş tane İSG talimatı ekleyebilirsiniz");
+        }
+        else
+        {
+            $("#talimateklebuton").fadeIn();
+        }
+        if (anatablo.rows().count() > 1)
+        {
+            $("#bilgi").fadeIn();
+        }
+        else
+        {
+            $("#bilgi").fadeOut();
+        }
+    });
+    let $tbody = $("#talimatliste tbody");
+    $tbody.sortable({ helper: fixHelper, update: function () { let n = []; $tbody.find('tr').each(function () { n.push($(this).find('td:eq(0)').text()) }) } }).disableSelection(); function fixHelper(e, t) { var o = t.children(), h = t.clone(); h.children().each(function (i) { $(this).width(o.eq(i).width()) }); return h; }
+}
+function talimatsilliste(id)
+{
+    let anatablo = $('#talimatliste').DataTable();
+    anatablo.rows().every(function ()
+    {
+        const data = this.data();
+        if (data.i == id)
+        {
+            this.remove().draw();
+            return false;
+        }
+    });
+    if (anatablo.rows().count() === 0)
+    {
+        $("#talimatlistediv").fadeOut();
+    }
+    if (anatablo.rows().count() !== 5)
+    {
+        $("#talimateklebuton").fadeIn();
+    }
+    if (anatablo.rows().count() > 1)
+    {
+        $("#bilgi").fadeIn();
+    }
+    else
+    {
+        $("#bilgi").fadeOut();
+    }
+}
+function talimatciktidevam2()
+{
+    let liste = [];
+    $('#talimatliste tbody tr').each(function ()
+    {
+        let id = $(this).find('input[name="sil"]').data('id');
+        if (id !== undefined)
+        {
+            liste.push(id);
+        }
+    });
+    $("#HiddenField1").val(JSON.stringify(liste));
+    $("#HiddenField2").val(store.get('xjsonfirmaid'));
+}
