@@ -301,13 +301,13 @@ function temelkatılımlistesiyaz()
             calisanliste = [];
         }
     }
-    if (!Array.isArray(calisanliste) || calisanliste.length === 0)
-    {
-        calisanliste = Array.from({ length: 12 }, () => ({ a: "", u: "" }));
-    }
-    else if (bossatir > 0)
+    if (bossatir > 0)
     {
         calisanliste = calisanliste.concat(Array.from({ length: bossatir }, () => ({ a: "", u: "" })));
+    }
+    if(bossatir === 0 && (!Array.isArray(calisanliste) || calisanliste.length === 0))
+    {
+        calisanliste = Array.from({ length: 12 }, () => ({ a: "", u: "" }));
     }
     let isyeriismi = isyeri.fi;
     let toplamsaat = isgegitimveri.saat || "1";
