@@ -1408,6 +1408,7 @@ async function acildurumsayfaacilis()
             data: acldurumekiplistesijson,
             ordering: false,
             dom: 't',
+            pageLength: -1,
             columns:
             [
                 { title: "Ad Soyad", data: "ad", orderable: false },
@@ -1432,6 +1433,7 @@ async function acildurumsayfaacilis()
             data: acildurumliste,
             ordering: false,
             dom: 't',
+            pageLength: -1,
             columns: [{ title: "Acil Durum Plan Konuları", data: "ad", orderable: false }],
             createdRow: row => $(row).find('td').eq(0).css('text-align', 'left'),
             headerCallback: thead => $(thead).find('th').css('text-align', 'center')
@@ -1550,6 +1552,7 @@ async function acildurumsayfaacilis()
             data: acildurumgooglelink,
             ordering: false,
             dom: 't',
+            pageLength: -1,
             columns:
             [
                 { title: "Acil Durum Müdahale Yöntemleri", data: "acildurum", orderable: false },
@@ -2833,6 +2836,7 @@ function hekimtanimlamaload()
     ({
         data: data,
         dom: 't',
+        pageLength: -1,
         ordering: false,
         columns:
         [
@@ -3202,6 +3206,7 @@ function excelleduzenleload2()
             data: data,
             order: [[0, 'asc']],
             dom: 't',
+            pageLength: -1,
             language: {zeroRecords: "Bulunamadı", emptyTable: "Bulunamadı"},
             columns:
             [
@@ -3544,6 +3549,7 @@ function kurulgorevlendirmeload()
     ({
         data: jsonData,
         dom: 't',
+        pageLength: -1,
         ordering: false,
         columns:
         [
@@ -3558,6 +3564,7 @@ function kurulgorevlendirmeload()
     ({
         data: unvanlar.map(u => [u, '']),
         dom: 't',
+        pageLength: -1,
         ordering: false,
         columns:
         [
@@ -3722,6 +3729,7 @@ function evrakkayitisyeritablo1(hangitablo)
     $(hangitablo).DataTable
     ({
         dom: 't',
+        pageLength: -1,
         order: false,
         columns:[{width:"25%",orderable:false},{width:"75%",orderable:false}],
         createdRow: function (row) { $(row).find('td').eq(0).css('text-align', 'left'); $(row).find('td').eq(1).css('text-align', 'center');},
@@ -3733,6 +3741,7 @@ function evrakkayitisyeritablo2(hangitablo)
     $(hangitablo).DataTable
     ({
         dom: 't',
+        pageLength: -1,
         order: false,
         columns:[{width:"25%",orderable:false},{width:"31%",orderable:false},{width:"31%",orderable:false},{width:"13%",orderable:false}],
         createdRow: function (row) { $(row).find('td').eq(0).css('text-align', 'left');},
@@ -4960,6 +4969,7 @@ function kkdsablontablo(kkdjsonsecim)
         data: jsonliste,
         ordering: false,
         dom: 't',
+        pageLength: -1,
         language:{zeroRecords:"Eklenmiş Kişisel Koruyucu Donanım Yok",infoEmpty:"Eklenmiş Kişisel Koruyucu Donanım Yok",emptyTable:"Eklenmiş Kişisel Koruyucu Donanım Yok"},
         columns:
         [
