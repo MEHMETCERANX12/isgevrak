@@ -3425,86 +3425,7 @@ function gorevlendirmeriskload()
     calisanjson.forEach(function(calisan){if(calisan.r==1){$('#DropDownList1').val(calisan.id);}else if(calisan.r==2){$('#DropDownList2').val(calisan.id);}else if(calisan.r==3){$('#DropDownList3').val(calisan.id);}});
     secimkontrolgorev();
 }
-function destekelemaniguncelle()
-{
-    let calisanjson = calisangetir();
-    calisanjson.forEach(c=>{if(c.r==1)c.r=0;});
-    const secilenId = $('#DropDownList1').val();
-    if (secilenId)
-    {
-        const eslesenCalisan = calisanjson.find(c => c.id == secilenId);
-        if (eslesenCalisan)
-        {
-            eslesenCalisan.r = 1;
-        }
-        else
-        {
-            return false;
-        }
-    }
-    else
-    {
-        return false;
-    }
-    $('#HiddenField1').val(JSON.stringify(calisanjson));    
-    secimkontrolgorev();
-    return true;
-}
-function temsilciguncelle()
-{
-    let calisanjson = calisangetir();
-    calisanjson.forEach(c=>{if(c.r==2)c.r=0;});
-    const secilenId = $('#DropDownList2').val();
-    if (secilenId)
-    {
-        const eslesenCalisan = calisanjson.find(c => c.id == secilenId);
-        if (eslesenCalisan)
-        {
-            eslesenCalisan.r = 2;
-        }
-        else
-        {
-            return false;
-        }
-    }
-    else
-    {
-        return false;
-    }
-    $('#HiddenField1').val(JSON.stringify(calisanjson));
-    secimkontrolgorev();
-    return true;
-}
-function bilgilicalisanguncelle()
-{
-    let calisanjson = calisangetir();
-    calisanjson.forEach(c=>{if(c.r==3)c.r=0;});
-    const secilenId = $('#DropDownList3').val();
-    if (secilenId)
-    {
-        const eslesenCalisan = calisanjson.find(c => c.id == secilenId);
-        if (eslesenCalisan) {
-            eslesenCalisan.r = 3;
-        }
-        else
-        {
-            return false;
-        }
-    }
-    else
-    {
-        return false;
-    }
-    $('#HiddenField1').val(JSON.stringify(calisanjson));
-    secimkontrolgorev();
-    return true;
-}
-function secimkontrolgorev()
-{
-    let secilenler={DropDownList1:$('#DropDownList1').val(),DropDownList2:$('#DropDownList2').val(),DropDownList3:$('#DropDownList3').val()};
-    ['#DropDownList1','#DropDownList2','#DropDownList3'].forEach(function(ddlId){$(ddlId+' option').prop('disabled',false);});
-    Object.entries(secilenler).forEach(([ddlName,secilenId])=>{if(secilenId){['DropDownList1','DropDownList2','DropDownList3'].forEach(otherDDL=>{if(otherDDL!==ddlName){$(`#${otherDDL} option`).each(function(){if($(this).val()===secilenId){$(this).prop('disabled',true);}});}});}});
-}
+
 function riskdegerlendirmepdfyazdir()
 {
     let calisanjson = calisangetir();
@@ -5904,3 +5825,53 @@ function acildurumdevam1()
 }
 
 function tarihkontrol(t) { var r = /^(\d{2})\.(\d{2})\.(\d{4})$/; if (!r.test(t)) return false; var p = t.match(r), d = parseInt(p[1], 10), m = parseInt(p[2], 10), y = parseInt(p[3], 10), o = new Date(y, m - 1, d); return o.getFullYear() === y && o.getMonth() === m - 1 && o.getDate() === d }
+
+function secimkontrolgorev()
+{
+    let secilenler = { DropDownList1: $('#DropDownList1').val(), DropDownList2: $('#DropDownList2').val(), DropDownList3: $('#DropDownList3').val()};
+    ['#DropDownList1','#DropDownList2','#DropDownList3'].forEach(function(ddlId){ $(ddlId + ' option').prop('disabled', false);});
+    Object.entries(secilenler).forEach(([ddlName,secilenId])=>{if(secilenId&&secilenId!==""){['DropDownList1','DropDownList2','DropDownList3'].forEach(otherDDL=>{if(otherDDL!==ddlName){$(`#${otherDDL} option`).each(function(){if($(this).val()===secilenId){$(this).prop('disabled',true);}});}});}});
+}
+function temsilciguncelle()
+{
+    let calisanjson = calisangetir();
+    calisanjson.forEach(c => { if (c.r == 2) c.r = 0; });
+    const secilenId = $('#DropDownList2').val();
+    if (secilenId && secilenId !== "")
+    {
+        const eslesenCalisan = calisanjson.find(c => c.id == secilenId);
+        if (eslesenCalisan) { eslesenCalisan.r = 2; }
+    }
+    $('#HiddenField1').val(JSON.stringify(calisanjson));
+    secimkontrolgorev();
+    return true;
+}
+function bilgilicalisanguncelle()
+{
+    let calisanjson = calisangetir();
+    calisanjson.forEach(c => { if (c.r == 3) c.r = 0; });
+    const secilenId = $('#DropDownList3').val();
+    if (secilenId && secilenId !== "")
+    {
+        const eslesenCalisan = calisanjson.find(c => c.id == secilenId);
+        if (eslesenCalisan) { eslesenCalisan.r = 3; }
+    }
+    $('#HiddenField1').val(JSON.stringify(calisanjson));
+    secimkontrolgorev();
+    return true;
+}
+function destekelemaniguncelle()
+{
+    let calisanjson = calisangetir();
+    calisanjson.forEach(c => { if (c.r == 1) c.r = 0; });
+    const secilenId = $('#DropDownList1').val();
+    if (secilenId && secilenId !== "")
+    {
+        const eslesenCalisan = calisanjson.find(c => c.id == secilenId);
+        if (eslesenCalisan) { eslesenCalisan.r = 1;}
+    }
+    $('#HiddenField1').val(JSON.stringify(calisanjson));
+    secimkontrolgorev();
+    return true;
+}
+
