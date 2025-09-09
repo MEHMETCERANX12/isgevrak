@@ -5879,6 +5879,7 @@ function kkdsablonduzenleload2()
 {
     let veri = store.get("jsonkkdsablonsecim");
     veri = jsoncevir(veri);
+    $('#kkdad').val(veri[0].ad);
     veri = veri[0].x.map(item => ({...item, i: metinuret(3)}));
     store.set("kkdjsonsecim", veri);
     kkdsablontablo(veri);
