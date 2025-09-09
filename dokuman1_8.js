@@ -5875,3 +5875,98 @@ function destekelemaniguncelle()
     return true;
 }
 
+function kkdsablonduzenleload2()
+{
+    let veri = store.get("jsonkkdsablonsecim");
+    veri = jsoncevir(veri);
+    veri = veri[0].x.map(item => ({...item, i: metinuret(3)}));
+    store.set("kkdjsonsecim", veri);
+    kkdsablontablo(veri);
+    fetch("https://cdn.jsdelivr.net/gh/MEHMETCERANX12/isgevrak@main/kkd.json").then(response => response.json()).then(data =>
+    {
+        store.set("kkdjsonveri", data);
+        let kkdjson = data;
+        kkdjson.sort((a, b) => a.sira - b.sira);
+        let table = $('#tablo').DataTable
+        ({
+            data: kkdjson,
+            pageLength: -1,
+            ordering: false,
+            dom: 't',
+            columns:
+            [
+                { data: "tur", title: "KKD Adı"},
+                { data: "aciklama", title: "Açıklama"},
+                { data: null, title:"Ekle",render:(d,t,r)=>`<input type="button" class="cssbutontamam" value="Ekle" data-id="${r.i}" onclick="kkdsablonekle(this);"/>`}
+            ],
+            createdRow:function(r){$(r).find("td").eq(0).css("text-align","left");$(r).find("td").eq(1).css("text-align","left");},
+            headerCallback: function (thead) { $(thead).find('th').css('text-align', 'center');}
+        });
+        $('#kkdselect').on('change', function ()
+        {
+            const secilen = $(this).val();
+            const index = this.selectedIndex;
+            if (index === 0)
+            {
+                table.clear().rows.add(kkdjson).draw();
+            }
+            else
+            {
+                const filtreli = kkdjson.filter(item => item.tur === secilen);
+                table.clear().rows.add(filtreli).draw();
+            }
+        });
+    })
+}
+function kkdsablonduzenlekaydet()
+{
+    const ad = $('#kkdad').val().trim();
+    if (ad.length < 3)
+    {
+        alertify.error("Lütfen en az 3 karakterden oluşan bir şablon adı giriniz.");
+        return false;
+    }
+    let mevcutliste = store.get("jsonkkdliste") || [];
+    if (typeof mevcutliste === "string")
+    {
+        try
+        {
+            mevcutliste = JSON.parse(mevcutliste);
+        }
+        catch
+        {
+            mevcutliste = [];
+        }
+    }
+    let yeniliste = [];
+    $('#kkdtablo tbody tr').each(function ()
+    {
+        const k = $(this).find('td:eq(0) input').val().trim();
+        const s = $(this).find('td:eq(1) input').val().trim();
+        const a = $(this).find('td:eq(2) input').val().trim();
+        yeniliste.push({ k, s, a });
+    });
+    /////////////////////////////////////////////////////
+    let secim = store.get("jsonkkdsablonsecim");
+    let kkdid = null;
+
+    if (Array.isArray(secim) && secim.length > 0)
+    {
+        kkdid = secim[0].id;
+    }
+    for (let i = 0; i < mevcutliste.length; i++)
+    {
+        if (mevcutliste[i].id === kkdid) {
+            mevcutliste[i].ad = ad;
+            mevcutliste[i].x = yeniliste;
+            store.set(
+                "jsonkkdsablonsecim",
+                JSON.stringify([{ id: mevcutliste[i].id, ad: mevcutliste[i].ad, x: yeniliste }])
+            );
+            break;
+        }
+    }
+    $('#HiddenField1').val(JSON.stringify(mevcutliste));
+    store.set("jsonkkdliste", JSON.stringify(mevcutliste));
+    return true;
+}
