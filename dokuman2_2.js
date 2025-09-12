@@ -6016,7 +6016,6 @@ function acilisverisianasayfa()
         store.set("uzmanno", uzman[0].un);
         store.set("uzmankurum", uzman[0].kr);
         store.set("ayar", $("#HiddenField3").val());
-        store.set("kullanicix", $("#kullanici").val());
     }
 }
 function duyuruicerikanasayfa()
