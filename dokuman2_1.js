@@ -4666,8 +4666,7 @@ function temelisgegitim1load()
         $('#saat').val(saatMap[saatSec]);
     }
     const firmaid = store.get('xfirmaid');
-    let ayar = store.get('ayar') || [];
-    if (!Array.isArray(ayar)) ayar = [];
+    let ayar = jsoncevir(store.get('ayar'));
     const mevcut = ayar.find(obj => obj.id === firmaid);
     if (mevcut && mevcut.e)
     {
