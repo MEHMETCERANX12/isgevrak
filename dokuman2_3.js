@@ -6065,3 +6065,22 @@ function datepickerjquery(input)
     $(input).datepicker();
     setTimeout(function () {$(input).datepicker("show");}, 10);
 }
+
+function riskdegerlendirmecikti1()
+{
+    let firmaid = firmasecimoku();
+    let tarih = $('#tarih').val().trim()
+    if (tarihkontrol(tarih) === false)
+    {
+        alertify.error("Lütfen geçerli bir tarih giriniz");
+        return;
+    }
+    store.set("riskdegerlendirmetarih", tarih);
+    var kapaksecim = $('#kapaksecim')[0].selectedIndex + 1;
+    store.set("riskdegerlendirmetarih", tarih);
+    store.set("riskkapaksecim", kapaksecim);
+    window.location.href = "riskdegerlendirmecikti2.aspx?id=" + encodeURIComponent(firmaid);
+}
+
+function tarihkontrol(t) { var r = /^(\d{2})\.(\d{2})\.(\d{4})$/; if (!r.test(t)) return false; var p = t.match(r), d = parseInt(p[1], 10), m = parseInt(p[2], 10), y = parseInt(p[3], 10), o = new Date(y, m - 1, d); return o.getFullYear() === y && o.getMonth() === m - 1 && o.getDate() === d }
+
