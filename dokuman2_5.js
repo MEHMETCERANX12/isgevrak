@@ -6211,3 +6211,441 @@ function riskdegerlendirmecikti2devam()
         return true;
     }
 }
+
+function riskdosyajsonindir()
+{
+    let calisanjson = jsoncevir($("#HiddenField2").val());
+    calisanjson = calisanjson.filter(kisi => kisi.r !== 0);
+    let isyeri = store.get('xjsonfirma');
+    let uzmanad = store.get("uzmanad");
+    let uzmanno = store.get("uzmanno");
+    let risktarih = store.get("riskdegerlendirmetarih");
+    let kapaksecim = store.get("riskkapaksecim");
+    isyeri = [jsoncevir(isyeri)];
+    isyeri = isyeri.map(item => ({ ...item, uzmanad: uzmanad, uzmanno: uzmanno, tarih: risktarih, kapak: kapaksecim }));
+    let riskjson = jsoncevir($("#HiddenField1").val());
+    let jsonindir = { isyerijson: isyeri, calisanjson: calisanjson, riskjson: riskjson };
+    let jsonBlob = new Blob([JSON.stringify(jsonindir, null, 2)], { type: "application/json;charset=utf-8" });
+    let jsonid = metinuret(3);
+    saveAs(jsonBlob, "Risk Değerlendirmesi - " + jsonid + ".json");
+}
+
+async function riskdegerlendirmepdfyazdir()
+{
+    let riskisekipmanikontrollistesi = [{"k":"Buhar ve kızgın su kazanları","x1":"0","x2":"0","x3":"1","x4":"1","x5":"1","x6":"0"},{"k":"Isıtma (Kalorifer, sıcak su vb.) kazanlar","x1":"0","x2":"0","x3":"1","x4":"1","x5":"1","x6":"0"},{"k":"Basınçlı hava ve gaz tankları ","x1":"0","x2":"0","x3":"1","x4":"1","x5":"1","x6":"0"},{"k":"Otoklav","x1":"0","x2":"0","x3":"1","x4":"1","x5":"1","x6":"0"},{"k":"Kapalı genleşme tankları (Hidrofor vb.)","x1":"0","x2":"0","x3":"1","x4":"1","x5":"1","x6":"0"},{"k":"Vinçler ve kaldırma teçhizatları","x1":"0","x2":"0","x3":"1","x4":"1","x5":"0","x6":"0"},{"k":"Forklift, Transpalet, Elektrikli Lift","x1":"0","x2":"0","x3":"1","x4":"1","x5":"0","x6":"0"},{"k":"Yükseltilebilen seyyar iş platformları","x1":"0","x2":"0","x3":"1","x4":"1","x5":"0","x6":"0"},{"k":"Yük asansörleri","x1":"0","x2":"0","x3":"1","x4":"1","x5":"0","x6":"0"},{"k":"İnşaat asansörleri","x1":"0","x2":"0","x3":"1","x4":"1","x5":"0","x6":"0"},{"k":"Sapanlar, vakumlu kaldırıcılar","x1":"0","x2":"0","x3":"1","x4":"1","x5":"0","x6":"0"},{"k":"Yapı iskeleleri","x1":"0","x2":"0","x3":"1","x4":"0","x5":"0","x6":"1"},{"k":"Seyyar iskeleler","x1":"0","x2":"0","x3":"0","x4":"0","x5":"0","x6":"0"},{"k":"Elektrik tesisatı ve topraklama tesisatı","x1":"1","x2":"1","x3":"0","x4":"0","x5":"0","x6":"0"},{"k":"Yıldırımdan korunma tesisatı","x1":"1","x2":"0","x3":"0","x4":"0","x5":"0","x6":"0"},{"k":"Orta veya Yüksek Gerilim Trafo","x1":"1","x2":"0","x3":"0","x4":"0","x5":"0","x6":"0"},{"k":"Jeneratör","x1":"1","x2":"0","x3":"0","x4":"0","x5":"0","x6":"0"},{"k":"Yangın algılama ve uyarı sistemleri","x1":"1","x2":"1","x3":"0","x4":"0","x5":"0","x6":"0"},{"k":"Yangın söndürme sistemleri","x1":"0","x2":"0","x3":"1","x4":"0","x5":"0","x6":"0"},{"k":"Portatif yangın söndürücüler","x1":"0","x2":"0","x3":"1","x4":"0","x5":"0","x6":"0"},{"k":"Havalandırma ve klima tesisatı","x1":"0","x2":"0","x3":"1","x4":"0","x5":"0","x6":"0"},{"k":"Tezgahlar(Pres, İşleme merkezleri vb.)","x1":"0","x2":"0","x3":"1","x4":"1","x5":"0","x6":"0"},{"k":"Endüstriyel raflar","x1":"0","x2":"0","x3":"1","x4":"1","x5":"0","x6":"0"},{"k":"Endüstriyel kapılar","x1":"0","x2":"0","x3":"1","x4":"1","x5":"0","x6":"0"},{"k":"Kazıcı yükleyici (JCB, Beko Loder)","x1":"0","x2":"0","x3":"1","x4":"1","x5":"0","x6":"0"},{"k":"Damperli kamyonlar","x1":"0","x2":"0","x3":"1","x4":"1","x5":"0","x6":"0"},{"k":"Greyderler","x1":"0","x2":"0","x3":"1","x4":"1","x5":"0","x6":"0"},{"k":"Sondaj makinaları","x1":"0","x2":"0","x3":"1","x4":"1","x5":"0","x6":"0"}];
+    let calisanjson = jsoncevir($("#HiddenField2").val());
+    calisanjson = calisanjson.filter(kisi => kisi.r !== 0).sort((a, b) => a.r - b.r).map(kisi => ({ ...kisi, riskekipbolum: kisi.r === 1 ? "Destek Elemanı" : kisi.r === 2 ? "Çalışan Temsilcisi" : kisi.r === 3 ? "Bilgi Sahibi Çalışan" : "" }));
+    let destekelemanad = "";
+    let calisatemsilcisiad = "";
+    let bilgisahibicalisanad = "";
+    let destekunvan = "";
+    let temsilciunvan = "";
+    let bilgisahibiunvan = "";
+    for (let kisi of calisanjson) {
+        if (kisi.r === 1) {
+            destekelemanad += (destekelemanad ? ", " : "") + kisi.ad;
+            destekunvan = "Destek Elemanı";
+        }
+        else if (kisi.r === 2) {
+            calisatemsilcisiad += (calisatemsilcisiad ? ", " : "") + kisi.ad;
+            temsilciunvan = "Çalışan Temsilcisi";
+        }
+        else if (kisi.r === 3) {
+            bilgisahibicalisanad += (bilgisahibicalisanad ? ", " : "") + kisi.ad;
+            bilgisahibiunvan = "Bilgi Sahibi Çalışan";
+        }
+    }
+    let isyeri = jsoncevir(store.get('xjsonfirma'));
+    let isyeriismi = isyeri.fi;
+    let isyeriadresi = isyeri.ad;
+    let sgksicilno = isyeri.sc;
+    let isyerisehir = isyeri.sh;
+    let isveren = isyeri.is;
+    let hekimad = isyeri.hk;
+    var tehlikesinifimap = { 1: "Az Tehlikeli", 2: "Tehlikeli", 3: "Çok Tehlikeli" };
+    let tehlikeno = parseInt(isyeri.ts);
+    let tehlikesinifi = tehlikesinifimap[isyeri.ts];
+    let uzmanad = store.get("uzmanad");
+    let tumkisiler = isveren + " - " + "İşveren Vekili / " + uzmanad + " - İş Güvenliği Uzmanı / " + hekimad + " - İşyeri Hekimi / ";
+    for (let kisi of calisanjson)
+    {
+        tumkisiler = tumkisiler + kisi.ad + " - " + kisi.riskekipbolum + " / ";
+    }
+    tumkisiler = tumkisiler.slice(0, -3);
+    let riskdegerlendirmetarih = store.get("riskdegerlendirmetarih");
+    let riskgecerlilik = acildurumgecerlilik(riskdegerlendirmetarih, tehlikeno);
+    let kapakyil = riskdegerlendirmetarih.split('.')[2];
+    let kapak = store.get("riskkapaksecim");
+    let isyeribaslik = isyeribaslikayar(parseInt(kapak), isyeriismi);
+    let ustbaslik = "";
+    let altbaslik = "";
+    if (isyeribaslik)
+    {
+        ustbaslik = isyeribaslik.ustbaslik.toLocaleUpperCase("tr-TR");
+        altbaslik = isyeribaslik.altbaslik.toLocaleLowerCase('tr-TR').split(' ').map(w => w.charAt(0).toLocaleUpperCase('tr-TR') + w.slice(1)).join(' ');
+    }
+    function pdfcerceve() { var l = 30, t = 30, r = 30, b = 30, w = 595 - l - r, h = 842 - t - b; return { canvas: [{ type: "rect", x: l, y: t, w: w, h: h, lineWidth: 1, lineColor: "#000" }] } }
+    function clone(obj) { return JSON.parse(JSON.stringify(obj));}
+    /////////////////////////////////////////////////////////////////
+    const riskekiptablo =
+    {
+        table:
+        {
+            widths: ['35%', '35%', '30%'],
+            body:
+            [
+                [
+                    { text: 'RİSK DEĞERLENDİRME EKİBİ', colSpan: 3, style: 'baslikorta', margin: [0, 5, 0, 5] },
+                    {},
+                    {}
+                ],
+                [
+                    { text: 'Adı Soyadı', style: 'baslikorta', margin: [0, 5, 0, 5] },
+                    { text: 'Ekip Görevi', style: 'baslikorta', margin: [0, 5, 0, 5] },
+                    { text: 'İmza', style: 'baslikorta', margin: [0, 5, 0, 5] },
+                ],
+                [
+                    { text: isveren, style: 'normalsol', margin: [2, 20, 0, 20] },
+                    { text: 'İşveren Vekili', style: 'normalsol', margin: [2, 20, 0, 20] },
+                    { text: '' }
+                ],
+                [
+                    { text: uzmanad, style: 'normalsol', margin: [2, 20, 0, 20] },
+                    { text: 'İş Güvenliği Uzmanı', style: 'normalsol', margin: [2, 20, 0, 20] },
+                    { text: '' }
+                ],
+                [
+                    { text: hekimad, style: 'normalsol', margin: [2, 20, 0, 20] },
+                    { text: 'İşyeri Hekimi', style: 'normalsol', margin: [2, 20, 0, 20] },
+                    { text: '' }
+                ],
+                ...calisanjson.map(item =>
+                [
+                    { text: item.ad, style: 'normalsol', margin: [2, 20, 0, 20] },
+                    { text: item.riskekipbolum, style: 'normalsol', margin: [2, 20, 0, 20] },
+                    { text: '' }
+                ])
+            ]
+        },
+    };
+    const riskekipimza =
+    {
+        table:
+        {
+            widths: ['33%', '33%', '34%'],
+            body:
+            [
+                [
+                    { text: uzmanad, style: 'imzaad', margin: [0, 0, 0, 0] },
+                    { text: isveren, style: 'imzaad', margin: [0, 0, 0, 0] },
+                    { text: hekimad, style: 'imzaad', margin: [0, 0, 0, 0] }
+                ],
+                [
+                    { text: 'İş Güvenliği Uzmanı', style: 'imzaunvan', margin: [0, 0, 0, 85] },
+                    { text: 'İşveren Vekili', style: 'imzaunvan', margin: [0, 0, 0, 85] },
+                    { text: 'İşyeri Hekimi', style: 'imzaunvan', margin: [0, 0, 0, 85] }
+                ],
+                [
+                    { text: destekelemanad, style: 'imzaad', margin: [0, 0, 0, 0] },
+                    { text: calisatemsilcisiad, style: 'imzaad', margin: [0, 0, 0, 0] },
+                    { text: bilgisahibicalisanad, style: 'imzaad', margin: [0, 0, 0, 0] }
+                ],
+                [
+                    { text: destekunvan, style: 'imzaunvan', margin: [0, 0, 0, 0] },
+                    { text: temsilciunvan, style: 'imzaunvan', margin: [0, 0, 0, 0] },
+                    { text: bilgisahibiunvan, style: 'imzaunvan', margin: [0, 0, 0, 0] }
+                ]
+            ]
+        },
+        layout: 'noBorders',
+    };
+    const finekinneyskor =
+    {
+        table:
+        {
+            widths: ['25%', '25%', '50%'],
+            body:
+            [
+                [
+                    { text: "ŞİDDET", bold: true, color: "white", fillColor: "#808080", alignment: "center", fontSize: 14, margin: [0, 4, 0, 4]},
+                    { text: "FREKANS", bold: true, color: "white", fillColor: "#808080", alignment: "center", fontSize: 14, margin: [0, 4, 0, 4] },
+                    { text: "OLASILIK", bold: true, color: "white", fillColor: "#808080", alignment: "center", fontSize: 14, margin: [0, 4, 0, 4] }
+                ],
+                [
+                    { text: "100 - Birden Fazla Ölüm", alignment: "left", fontSize: 11, margin: [0, 2, 0, 2]},
+                    { text: "10 - Saatte Birden Fazla", alignment: "left", fontSize: 11, margin: [0, 2, 0, 2]},
+                    { text: "10 - Çok Yüksek - Kesinlikle Olur", alignment: "left", fontSize: 11, margin: [0, 2, 0, 2]},
+                ],
+                [
+                    { text: "40 - Ölüm", alignment: "left", fontSize: 11, margin: [0, 2, 0, 2]},
+                    { text: "6 - Günde Birden Fazla", alignment: "left", fontSize: 11, margin: [0, 2, 0, 2]},
+                    { text: "6 - Yüksek - Sıklıkla Olur", alignment: "left", fontSize: 11, margin: [0, 2, 0, 2]},
+                ],
+                [
+                    { text: "15 - Uzuv Kaybı / Kalıcı Yaralanma", alignment: "left", fontSize: 11, margin: [0, 2, 0, 2]},
+                    { text: "3 - Haftada Birkaç Kez", alignment: "left", fontSize: 11, margin: [0, 2, 0, 2]},
+                    { text: "3 - Olası - Bazen Olur", alignment: "left", fontSize: 11, margin: [0, 2, 0, 2]},
+                ],
+                [
+                    { text: "7 - Tedavi Gerektiren Yaralanma", alignment: "left", fontSize: 11, margin: [0, 2, 0, 2]},
+                    { text: "2 - Ayda Birkaç Kez", alignment: "left", fontSize: 11, margin: [0, 2, 0, 2]},
+                    { text: "1 - Düşük - Nadiren Olur", alignment: "left", fontSize: 11, margin: [0, 2, 0, 2]},
+                ],
+                [
+                    { text: "3 - İlk Yardım Seviyesinde Yaralanma", alignment: "left", fontSize: 11, margin: [0, 2, 0, 2]},
+                    { text: "1 - Yılda Birkaç Kez", alignment: "left", fontSize: 11, margin: [0, 2, 0, 2]},
+                    { text: "0,5 - Çok Düşük - Nadir Ama Mümkün", alignment: "left", fontSize: 11, margin: [0, 2, 0, 2]},
+                ],
+                [
+                    { text: "1 - Ucuz Atlatma", alignment: "left", fontSize: 11, margin: [0, 2, 0, 2]},
+                    { text: "0,5 - Çok Seyrek", alignment: "left", fontSize: 11, margin: [0, 2, 0, 2]},
+                    { text: "0,2 - Normal Şartlarda Olmaz Ama Mümkün", alignment: "left", fontSize: 11, margin: [0, 2, 0, 2]},
+                ],
+                [
+                    { text: "RİSK SKORU", bold: true, color: "white", fillColor: "#808080", alignment: "center", fontSize: 14, margin: [0, 4, 0, 4]},
+                    { text: "RİSK SEVİYESİ", bold: true, color: "white", fillColor: "#808080", alignment: "center", fontSize: 14, margin: [0, 4, 0, 4]},
+                    { text: "DÜZELTİCİ FAALİYET PLANI", bold: true, color: "white", fillColor: "#808080", alignment: "center", fontSize: 14, margin: [0, 4, 0, 4]},
+                ],
+                [
+                    { text: "R > 400", alignment: "left", fontSize: 11, margin: [0, 2, 0, 2]},
+                    { text: "Tolere Edilemez Risk", alignment: "left", fontSize: 11, margin: [0, 2, 0, 2]},
+                    { text: "Derhal Önlem Alınmalı. Tehlikeli Faaliyet Durdurulmalıdır.", alignment: "left", fontSize: 11, margin: [0, 2, 0, 2]},
+                ],
+                [
+                    { text: "400 ≥ R > 200", alignment: "left", fontSize: 11, margin: [0, 2, 0, 2]},
+                    { text: "Yüksek Risk", alignment: "left", fontSize: 11, margin: [0, 2, 0, 2]},
+                    { text: "En Kısa Sürede (Birkaç Ay İçinde) Düzeltici Faaliyet Uygulanmalıdır.", alignment: "left", fontSize: 11, margin: [0, 2, 0, 2]},
+                ],
+                [
+                    { text: "200 ≥ R > 70", alignment: "left", fontSize: 11, margin: [0, 2, 0, 2]},
+                    { text: "Önemli Risk", alignment: "left", fontSize: 11, margin: [0, 2, 0, 2]},
+                    { text: "Uzun Vadede (Yıl İçinde) İyileştirme Yapılmalıdır. Eylem Planına Alınmalıdır.", alignment: "left", fontSize: 11, margin: [0, 2, 0, 2]},
+                ],
+                [
+                    { text: "70 ≥ R > 20", alignment: "left", fontSize: 11, margin: [0, 2, 0, 2]},
+                    { text: "Olası Risk", alignment: "left", fontSize: 11, margin: [0, 2, 0, 2]},
+                    { text: "Gözetim Altında Tutulmalı, Takip Edilmeli, Eylem Planına Dâhil Edilmelidir.", alignment: "left", fontSize: 11, margin: [0, 2, 0, 2]},
+                ],
+                [
+                    { text: "20 ≥ R", alignment: "left", fontSize: 11, margin: [0, 2, 0, 2]},
+                    { text: "Kabul Edilebilir Risk", alignment: "left", fontSize: 11, margin: [0, 2, 0, 2]},
+                    { text: "Mevcut Kontroller Risk Sürdürülebilir.", alignment: "left", fontSize: 11, margin: [0, 2, 0, 2]},
+                ],
+            ]
+        },
+    };
+    let sayfa1 =
+    [
+        { text: ustbaslik, style: 'kapakust', margin: [0, 10, 0, 5] },
+        { text: altbaslik, style: 'kapakalt', margin: [0, 0, 0, 295] },
+        { text: 'RİSK DEĞERLENDİRMESİ', style: 'kapakust', margin: [0, 0, 0, 350] },
+        { text: isyerisehir + " - " + kapakyil, style: 'kapakyil', margin: [0, 0, 0, 10] },
+    ];
+    let sayfa2 =
+    [
+        { text: "RİSK DEĞERLENDİRME EKİBİ GÖREVLENDİRME FORMU", style: 'baslikorta', margin: [0, 0, 0, 15] },
+        { text: "İşyeri Unvanı: " + isyeriismi, style: 'normal', margin: [35, 0, 0, 5] },
+        { text: "İşyeri Adresi: " + isyeriadresi, style: 'normal', margin: [35, 0, 0, 5] },
+        { text: "İşyeri Sicil No: " + sgksicilno, style: 'normal', margin: [35, 0, 0, 10] },
+        { text: "\u200B\t\u200B\t\u200B\tYukarıda belirtilen işyeri ve adreste, 6331 Sayılı İş Sağlığı ve Güvenliği Kanunu kapsamında iş sağlığı ve güvenliğiyle ilgili risk değerlendirmesi çalışmalarının yürütülmesi amacıyla, aşağıda bilgileri yer alan kişilerin risk değerlendirme ekibinde görevlendirilmesine ve söz konusu risk değerlendirmesinin bu ekip tarafından hazırlanmasına karar verilmiştir.", style: 'normal', margin: [0, 0, 0, 10]},
+    ];
+    sayfa2.push(riskekiptablo);
+    let sayfa3 =
+    [
+        { text: "RİSK DEĞERLENDİRME BİLGİLERİ", style: 'baslikorta', margin: [0, 10, 0, 10] },
+        { text: "İşyeri Unvanı", style: 'kalin', margin: [0, 3, 0, 3]},
+        { text: isyeriismi, style: 'normalsol', margin: [0, 3, 0, 3]},
+        { text: "İşyeri Adresi", style: 'kalin', margin: [0, 3, 0, 3]},
+        { text: isyeriadresi, style: 'normalsol', margin: [0, 3, 0, 3]},
+        { text: "İşyeri SGK Sicil Numarası", style: 'kalin', margin: [0, 3, 0, 3]},
+        { text: sgksicilno, style: 'normalsol', margin: [0, 3, 0, 3]},
+        { text: "İşveren Vekili Adı Soyadı", style: 'kalin', margin: [0, 3, 0, 3]},
+        { text: isveren, style: 'normalsol', margin: [0, 3, 0, 3]},
+        { text: "Risk Değerlendirme Tarihi", style: 'kalin', margin: [0, 3, 0, 3]},
+        { text: riskdegerlendirmetarih, style: 'normalsol', margin: [0, 3, 0, 3]},
+        { text: "Risk Değerlendirme Son Geçerlilik Tarihi", style: 'kalin', margin: [0, 3, 0, 3]},
+        { text: riskgecerlilik, style: 'normalsol', margin: [0, 3, 0, 3]},
+        { text: "Tehlike Sınıfı", style: 'kalin', margin: [0, 3, 0, 3]},
+        { text: tehlikesinifi, style: 'normalsol', margin: [0, 3, 0, 3]},
+        { text: "Risk Değerlendirmesini Gerçekleştiren Kişiler", style: 'kalin', margin: [0, 3, 0, 3]},
+        { text: tumkisiler, style: 'normal', mmargin: [0, 3, 0, 3]},
+        { text: "Risk Değerlendirme Metodu", style: 'kalin', margin: [0, 3, 0, 3]},
+        { text: "Fine Kinney", style: 'normalsol', margin: [0, 3, 0, 50] }
+    ];
+    sayfa3.push(clone(riskekipimza));
+    let sayfa4 =
+    [
+        { text: "\u200B\t\u200B\t\u200B\t1. AMAÇ", style: "basliksol", margin: [0, 0, 0, 10]},
+        { text: "\u200B\t\u200B\t\u200B\tTehlikeleri Belirlemek", style: "basliksol", margin: [0, 0, 0, 5]},
+        { text: "\u200B\t\u200B\t\u200B\tRisk değerlendirmesi, iş yerinde mevcut olan veya ortaya çıkma ihtimali bulunan tehlikelerin sistematik olarak tanımlanmasıdır. Tehlike, çalışanların sağlığına veya güvenliğine zarar verebilecek her türlü kaynak, durum ya da faaliyet anlamına gelir.", style: "normal", margin: [0, 0, 0, 5] },
+        { text: "\u200B\t\u200B\t\u200B\tBu kapsamda, fiziksel tehlikeler, kimyasal tehlikeler, biyolojik tehlikeler, ergonomik tehlikeler, psikososyal tehlikeler, çevresel tehlikeler (ısı, nem, gürültü, aydınlatma, havalandırma vb.), davranışsal tehlikeler (yetersiz eğitim, dikkatsizlik, kişisel koruyucu donanım kullanmama) ve benzeri unsurlar dikkatle gözden geçirilir.", style: "normal", margin: [0, 0, 0, 5] },
+        { text: "\u200B\t\u200B\t\u200B\tTehlikelerin belirlenmesi için işyeri çalışma ortamı, çalışanların görüş ve önerileri, iş kazası ve meslek hastalıkları verileri, kontrol listeleri ve standartlar gibi araçlardan faydalanılır.", style: "normal", margin: [0, 0, 0, 5] },
+        { text: "\u200B\t\u200B\t\u200B\tRiskleri Değerlendirmek", style: "basliksol", margin: [0, 0, 0, 5] },
+        { text: "\u200B\t\u200B\t\u200B\tBelirlenen tehlikelerin, çalışanlara ve iş yerine yönelik oluşturduğu riskler, yani olası zararların şiddeti ve bu zararların meydana gelme olasılığı değerlendirilir.", style: "normal", margin: [0, 0, 0, 5] },
+        { text: "\u200B\t\u200B\t\u200B\tBu değerlendirme sürecinde:", style: "normal", margin: [0, 0, 0, 5] },
+        { text: "\u200B\t\u200B\t\u200B\t• Olası kaza senaryoları düşünülür,", style: "normal", margin: [0, 0, 0, 5] },
+        { text: "\u200B\t\u200B\t\u200B\t• Tehlikenin etkileyebileceği kişi sayısı ve etki alanı analiz edilir,", style: "normal", margin: [0, 0, 0, 5] },
+        { text: "\u200B\t\u200B\t\u200B\t• Olayın meydana gelme sıklığı ve geçmişte yaşanmış benzer olaylara bakılır.", style: "normal", margin: [0, 0, 0, 5] },
+        { text: "\u200B\t\u200B\t\u200B\tElde edilen sonuçlar, risklerin sıralanmasında ve hangi risklere öncelikle müdahale edileceğine rehberlik eder.", style: "normal", margin: [0, 0, 0, 5] },
+        { text: "\u200B\t\u200B\t\u200B\tÖnleyici Tedbirleri Planlamak", style: "basliksol", margin: [0, 0, 0, 5] },
+        { text: "\u200B\t\u200B\t\u200B\tRisk seviyesi kabul edilemez veya yüksek olan durumlarda, bu riskleri yok etmek veya kontrol altına almak amacıyla önleyici ve düzeltici tedbirler belirlenir. Alınan önlemlerin etkinliği düzenli olarak gözden geçirilmeli ve gerektiğinde güncellenmelidir. Tedbirlerin uygulanması sadece yazılı belgelerle sınırlı kalmamalı; sahada aktif olarak hayata geçirilmelidir.", style: "normal", margin: [0, 0, 0, 5] },
+        { text: "\u200B\t\u200B\t\u200B\t2. KAPSAM", style: "basliksol", margin: [0, 10, 0, 10] },
+        { text: "\u200B\t\u200B\t\u200B\tBu rapor, 6331 Sayılı İş Sağlığı ve Güvenliği Kanunun 10. ve 30. Maddelerine dayanılarak hazırlanan 29 Aralık 2012 tarihli, 28512 sayılı Resmi Gazetede yayımlanan “İş Sağlığı ve Güvenliği Risk Değerlendirmesi Yönetmeliği” çerçevesinde yapılan risk değerlendirme ve analizi çalışmalarını kapsamaktadır.", style: "normal", margin: [0, 0, 0, 5] },
+        { text: "\u200B\t\u200B\t\u200B\tÇalışma ortamının ve çalışanların sağlık ve güvenliğini sağlama, sürdürme ve geliştirme amacı ile iş sağlığı ve güvenliği yönünden risk değerlendirmesi yapılır. Risk değerlendirmesinin gerçekleştirilmiş olması; işverenin, işyerinde iş sağlığı ve güvenliğinin sağlanması yükümlülüğünü ortadan kaldırmaz.", style: "normal", margin: [0, 0, 0, 15] }
+    ];
+    sayfa4.push(clone(riskekipimza));
+    let sayfa5 =
+    [
+        { text: "\u200B\t\u200B\t\u200B\t3.TANIMLAR", style: "basliksol", margin: [0, 0, 0, 10]},
+        { text: "\u200B\t\u200B\t\u200B\tTehlike: İşyerinde var olan ya da dışarıdan gelebilecek, çalışanı veya işyerini etkileyebilecek zarar veya hasar verme potansiyelini,", style: "normal", margin: [0, 0, 0, 5]},
+        { text: "\u200B\t\u200B\t\u200B\tRisk: Tehlikeden kaynaklanacak kayıp, yaralanma ya da başka zararlı sonuç meydana gelme ihtimalini,", style: "normal", margin: [0, 0, 0, 5] },
+        { text: "\u200B\t\u200B\t\u200B\tRisk değerlendirmesi: İşyerinde var olan ya da dışarıdan gelebilecek tehlikelerin belirlenmesi, bu tehlikelerin riske dönüşmesine yol açan faktörler ile tehlikelerden kaynaklanan risklerin analiz edilerek derecelendirilmesi ve kontrol tedbirlerinin kararlaştırılması amacıyla yapılması gerekli çalışmaları,", style: "normal", margin: [0, 0, 0, 5] },
+        { text: "\u200B\t\u200B\t\u200B\tRiskin Derecelendirilmesi: Bir riskin olasılık ve şiddet düzeyine göre değerlendirilerek sayısal veya kategorik bir ölçekle önceliklendirilmesi işlemidir. Bu süreç, hangi risklere önce müdahale edileceğini belirlemede kullanılır.", style: "normal", margin: [0, 0, 0, 5] },
+        { text: "\u200B\t\u200B\t\u200B\tKabul edilebilir risk seviyesi: Tüm kontrol tedbirlerinin eksiksiz ve sürekli olarak uygulanması durumunda, söz konusu tehlikeli olayın oluşturabileceği riskin, yasal düzenlemelere ve işyerinin risk önleme politikasına uygun şekilde, kayıp veya yaralanma meydana getirmeyecek düzeye indirgenmiş halidir. Bu seviye, riske karşı alınan önlemlerin etkinliğini ortaya koyar ve yapılan değerlendirmede bu seviyenin altında kalan riskler, iş sağlığı ve güvenliği açısından kabul edilebilir olarak değerlendirilir. Ancak, risk seviyesi bu sınırın üzerindeyse kontrol tedbirleri gözden geçirilerek süreç yeniden başlatılır.", style: "normal", margin: [0, 0, 0, 5] },
+        { text: "\u200B\t\u200B\t\u200B\tÖnleme: İşyerinde yürütülen işlerin bütün safhalarında iş sağlığı ve güvenliği ile ilgili riskleri ortadan kaldırmak veya azaltmak için planlanan ve alınan tedbirlerin tümünü,", style: "normal", margin: [0, 0, 0, 5] },
+        { text: "\u200B\t\u200B\t\u200B\tTehlike kaynağı: Zarar verme potansiyeline sahip kişi, nesne, durum veya süreçtir.", style: "normal", margin: [0, 0, 0, 5] },
+        { text: "\u200B\t\u200B\t\u200B\tOlasılık: Bir tehlikenin, belirli şartlar altında zararlı bir olay meydana getirme ihtimalidir.", style: "normal", margin: [0, 0, 0, 5] },
+        { text: "\u200B\t\u200B\t\u200B\tŞiddet (Etkilenme düzeyi): Bir tehlike gerçekleştiğinde ortaya çıkacak sonucun büyüklüğünü veya ciddiyetini ifade eder.", style: "normal", margin: [0, 0, 0, 5] },
+        { text: "\u200B\t\u200B\t\u200B\tKontrol tedbiri: Riskleri ortadan kaldırmak veya kabul edilebilir seviyeye indirmek için uygulanan önlem veya önlemler bütünüdür.", style: "normal", margin: [0, 0, 0, 5] },
+        { text: "\u200B\t\u200B\t\u200B\tİkame: Tehlikeli bir madde, ekipman veya yöntemin daha az tehlikeli olanla değiştirilmesi işlemidir.", style: "normal", margin: [0, 0, 0, 5] },
+        { text: "\u200B\t\u200B\t\u200B\tKişisel Koruyucu Donanım: Çalışanı risklerden korumak amacıyla kullanılan, çalışana özel donanımlardır. Kişisel koruyucu donanımlar son çare olarak kullanılır ve riski tamamen ortadan kaldırmaz, sadece etkisini azaltır.", style: "normal", margin: [0, 0, 0, 5] },
+        { text: "\u200B\t\u200B\t\u200B\tİş kazası: Çalışanı bedenen veya ruhen zarara uğratan, ani ve dış etkilerle meydana gelen olaydır.", style: "normal", margin: [0, 0, 0, 5] },
+        { text: "\u200B\t\u200B\t\u200B\tMeslek hastalığı: Çalışanda mesleki risklere maruziyet sonucu ortaya çıkan hastalığı ifade eder.", style: "normal", margin: [0, 0, 0, 5] },
+        { text: "\u200B\t\u200B\t\u200B\tSorumlu - Görevli Kişi: Risk değerlendirmesinde belirlenen tehlikeli olaya karşı alınması gereken tedbirlerin kontrolü ve eksiklerin giderilmesi işverenin sorumluluğundadır. Sorumlu - Görevli kişi ise, bu eksikliklerin nasıl tamamlanacağını bilen ve sürece dâhil olan kişiyi ifade eder.", style: "normal", margin: [0, 0, 0, 20] },
+    ];
+    sayfa5.push(clone(riskekipimza));
+    let sayfa6 =
+    [
+        { text: "Kontrol Tedbirinin Tamamlanacağı Tarih: Risk değerlendirmesi sonucunda tespit edilen eksik veya yetersiz kontrol tedbirlerinin en geç uygulanması gereken tarihtir. Bu tarih, ilgili tedbirin zamanında hayata geçirilerek riski kabul edilebilir seviyeye düşürmeyi amaçlayan bir zaman sınırlamasıdır.Esas olan, gerekli önlemlerin mümkün olan en kısa sürede ve bu tarihten önce tamamlanmasıdır.", style: "normal", margin: [0, 0, 0, 5] },
+        { text: "\u200B\t\u200B\t\u200B\t4.RİSK KONTROL ADIMLARI", style: "basliksol", margin: [0, 5, 0, 10] },
+        { text: "\u200B\t\u200B\t\u200B\tRisklerin kontrolünde aşağıdaki sistematik adımlar izlenir:", style: "normal", margin: [0, 0, 0, 5]},
+        { text: "\u200B\t\u200B\t\u200B\tPlanlama: Risklerin analiz edilip etkilerine göre önceliklendirilmesi sonucu, bu riskleri kontrol altına almak amacıyla planlama yapılır.", style: "normal", margin: [0, 0, 0, 5]},
+        { text: "\u200B\t\u200B\t\u200B\tRisk kontrol tedbirlerinin kararlaştırılması: Riskin tamamen bertaraf edilmesi hedeflenir. Bu mümkün değilse, riskin kabul edilebilir seviyeye indirilmesi için şu önlemler sırasıyla uygulanır:", style: "normal", margin: [0, 0, 0, 5]},
+        { text: "\u200B\t\u200B\t\u200B\tTehlike veya tehlike kaynaklarının tamamen ortadan kaldırılması,", style: "normal", margin: [0, 0, 0, 5] },
+        { text: "\u200B\t\u200B\t\u200B\tTehlikeli maddenin, ekipmanın veya sürecin daha az tehlikeli olanla değiştirilmesi (ikame),", style: "normal", margin: [0, 0, 0, 5] },
+        { text: "\u200B\t\u200B\t\u200B\tRiskler ile kaynağında mücadele edilmesi.", style: "normal", margin: [0, 0, 0, 5] },
+        { text: "\u200B\t\u200B\t\u200B\tBu adımlar uygulanırken, toplu korunma önlemlerine, kişisel korunma önlemlerine göre öncelik verilmesi esastır. Ayrıca, alınacak önlemlerin yeni risklere yol açmaması sağlanmalıdır.", style: "normal", margin: [0, 0, 0, 5] },
+        { text: "\u200B\t\u200B\t\u200B\tUygulama ve izleme: Kararlaştırılan önlemler hayata geçirilir ve iş yerinde uygulanması sağlanır. Bu tedbirlerin etkili olup olmadığı düzenli aralıklarla izlenir.", style: "normal", margin: [0, 0, 0, 5] },
+        { text: "\u200B\t\u200B\t\u200B\tGözden geçirme: Yeni tehlikelerin ortaya çıkması, kazalar, ramak kala olaylar, proses değişiklikleri veya yasal düzenlemeler gibi durumlarda risk kontrol süreci yeniden değerlendirilir.", style: "normal", margin: [0, 0, 0, 5] },
+        { text: "\u200B\t\u200B\t\u200B\tEğitim ve bilgilendirme: Çalışanların, alınan tedbirler hakkında bilgilendirilmesi ve gerektiğinde eğitilmesi sağlanarak uygulamaların etkinliği artırılır.", style: "normal", margin: [0, 0, 0, 5] },
+        { text: "\u200B\t\u200B\t\u200B\tBelgelendirme: Yapılan tüm çalışmalar, kontrol tedbirleri, iş ekipmanı ve iş hijyeni ortam sonuçları ve denetim çıktıları uygun şekilde kayıt altına alınır.", style: "normal", margin: [0, 0, 0, 5] },
+        { text: "\u200B\t\u200B\t\u200B\t4.İŞ EKİPMANI PERİYODİK KONTROLLERİ", style: "basliksol", margin: [0, 5, 0, 10] },
+        { text: "\u200B\t\u200B\t\u200B\tBu risk değerlendirmesine bahsi geçen kontroller ve bu kontrolleri yapmayı yetkili kişilerin meslekleri şu şekildedir;", style: "normal", margin: [0, 0, 0, 5] },
+        { text: "A Meslek Grubu: Elektrik Mühendisi, Elektrik Elektronik Mühendisi, Elektrik Teknikeri ve Elektrik Teknik Öğretmeni mesleklerini ifade eder.", style: "normal", margin: [0, 0, 0, 5] },
+        { text: "B Meslek Grubu: Elektronik Mühendisi mesleğini ifade eder.", style: "normal", margin: [0, 0, 0, 5] },
+        { text: "C Meslek Grubu: Makine Mühendisi, Makine Teknikeri, Makine Teknik Öğretmeni, Metal Teknik Öğretmeni mesleklerini ifade eder.", style: "normal", margin: [0, 0, 0, 5] },
+        { text: "D Meslek Grubu: Mekatronik Mühendisi mesleğini ifade eder.", style: "normal", margin: [0, 0, 0, 5] },
+        { text: "E Meslek Grubu: İnşaat Mühendisi, İnşaat Teknikeri, İnşaat Teknik Öğretmeni, Yapı Teknik Öğretmeni mesleklerini ifade eder.", style: "normal", margin: [0, 0, 0, 10] },
+    ];
+    sayfa6.push(clone(riskekipimza));
+    const iconBase64 = 'data:image/png;base64,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AADGPwAIACACAGD8A4AAACIAAMY/AAgAIAIAYPwDgAAAIgAAxj8ACAAgAgAY/8Y/AAgAIAIAGP8AgAAAIgCA8Q8ACAAgAgAY/wAgAAAiAIDxDwACACACABj/ACAAgAgAgPEPAAIAiAAAGP8AIACACABg/AMAAgCIAADGPwAgAIAIAGD8AwACAIgAAMY/AAgAgAgAYPwDgAAAiAAAxj8ACACACABg/AOAAAAigAgAGP8AgAAAIgCA8Q8ACAAgAgAY/wCAAAAiAIDxDwAIACACABj/ACAAACIAgPEPAAIAIAIAGP8AIAAAIgCA8Q8AAgAgAgDGPwAgAAAiAGD8AwACAIgAAMY/ACAAgAgAYPwDAAIAiAAAxj8ACACOAEQAAOMfAAQAQAQAMP4BQAAARADA+AcABABABACMfwBAAABEAMD4BwAEAEAEAIx/AEAAABFABACMfwBAAAARAMD4BwAEABABAIx/ABAAABEAMP4BAAEAEAEA4x8AEAAAEQAw/gEAAQAQAQDjHwAQAAARADD+AQABABABAOMfABAAABEAMP4BAAEARAAA4x8ABABABACMfwBAAABEAMD4BwAEAEAEAIx/AEAAAEQAwPgHAAQAQAQAjH8AQAAARADA+AcABABABACMfwBAAABEADD+AQABABABRAAw/gEAAQAQAQDjHwAQAAARADD+AQABABABAOMfABAAABEAMP4BAAEAEAEA4x8AEAAAEQCMf+MfABAAABEAjH8AAAEAEAHA+AcABAAAEQCMfwBAAABEAMD4BwAEAEAEAIx/AEAAAEQAwPgHAAQAQAQAjH8AQAAARAAw/gEABABABADjHwBAAABEADD+AQABAEAEAOMfABAAAEQAMP4BAAEAEAFEADD+AQABABABAOMfABAAABEAjH8AAAEAEAHA+AcAEAAAEQCMfwAAAQAQAcD4BwAEAAARAIx/AEAAABABwPgHAAQAABEAjH8AQAAAEAHA+AcABABABADjHwBAAABEADD+AQAEAEAEAOMfAEAAAEQAMP4BAAQAQAQA4x8AEAAARAAw/gEAAQBABADjHwAQAABEAIx/AAABAEAEwPgHABAAAEQAjH8AAAEAEAHA+AcAEAAAEQCMfwAAAQAQAcD4BwAEAAARAIx/AEAAABABMP4BAAQAABEA4x8AQAAAEAEw/gEABAAAEQDjHwBAAAAQATD+AQAEAEAEEAEw/gEABABABADjHwAQAABEADD+AQABAEAEwPgHABAAAEQAjH8AAAEAQATA+AcAEAAARACMfwAAAQBABMD4BwAQAABEAIx/AAABAEAEwPgHABAAABEA4x8AQAAAEAEw/gEABAAAEQDjHwBAAAAQATD+AQAEAAARAOMfAEAAABABMP4BAAQAABEA4x8AQAAAOHcEMBiNfwCAsG46AoCiaNv2l/R6XZZllf5y6kSMfwAAAQAgdggQAYYp38Xx5zT+/+ooAAA+zkcAAP5PGpEP0tsDJzGo8X83/b4dOQoAAAEAYNMIcJje7nXjkv7KD2/8Kv1+eYgjAIAAAHDuCJB/ouwbAvrrsFj/5F+kAQA4gx1HAHC63d3dSXp7kV57TqM3POwPAGBDHgII8AndNwT8rSzLn9Nf3kmvW07l2uS7Mf6Yxv/fHQUAwGZ8BADgjNLofFb4SMB1en/+Pu8PAHA+PgIAcA67u7tP0ttjJ3EllsX6lv+5owAAOD93AACcQxqjOQDcLtwNcNnyT/1vG/8AANtzBwDAlnZ3dx8V67sBJk7jwuSwsm/4AwAIAAB9iwB5/B+k18xpbGXVDf9DRwEAIAAA9DkEVF0I8JWBmw//5+n1LI3/leMAABAAAIYSAupi/bGA2mkY/gAAAgDAOELA/cJHAwx/AAABAGAUIaAq1ncE5I8GjPlhgctu+B8a/gAAAgBA5BAw6SLAw/Sajugf/TC9XnqqPwCAAAAwxhiQA8D9LghUAf8R81f55Z/2H/lpPwCAAABArBgwT6/X3ehf+p0FABAAAPjtGFB1IeCbYv0tAn1+ZsDyg9E/95N+AAABAIDzB4F8d8C0CwInv74Oedzn2/qPu/eFn/IDAAgAAFx+FKi6GPBl9+vJBcWBefd+/MFfL419AAABAID+BYKNYoCn8wMAAAAAAARwwxEAAACAAAAAAAAIAAAAAIAAAAAAAAgAAAAAgAAAAAAACAAAAACAAAAAAAAIAAAAACAAAAAAAAIAAAAAIAAAAAAAAgAAAAAgAAAAAAACAAAAACAAAAAAAAIAAAAACAAAAACAAAAAAAAIAAAAAIAAAAAAAAgAAAAAgAAAAAAACAAAAACAAAAAAAACAAAAACAAAAAAAAIAAAAAIAAAAAAAAgAAAAAgAAAAAAACAAAAACAAAAAAAAIAAAAACAAAAACAAAAAAAAIAAAAAIAAAAAAAAgAAAAAgAAAAAAACAAAAACAAAAAAAACAAAAACAAAAAAAAIAAAAAIAAAAAAAAgAAAAAgAAAAAAACAAAAACAAAAAAgAAAAAAACAAAAACAAAAAAAAIAAAAAIAAAAAAAAgAAAAAgAAAAAAACAAAAACAAAAAAAACAAAAACAAAAAAAAIAAAAAIAAAAAAAAgAAAAAgAAAAAAACAAAAACAAAAAAgAAAAAAACAAAAACAAAAAAAAIAAAAAIAAAAAAAAgAAAAAgAAAAAAACAAAAAAgAAAAAAACAAAAACAAAAAAAAIAAAAAIAAAAAAAAgAAAAAgAAAAAAACAAAAACAAAAAAgAAAAAAACAAAAACAAAAAAAAIAAAAAIAAAAAAAAgAAAAAgAAAAAAACAAAAAAgAAAAAAACAAAAACAAAAAAAAIAAAAAIAAAAAAAAgAAAAAgAAAAAAACAAAAAAgAAAAAgAAAAAAACAAAAACAAAAAAAAIAAAAAIAAAAAAAAgAAAAAgAAAAAAACAAAAAAgAAAAAAACAAAAACAAAAAAAAIAAAAAIAAAAAAAAgAAAAAgAAAAAAACAAAAAAgAAAAAgAAAAAAACAAAAACAAAAAAAAIAAAAAIAAAAAAAAgAAAAAgAAAAAAAAgAAAAAgAAAAAAACAAAAACAAAAAAAAIAAAAAIAAAAAAAAgAAAAAgAAAAAAACAAAAAAgAAAAAgAAAAAAACAAAAACAAAAAAAAIAAAAAIAAAAAAAAgAAAAAgAAAAAAAAgAAAAAgAAAAAAACAAAAACAAAAAAAAIAAAAAIAAAAAAAAgAAAAAgAAAAAIAAAAAAAAgAAAAAgAAAAAAACAAAAMB/2bEDGQAAAIBB/tb3+AojAAEAAAAACAAAAABAAAAAAAACAAAAABAAAAAAIAAAAAAAAQAAAAAIAAAAAEAAAAAAAAIAAAAAEAAAAACAAAAAAAAEAAAAAAgAAAAAQAAAAAAAAgAAAAAQAAAAAIAAAAAAAAQAAAAAIAAAAAAAAQAAAAACAAAAABAAAAAAgAAAAAAABAAAAAAgAAAAAAABAAAAAAgAAAAAQAAAAAAAAgAAAAAEAAAAACAAAAAAAAEAAAAACAAAAABAAAAAAAACAAAAABAAAAAAgAAAAAAAAQAAAAAIAAAAAEAAAAAAAAIAAAAAEAAAAACAAAAAAAAEAAAAACAAAAAAQAAAAAAAAgAAAAAQAAAAAIAAAAAAAAQAAAAAIAAAAAAAAQAAAAAIAAAAAEAAAAAAgAAAAAAAFhJAgAEApKo6nvcfVk8AAAAASUVORK5CYII=';
+    let sayfa7 =
+    [{
+        table:
+        {
+            headerRows: 2,
+            widths: ['31%', '11.5%', '11.5%', '11.5%', '11.5%', '11.5%', '11.5%'],
+            body:
+            [
+                [
+                    {text:"İŞ EKİPMANI PERİYODİK KONTROL LİSTESİ",style:"baslikorta",colSpan:7},
+                    ...Array(6).fill('')],
+                [
+                    { text: 'Kontrol Edilen Ekipman', style: 'normalorta'},
+                    ..."ABCDEF".split("").map(g=>({text:`${g} Grubu Meslek`, style: 'normalorta'}))
+                ],
+                ...riskisekipmanikontrollistesi.slice(0, 14).map(item =>
+                [
+                    { text: item.k, style: 'normal'},
+                    ...['x1','x2','x3','x4','x5','x6'].map(x => Number(item[x])===1 ? {image:'tickIcon',width:15,height:15,alignment:'center'} : {text:'X',alignment:'center'})
+                ])
+            ]
+        }
+    }];
+    sayfa7.push({ text: '', margin: [0, 8] });
+    sayfa7.push(clone(riskekipimza));
+    let sayfa8 =
+    [{
+        table:
+        {
+            headerRows: 2,
+            widths: ['31%', '11.5%', '11.5%', '11.5%', '11.5%', '11.5%', '11.5%'],
+            body:
+            [
+                [
+                    {text:"İŞ EKİPMANI PERİYODİK KONTROL LİSTESİ",style:"baslikorta",colSpan:7},
+                    ...Array(6).fill('')],
+                [
+                    { text: 'Kontrol Edilen Ekipman', style: 'normalorta'},
+                    ..."ABCDEF".split("").map(g=>({text:`${g} Grubu Meslek`, style: 'normalorta'}))
+                ],
+                ...riskisekipmanikontrollistesi.slice(14).map(item =>
+                [
+                    { text: item.k, style: 'normal'},
+                    ...['x1','x2','x3','x4','x5','x6'].map(x => Number(item[x])===1 ? {image:'tickIcon',width:15,height:15,alignment:'center'} : {text:'X',alignment:'center'})
+                ])
+            ]
+        }
+    }];
+    sayfa8.push({ text: '', margin: [0, 8] });
+    sayfa8.push(clone(riskekipimza));
+
+
+    let sayfa9 = [];
+    sayfa9.push(finekinneyskor);
+    sayfa9.push({ text: '', margin: [0, 8] });
+    sayfa9.push(clone(riskekipimza));
+    const dokuman =
+    {
+        images: { tickIcon: iconBase64},
+        pageMargins: [40, 40, 40, 40],
+        background: function (currentPage) { if (currentPage === 1) { return pdfcerceve(); } return null; },
+        content:
+        [
+            { stack: sayfa1},
+            { text: '', pageBreak: 'after' },
+            { stack: sayfa2 },
+            { text: '', pageBreak: 'after' },
+            { stack: sayfa3 },
+            { text: '', pageBreak: 'after' },
+            { stack: sayfa4},
+            { text: '', pageBreak: 'after' },
+            { stack: sayfa5},
+            { text: '', pageBreak: 'after' },
+            { stack: sayfa6 },
+            { stack: sayfa7, pageBreak: 'before', pageOrientation: 'landscape' },
+            { text: '', pageBreak: 'after' },
+            { stack: sayfa8 },
+            { text: '', pageBreak: 'after' },
+            { stack: sayfa9 },
+        ],
+        footer: function (currentPage)
+        {
+            if (currentPage === 2) { return { text: "Sayfa: 1", style: "altbilgi", margin: [0, 0, 40, 0] }; }
+            if (currentPage === 3) { return { text: "Sayfa: 2", style: "altbilgi", margin: [0, 0, 40, 0] }; }
+            if (currentPage === 4) { return { text: "Sayfa: 3", style: "altbilgi", margin: [0, 0, 40, 0] }; }
+            if (currentPage === 5) { return { text: "Sayfa: 4", style: "altbilgi", margin: [0, 0, 40, 0] }; }
+            if (currentPage === 6) { return { text: "Sayfa: 5", style: "altbilgi", margin: [0, 0, 40, 0] }; }
+            if (currentPage === 7) { return { text: "Sayfa: 6", style: "altbilgi", margin: [0, 0, 40, 0] }; }
+            if (currentPage === 8) { return { text: "Sayfa: 7", style: "altbilgi", margin: [0, 0, 40, 0] }; }
+            if (currentPage === 9) { return { text: "Sayfa: 8", style: "altbilgi", margin: [0, 0, 40, 0] }; }
+            return null;
+        },
+        styles:
+        {
+            kapakust: { fontSize: 22, bold: true, alignment: 'center'},
+            kapakalt: { fontSize: 14, bold: false, alignment: 'center'},
+            kapakyil: { fontSize: 18, bold: true, alignment: 'center'},
+            normal: { fontSize: 11, bold: false, alignment: 'justify'},
+            normalsol: { fontSize: 11, bold: false, alignment: 'left'},
+            normalorta: { fontSize: 11, bold: false, alignment: 'center'},
+            kalin: { fontSize: 11, bold: true, alignment: 'justify'},
+            baslikorta: { fontSize: 12, bold: true, alignment: 'center'},
+            basliksol: { fontSize: 12, bold: true, alignment: 'left'},
+            imzaad: { fontSize: 11, bold: true, alignment: 'center'},
+            imzaunvan: { fontSize: 11, bold: false, alignment: 'center'},
+            altbilgi: { fontSize: 11, bold: false, alignment: 'right'}
+        }
+    };
+    pdfMake.createPdf(dokuman).download('Risk Değerlendirme Giriş - ' + metinuret(3) + '.pdf');
+}
