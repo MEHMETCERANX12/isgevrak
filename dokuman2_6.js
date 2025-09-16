@@ -1,3 +1,5 @@
+////////////////////////////İŞE BAŞLAMA/////////////////////////////////////////////İŞE BAŞLAMA/////////////////////////////////////////////İŞE BAŞLAMA/////////////////////////////////////////////
+
 async function isebaslamegitimcikti()
 {
     let isebaslamaveri = JSON.parse(store.get('isebaslamaveri') || '{}');
@@ -81,6 +83,7 @@ async function isebaslamegitimcikti()
     const blob = await Packer.toBlob(doc);
     saveAs(blob, "İşe Başlama Eğitimi.docx");
 }
+
 function isebaslamaegitimiimza(isveren, calisanadsoyad, calisanunvan, egitici)
 {
 return new docx.Table
@@ -117,7 +120,33 @@ return new docx.Table
             ]
         }),
     ]
-})}
+})
+}
+
+function isebaslamatamam1()
+{
+    let firmaid = firmasecimoku();
+    let secimjson = [];
+    $(".csscheckbox").each(function(){let id=$(this).attr("id"),checked=$(this).is(":checked")?1:0,obj={};obj[id]=checked;secimjson.push(obj);});
+    const liste =
+    {
+        tarih: $("#tarih").val().trim(),
+        adsoyad: adsoyadstring($("#adsoyad").val().trim()),
+        saat: $("#saat").val(),
+        secimler: secimjson
+    };
+    store.set('isebaslamaveri', JSON.stringify(liste));
+    window.location.href = "isebaslamaegitim2.aspx?id=" + encodeURIComponent(firmaid);
+}
+
+function isebaslamatamam2()
+{
+    dokumancalisansecim();
+    store.set("dosyaciktitipi", "2");
+    window.location.href = "dosyacikti.aspx?id=2";
+}
+
+////////////////////////////İSG EĞİTİM/////////////////////////////////////////////İSG EĞİTİM/////////////////////////////////////////////İSG EĞİTİM/////////////////////////////////////////////
 
 function isgegitimsertifikakontrol()
 {
@@ -249,15 +278,6 @@ async function isgegitimsertifikayaz()
     saveAs(blob, "Sertifika.pdf");
 }
 
-
-
-function temelisgkonutablo(i){const{konular:t,basliklar:n}=temelisgtumkonular(i),e=[];e.push([{text:"EĞİTİM KONULARI",colSpan:2,alignment:"center",bold:!0,fontSize:12},{}]);let l=0,a=1,o="1.";for(let i=0;i<t.length;i++){if(l<n.length&&i===n[l].index){e.push([{text:n[l].title,colSpan:2,alignment:"center",bold:!0},{}]),o=l+1+".",a=1,l++}e.push([{text:o+a,alignment:"center"},{text:t[i],alignment:"left"}]),a++}return{table:{headerRows:1,widths:["10%","90%"],body:e},layout:{hLineWidth:function(i,t){return 0===i||i===t.table.body.length?1:.5},vLineWidth:function(){return.5},hLineColor:function(){return"#aaa"},vLineColor:function(){return"#aaa"},paddingLeft:function(){return 5},paddingRight:function(){return 5},paddingTop:function(){return 5},paddingBottom:function(){return 5}}}}
-async function temelpdfolusturma(docDefinition){return new Promise((resolve, reject) => {pdfMake.createPdf(docDefinition).getBuffer((buffer) => {resolve(buffer);});});}
-function temelisgtumkonular(i){const e=["Çalışma mevzuatı ile ilgili bilgiler","Çalışanların yasal hak ve sorumlulukları","İşyeri temizliği ve düzeni","İş kazası ve meslek hastalığından doğan hukuki sonuçlar","Meslek hastalıklarının sebepleri","Hastalıktan korunma prensipleri ve korunma tekniklerinin uygulanması","Biyolojik ve psikososyal risk etmenleri","İlkyardım","Tütün ürünlerinin zararları ve pasif etkilenim","Kimyasal, fiziksel ve ergonomik risk etmenleri","Elle kaldırma ve taşıma","Parlama, patlama, yangın ve yangından korunma","İş ekipmanlarının güvenli kullanımı","Ekranlı araçlarla çalışma","Elektrik tehlikeleri, riskleri ve önlemleri","Güvenlik ve sağlık işaretleri","İş kazalarının sebepleri ve korunma prensipleri ile tekniklerinin uygulanması","Kişisel koruyucu donanım kullanımı","İş sağlığı ve güvenliği genel kuralları ve güvenlik kültürü","Tahliye ve kurtarma"],t=["Yapı işlerinde tehlikeler, riskler ve önlemler","Radyosyon, tehlikeleri, riskleri ve önlemleri","Trafik kuralları ve güvenli sürüş teknikleri","Malzeme güvenlik bilgi formları","Kapalı ortamda çalışma","Kaynakla çalışma","Yüksekte çalışma","Hijyen Eğitimi"],n=[...e];for(let e=0;e<i.length&&e<t.length;e++)"1"===i[e]&&n.push(t[e]);const o=[{index:0,title:"GENEL KONULAR"},{index:4,title:"SAĞLIK KONULARI"},{index:9,title:"TEKNİK KONULAR"},{index:20,title:"DİĞER KONULAR"}];return{konular:n,basliklar:o}}
-function temelimzatablo(a, b, c, d, e, f) { return { table: { widths: [47, 207, 207, 207, 47], body: [["", { text: a, alignment: "center", fontSize: 11, bold: !0 }, { text: b, alignment: "center", fontSize: 11, bold: !0 }, { text: c, alignment: "center", fontSize: 11, bold: !0 }, ""], ["", { text: "İş Güvenliği Uzmanı", alignment: "center", fontSize: 11 }, { text: "İşveren Vekili", alignment: "center", fontSize: 11 }, { text: "İşyeri Hekimi", alignment: "center", fontSize: 11 }, ""], ["", { text: "Belge No: " + d, alignment: "center", fontSize: 11 }, "", { text: "Belge No: " + e, alignment: "center", fontSize: 11 }, ""], [{ colSpan: 5, text: f, alignment: "center", fontSize: 9 }, "", "", "", ""]] }, layout: "noBorders" } }
-function temeltarihbul(v) { const t = "....../....../202....", a = v.tarih1 || t, b = v.tarih2 || t, c = v.tarih3 || t, d = v.tarih4 || t, g = parseInt(v.toplamgun) || 1; switch (g) { case 1: return a; case 2: return `${a} - ${b}`; case 3: return `${a} - ${b} - ${c}`; case 4: return `${a} - ${b} - ${c} - ${d}`; default: return a } }
-function temelegitimsuregun(h, t, s) { let r = ""; if (s === "8 Saat") { if (h === "1" && t === 1) r = "8 Saat"; else if (t === 2 && ["1", "2"].includes(h)) r = "4 Saat"; else if (t === 3) { if (h === "1") r = "4 Saat"; if (["2", "3"].includes(h)) r = "2 Saat" } else if (t === 4 && ["1", "2", "3", "4"].includes(h)) r = "2 Saat" } else if (s === "12 Saat") { if (t === 2) { if (h === "1") r = "4 Saat"; if (h === "2") r = "8 Saat" } else if (t === 3 && ["1", "2", "3"].includes(h)) r = "4 Saat"; else if (t === 4) { if (["1", "2"].includes(h)) r = "2 Saat"; if (["3", "4"].includes(h)) r = "4 Saat" } } else if (s === "16 Saat") { if (t === 2 && ["1", "2"].includes(h)) r = "8 Saat"; else if (t === 3) { if (h === "1") r = "8 Saat"; if (["2", "3"].includes(h)) r = "4 Saat" } else if (t === 4 && ["1", "2", "3", "4"].includes(h)) r = "4 Saat" } return r; }
-function temelsertifikasaat(s1, s2, s3, s4, g) { let s = "", t = 16; for (let i = 0; i < g; i++) { try { if (i === 0) { s = s1; t = parseInt(s1.replace(" Saat", "")) } else if (i === 1) { s += " - " + s2; t += parseInt(s2.replace(" Saat", "")) } else if (i === 2) { s += " - " + s3; t += parseInt(s3.replace(" Saat", "")) } else if (i === 3) { s += " - " + s4; t += parseInt(s4.replace(" Saat", "")) } } catch (e) { } } return s + " (Toplam: " + t + " Saat)"; }
 function temelkatılımlistesikontrol()
 {
     $('#loading').show();
@@ -275,8 +295,6 @@ function temelkatılımlistesikontrol()
         $('#loading').hide();
     });
 }
-
-
 
 function temelkatılımlistesiyaz()
 {
@@ -419,8 +437,8 @@ function temelkatılımlistesiyaz()
     });
 }
 
-
-function katılımkonugun(hangigun, toplamgun, isgegitimkod) {
+function katılımkonugun(hangigun, toplamgun, isgegitimkod)
+{
     let veri = "", json = { egitimkonusu: ["Çalışma mevzuatı ile ilgili bilgiler", "Çalışanların yasal hak ve sorumlulukları", "İşyeri temizliği ve düzeni", "İş kazası ve meslek hastalığından doğan hukuki sonuçlar", "Meslek hastalıklarının sebepleri", "Hastalıktan korunma prensipleri ve korunma tekniklerinin uygulanması", "Biyolojik ve psikososyal risk etmenleri", "İlkyardım", "Tütün ürünlerinin zararları ve pasif etkilenim", "Kimyasal, fiziksel ve ergonomik risk etmenleri", "Elle kaldırma ve taşıma", "Parlama, patlama, yangın ve yangından korunma", "İş ekipmanlarının güvenli kullanımı", "Ekranlı araçlarla çalışma", "Elektrik tehlikeleri, riskleri ve önlemleri", "Güvenlik ve sağlık işaretleri", "İş kazalarının sebepleri ve korunma prensipleri ile tekniklerinin uygulanması", "Kişisel koruyucu donanım kullanımı", "İş sağlığı ve güvenliği genel kuralları ve güvenlik kültürü", "Tahliye ve kurtarma"] }, ekKonular = ["Yapı işlerinde tehlikeler, riskler ve önlemler", "Radyasyon, tehlikeleri, riskleri ve önlemleri", "Trafik kuralları ve güvenli sürüş teknikleri", "Malzeme güvenlik bilgi formları", "Kapalı ortamda çalışma", "Kaynakla çalışma", "Yüksekte çalışma", "Hijyen Eğitimi"];
     if (hangigun > toplamgun) return veri;
     for (let i = 0; i < isgegitimkod.length && i < ekKonular.length; i++) if (isgegitimkod[i] === '1') json.egitimkonusu.push(ekKonular[i]);
@@ -428,7 +446,8 @@ function katılımkonugun(hangigun, toplamgun, isgegitimkod) {
     return veri = toplamgun === 1 ? json.egitimkonusu.join(", ") : json.egitimkonusu.slice(startIndex, endIndex).join(", ");
 }
 
-function katilimustbilgi(i, t, e, s, k) {
+function katilimustbilgi(i, t, e, s, k)
+{
     return [
         [{ text: 'TEMEL İŞ SAĞLIĞI ve GÜVENLİĞİ EĞİTİMİ - EĞİTİM KATILIM TUTANAĞI', colSpan: 4, alignment: 'center', fontSize: 11, bold: true, margin: [2, 2] }, '', '', ''],
         [{ text: `İşyeri Unvanı: ${i}`, colSpan: 4, alignment: 'left', fontSize: 10, margin: [2, 2] }, '', '', ''],
@@ -555,6 +574,108 @@ function sinavsorusec(soruDizisi, adet)
   return kopya.slice(0, adet);
 }
 
+function temelisgegitim1load()
+{
+    $('#gundrop').on('change',function(){const i=this.selectedIndex;for(let j=1;j<=4;j++)$('#alan'+j).toggle(j<=i+1)}).trigger('change');
+    let isyeri = isyersecimfirmaoku();
+    const saatSec = isyeri.ts;
+    const saatMap = { '1': '8 Saat', '2': '12 Saat', '3': '16 Saat' };
+    if (saatMap[saatSec])
+    {
+        $('#saat').val(saatMap[saatSec]);
+    }
+    const firmaid = store.get('xfirmaid');
+    let ayar = jsoncevir(store.get('ayar'));
+    const mevcut = ayar.find(obj => obj.id === firmaid);
+    if (mevcut && mevcut.e)
+    {
+        const eString = mevcut.e;
+        for (let i = 0; i < eString.length; i++)
+        {
+            const ch = eString.charAt(i);
+            const checkboxId = 's' + (1 + i);
+            $('#' + checkboxId).prop('checked', ch === '1');
+        }
+    }
+}
+
+function temelisgegitim1devam()
+{
+    let isgegitimkod = '';
+    for (let i = 1; i <= 8; i++)
+    {
+        isgegitimkod += $('#s' + i).is(':checked') ? '1' : '0';
+    }
+    const jsonData =
+    {
+        toplamgun: $('#gundrop').val(),
+        tarih1: $('#tarih1').val(),
+        tarih2: $('#tarih2').val(),
+        tarih3: $('#tarih3').val(),
+        tarih4: $('#tarih4').val(),
+        saat: $('#saat').val(),
+        egitimyeri: $('#egitimyeri').val(),
+        sinav: $('#sinav').val(),
+        bossatir: parseInt($("#bossatir").val()) || 0,
+        sertifika: $('#sertifika').val(),
+        isgegitimkod: isgegitimkod
+    };
+    const firmaid = store.get('xfirmaid');
+    let ayar = store.get('ayar') || [];
+    if (!Array.isArray(ayar)) ayar = [];
+    const mevcut = ayar.find(obj => obj.id === firmaid);
+    if (mevcut)
+    {
+        mevcut.e = isgegitimkod;
+    }
+    else
+    {
+        ayar.push({ e: isgegitimkod, i: "", id: firmaid });
+    }
+    store.set('isgegitimveri', JSON.stringify(jsonData));
+    store.set("isgegitimkayittarih", jsonData.tarih1);
+    store.set("ayar", ayar);
+    window.location.href = "temelisgegitim2.aspx?id=" + encodeURIComponent(firmaid);
+}
+
+function temelisgegitim2tamam()
+{
+    try
+    {
+        if (store.get("isgegitimkayittarih") === null || store.get("ayar") === null || store.get("isgegitimkayittarih") === null)
+        {
+            alertify.error("Doküman sayfasına dönüp tekrar deneyiniz");
+            return false;
+        }
+        let ayar = store.get("ayar") || [];
+        $('#HiddenField2').val(JSON.stringify(ayar));
+        let calisansecim = dokumancalisansecim();
+        var egitimtarihi = store.get("isgegitimkayittarih");
+        var jsonData = $('#HiddenField1').val();
+        var calisanjson = JSON.parse(jsonData);
+        calisansecim.forEach(function (secili)
+        {
+            calisanjson.forEach(function (item)
+            {
+                if (item.ad === secili.a && item.un === secili.u) {
+                    item.e = egitimtarihi;
+                }
+            });
+        });
+        $('#HiddenField1').val(JSON.stringify(calisanjson));
+        store.set("dosyaciktitipi", "1");
+        return true;
+    }
+    catch
+    {
+        alertify.error("Doküman sayfasına dönüp tekrar deneyiniz");
+        return false;
+    }
+}
+
+
+////////////////////////////DİĞER EĞİTİM/////////////////////////////////////////////DİĞER EĞİTİM/////////////////////////////////////////////DİĞER EĞİTİM/////////////////////////////////////////////
+
 async function digeregitimsertifikakontrol()
 {
     $('#loading').show();
@@ -675,7 +796,6 @@ const docDefinition = {
     const pdfcikti = pdfMake.createPdf(docDefinition);
     pdfcikti.getBlob((blob) => {saveAs(blob, egitimturdosya + '.pdf');});
 }
-function genelucluimzatablo(a,b,c,d,e){return{table:{widths:[47,207,207,207,47],body:[["",{text:a,alignment:"center",fontSize:11,bold:!0},{text:b,alignment:"center",fontSize:11,bold:!0},{text:c,alignment:"center",fontSize:11,bold:!0},""],["",{text:"İş Güvenliği Uzmanı",alignment:"center",fontSize:11},{text:"İşveren Vekili",alignment:"center",fontSize:11},{text:"İşyeri Hekimi",alignment:"center",fontSize:11},""],["",{text:"Belge No: "+d,alignment:"center",fontSize:11},"",{text:"Belge No: "+e,alignment:"center",fontSize:11},""]]},layout:"noBorders"}}
 
 
 async function digeregitimkatilimkontrol()
@@ -796,7 +916,9 @@ async function digerkatılımlistesiyaz()
     }
     pdfMake.createPdf(katilimlistesi).getBlob(function (blob) { saveAs(blob, 'Katılım Listesi.pdf');});
 }
-function digerkatilimustbilgi(i, t, e, s, k, bas) {
+
+function digerkatilimustbilgi(i, t, e, s, k, bas)
+{
     return [
         [{ text: bas, colSpan: 4, alignment: 'center', fontSize: 11, bold: true, margin: [2, 2] }, '', '', ''],
         [{ text: `İşyeri Unvanı: ${i}`, colSpan: 4, alignment: 'left', fontSize: 10, margin: [2, 2] }, '', '', ''],
@@ -807,7 +929,30 @@ function digerkatilimustbilgi(i, t, e, s, k, bas) {
     ];
 }
 
+function digeregitimdevam1()
+{
+    let firmaid = firmasecimoku();
+    const verijson =
+    {
+        tarih: $("#tarih").val(),
+        egitimtur: $("#egitimtur").val(),
+        saat: $("#saat").val(),
+        egitimsekli: $("#egitimsekli").val(),
+        bossatir: parseInt($("#bossatir").val()) || 0
+    };
+    store.set("digeregitimveri", JSON.stringify(verijson));
+    window.location.href = "digeregitim2.aspx?id=" + encodeURIComponent(firmaid);
+}
 
+function digeregitimdevam2()
+{
+    dokumancalisansecim();
+    store.set("dosyaciktitipi", "3");
+    window.location.href = "dosyacikti.aspx?id=3";
+}
+
+
+////////////////////////////KKD ZİMMET/////////////////////////////////////////////KKD ZİMMET/////////////////////////////////////////////KKD ZİMMET/////////////////////////////////////////////
 
 async function kkdzimmettutanakkontrol()
 {
@@ -827,7 +972,8 @@ async function kkdzimmettutanakkontrol()
     });
 }
 
-async function kkdzimmettutanakcikti() {
+async function kkdzimmettutanakcikti()
+{
     let sorumlulukbeyani = "\t6331 sayılı İş Sağlığı ve Güvenliği Kanunu’nun 19. maddesinin 2. fıkrasının (b) bendi uyarınca, “Kendilerine sağlanan kişisel koruyucu donanımı doğru kullanmak ve korumak” yükümlülüğümü, işverenin bu konudaki talimatları ve 4857 sayılı İş Kanunu’nun 25. maddesinin 2. fıkrasında belirtilen haklı fesih nedenleri kapsamında işlem yapılabileceği konusunda bilgilendirildim. Aşağıda listelenen kişisel koruyucu donanımları işveren vekilinden eksiksiz olarak teslim aldım. Bu donanımların doğru ve güvenli kullanımı konusunda gerekli eğitimi aldım ve yeterli bilgiye sahip olduğumu beyan ederim. Bu donanımları iş sağlığı ve güvenliği kurallarına uygun şekilde düzenli olarak kullanacağımı, kullanılmayacak duruma geldiklerinde durumu derhal işveren vekiline bildirerek yenilerini temin etmek üzere başvuracağım. Ayrıca, tarafıma teslim edilen kişisel koruyucu donanımları kasıtlı olarak kullanmamak, uygunsuz şekilde kullanmak ya da talimatlara aykırı davranmak suretiyle maruz kalabileceğim iş kazası veya meslek hastalığı gibi durumlarda, doğabilecek zarar ve sonuçlardan kişisel sorumluluğumun bulunduğunu kabul ederim.";
     let tarih = "Tarih: " + store.get('kkdzimmettarih');
     let isyeri = JSON.parse(store.get('xjsonfirma'));
@@ -983,305 +1129,428 @@ async function kkdzimmettutanakcikti() {
     });
 }
 
-async function talimatyazdirword(button)
+function kkdsablonolusturload()
 {
-    const { Document, Packer, Paragraph, TextRun, Table, TableRow, TableCell, WidthType, AlignmentType, Header, Footer, BorderStyle } = window.docx;
-    let isyerijson = store.get('xjsonfirma');
-    if (!isyerijson)
+    store.set("kkdjsonsecim", []);
+    $('#sablonkaydet').hide();
+    fetch("https://cdn.jsdelivr.net/gh/MEHMETCERANX12/isgevrak@main/kkd.json").then(response => response.json()).then(data =>
     {
-        return alertify.error("İşyeri bilgisi alınamadı.");
+        store.set("kkdjsonveri", data);
+        let kkdjson = data;
+        kkdjson.sort((a, b) => a.sira - b.sira);
+        let table = $('#tablo').DataTable
+        ({
+            data: kkdjson,
+            pageLength: -1,
+            ordering: false,
+            dom: 't',
+            columns:
+            [
+                { data: "tur", title: "KKD Adı"},
+                { data: "aciklama", title: "Açıklama"},
+                { data: null, title:"Ekle",render:(d,t,r)=>`<input type="button" class="cssbutontamam" value="Ekle" data-id="${r.i}" onclick="kkdsablonekle(this);"/>`}
+            ],
+            createdRow:function(r){$(r).find("td").eq(0).css("text-align","left");$(r).find("td").eq(1).css("text-align","left");},
+            headerCallback: function (thead) { $(thead).find('th').css('text-align', 'center');}
+        });
+        $('#kkdselect').on('change', function ()
+        {
+            const secilen = $(this).val();
+            const index = this.selectedIndex;
+            if (index === 0)
+            {
+                table.clear().rows.add(kkdjson).draw();
+            }
+            else
+            {
+                const filtreli = kkdjson.filter(item => item.tur === secilen);
+                table.clear().rows.add(filtreli).draw();
+            }
+        });
+        $('#diyalogkkd').fadeIn()
+    })
+}
+
+function kkdsablonekle(button)
+{
+    let kkdjsonsecim = store.get("kkdjsonsecim") || [];
+    let kkdjsonveri = store.get("kkdjsonveri");
+    let i = button.getAttribute("data-id");
+    if (kkdjsonsecim.some(item => item.i === i))
+    {
+        alertify.error("Bu KKD zaten listede var");
+        return;
     }
+    const satir = kkdjsonveri.find(item => item.i === i);
+    if (satir)
+    {
+        kkdjsonsecim.push({ k: satir.k, s: satir.s, i: satir.i, a: 1 });
+    }
+    else
+    {
+        alertify.error("Beklenmedik bir hata oluştu");
+        return;
+    }
+    $('#diyalogkkd').fadeOut();
+    store.set("kkdjsonsecim", kkdjsonsecim);
+    kkdsablontablo(kkdjsonsecim);
+}
+
+function kkdsablontablo(kkdjsonsecim)
+{
+    const jsonliste = kkdjsonsecim || [];
+    if (jsonliste.length > 0)
+    {
+        $('#sablonkaydet').show();
+    }
+    else
+    {
+        $('#sablonkaydet').hide();
+    }
+    if ($.fn.DataTable.isDataTable('#kkdtablo'))
+    {
+        let kkdtablo = $('#kkdtablo').DataTable();
+        kkdtablo.clear().rows.add(jsonliste).draw();
+        return;
+    }
+    $('#kkdtablo').DataTable
+    ({
+        data: jsonliste,
+        ordering: false,
+        dom: 't',
+        pageLength: -1,
+        language:{zeroRecords:"Eklenmiş Kişisel Koruyucu Donanım Yok",infoEmpty:"Eklenmiş Kişisel Koruyucu Donanım Yok",emptyTable:"Eklenmiş Kişisel Koruyucu Donanım Yok"},
+        columns:
+        [
+            {data:"k",title:"KKD Adı",width:"30%",render:d=>`<input type="text" class="csstextbox100" value="${d}" />`},
+            {data:"s",title:"Standardı",width:"40%",render:d=>`<input type="text" class="csstextbox100" value="${d}" />`},
+            {data:"a",title:"Adet",width:"12%",render:d=>`<input type="text" class="csstextbox100" style="text-align:center;" value="${d}" />`},
+            {data:"i",title:"Sil",width:"18%",render:d=>`<input type="button" class="cssbutontamam" value="Sil" data-id="${d}" onclick="kkdsablonsil(this);"/>`}
+        ],
+        headerCallback: thead => { $(thead).find('th').css('text-align', 'center'); }
+    });
+}
+
+function kkdsablonsil(button)
+{
+    const id = button.getAttribute("data-id");
+    let kkdjsonsecim = store.get("kkdjsonsecim");
+    kkdjsonsecim = kkdjsonsecim.filter(item => item.i !== id);
+    store.set("kkdjsonsecim", kkdjsonsecim);
+    kkdsablontablo(kkdjsonsecim);
+}
+
+function kkdsablonkaydet()
+{
+    let ad = $('#kkdad').val().trim();    
+    if (ad.length < 3)
+    {
+        alertify.error("Lütfen en az 3 karakterden oluşan bir şablon adı giriniz.");
+        return false;
+    }
+    ad = basharfstring(ad);
+    const mevcutJsonStr = $('#HiddenField1').val();
+    let mevcutListe = [];
     try
     {
-        isyerijson = JSON.parse(isyerijson);
+        if (mevcutJsonStr)
+        {
+            mevcutListe = JSON.parse(mevcutJsonStr);
+        }
     }
     catch
     {
-        return alertify.error("İşyeri JSON verisi geçersiz.");
+        mevcutListe = [];
+        return false;
     }
-    const isveren = isyerijson.is || "";
-    let adsoyad = "";
-    let unvan = "";
-    if (button.id === "bosyazdir")
-    { 
-        adsoyad = "......................"; 
-        unvan = "Çalışan";
+    const yeniListe = [];
+    $('#kkdtablo tbody tr').each(function ()
+    {
+        const k = $(this).find('td:eq(0) input').val().trim();
+        const s = $(this).find('td:eq(1) input').val().trim();
+        const a = $(this).find('td:eq(2) input').val().trim();
+        yeniListe.push({k, s, a});
+    });
+    const id = metinuret(3);
+    mevcutListe = mevcutListe.filter(item => item.ad !== ad);
+    mevcutListe.push({ ad: ad, id: id, x: yeniListe });
+    if (mevcutListe.length === 0) {return false;}
+    $('#HiddenField1').val(JSON.stringify(mevcutListe));
+    store.set("jsonkkdliste", mevcutListe);
+    return true;
+}
+
+function kkdzimmettamam1()
+{
+    let firmaid = firmasecimoku()
+    let tarih = $('#tarih').val() || '....../....../20...';
+    store.set('kkdzimmettarih', tarih);
+    window.location.href = "kkdzimmetcikti2.aspx?id=" + encodeURIComponent(firmaid);
+}
+
+function kkdzimmettamam2()
+{
+    dokumancalisansecim();
+    window.location.href = "kkdzimmetcikti3.aspx";
+}
+
+function kkdzimmetcikti3load()
+{
+    let kkdjson = JSON.parse($('#HiddenField1').val());
+    const select = $('#kkddrop');
+    select.empty();
+    if (Array.isArray(kkdjson) && kkdjson.length > 0)
+    {
+        select.append('<option value="" disabled selected>Lütfen bir şablon seçiniz</option>');
+        kkdjson.forEach(item => { select.append(`<option value="${item.id}">${item.ad}</option>`); });
     }
     else
     {
-        adsoyad = (button.getAttribute("data-ad") || "").trim();
-        unvan = (button.getAttribute("data-un") || "").trim(); 
+        select.append('<option disabled value="" selected>KKD şablonu bulunamadı</option>');
+        return;
     }
-    const uzmanad = store.get("uzmanad") || "";
-    const talimatlarHam = [$('#HiddenField2').val(), $('#HiddenField3').val(), $('#HiddenField4').val(), $('#HiddenField5').val(), $('#HiddenField6').val()];
-    const sections = [];
-    const altbilgi = new Table({
-        rows:
+    let table = $('#kkdtablo').DataTable
+    ({
+        data: [],
+        ordering: false,
+        dom: 't',
+        columns:
         [
-                new TableRow({ children: [new TableCell({ children: [new Paragraph({ children: [new TextRun({ text: uzmanad, font: "Calibri", size: 22, bold: true })], alignment: AlignmentType.CENTER })], verticalAlign: "center", width: { size: 31, type: WidthType.PERCENTAGE }, borders: { top: { style: BorderStyle.NONE, size: 0, color: "FFFFFF" }, bottom: { style: BorderStyle.NONE, size: 0, color: "FFFFFF" }, left: { style: BorderStyle.NONE, size: 0, color: "FFFFFF" }, right: { style: BorderStyle.NONE, size: 0, color: "FFFFFF" } } }), new TableCell({ children: [new Paragraph({ children: [new TextRun({ text: isveren, font: "Calibri", size: 22, bold: true })], alignment: AlignmentType.CENTER })], verticalAlign: "center", width: { size: 31, type: WidthType.PERCENTAGE }, borders: { top: { style: BorderStyle.NONE, size: 0, color: "FFFFFF" }, bottom: { style: BorderStyle.NONE, size: 0, color: "FFFFFF" }, left: { style: BorderStyle.NONE, size: 0, color: "FFFFFF" }, right: { style: BorderStyle.NONE, size: 0, color: "FFFFFF" } } }), new TableCell({ children: [new Paragraph({ children: [new TextRun({ text: adsoyad, font: "Calibri", size: 22, bold: true })], alignment: AlignmentType.CENTER })], verticalAlign: "center", width: { size: 38, type: WidthType.PERCENTAGE }, borders: { top: { style: BorderStyle.NONE, size: 0, color: "FFFFFF" }, bottom: { style: BorderStyle.NONE, size: 0, color: "FFFFFF" }, left: { style: BorderStyle.NONE, size: 0, color: "FFFFFF" }, right: { style: BorderStyle.NONE, size: 0, color: "FFFFFF" } } })] }),
-                new TableRow({ children: [new TableCell({ children: [new Paragraph({ children: [new TextRun({ text: "İş Güvenliği Uzmanı", font: "Calibri", size: 22 })], alignment: AlignmentType.CENTER })], verticalAlign: "center", borders: { top: { style: BorderStyle.NONE, size: 0, color: "FFFFFF" }, bottom: { style: BorderStyle.NONE, size: 0, color: "FFFFFF" }, left: { style: BorderStyle.NONE, size: 0, color: "FFFFFF" }, right: { style: BorderStyle.NONE, size: 0, color: "FFFFFF" } } }), new TableCell({ children: [new Paragraph({ children: [new TextRun({ text: "İşveren Vekili", font: "Calibri", size: 22 })], alignment: AlignmentType.CENTER })], verticalAlign: "center", borders: { top: { style: BorderStyle.NONE, size: 0, color: "FFFFFF" }, bottom: { style: BorderStyle.NONE, size: 0, color: "FFFFFF" }, left: { style: BorderStyle.NONE, size: 0, color: "FFFFFF" }, right: { style: BorderStyle.NONE, size: 0, color: "FFFFFF" } } }), new TableCell({ children: [new Paragraph({ children: [new TextRun({ text: unvan, font: "Calibri", size: 22})], alignment: AlignmentType.CENTER })], verticalAlign: "center", borders: { top: { style: BorderStyle.NONE, size: 0, color: "FFFFFF" }, bottom: { style: BorderStyle.NONE, size: 0, color: "FFFFFF" }, left: { style: BorderStyle.NONE, size: 0, color: "FFFFFF" }, right: { style: BorderStyle.NONE, size: 0, color: "FFFFFF" } } })] }),
-                new TableRow({ children: [new TableCell({ children: [new Paragraph({ children: [new TextRun({ text: "İmza", font: "Calibri", size: 22 })], alignment: AlignmentType.CENTER })], verticalAlign: "center", borders: { top: { style: BorderStyle.NONE, size: 0, color: "FFFFFF" }, bottom: { style: BorderStyle.NONE, size: 0, color: "FFFFFF" }, left: { style: BorderStyle.NONE, size: 0, color: "FFFFFF" }, right: { style: BorderStyle.NONE, size: 0, color: "FFFFFF" } } }), new TableCell({ children: [new Paragraph({ children: [new TextRun({ text: "İmza", font: "Calibri", size: 22 })], alignment: AlignmentType.CENTER })], verticalAlign: "center", borders: { top: { style: BorderStyle.NONE, size: 0, color: "FFFFFF" }, bottom: { style: BorderStyle.NONE, size: 0, color: "FFFFFF" }, left: { style: BorderStyle.NONE, size: 0, color: "FFFFFF" }, right: { style: BorderStyle.NONE, size: 0, color: "FFFFFF" } } }), new TableCell({ children: [new Paragraph({ children: [new TextRun({ text: "İmza", font: "Calibri", size: 22})], alignment: AlignmentType.CENTER })], verticalAlign: "center", borders: { top: { style: BorderStyle.NONE, size: 0, color: "FFFFFF" }, bottom: { style: BorderStyle.NONE, size: 0, color: "FFFFFF" }, left: { style: BorderStyle.NONE, size: 0, color: "FFFFFF" }, right: { style: BorderStyle.NONE, size: 0, color: "FFFFFF" } } })] }),
+            {data:"k",title:"KKD Adı",width:"30%",render:d=>`<input type="text" class="csstextbox100" value="${d}" />`},
+            {data:"s",title:"Standardı",width:"40%",render:d=>`<input type="text" class="csstextbox100" value="${d}" />`},
+            {data:"a",title:"Adet",width:"12%",render:d=>`<input type="text" class="csstextbox100" style="text-align:center;" value="${d}" />`}
         ],
-        width: { size: 100, type: WidthType.PERCENTAGE },
-        alignment: AlignmentType.CENTER
+        language: { zeroRecords: "Kayıtlı KKD Yok", infoEmpty: "Kayıtlı KKD Yok", emptyTable: "Kayıtlı KKD Yok"},
+        headerCallback: (thead) => { $(thead).find('th').css('text-align', 'center');}
     });
-    for (let i = 0; i < talimatlarHam.length; i++)
+    $('#kkdtablo').hide();
+    $('#tamam').hide();
+    $('#kkddrop').on('change', function ()
     {
-        let t = talimatlarHam[i];
-        if (!t || t === "Yok") continue;
-        let icerik;
+        $('#tamam').show();
+        $('#kkdtablo').show();
+        const secilenId = $(this).val();
+        const sablon = kkdjson.find(item => item.id === secilenId);
+
+        if (!sablon || !Array.isArray(sablon.x))
+        {
+            table.clear().draw();
+            return;
+        }
+        table.clear().rows.add(sablon.x).draw();
+    });
+}
+function kkdzimmettamam3()
+{
+    const $select = $("#kkddrop");
+    if ($select.length === 0 || $select.prop("selectedIndex") === 0)
+    {
+        alertify.error("Lütfen bir şablon seçiniz.");
+        return;
+    }
+    const liste = [];
+    $("#kkdtablo tbody tr").each(function ()
+    {
+        const $td = $(this).find("td");
+        liste.push
+        ({
+            k: $td.eq(0).find("input").val().trim(),
+            s: $td.eq(1).find("input").val().trim(),
+            a: $td.eq(2).find("input").val().trim()
+        });
+    });
+    store.set("kkdzimmetsonliste", liste);
+    store.set("dosyaciktitipi", "4");
+    window.location.href = "dosyacikti.aspx?id=4";
+}
+
+function kkdsablonduzenleload()
+{
+    let kkdjson = $('#HiddenField1').val();
+    if ($('#HiddenField2').val() === "1")
+    {
+        kkdjson = jsoncevir(kkdjson);
+        store.set("jsonkkdliste", kkdjson);
+    }
+    else if ($('#HiddenField2').val() === "0")
+    {
+        kkdjson = store.get("jsonkkdliste");
+        kkdjson = jsoncevir(kkdjson);
+    }
+    else
+    {
+        alertify.error("Beklenmedik bir hata oluştu");
+        return false;
+    }
+    $('#tablo').DataTable
+    ({
+        data: kkdjson,
+        pageLength: -1,
+        order: false,
+        lengthMenu: [[10, 25, 50, 100, -1], [10, 25, 50, 100, "Tümü"]],
+        columns:
+        [
+            { data: "ad", title: "KKD Şablon Adı", orderable: false, width: "60%" },
+            { data:null,title:"Düzenle",orderable:!1,width:"20%",render:(d,t,r)=>`<input type="button" class="cssbutontamam" value="Düzenle" data-id="${r.id}" onclick="jsonkkdsablonduzenle(this);"/>`},
+            { data:null,title:"Sil",orderable:!1,width:"20%",render:(d,t,r)=>`<input type="button" class="cssbutontamam" value="Sil" data-id="${r.id}" onclick="sildialog(this);"/>`}
+        ],
+        language:{search:"KKD Ara:",lengthMenu:"Sayfa başına _MENU_ kayıt göster",zeroRecords:"KKD şablon bulunamadı",info:"_TOTAL_ kayıttan _START_ ile _END_ arası gösteriliyor",infoEmpty:"KKD şablon bulunamadı",infoFiltered:"(toplam _MAX_ kayıttan filtrelendi)",emptyTable:"KKD şablon bulunamadı"},
+        createdRow: function (row) { $(row).find('td').eq(0).css('text-align', 'left'); },
+        headerCallback: function (thead) { $(thead).find('th').css('text-align', 'center');}
+    });
+    $('.dt-search input').css({ "background-color": "white" }).attr("autocomplete", "off");
+    $('.dt-length select').css({ "background-color": "white" });
+}
+function sildialog(button)
+{
+    let kkdsilid = button.getAttribute("data-id");
+    store.set("kkdsilid", kkdsilid);
+    $('#diyolagkkdsil').fadeIn();
+}
+
+function jsonkkdsablonsil()
+{
+    try
+    {
+        let kkdsilid = store.get("kkdsilid");
+        if (!kkdsilid)
+        {
+            alertify.error("Silinecek öğe bulunamadı.");
+            return false;
+        }
+        let table = $('#tablo').DataTable();
+        let liste = jsoncevir(store.get("jsonkkdliste"));
+        const guncelListe = liste.filter(item => item.id !== kkdsilid);
+        store.set("jsonkkdliste", guncelListe);
+        const rowsToRemove = table.rows((idx, data) => String(data.id) === String(kkdsilid));
+        rowsToRemove.remove().draw();
+        $('#diyolagkkdsil').fadeOut();
+        $('#HiddenField1').val(JSON.stringify(guncelListe));
+        kkdsilid = null;
+        return true;
+    }
+    catch (e)
+    {
+        $('#HiddenField1').val("[]")
+        alertify.error("Silme işlemi sırasında bir hata oluştu.");
+        return false;
+    }
+}
+function jsonkkdsablonduzenle(button)
+{
+    const id = button.getAttribute("data-id");
+    let liste = store.get("jsonkkdliste");
+    liste = jsoncevir(liste);
+    liste = liste.find(item => item.id === id);
+    if (liste)
+    {
+        store.set("jsonkkdsablonsecim", [liste]);
+    }
+    else
+    {
+        store.set("jsonkkdsablonsecim", []);
+    }
+    window.location.href = "kkdsablonduzenle2.aspx";
+}
+
+function kkdsablonduzenleload2()
+{
+    let veri = store.get("jsonkkdsablonsecim");
+    veri = jsoncevir(veri);
+    $('#kkdad').val(veri[0].ad);
+    veri = veri[0].x.map(item => ({...item, i: metinuret(3)}));
+    store.set("kkdjsonsecim", veri);
+    kkdsablontablo(veri);
+    fetch("https://cdn.jsdelivr.net/gh/MEHMETCERANX12/isgevrak@main/kkd.json").then(response => response.json()).then(data =>
+    {
+        store.set("kkdjsonveri", data);
+        let kkdjson = data;
+        kkdjson.sort((a, b) => a.sira - b.sira);
+        let table = $('#tablo').DataTable
+        ({
+            data: kkdjson,
+            pageLength: -1,
+            ordering: false,
+            dom: 't',
+            columns:
+            [
+                { data: "tur", title: "KKD Adı"},
+                { data: "aciklama", title: "Açıklama"},
+                { data: null, title:"Ekle",render:(d,t,r)=>`<input type="button" class="cssbutontamam" value="Ekle" data-id="${r.i}" onclick="kkdsablonekle(this);"/>`}
+            ],
+            createdRow:function(r){$(r).find("td").eq(0).css("text-align","left");$(r).find("td").eq(1).css("text-align","left");},
+            headerCallback: function (thead) { $(thead).find('th').css('text-align', 'center');}
+        });
+        $('#kkdselect').on('change', function ()
+        {
+            const secilen = $(this).val();
+            const index = this.selectedIndex;
+            if (index === 0)
+            {
+                table.clear().rows.add(kkdjson).draw();
+            }
+            else
+            {
+                const filtreli = kkdjson.filter(item => item.tur === secilen);
+                table.clear().rows.add(filtreli).draw();
+            }
+        });
+    })
+}
+function kkdsablonduzenlekaydet()
+{
+    const ad = $('#kkdad').val().trim();
+    if (ad.length < 3)
+    {
+        alertify.error("Lütfen en az 3 karakterden oluşan bir şablon adı giriniz.");
+        return false;
+    }
+    let mevcutliste = store.get("jsonkkdliste") || [];
+    if (typeof mevcutliste === "string")
+    {
         try
         {
-            icerik = JSON.parse(t);
+            mevcutliste = JSON.parse(mevcutliste);
         }
         catch
         {
-            continue;
+            mevcutliste = [];
         }
-        const baslik = Object.keys(icerik)[0];
-        const paragraflar = (icerik[baslik] || []).map(p => p.i);
-        const headerTable=new Table({rows:[new TableRow({children:[new TableCell({children:[new Paragraph({children:[new TextRun({text:baslik,bold:true,font:"Calibri",size:24})],alignment:AlignmentType.CENTER})],verticalAlign:"center"})]})],width:{size:100,type:WidthType.PERCENTAGE},alignment:AlignmentType.CENTER});
-        sections.push
-        ({
-            properties:{page:{margin:{top:1134,bottom:1417,left:851,right:851,header:567,footer:1134}}},
-            headers: { default: new Header({ children: [headerTable] })},
-            footers: { default: new Footer({ children: [altbilgi] }) },
-            children:[...paragraflar.map(text=>new Paragraph({children:[new TextRun({text,font:"Calibri",size:22})],alignment:AlignmentType.JUSTIFIED,spacing:{after:100}})),]
-        });
     }
-    if (sections.length === 0) return alertify.error("Hiçbir talimat içeriği alınamadı.");
-    const doc = new Document({ sections });
-    const blob = await Packer.toBlob(doc);
-    if (button.id === "bosyazdir")
-    { 
-        saveAs(blob, `Boş İSG Talimat.docx`);
-    }
-    else
+    let yeniliste = [];
+    $('#kkdtablo tbody tr').each(function ()
     {
-        saveAs(blob, `${adsoyad} İSG Talimat.docx`);
+        const k = $(this).find('td:eq(0) input').val().trim();
+        const s = $(this).find('td:eq(1) input').val().trim();
+        const a = $(this).find('td:eq(2) input').val().trim();
+        yeniliste.push({ k, s, a });
+    });
+    /////////////////////////////////////////////////////
+    let secim = store.get("jsonkkdsablonsecim");
+    let kkdid = null;
+
+    if (Array.isArray(secim) && secim.length > 0)
+    {
+        kkdid = secim[0].id;
     }
+    for (let i = 0; i < mevcutliste.length; i++)
+    {
+        if (mevcutliste[i].id === kkdid) {
+            mevcutliste[i].ad = ad;
+            mevcutliste[i].x = yeniliste;
+            store.set(
+                "jsonkkdsablonsecim",
+                JSON.stringify([{ id: mevcutliste[i].id, ad: mevcutliste[i].ad, x: yeniliste }])
+            );
+            break;
+        }
+    }
+    $('#HiddenField1').val(JSON.stringify(mevcutliste));
+    store.set("jsonkkdliste", JSON.stringify(mevcutliste));
+    return true;
 }
 
-async function acildurumgirisyazdocx()
-{
-    let acildurumkonusecim = store.get("acildurumkonusecim");
-    let uzmanad = store.get("uzmanad");
-    let uzmanno = store.get("uzmanno");
-    let isyeri = store.get('xjsonfirma');
-    isyeri = JSON.parse(isyeri);
-    var tehlikesinifimap = { 1: "Az Tehlikeli", 2: "Tehlikeli", 3: "Çok Tehlikeli"};
-    let tehlikesinifi = tehlikesinifimap[isyeri.ts];
-    let tehlikeno = isyeri.ts;
-    let acildurumtarih = store.get("acildurumtarih");
-    let acildurumyil = acildurumtarih.split('.')[2];
-    let gecerlitarih = acildurumgecerlilik(acildurumtarih, tehlikeno);
-    let isyeriismi = isyeri.fi;
-    let isyeriadresi = isyeri.ad;
-    let isyerisehir = isyeri.sh;
-    let isveren = isyeri.is;
-    let hekimad = isyeri.hk;
-    let hekimno = isyeri.hn;
-    let kapaksecim = parseInt($('#kapaksecim').val());
-    let isyeribaslik = isyeribaslikayar(kapaksecim, isyeriismi);
-    let ustbaslik = "";
-    let altbaslik = "";
-    if (isyeribaslik)
-    {
-        ustbaslik = isyeribaslik.ustbaslik.toLocaleUpperCase("tr-TR");
-        altbaslik = isyeribaslik.altbaslik.toLocaleLowerCase('tr-TR').split(' ').map(w => w.charAt(0).toLocaleUpperCase('tr-TR') + w.slice(1)).join(' ');
-    }
-    const { Document, Packer, TextRun, Paragraph, BorderStyle, PageBreak, AlignmentType } = docx; 
-    const girisparagraflar =
-        [
-            new Paragraph({ children: [new TextRun({ text: "ACİL DURUM PLANI", bold: true, size: 24, font: "Calibri" })], spacing: { before: 0, after: 100 }, alignment: "center" }),
-            new Paragraph({ children: [new TextRun({ text: "İşyeri Unvanı", bold: true, size: 22, font: "Calibri" })], spacing: { before: 100, after: 100 }, alignment: "left" }),
-            new Paragraph({ children: [new TextRun({ text: isyeriismi, size: 22, font: "Calibri" })], spacing: { before: 100, after: 100 }, alignment: "left" }),
-            new Paragraph({ children: [new TextRun({ text: "İşyeri Adresi", bold: true, size: 22, font: "Calibri" })], spacing: { before: 100, after: 100 }, alignment: "left" }),
-            new Paragraph({ children: [new TextRun({ text: isyeriadresi, size: 22, font: "Calibri" })], spacing: { before: 100, after: 100 }, alignment: "left" }),
-            new Paragraph({ children: [new TextRun({ text: "İşveren Vekili Adı Soyadı", bold: true, size: 22, font: "Calibri" })], spacing: { before: 100, after: 100 }, alignment: "left" }),
-            new Paragraph({ children: [new TextRun({ text: isveren, size: 22, font: "Calibri" })], spacing: { before: 100, after: 100 }, alignment: "left" }),
-            new Paragraph({ children: [new TextRun({ text: "Acil Durum Plan Tarihi", bold: true, size: 22, font: "Calibri" })], spacing: { before: 100, after: 100 }, alignment: "left" }),
-            new Paragraph({ children: [new TextRun({ text: acildurumtarih, bold: false, size: 22, font: "Calibri" })], spacing: { before: 100, after: 100 }, alignment: "left" }),
-            new Paragraph({ children: [new TextRun({ text: "Acil Durum Planı Son Geçerlilik Tarihi", bold: true, size: 22, font: "Calibri" })], spacing: { before: 100, after: 100 }, alignment: "left" }),
-            new Paragraph({ children: [new TextRun({ text: gecerlitarih, size: 22, font: "Calibri" })], spacing: { before: 100, after: 100 }, alignment: "left" }),
-            new Paragraph({ children: [new TextRun({ text: "Acil Eylem Planı Revizyon Tarihi – Revizyon No", bold: true, size: 22, font: "Calibri" })], spacing: { before: 100, after: 100 }, alignment: "left" }),
-            new Paragraph({ children: [new TextRun({ text: "01.10.2024-3", size: 22, font: "Calibri" })], spacing: { before: 100, after: 100 }, alignment: "left" }),
-            new Paragraph({ children: [new TextRun({ text: "Hazırlayan Adı Soyadı - Unvanı", bold: true, size: 22, font: "Calibri" })], spacing: { before: 100, after: 100 }, alignment: "left" }),
-            new Paragraph({ children: [new TextRun({ text: uzmanad + " - İş Güvenliği Uzmanı / " + hekimad + " İşyeri Hekimi", bold: false, size: 22, font: "Calibri" })], spacing: { before: 100, after: 100 }, alignment: "left" }),
-            new Paragraph({ children: [new TextRun({ text: "Tehlike Sınıfı", bold: true, size: 22, font: "Calibri" })], spacing: { before: 100, after: 100 }, alignment: "left" }),
-            new Paragraph({ children: [new TextRun({ text: tehlikesinifi, size: 22, font: "Calibri" })], spacing: { before: 100, after: 100 }, alignment: "left" }),
-            new Paragraph({ children: [new TextRun({ text: "Çalışan Sayısı", bold: true, size: 22, font: "Calibri" })], spacing: { before: 100, after: 100 }, alignment: "left" }),
-            new Paragraph({ children: [new TextRun({ text: $("#calisansayi").val(), size: 22, font: "Calibri" })], spacing: { before: 100, after: 100 }, alignment: "left" }),
-            new Paragraph({ children: [new TextRun({ text: "İşyeri İletişim Bilgileri", bold: true, size: 22, font: "Calibri" })], spacing: { before: 100, after: 100 }, alignment: "left" }),
-            new Paragraph({ children: [new TextRun({ text: $("#isyeriiletisim").val(), size: 22, font: "Calibri" })], spacing: { before: 100, after: 100 }, alignment: "left" }),
-            ...Array(3).fill().map(() => new Paragraph({ text: "" })),
-            new Paragraph({ children: [new PageBreak()] }),
-            new Paragraph({ children: [new TextRun({ text: "\tTANIMLAR", bold: true, size: 24, font: "Calibri" })], spacing: { before: 0, after: 100 }, alignment: "left" }),
-            new Paragraph({ children: [new TextRun({ text: "\tAcil durum:", bold: true, font: "Calibri", size: 22 }), new TextRun({ text: " İşyerinin tamamında veya bir kısmında meydana gelebilecek veya işyerini dışarıdan etkileyebilecek yangın, patlama, tehlikeli kimyasal maddelerden kaynaklanan yayılım, zehirlenme, salgın hastalık, radyoaktif sızıntı, sabotaj ve doğal afet gibi ivedilikle müdahale gerektiren olayları ifade eder.", font: "Calibri", size: 22 })], alignment: AlignmentType.JUSTIFIED, spacing: { after: 100 } }),
-            new Paragraph({ children: [new TextRun({ text: "\tAcil durum planı:", bold: true, font: "Calibri", size: 22 }), new TextRun({ text: " İşyerlerinde meydana gelebilecek acil durumlarda yapılacak iş ve işlemler ile uygulamaya yönelik eylemlerin yer aldığı planı ifade eder.", font: "Calibri", size: 22 })], alignment: AlignmentType.JUSTIFIED, spacing: { after: 100 } }),
-            new Paragraph({ children: [new TextRun({ text: "\tToplanma yeri:", bold: true, font: "Calibri", size: 22 }), new TextRun({ text: " Acil durumların olumsuz sonuçlarından çalışanların etkilenmeyeceği mesafede veya korunakta belirlenmiş güvenli yeri ifade eder.", font: "Calibri", size: 22 })], alignment: AlignmentType.JUSTIFIED, spacing: { after: 100 } }),
-            new Paragraph({ children: [new TextRun({ text: "\tAcil Çağrı:", bold: true, font: "Calibri", size: 22 }), new TextRun({ text: " Acil durumlarda, etkilenen veya etkilenenleri gören kişi ya da acil durum algılayıcı cihazlar tarafından, telefon, telsiz, kısa mesaj, otomatik mesaj, sosyal medya, internet ve diğer iletişim araçları ile acil çağrı merkezlerine yapılan başvuruyu ifade eder.", font: "Calibri", size: 22 })], alignment: AlignmentType.JUSTIFIED, spacing: { after: 100 } }),
-            new Paragraph({ children: [new TextRun({ text: "\tAcil Çağrı Merkezi (112):", bold: true, font: "Calibri", size: 22 }), new TextRun({ text: " Kullanıcıların veya acil durum algılayıcı cihazların acil yardım talebinde bulunmak amacıyla acil yardım çağrı hizmeti numaralarına doğru yapacakları çağrılara cevap vermekle yetkili kurum veya kuruluşu ifade eder. Bu kapsamda, yasal düzenlemeye göre ülkemizde 112 acil çağrı merkezini ifade eder.", font: "Calibri", size: 22 })], alignment: AlignmentType.JUSTIFIED, spacing: { after: 100 } }),
-            new Paragraph({ children: [new TextRun({ text: "\tAcil Çıkış:", bold: true, font: "Calibri", size: 22 }), new TextRun({ text: " Tehlike anında kapalı mekândaki insanların süratle ve güvenli bir şekilde tahliye edilmesine imkân verecek yolu ve dışarıya doğru açılan kapıyı ifade eder.", font: "Calibri", size: 22 })], alignment: AlignmentType.JUSTIFIED, spacing: { after: 100 } }),
-            new Paragraph({ children: [new TextRun({ text: "\tAFAD:", bold: true, font: "Calibri", size: 22 }), new TextRun({ text: " Afet ve Acil Durum Yönetimi Başkanlığını ifade eder.", font: "Calibri", size: 22 })], alignment: AlignmentType.JUSTIFIED, spacing: { after: 100 } }),
-            new Paragraph({ children: [new TextRun({ text: "\tAcil Durum Risk Seviyesi:", bold: true, font: "Calibri", size: 22 }), new TextRun({ text: " Acil durumun yol açtığı ve acil duruma bağlı nedenlerle oluşabilecek can kayıpları, yaralanma ve sakat kalmalar, yapı ve altyapı hasarları gibi fiziksel hasarlarla ekonomik, sosyal ve psikolojik kayıpların tümünü ifade eder.", font: "Calibri", size: 22 })], alignment: AlignmentType.JUSTIFIED, spacing: { after: 100 } }),
-            new Paragraph({ children: [new TextRun({ text: "\tBoğulma:", bold: true, font: "Calibri", size: 22 }), new TextRun({ text: " Sel, deniz, göl, kuyu, sıvı birikintisi oluşabilecek çukurlar vb. alanlarda nefes borusuna sıvı dolması, suda nefessiz kalma, tank vb. kapalı alanlarda gazla zehirlenme, yangın anında oluşan karbon monoksit nedeniyle vücuttaki dokulara yeterli oksijen gitmemesi sonucu dokularda bozulma meydana gelmesi durumunu ifade eder.", font: "Calibri", size: 22 })], alignment: AlignmentType.JUSTIFIED, spacing: { after: 100 } }),
-        ];
-        if (acildurumkonusecim.yangin === 1)
-        {
-            girisparagraflar.push(new Paragraph({ children: [new TextRun({ text: "\tYangın:", bold: true, font: "Calibri", size: 22 }), new TextRun({ text: " Maddenin yeterli derecede ısı ve oksijen (hava) ile birleşmesi sonucunda yanarak kimyasal şekil değişliğine uğraması olayını ifade eder. Yangının oluşabilmesi için yanıcı madde, yüksek ısı ve oksijene ihtiyaç vardır. Kontrolsüz veya kontrol edilemeyen şekilde açığa çıkan, yakıcı etkisiyle madde ve eşyaları kullanılmaz hâle getiren, boğucu etkisiyle canlıların yaşamına son veren tehlikedir.", font: "Calibri", size: 22 })], alignment: AlignmentType.JUSTIFIED, spacing: { after: 100 } }),);
-        }
-        if (acildurumkonusecim.deprem === 1)
-        {
-            girisparagraflar.push(new Paragraph({ children: [new TextRun({ text: "\tDeprem:", bold: true, font: "Calibri", size: 22 }), new TextRun({ text: " Tektonik kuvvetlerin veya volkan faaliyetlerinin etkisiyle yer kabuğunun kırılması sonucunda ortaya çıkan enerjinin sismik dalgalar hâlinde yayılarak geçtikleri ortamları ve yeryüzünü kuvvetle sarsması olayını ifade eder.", font: "Calibri", size: 22 })], alignment: AlignmentType.JUSTIFIED, spacing: { after: 100 } }),);
-        }
-        if (acildurumkonusecim.sel === 1)
-        {
-            girisparagraflar.push(new Paragraph({ children: [new TextRun({ text: "\tSel:", bold: true, font: "Calibri", size: 22 }), new TextRun({ text: " Suların bulunduğu yerde yükselerek veya başka bir yerden gelerek, genellikle kuru olan yüzeyleri kaplaması olayı.", font: "Calibri", size: 22 })], alignment: AlignmentType.JUSTIFIED, spacing: { after: 100 } }),);
-        }
-        if (acildurumkonusecim.sabotaj === 1)
-        {
-            girisparagraflar.push(new Paragraph({ children: [new TextRun({ text: "\tSabotaj:", bold: true, font: "Calibri", size: 22 }), new TextRun({ text: " İşyeri veya çalışanlarını hedef alan ve idari yapının tamamen veya geçici bir süre için faaliyet dışı kalmasını sağlamak amacıyla tahribine yönelik saldırgan bir yıkıcı faaliyet şeklini ifade eder.", font: "Calibri", size: 22 })], alignment: AlignmentType.JUSTIFIED, spacing: { after: 100 } }),);
-            girisparagraflar.push(new Paragraph({ children: [new TextRun({ text: "\tGasp:", bold: true, font: "Calibri", size: 22 }), new TextRun({ text: " Başkasının zilyetliğindeki taşınabilir bir malı, zilyedinin rızası olmaksızın, faydalanmak amacıyla, cebir veya tehdit kullanarak bulunduğu yerden almayı ifade eder.", font: "Calibri", size: 22 })], alignment: AlignmentType.JUSTIFIED, spacing: { after: 100 } }),);
-            girisparagraflar.push(new Paragraph({ children: [new TextRun({ text: "\tKaçırılma:", bold: true, font: "Calibri", size: 22 }), new TextRun({ text: " Kişiyi hürriyetinden yoksun bırakmak amacıyla bir kişiyi hukuka aykırı yollarla, iradesi dışında, bir yere götürmek veya bir yerde bulundurmayı, alıkoymayı ifade eder.", font: "Calibri", size: 22 })], alignment: AlignmentType.JUSTIFIED, spacing: { after: 100 } }),);
-        }
-        if (acildurumkonusecim.elektrik === 1)
-        {
-            girisparagraflar.push(new Paragraph({ children: [new TextRun({ text: "\tElektrik:", bold: true, font: "Calibri", size: 22 }), new TextRun({ text: " Elektrik tesisatında veya elektrikli ekipmanlardan kaynaklanan hata akımı, yanlış müdahale/temas veya atlama sonucunda insanda oluşturduğu olumsuz etkiyi ifade eder. Alternatif akımda 50 Volt ve üzeri, doğru akımda ise 120 volt üzeri elektrik çarpması tehlikeli olarak kabul edilir.", font: "Calibri", size: 22 })], alignment: AlignmentType.JUSTIFIED, spacing: { after: 100 } }),);
-        }
-        if (acildurumkonusecim.salgin === 1)
-        {
-            girisparagraflar.push(new Paragraph({ children: [new TextRun({ text: "\tSalgın Hastalık:", bold: true, font: "Calibri", size: 22 }), new TextRun({ text: " Belirli bir alanda, belirli bir grup insan arasında, belirli bir süre boyunca bir biyolojik risk etmeninden kaynaklanan hastalığın bireylerde beklenenden daha fazla görülmesi, anormal miktarda artması durumu ve bulaşmasını ifade eder. Covid-19 bu hastalığa örnek gösterilebilir. Bir hastalığın beklenen görülme sıklığı ve salgın hastalık olup olmadığı Dünya Sağlık Örgütü ve T.C. Sağlık Bakanlığı tarafından belirlenir.", font: "Calibri", size: 22 })], alignment: AlignmentType.JUSTIFIED, spacing: { after: 100 } }),);
-            girisparagraflar.push(new Paragraph({ children: [new TextRun({ text: "\tBiyolojik Kaynaklı Yayılım/Sızıntı:", bold: true, font: "Calibri", size: 22 }), new TextRun({ text: " Biyolojik etkenle doğrudan çalışılan veya biyolojik etkenin kullanıldığı bir işyerinden biyolojik risk etmeninin sızıntısını ifade eder.", font: "Calibri", size: 22 })], alignment: AlignmentType.JUSTIFIED, spacing: { after: 100 } }),);
-        }
-        if (acildurumkonusecim.iskaza === 1)
-        {
-            girisparagraflar.push(new Paragraph({ children: [new TextRun({ text: "\tİş Kazası:", bold: true, font: "Calibri", size: 22 }), new TextRun({ text: " İşyerinde veya işin yürütümü nedeniyle meydana gelen, ölüme sebebiyet veren veya vücut bütünlüğünü ruhen ya da bedenen engelli hâle getiren olayı ifade eder.", font: "Calibri", size: 22 })], alignment: AlignmentType.JUSTIFIED, spacing: { after: 100 } }),);
-        }
-        if (acildurumkonusecim.gida === 1)
-        {
-            girisparagraflar.push(new Paragraph({ children: [new TextRun({ text: "\t Zehirlenme", bold: true, font: "Calibri", size: 22 }), new TextRun({ text: " Az miktarlarda solunduğunda, ağız yoluyla alındığında, deri yoluyla emildiğinde insan sağlığı üzerinde akut veya kronik hasarlar meydana getiren olayı ifade eder.", font: "Calibri", size: 22 })], alignment: AlignmentType.JUSTIFIED, spacing: { after: 100 } }),);
-        }
-        if (acildurumkonusecim.yildirim === 1)
-        {
-            girisparagraflar.push(new Paragraph({ children: [new TextRun({ text: "\tYıldırım Düşmesi:", bold: true, font: "Calibri", size: 22 }), new TextRun({ text: " Yeryüzü ile bulutlar arasında meydana gelen elektrik boşalması sonucunda oluşan yıldırımın, işyerine veya bir canlıya isabet etmesini ifade eder.", font: "Calibri", size: 22 })], alignment: AlignmentType.JUSTIFIED, spacing: { after: 100 } }),);
-        }
-        if (acildurumkonusecim.basiclikap === 1)
-        {
-            girisparagraflar.push(new Paragraph({ children: [new TextRun({ text: "\tBasınçlı Kap Patlaması:", bold: true, font: "Calibri", size: 22 }), new TextRun({ text: " Kaynaklı, 0,5 bar’dan daha yüksek iç basınca tabi tutulması amaçlanan bir kabın, içinde bulunan gazın azami basınç seviyesinin üzerine çıkarak aniden, kontrolsüz bir biçimde boşalması ve metal aksamın parçalanarak hızlı bir şekilde etrafa yayılmasıdır.", font: "Calibri", size: 22 })], alignment: AlignmentType.JUSTIFIED, spacing: { after: 100 } }),);
-        }
-        if (acildurumkonusecim.kmaruziyet === 1)
-        {
-            girisparagraflar.push(new Paragraph({ children: [new TextRun({ text: "\tKimyasal Maruziyet:", bold: true, font: "Calibri", size: 22 }), new TextRun({ text: " Belirli bir referans sürede çalışanların solunum bölgesindeki havada bulunan kimyasal madde konsantrasyonunun zaman ağırlıklı ortalamasının üst sınırını (STEL) veya çalışma süresinin herhangi bir anında çalışanların solunum bölgesindeki havada bulunan kimyasal madde konsantrasyonunun aşılmaması gereken üst sınırın aşılması sonucu oluşabilecek AKUT zehirlenme", font: "Calibri", size: 22 })], alignment: AlignmentType.JUSTIFIED, spacing: { after: 100 } }),);
-        }
-        if (acildurumkonusecim.ksizinti === 1)
-        {
-            girisparagraflar.push(new Paragraph({ children: [new TextRun({ text: "\tKimyasal Sızıntı:", bold: true, font: "Calibri", size: 22 }), new TextRun({ text: " Canlılar üzerinde tahriş edici, yakıcı, felç edici veya öldürücü etkileri olan, deri, solunum veya sindirim sistemi yoluyla bünyeye girebilen gaz, sıvı ya da katı şekildeki toksik kimyasal maddelerin kasten veya kazaen çevreye yayılmasına neden olabilecek her türlü olayı ifade eder.", font: "Calibri", size: 22 })], alignment: AlignmentType.JUSTIFIED, spacing: { after: 100 } }),);
-        }
-        if (acildurumkonusecim.patlama === 1)
-        {
-            girisparagraflar.push(new Paragraph({ children: [new TextRun({ text: "\tPatlayıcı Ortam:", bold: true, font: "Calibri", size: 22 }), new TextRun({ text: " Yanıcı maddelerin gaz, buhar, sis ve tozlarının atmosferik şartlar altında hava ile oluşturduğu ve herhangi bir tutuşturucu kaynakla temasında tümüyle yanabilen karışımı ifade eder.", font: "Calibri", size: 22 })], alignment: AlignmentType.JUSTIFIED, spacing: { after: 100 } }),);
-        }
-        if (acildurumkonusecim.bakimonarim === 1)
-        {
-            girisparagraflar.push(new Paragraph({ children: [new TextRun({ text: "\tBakım Onarım:", bold: true, font: "Calibri", size: 22 }), new TextRun({ text: " İşyeri iş akışında planlı/periyodik bakım işleri ile beklenmedik bir şekilde oluşan arızların ivedilikle yapılması için gerekli her türlü müdahaleyi ifade eder.", font: "Calibri", size: 22 })], alignment: AlignmentType.JUSTIFIED, spacing: { after: 100 } }),);
-        }
-        if (acildurumkonusecim.hayvansokma === 1)
-        {
-            girisparagraflar.push(new Paragraph({ children: [new TextRun({ text: "\tHayvan Sokması/Isırması:", bold: true, font: "Calibri", size: 22 }), new TextRun({ text: " Çalışma alanında veya çevresinde bulunan arı, akrep, yılan, böcek, köpek gibi hayvanların sokması, ısırması veya saldırması sonucu çalışanlarda meydana gelen zehirlenme, alerjik reaksiyon, yara, enfeksiyon gibi sağlık sorunlarını ifade eder.", font: "Calibri", size: 22 })], alignment: AlignmentType.JUSTIFIED, spacing: { after: 100 } }),);
-        }        
-        girisparagraflar.push(new Paragraph({ children: [new TextRun({ text: "\tAMAÇ", bold: true, size: 24, font: "Calibri" })], spacing: { before: 0, after: 100 }, alignment: "left" }));
-        girisparagraflar.push(new Paragraph({ children: [new TextRun({ text: "\tİşyerinde yürütülen çalışma sırasında, olağan dışı olayların sonuçlarından en az kayıp ve zararla kurtulabilmesi için yapılması gereken iş ve işlemlerin, olaylar olmadan önce planlaması ve olay sırasında; uygulanmasını gerektiren tüm faaliyetler zamanında, hızlı ve etkili bir şekilde uygulanmasını amaçlamaktadır.", size: 22, font: "Calibri" })], spacing: { before: 100, after: 100 }, alignment: AlignmentType.JUSTIFIED }));
-        girisparagraflar.push(new Paragraph({ children: [new TextRun({ text: "\tDAYANAK", bold: true, size: 24, font: "Calibri" })], spacing: { before: 0, after: 100 }, alignment: "left" }));
-        girisparagraflar.push(new Paragraph({ children: [new TextRun({ text: "\tBu plan, İş sağlığı ve güvenliği kanunu 11,12 ve 30. maddeleri ile 18.06.2013 tarihli “İşyerlerinde Acil Durumlar Hakkında Yönetmelik” ve yine aynı yönetmeliğin 01.10.2021 tarihinde yapılan değişikliklere göre hazırlanmıştır.", size: 22, font: "Calibri" })], spacing: { before: 100, after: 100 }, alignment: AlignmentType.JUSTIFIED }));
-        girisparagraflar.push(new Paragraph({ children: [new TextRun({ text: "\tACİL DURUM EKİPLERİ GÖREV TANIMLARI", bold: true, size: 24, font: "Calibri" })], spacing: { before: 0, after: 100 }, alignment: "left" }));
-        girisparagraflar.push(new Paragraph({ children: [new TextRun({ text: "\tSöndürme ekibi:", bold: true, font: "Calibri", size: 22 }), new TextRun({ text: " İşyerinde çıkabilecek yangınlara derhal müdahale ederek mümkünse yangını kontrol altına almak, yangının genişlemesine mani olmak ve söndürme faaliyetlerini yürütmek.", font: "Calibri", size: 22 })], alignment: AlignmentType.JUSTIFIED, spacing: { after: 100 } }),);
-        girisparagraflar.push(new Paragraph({ children: [new TextRun({ text: "\tKurtarma ekibi:", bold: true, font: "Calibri", size: 22 }), new TextRun({ text: " İşyerlerinde acil durum sonrası; çalışanların, ziyaretçilerin ve diğer kişilerin arama ve kurtarma işlerini gerçekleştirmek.", font: "Calibri", size: 22 })], alignment: AlignmentType.JUSTIFIED, spacing: { after: 100 } }),);
-        girisparagraflar.push(new Paragraph({ children: [new TextRun({ text: "\tKoruma ekibi:", bold: true, font: "Calibri", size: 22 }), new TextRun({ text: " Acil durum nedeniyle ortaya çıkması muhtemel panik ve kargaşayı önlemek, acil durum ekipleri arasındaki koordinasyon işlerini gerçekleştirmek, sayım işlerini yürütmek, gerektiğinde ilgili ulusal ve yerel kurumların müdahale ekiplerine bilgi vermek.", font: "Calibri", size: 22 })], alignment: AlignmentType.JUSTIFIED, spacing: { after: 100 } }),);
-        girisparagraflar.push(new Paragraph({ children: [new TextRun({ text: "\tİlkyardım ekibi:", bold: true, font: "Calibri", size: 22 }), new TextRun({ text: " Acil durumdan olumsuz etkilenen kişilerin ilk yardım müdahalelerini gerçekleştirmek.", font: "Calibri", size: 22 })], alignment: AlignmentType.JUSTIFIED, spacing: { after: 100 } }),);
-        girisparagraflar.push(new Paragraph({ children: [new TextRun({ text: "\tDestek elemanı:", bold: true, font: "Calibri", size: 22 }), new TextRun({ text: " Asli görevinin yanında acil durumlara ilişkin ulusal ve yerel kurum ve kuruluşlarla irtibatı sağlamak, iş sağlığı ve güvenliği ile ilgili önleme, koruma, tahliye, yangınla mücadele, ilk yardım ve benzeri konularda özel olarak görevli olan kişidir.", font: "Calibri", size: 22 })], alignment: AlignmentType.JUSTIFIED, spacing: { after: 100 } }),);
-        girisparagraflar.push(new Paragraph({ children: [new TextRun({ text: "\tSorumluluk alanı:", bold: true, font: "Calibri", size: 22 }), new TextRun({ text: " Ekiplerde yer alan görevli kişilerin (destek elemanlarının) acil duruma ilişkin görevini gerçekleştireceği birim veya bölümü ifade eder.", font: "Calibri", size: 22 })], alignment: AlignmentType.JUSTIFIED, spacing: { after: 100 } }),);
-        girisparagraflar.push(new Paragraph({ children: [new TextRun({ text: "\tKoordinasyon:", bold: true, font: "Calibri", size: 22 }), new TextRun({ text: " Koordinasyonla görevli olan kişi, koruma ekibinde yer alıp ayrıca ekipler arasında iletişimi ve organizasyonu yapmakla da ayrıca görevlidirler.", font: "Calibri", size: 22 })], alignment: AlignmentType.JUSTIFIED, spacing: { after: 100 } }),);
-    const doc = new Document
-    ({
-        sections:
-        [
-            {
-                properties: { page: { margin: { top: 567, bottom: 567, left: 567, right: 567 }, borders: { pageBorderTop: { style: BorderStyle.SINGLE, size: 8, color: "000000" }, pageBorderBottom: { style: BorderStyle.SINGLE, size: 8, color: "000000" }, pageBorderLeft: { style: BorderStyle.SINGLE, size: 8, color: "000000" }, pageBorderRight: { style: BorderStyle.SINGLE, size: 8, color: "000000" }, pageBorders: { display: docx.PageBorderDisplay.FIRST_PAGE, offsetFrom: docx.PageBorderOffsetFrom.TEXT, zOrder: docx.PageBorderZOrder.FRONT } } } },
-                children:
-                [
-                    new Paragraph({ children: [new TextRun({ text: ustbaslik, bold: true, size: 36, font: "Tahoma" })], spacing: { before: 350, after: 200 }, alignment: "center" }),
-                    new Paragraph({ children: [new TextRun({ text: altbaslik, size: 28, font: "Tahoma" })], spacing: { before: 200, after: 100 }, alignment: "center" }),
-                    ...Array(26).fill().map(() => new Paragraph({ text: "" })),
-                    new Paragraph({ children: [new TextRun({ text: "ACİL DURUM PLANI", bold: true, size: 36, font: "Tahoma" })], alignment: "center" }),
-                    ...Array(31).fill().map(() => new Paragraph({ text: "" })),
-                    new Paragraph({ children: [new TextRun({ text: isyerisehir + " - " + acildurumyil, bold: true, size: 36, font: "Tahoma" })], alignment: "center" }),
-                ]
-            },
-            {
-                properties:{page:{margin:{top:1134,bottom:1701,left:1134,right:1134,footer: 1134}}},
-                children: [...girisparagraflar],
-                footers:
-                {
-                    default: new docx.Footer({ children: [docxucluimzadikey(uzmanad, uzmanno, hekimad, hekimno, isveren)]})
-                }
-            }
-        ],
-    });
-    const blob = await Packer.toBlob(doc);
-    saveAs(blob, "Acil Durum Giriş.docx");
-}
-function docxucluimzadikey(uzman,uzmanno,hekim,hekimno,isveren){return new docx.Table({width:{size:100,type:docx.WidthType.PERCENTAGE},borders:{top:{style:docx.BorderStyle.NONE,size:0,color:"FFFFFF"},bottom:{style:docx.BorderStyle.NONE,size:0,color:"FFFFFF"},left:{style:docx.BorderStyle.NONE,size:0,color:"FFFFFF"},right:{style:docx.BorderStyle.NONE,size:0,color:"FFFFFF"},insideHorizontal:{style:docx.BorderStyle.NONE,size:0,color:"FFFFFF"},insideVertical:{style:docx.BorderStyle.NONE,size:0,color:"FFFFFF"}},rows:[new docx.TableRow({children:[new docx.TableCell({width:{size:33,type:docx.WidthType.PERCENTAGE},children:[new docx.Paragraph({alignment:docx.AlignmentType.CENTER,children:[new docx.TextRun({text:uzman,font:"Calibri",size:22,bold:!0})]})]}),new docx.TableCell({width:{size:34,type:docx.WidthType.PERCENTAGE},children:[new docx.Paragraph({alignment:docx.AlignmentType.CENTER,children:[new docx.TextRun({text:isveren,font:"Calibri",size:22,bold:!0})]})]}),new docx.TableCell({width:{size:33,type:docx.WidthType.PERCENTAGE},children:[new docx.Paragraph({alignment:docx.AlignmentType.CENTER,children:[new docx.TextRun({text:hekim,font:"Calibri",size:22,bold:!0})]})]})]}),new docx.TableRow({children:[new docx.TableCell({children:[new docx.Paragraph({alignment:docx.AlignmentType.CENTER,children:[new docx.TextRun({text:"İş Güvenliği Uzmanı",font:"Calibri",size:22})]})]}),new docx.TableCell({children:[new docx.Paragraph({alignment:docx.AlignmentType.CENTER,children:[new docx.TextRun({text:"İşveren Vekili",font:"Calibri",size:22})]})]}),new docx.TableCell({children:[new docx.Paragraph({alignment:docx.AlignmentType.CENTER,children:[new docx.TextRun({text:"İşyeri Hekimi",font:"Calibri",size:22})]})]})]}),new docx.TableRow({children:[new docx.TableCell({children:[new docx.Paragraph({alignment:docx.AlignmentType.CENTER,children:[new docx.TextRun({text:"Belge No: "+uzmanno,font:"Calibri",size:22})]})]}),new docx.TableCell({children:[new docx.Paragraph({alignment:docx.AlignmentType.CENTER,children:[new docx.TextRun({text:"",font:"Calibri",size:22})]})]}),new docx.TableCell({children:[new docx.Paragraph({alignment:docx.AlignmentType.CENTER,children:[new docx.TextRun({text:"Belge No: "+hekimno,font:"Calibri",size:22})]})]})]})]})}
-function acildurumgecerlilik(tarih, tehlike) { if (!tarih) return ""; const [g, a, y] = tarih.split(".").map(Number); if (!g || !a || !y) return ""; let e = 0; switch (tehlike) { case 1: e = 6; break; case 2: e = 4; break; case 3: e = 2; break; default: return "" }const d = new Date(y + e, a - 1, g), p = n => n.toString().padStart(2, "0"); return `${p(d.getDate())}.${p(d.getMonth() + 1)}.${d.getFullYear()}` }
-function isyeribaslikayar(a, v) { if (!v || typeof v !== "string" || v.trim().length === 0) { alert("Lütfen geçerli bir veri girin!"); return } const k = v.trim().split(" ").filter(k => k.length > 0); if (k.length === 0) { alert("Geçerli veri girin!"); return } let s = {}; switch (a) { case 1: s = { ustbaslik: k[0], altbaslik: k.slice(1).join(" ") }; break; case 2: if (k.length < 2) { alert("Script 2 için en az 2 kelime gerekli!"); return } s = { ustbaslik: k.slice(0, 2).join(" "), altbaslik: k.slice(2).join(" ") }; break; case 3: if (k.length < 3) { alert("Script 3 için en az 3 kelime gerekli!"); return } s = { ustbaslik: k.slice(0, 3).join(" "), altbaslik: k.slice(3).join(" ") }; break; default: alertify.error("Geçersiz giriş (1, 2 veya 3 olmalı)"); return }return s }
-
-async function acildurumkonusecimdocx()
-{
-    let acildurumkonular = acildurumkonuliste();
-    let uzmanad = store.get("uzmanad");
-    let uzmanno = store.get("uzmanno");
-    let isyeri = store.get('xjsonfirma');
-    isyeri = JSON.parse(isyeri);
-    let isveren = isyeri.is;
-    let hekimad = isyeri.hk;
-    let hekimno = isyeri.hn;
-    const { Document, Packer, TextRun, Paragraph, Table, TableRow, TableCell, WidthType, BorderStyle, AlignmentType } = docx;
-    const girisparagraflar =
-    [
-        new Paragraph({children:[new TextRun({text:"İŞYERİ İÇİN BELİRLENEN ACİL DURUMLAR",bold:true,size:24,font:"Calibri"})],spacing:{before:0,after:100},alignment:AlignmentType.CENTER}),
-        new Paragraph({children:[new TextRun({text:"\tİşyerinin tamamında veya bir kısmında meydana gelebilecek veya işyerini dışarıdan etkileyebilecek ve ivedilikle müdahale gerektiren acil durumlar aşağıda listelenmiştir.",size:22,font:"Calibri"})],spacing:{before:100,after:100},alignment:AlignmentType.JUSTIFIED})
-    ];
-    const tablosatirlari = [];
-    tablosatirlari.push(new TableRow({
-        children:
-        [
-            new TableCell({width:{size:10,type:WidthType.PERCENTAGE},children:[new Paragraph({alignment:AlignmentType.CENTER,spacing:{before:140,after:140},children:[new TextRun({text:"NO",bold:true,size:22,font:"Calibri"})]})]}),
-            new TableCell({width:{size:90,type:WidthType.PERCENTAGE},children:[new Paragraph({alignment:AlignmentType.CENTER,spacing:{before:140,after:140},children:[new TextRun({text:"ACİL DURUM PLAN KONULARI",bold:true,size:22,font:"Calibri"})]})]})
-        ]
-    }));
-    acildurumkonular.forEach((item, index) =>
-    {
-        tablosatirlari.push(new TableRow({
-            children:
-            [
-                new TableCell({width:{size:10,type:WidthType.PERCENTAGE},children:[new Paragraph({alignment:AlignmentType.CENTER,spacing:{before:140,after:140},children:[new TextRun({text:(index+1).toString(),bold:true,size:22,font:"Calibri"})]})]}),
-                new TableCell({width:{size:90,type:WidthType.PERCENTAGE},children:[new Paragraph({alignment:AlignmentType.LEFT,spacing:{before:140,after:140},indent:{left:60},children:[new TextRun({text:item.ad,size:22,font:"Calibri"})]})]})
-            ]
-        }));
-    });
-    const tablo=new Table({width:{size:100,type:WidthType.PERCENTAGE},rows:tablosatirlari,borders:{top:{style:BorderStyle.SINGLE,size:1,color:"000000"},bottom:{style:BorderStyle.SINGLE,size:1,color:"000000"},left:{style:BorderStyle.SINGLE,size:1,color:"000000"},right:{style:BorderStyle.SINGLE,size:1,color:"000000"},insideHorizontal:{style:BorderStyle.SINGLE,size:1,color:"000000"},insideVertical:{style:BorderStyle.SINGLE,size:1,color:"000000"}}});
-    const doc = new Document
-    ({
-        sections:
-        [{
-            properties: {},
-            children: [...girisparagraflar, new Paragraph({ text: ""}), tablo],
-            footers: { default: new docx.Footer({ children: [docxucluimzadikey(uzmanad, uzmanno, hekimad, hekimno, isveren)]})}
-        }]
-    });
-    const blob = await Packer.toBlob(doc);
-    saveAs(blob, "Acil Durum Plan Konuları.docx");
-}
+////////////////////////////ACİL DURUM/////////////////////////////////////////////ACİL DURUM/////////////////////////////////////////////ACİL DURUM/////////////////////////////////////////////
 
 function acildurumkonuliste(){const a={yangin:"Yangın",deprem:"Deprem",sel:"Sel",sabotaj:"Sabotaj",iskaza:"İş Kazası",elektrik:"Elektrik Çarpması",salgin:"Salgın Hastalık (Covid - 19 vb.)",gida:"Gıda Zehirlenmesi",yildirim:"Yıldırım Düşmesi",basinc:"Basınçlı Kap Patlaması",kmaruziyet:"Kimyasal Maruziyet",ksizinti:"Kimyasal Sızıntı",patlama:"Patlayıcı Ortam",bakim:"Bakım Onarım",hayvan:"Hayvan Sokması Isırması"},b=store.get("acildurumkonusecim");if(!b)return[];const c=[];$.each(b,function(d,e){e==1&&a[d]&&c.push({ad:a[d]})});return c}
 
@@ -1360,7 +1629,6 @@ async function acildurumisyeririsk()
     saveAs(blob, "Acil Durum Diğer İşyerleri.docx");
 }
 
-
 async function acildurumsayfaacilis()
 {
     try
@@ -1411,8 +1679,8 @@ async function acildurumsayfaacilis()
             pageLength: -1,
             columns:
             [
-                { title: "Ad Soyad", data: "ad", orderable: false },
-                { title: "Unvan", data: "un", orderable: false },
+                { title: "Ad Soyad", data: "x", orderable: false },
+                { title: "Unvan", data: "y", orderable: false },
                 { title: "Acil Durum Görevi", data: "ekipgorev", orderable: false }
             ],
             createdRow: function (row, data)
@@ -1676,38 +1944,6 @@ function acildurumtedbirjsonuret()
     });
     return wordjson;
 }
-function acildurumekipjson(){const e={0:"Görevli Değil",1:"İlkyardım Ekibi - Ekip Başı",2:"İlkyardım Ekibi - Ekip Personeli",3:"Söndürme Ekibi - Ekip Başı",4:"Söndürme Ekibi - Ekip Personeli",5:"Koruma Ekibi - Ekip Başı + Koordinasyon",6:"Koruma Ekibi - Ekip Personeli + Koordinasyon",7:"Koruma Ekibi - Ekip Personeli",8:"Kurtarma Ekibi - Ekip Başı",9:"Kurtarma Ekibi - Ekip Personeli",10:"Destek Elemanı"};let n=$('#HiddenField1').val();if("string"==typeof n)try{n=JSON.parse(n)}catch(t){console.error("JSON parse hatası:",t),n=[]}const i=[];return $.each(n,function(n,t){t.a&&0!==t.a&&i.push({ad:t.ad,un:t.un,ekipgorev:e[t.a]||"Tanımsız",ekipkod:t.a})}),i}
-function genelDataDetayliJsonOlustur(genelData) {
-    const acildurumgeneljson = store.get("acildurumgeneljson");
-    const yeniJson = genelData
-        .map(gItem => {
-            const detay = acildurumgeneljson.find(jItem => jItem.id == gItem.id);
-            if (!detay) return null;
-            return {
-                onlem: gItem.onlem,
-                id: gItem.id,
-                uygun: gItem.uygun,
-                yangin: detay.yangin,
-                deprem: detay.deprem,
-                sel: detay.sel,
-                sabotaj: detay.sabotaj,
-                iskaza: detay.iskaza,
-                elektrik: detay.elektrik,
-                salgin: detay.salgin,
-                gida: detay.gida,
-                yildirim: detay.yildirim,
-                basinc: detay.basinc,
-                kmaruziyet: detay.kmaruziyet,
-                ksizinti: detay.ksizinti,
-                patlama: detay.patlama,
-                bakim: detay.bakim,
-                hayvan: detay.hayvan
-            };
-        })
-        .filter(item => item !== null);
-    return yeniJson;
-}
-
 
 function acildurumtedbirdocxyaz()
 {
@@ -1932,7 +2168,7 @@ async function acildurumekiplistesidocx()
         analiste.push(new docx.TableRow({
             height: { value: 850, rule: docx.HeightRule.EXACT },
             children: [
-                new TableCell({margins: { left: 75 }, children: [new Paragraph({ alignment: AlignmentType.LEFT, children: [new TextRun({ text: person.ad, font: "Calibri", size: 22 })] })], verticalAlign: docx.VerticalAlign.CENTER }),
+                new TableCell({margins: { left: 75 }, children: [new Paragraph({ alignment: AlignmentType.LEFT, children: [new TextRun({ text: person.x, font: "Calibri", size: 22 })] })], verticalAlign: docx.VerticalAlign.CENTER }),
                 new TableCell({margins: { left: 75 }, children: [new Paragraph({ alignment: AlignmentType.LEFT, children: [new TextRun({ text: person.ekipgorev, font: "Calibri", size: 22 })] })], verticalAlign: docx.VerticalAlign.CENTER }),
                 new TableCell({margins: { left: 75 }, children: [new Paragraph({ alignment: AlignmentType.CENTER, children: [new TextRun({ text: " ", font: "Calibri", size: 22 })] })], verticalAlign: docx.VerticalAlign.CENTER }),
                 new TableCell({ children: [new Paragraph({ alignment: AlignmentType.CENTER, children: [new TextRun({ text: " ", font: "Calibri", size: 22 })] })], verticalAlign: docx.VerticalAlign.CENTER }),
@@ -1957,7 +2193,7 @@ async function acildurumekiplistesidocx()
                 height: { value: 300, rule: docx.HeightRule.EXACT },
                 children:
                 [
-                    new TableCell({ width: { size: 50, type: docx.WidthType.PERCENTAGE }, borders: { top: { size: 0, color: "FFFFFF" }, bottom: { size: 0, color: "FFFFFF" }, left: { size: 0, color: "FFFFFF" }, right: { size: 0, color: "FFFFFF" } }, verticalAlign: docx.VerticalAlign.CENTER, children: [new Paragraph({ alignment: AlignmentType.CENTER, children: [new TextRun({ text: calisan.ad, font: "Calibri", size: 22, bold: true })] })] }),
+                    new TableCell({ width: { size: 50, type: docx.WidthType.PERCENTAGE }, borders: { top: { size: 0, color: "FFFFFF" }, bottom: { size: 0, color: "FFFFFF" }, left: { size: 0, color: "FFFFFF" }, right: { size: 0, color: "FFFFFF" } }, verticalAlign: docx.VerticalAlign.CENTER, children: [new Paragraph({ alignment: AlignmentType.CENTER, children: [new TextRun({ text: calisan.x, font: "Calibri", size: 22, bold: true })] })] }),
                     new TableCell({width:{size:50,type:docx.WidthType.PERCENTAGE},borders:{top:{size:0,color:"FFFFFF"},bottom:{size:0,color:"FFFFFF"},left:{size:0,color:"FFFFFF"},right:{size:0,color:"FFFFFF"}},verticalAlign:docx.VerticalAlign.CENTER,children:[new Paragraph({alignment:AlignmentType.CENTER,children:[new TextRun({text:isveren,font:"Calibri",size:22, bold: true })]})]})
                 ],            
             }),
@@ -1994,10 +2230,10 @@ async function acildurumekiplistesidocx()
         {
             gorevlendirmesayfa.push(new Paragraph({ text: `\tSGK Sicil No: ${isyerisicil}`, spacing: { after: 100 }, style: "Normal" }));
         }
-        gorevlendirmesayfa.push(new Paragraph({ text: `\tÇalışan Ad Soyadı: ${calisan.ad}`, spacing: { after: 100 }, style: "Normal" }));
-        if (calisan.un && calisan.un.trim() !== "")
+        gorevlendirmesayfa.push(new Paragraph({ text: `\tÇalışan Ad Soyadı: ${calisan.x}`, spacing: { after: 100 }, style: "Normal" }));
+        if (calisan.y && calisan.y.trim() !== "")
         {
-            gorevlendirmesayfa.push(new Paragraph({ text: `\tÇalışan Unvan: ${calisan.un}`, spacing: { after: 100 }, style: "Normal" }));
+            gorevlendirmesayfa.push(new Paragraph({ text: `\tÇalışan Unvan: ${calisan.y}`, spacing: { after: 100 }, style: "Normal" }));
         };
         gorevlendirmesayfa.push(new Paragraph({ text: `\tEkip Görevi: ${calisan.ekipgorev || ""}`, spacing: { after: 200 }, style: "Normal" }));
         gorevlendirmesayfa.push(new Paragraph({ text: `\tİşyeri unvanı ve adı soyadı yukarıda yazılı olan çalışan, 6331 Sayılı İş Sağlığı ve Güvenliği Kanununu 11.Maddesi ile İşyerlerinde Acil Durumlar Hakkında Yönetmelik kapsamında aşağıda belirtilen görevleri yürütmek ve uygulamak amacı ile atama yolu ile görevlendirilmiştir. 6698 Sayılı Kişisel Verilerin Korunması Kanunu çerçevesinde kimlik ve iletişim bilgilerimin işyerinde ilan edilerek aktarılacağı konusunda bilgilendirildim ve özgür iradem ile açık rıza gösterdim.`, spacing: { after: 200 }, style: "Normal" }));
@@ -2042,6 +2278,10 @@ async function acildurumekiplistesidocx()
             gorevlendirmesayfa.push(new Paragraph({ text: `\tKoruma, Söndürme ve İlkyardım ekipleriyle koordineli şekilde çalışmak.`, spacing: { after: 100 }, style: "Normal" }));
             gorevlendirmesayfa.push(new Paragraph({ text: `\t`, style: "Normal" }), imzatablo);
         }
+        else if (ekipindex === 10)
+        {
+            gorevlendirmesayfa.push(new Paragraph({ text: `\t`, style: "Normal" }), imzatablo);
+        }
         if (index !== acldurumekiplistesijson.length - 1)
         {
             gorevlendirmesayfa.push(new Paragraph({ children: [new PageBreak()] }));
@@ -2068,7 +2308,6 @@ async function acildurumekiplistesidocx()
     saveAs(blob, "Acil Durum Ekip Listesi.docx");
 }
 
-
 function acildurumsertifikakontrol()
 {
     $('#loading').show();
@@ -2086,6 +2325,7 @@ function acildurumsertifikakontrol()
         $('#loading').hide();
     });
 }
+
 async function acildurumegitimpdf()
 {
     const iconBase64 = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAABAAAAAQACAYAAAB/HSuDAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAJqpJREFUeNrs3b+SFOe9x+FeUIA70QQbKFMrc6YhI1OT2ZGWzI4YrgD2CoArWIgcsmR2xBLJRMxGtiNGV6BRqKqu8ijpkjO/L9MrUy607Ozsn+5fP0/V1CCfU+dIL7jU38/29NwoAAAAgPBuOAIAAAAQAAAAAAABAAAAABAAAAAAAAEAAAAAEAAAAAAAAQAAAAAQAAAAAAABAAAAAAQAAAAAQAAAAAAABAAAAABAAAAAAAAEAAAAAEAAAAAAAAQAAAAAQAAAAAAAAQAAAAAQAAAAAAABAAAAABAAAAAAAAEAAAAAEAAAAAAAAQAAAAAQAAAAAEAAAAAAAAQAAAAAQAAAAAAABAAAAABAAAAAAAAEAAAAAEAAAAAAAAQAAAAAQAAAAAAAAQAAAAAQAAAAAAABAAAAABAAAAAAAAEAAAAAEAAAAAAAAQAAAAAQAAAAAEAAAAAAAAQAAAAAQAAAAAAABAAAAABAAAAAAAAEAAAAAEAAAAAAAAQAAAAAEAAAAAAAAQAAAAAQAAAAAAABAAAAABAAAAAAAAEAAAAAEAAAAAAAAQAAAAAQAAAAAEAAAAAAAAQAAAAAQAAAAAAABAAAAABAAAAAAAAEAAAAAEAAAAAAAAQAAAAAEAAAAAAAAQAAAAAQAAAAAAABAAAAABAAAAAAAAEAAAAAEAAAAAAAAQAAAAAEAAAAAEAAAAAAAAQAAAAAQAAAAAAABAAAAABAAAAAAAAEAAAAAEAAAAAAAAQAAAAAEAAAAAAAAQAAAAAQAAAAAAABAAAAABAAAAAAAAEAAAAAEAAAAAAAAQAAAAAEAAAAAEAAAAAAAAQAAAAAQAAAAAAABAAAAABAAAAAAAAEAAAAAEAAAAAAAAEAAAAAEAAAAAAAAQAAAAAQAAAAAAABAAAAABAAAAAAAAEAAAAAEAAAAAAAAQAAAAAEAAAAAEAAAAAAAAQAAAAAQAAAAAAABAAAAABAAAAAAAAEAAAAAEAAAAAAAAEAAAAAEAAAAAAAAQAAAAAQAAAAAAABAAAAABAAAAAAAAEAAAAAEAAAAABAAAAAAAAEAAAAAEAAAAAAAAQAAAAAQAAAAAAABAAAAABAAAAAAAAEAAAAAEAAAAAAAAEAAAAAEAAAAAAAAQAAAAAQAAAAAAABAAAAABAAAAAAAAEAAAAAEAAAAABAAAAAAAAEAAAAAEAAAAAAAAQAAAAAQAAAAAAABAAAAABAAAAAAAAEAAAAABAAAAAAAAEAAAAAEAAAAAAAAQAAAAAQAAAAAAABAAAAABAAAAAAAAEAAAAAEAAAAABAAAAAAAAEAAAAAEAAAAAAAAQAAAAAQAAAAAAABAAAAABAAAAAAAAEAAAAABAAAAAAAAEAAAAAEAAAAAAAAQAAAAAQAAAAAAABAAAAABAAAAAAAAEAAAAABAAAAABAAAAAAAAEAAAAAEAAAAAAAAQAAAAAQAAAAAAABAAAAABAAAAAAAAEAAAAABAAAAAAAAEAAAAAEAAAAAAAAQAAAAAQAAAAAAABAAAAABAAAAAAAAEAAAAABAAAAABAAAAAAAAEAAAAAEAAAAAAAAQAAAAAQAAAAAAABAAAAABAAAAAAAABAAAAABAAAAAAAAEAAAAAEAAAAAAAAQAAAAAQAAAAAAABAAAAABAAAAAAAAEAAAAABAAAAABAAAAAAAAEAAAAAEAAAAAAAK7KZ44AAADok93d3Wl6m5z2v9M0zdxJwWZ2HAEAAHCF477uxn0e+V+mV9X9j+ot/s8uu9cqvb7v3hf51TTNyqmDAAAAAFz+2M9D/5tu6E+v4W/jJAYcfxAFln53EAAAAAC2G/x1N/jrHv+t5gAw76LAkbsEEAAAAABOH/z5Vv69bvDn98lA/1HynQEvuxiw9DuLAAAAALAe/nns3+9GfzRiAAIAAAAw6tE/7Ub/rBjuT/o3Nc8xoGmaQ38CEAAAAIDow3/WDf96xMeQnxHwPL0O3RWAAAAAAEQa/Sef7X9c/O9r+lg7TK+nQgACAAAAMPTh/yi9Hhbjuc1fCEAAAAAARjX+Z+ntwPAXAhAAAACAmMO/Tm8vCrf6b+tpej1rmmblKBAAAACAPg3/qhv+tdO4MHn87/vWAPrqhiMAAIDRjf8n6e0H4//C5Y9PvEjn+7YLLNArNx0BAACMZvhPy7L8Lv3yT07jUuXxP0tn/Z+2bf/pOOgLHwEAAIBxjP8nxfpr/bha8/R64CGB9IE7AAAAIPbwr8qyfJV+OXMa16Iq1ncD/NS27cJxIAAAAACXMf730lu+5f/3TuNa3UqvvbIsc4w5btv2F0fCdfAQQAAAiDn+n6S3/JP/idPojVl6eUAg18YzAAAAINbwf/8k+vTacxq9lb8u8F7TNHNHwVVyBwAAAMQZ/1V6e2v8916ONPlOgJmj4Cp5BgAAAMQY/9P09o9i/dA5hiE/F2DStu0bR4EAAAAAnHX855/8+7z/8NzJDwds2/a1o+Cy+QgAAAAMe/zP0ts743/QZun38YVj4LK5AwAAAIY9/g3HGKbuBEAAAAAAjH8RAAQAAAAw/hEBQAAAAADjHxEABAAAADD+6W0E8BWBCAAAAGD8MwL5KwJ/bNt24Si4CL4GEAAAjH/660X6/a8dAwIAAAAY/8T3Kv05qBwDAgAAABj/xDbpIsDEUSAAAACA8U9s0/Q6cAxsw0MAAQDA+GcgEcBDAdnGjiMAAADjn8FYpdftpmmWjoJN+QgAAAAY/wzH++cBOAbOw0cAAADA+GdYvijLcqdt27mjYBM+AgAAAMY/w/SVjwKwCR8BAAAA459h8ueGjfgIAAAAGP8MU+VbAdiEjwAAAIDxz3DlbwXIHwVYOQo+xR0AAABg/DNct/Krbds3joJPcQcAAAAY/wyfBwLySR4CCAAAxj/D99gR8CnuAAAAAOOfGNwFwKncAQAAAMY/MRw4AgQAAAAw/olvL/15qxwDAgAAABj/xOdZAPwmzwAAAADjn1g8C4CPcgcAAAAY/8Ty0BEgAAAAgPFPfDNHwMfcdAQAAGD8E8qtsix/bNt24Sj4kDsAAADA+Cee+44AAQAAAIx/4qt9JSACAAAAGP+Mg4cBIgAAAIDxzwjsOQIEAAAAMP6Jr0p/TqeOAQEAAACMf+LzMEAEAAAAMP4ZgdoRIAAAAIDxT3xT3waAAAAAAMY/41A7AgQAAAAw/onvW0eAAAAAAMY/8dWOAAEAAACMf+KbeA4AAgAAABj/jEPtCBAAAADA+Ce+rx0BAgAAABj/xDd1BAgAAABg/BNf7QgQAAAAwPhnHH/G3QUgAAAAgPFv/DMCE0cgAAAAgPEP8dWOQAAAAADjH+L73BEIAAAAYPxDfJ4BIAAAAIDxDyAAAACA8Q8R1I5AAAAAAOMfQAAAAADjH0AAAAAA4x+G8t+F2ikIAAAAYPwDCAAAAGD8AwgAAABg/AMIAAAAYPwDCAAAAGD8AwgAAABg/AMIAAAAYPwDCAAAABj/AAgAAAAY/wACAAAAGP8QysoRCAAAAGD8Q3BN0yycggAAAADGP4AAAAAAxj8MnNv/BQAAADD+YQTc/i8AAACA8Q8gAAAAgPEPERw7AgEAAACMf4jPMwAEAAAAMP5hBDwDQAAAAADjHwQABAAAADD+YehWTdP4CIAAAAAAxj8E56f/CAAAABj/MAK+AQABAAAA4x9GwB0ACAAAABj/MAJzR4AAAACA8Q+xLTwAEAEAAADjH+KbOwIEAAAAjH+IzwMAEQAAADD+YQTmjgABAAAA4x9iO/L5fwQAAACMf4jP7f8IAAAAGP8wAkeOAAEAAADjH2LLX/+3dAwIAAAAGP8Q23NHgAAAAIDxD/G5/R8BAAAA4x+CO/T0fwQAAACMf4jvpSNAAAAAwPiH2JZN08wdAwIAAADGP8T21BEgAAAAYPxDbPlz/x7+hwAAAIDxD8E99/A/BAAAAIx/iC0P/2eOAQEAAADjH2Lz038EAAAAjH8Izk//EQAAADD+YQT89B8BAAAA4x+C89N/BAAAAIx/GIF9P/1HAAAAwPiH2BZp/B86BgQAAACMf4ht3xEgAAAAYPxDbM+appk7BgQAAACMf4hrmV5PHQMCAAAAxj/E9sCD/xAAAAAw/iE2t/4jAAAAYPxDcIvCrf8IAAAAGP8QWr7l363/CAAAABj/ENx+Gv8Lx4AAAACA8Q9xHabxf+gY2MaOIwAAMP6Nf+i1RRr/tx0D23IHAACA8W/8Q3/lz/vfdQwIAAAAGP8QfPx76B8CAAAAxj/Eds9D/xAAAAAw/iG2/HV/c8eAAAAAgPEPscf/oWNAAAAAwPgH4x8EAAAAjH8w/kEAAAAw/gHjHwEAAADjHzD+EQAAADD+AeMfAQAAAOMfMP4RAAAAMP4B4x8BAAAA4x+MfxAAAAAw/sH4BwEAAMD4N/7B+AcBAADA+AeMfwQAAACMf8D4RwAAAMD4B4x/BAAAAIx/wPhHAAAAwPgH4x8EAAAAjH8w/kEAAADA+AfjHwQAAADjHzD+QQAAADD+AeMfBAAAAOMfMP4RAAAAMP4B4x8BAAAA4x+Mf+MfAQAAAOMfjH8QAAAAMP7B+AcBAADA+AeMfxAAAACMf8D4BwEAAMD4B4x/EAAAAIx/wPhHAAAAwPgHjH8EAAAAjH8w/kEAAADA+AfjHwQAAACMfzD+QQAAADD+AeMfBAAAAOMfMP5BAAAAMP4B4x8EAAAA4x8w/hEAAAAw/sH4BwEAAADjH4x/EAAAADD+wfgHAQAAwPgHjH8QAAAAjH/A+AcBAADA+AeMfxAAAACMf8D4BwEAAMD4B4x/EAAAAIx/MP5BAAAAwPgH4x8EAAAA4x8w/kEAAAAw/gHjHwQAAADjHzD+QQAAADD+AeMfBAAAAOMfMP5BAAAAMP7B+AcEAAAA4x+MfxAAAAAw/sH4BwEAAMD4B4x/EAAAAIx/wPgHAQAAwPgHjH8QAAAAjH/A+AcBAADA+AfjHxAAAACMfzD+AQEAAMD4B+MfBAAAAOMfMP5BAAAAMP4B4x8EAAAA4x8w/kEAAAAw/gHjHwQAAADjHzD+QQAAADD+wfgHBAAAAOMfjH9AAAAAjH/jH4x/QAAAAIx/wPgHAQAAwPgHjH8QAAAAjH/A+AcBAADA+AeMfxAAAACMfzD+AQEAAMD4B+MfEAAAAIx/MP4BAQAAMP4B4x8QAAAA4x8w/kEAAAAw/gHjHwQAAADjHzD+QQAAADD+wfg3/kEAAAAw/sH4BwQAAADjH4x/QAAAAIx/wPgHBAAAwPgHjH9AAAAAjH/A+AcBAADA+AeMfxAAAACMf8D4BwEAAMD4B+MfEAAAAIx/MP4BAQAAMP6NfzD+AQEAADD+AeMfEAAAAOMfMP4BAQAAMP4B4x8QAAAA4x8w/kEAAAAw/sH4BwQAAADjH4x/QAAAADD+wfgHBAAAwPgHjH9AAAAAjH/A+AcEAADA+AeMf0AAAACMf8D4BwQAAMD4B4x/EAAAAIx/MP4BAQAAwPgH4x8QAAAA4x8w/gEBAAAw/gHjHxAAAADjHzD+AQEAADD+AeMfEAAAAOMfMP4BAQAAMP7B+AcEAAAA4x+Mf0AAAAAw/sH4BwQAAMD4B4x/QAAAAIx/wPgHBAAAwPgHjH9AAAAAjH/A+AcEAADA+AfjH0AAAACMfzD+AQQAAMD4B+MfEAAAAOMfMP4BAQAAMP4B4x8Yis8cAZx6MVylt/yapNe0+4+/7P6zs1qk18/dr+cn/1n6l/fKCQPGP2D8A1dlxxHAr0N/2r2+7gb+9Ar+X+cgsEyvH7tfCwOA8Q8Y/4AAABd4sZvHfZ1e33RDv+rR396iex3nKJD+Zb/0OwYY/2D8OwZAAICzXeDmW/j3usGf3ycD+tvPAeAoB4H0L/8jv5uA8Q/GP4AAAB8f/d927xGsuhjwWgwAjH8w/gEEAMZ+UXsy+mfB/1FzDMgXBS/TxcHC7zxg/IPxDyAAMIaL2fzT/kfpdb/o1+f5r0oOAM9dKADGPxj/AAIAUS9k89h/XMT/af9Z5bsCnqfXM98mABj/YPwDCABEuIitu+FfO43flC8envoWAcD4B+MfQABgiBew+Sv7Dgz/jUPAvjsCwPh3EmD8AwIADOHitSrc6r8NHw0A4x8w/gEBAHp94XrycL+H6TVxIltbFuuPBbjIAOMfMP4BAQB6c+FadxeuldO4cPPugmPpKMD4B4x/YBxuOAJ6eNE6Sa9X6Zdvjf9LU6fXD+mcnzgKMP4B4x8YB3cA0LeL1r3uotXt/ldn0V2ELBwFGP+A8Q/E5Q4A+nLBmn/qny9YXxn/Vy5/s8K7dP6PHAUY/4DxD8TlDgD6cME67S5Yp07j2h11Fya+KQCMf8D4B4JxBwB9uGB9a/z3Rv4IxrsuygDGP2D8AwIAXMgF64vC5/37qOoiwMxRgPEPGP9AHDcdAddwsTopy/K7Yv3TZvprL/0+Tdq2feMowPgHjH9AAIBNL1ar9JbH/x2nMQh3yrKs0uu4bdtfHAcY/4DxDwyXhwBylRer+XPl+fP+bvkfnvwVgXc9HBCMf8D4B4bLMwAw/jmL979/+eMbjgKMf8D4BwQAMP5FAMD4B+Pf+AcEAIx/RADA+AfjH0AAwPhHBACMfzD+AQQAjH9EADD+AeMfQADA+EcEAOMfMP4BBACu8GI1j8FXxr8IABj/YPwDCADEHv/5J/+V0xABAOMfjH8AAYC4DroxiAgAGP9g/AMIAAS9YH2U3mZOQgQQAcD4B+MfoJ92HAEXcMFaF+tb/yFbpNfddHG0chRg/IPxD9Af7gBg2wvWk4f+wQl3AoDxD8Y/gABAQJ74jwgAxj8Y/wACAMEvWvPn/msngQgAxj8Y/wD95xkAnPeitUpv7wo//efTPBMAjH8w/gF6wB0AnNcL458zcicAGP9g/AMIAAz0wtWt/4gAYPyD8Q8wMD4CwKYXrlXh1n/Oz8cBMP6NfzD+Aa6JOwDY1IHxzxbcCYDxDxj/AAIAA7h4rdPbnpNABADjH4x/AAGA2A4cASIAGP9g/AMIAMS/gJ06CUQAMP7B+AcQAIjtsSNABADjH4x/AAGA+BexlZNABADjH4x/AAGA2Pz0HxEAjH8w/gEEAEZwIVs5CUQAMP7B+AcQAIjNT/8RAcD4B+MfQAAg+MVsXfjpPyIAGP9g/AMIAIT30BEgAoDxD8Y/gABA7AvaKr3tOQlEADD+wfgHEACIzU//EQHA+AfjH0AAYAT89B8RAIx/MP4BBACCX9jm8V85CUQAMP7B+AcQAIjtW0eACADGPxj/AAIA8bn9HxEAjH8w/gEEAIJf4Obxb1whAoDxD8Y/gABAcG7/RwQA4x+MfwABgBFw+z8iABj/YPwDCAAEv9DNg8qYQgQA4x+MfwABgOBqR4AIAMY/GP8AAgDx+fw/IgDGv/EPxj+AAMAI1I4AEQDj3/gH4x9AACD2Re/UKSACYPwb/2D8AwgAxFc7AkQAjH/A+AcQAIjva0eACIDxDxj/AAIA4xhMIAJg/APGP4AAgAAAIgDGP2D8AwgADPki2PhHBMD4B4x/AAGAETCMEAEw/gHjH0AAYARqR4AIgPEPGP8AAgDxfe4IEAEw/gHjH0AAYByjCEQAjH/A+AcQAABEAIx/wPgHEACIMIZABMD4B4x/AAGA4AwgRACMf8D4BxAAAEQAjH/A+AcQAABEAIx/wPgHEADo/YVy7RRABDD+AeMfQAAAEAEw/gHjH0AAABABMP4B4x9AAAAQATD+AeMfQAAAEAEw/sH4B0AAABABMP7B+AdAAAAQAYx/wPgHQADgrJaOAEQA4x8w/gEEAIJL/3IWAEAEMP4B4x9AAABABDD+AeMfQAAAEAEw/gHjH0AAYDAWjgBEAOMfMP4BBADiWzkCEAGMf8D4BxAAEAAAEcD4B4x/AAGAAL53BCACGP+A8Q8gABDf0hGACGD8A8Y/gACAAACIAMY/YPwDCAAE4FsAQAQw/gHjH0AAILr0L/L8EEAPAgQRwPgHjH8AAYARcBcAiADGP2D8AwgAjMCxIwARwPgHjH8AAYD43AEAIoDxDxj/AAIAIzB3BCACGP+A8Q8gABBc9yDApZMAEcD4B4x/AAGA+OaOAEQA4x+Mf+MfQAAgPg8CBBHA+Afj3/gHEAAYgSNHACKA8Q/GPwACAMF1zwHwbQAgAhj/YPwDIAAwAi8dAYgAxj8Y/wAIAMTnYwAgAhj/YPwDIAAQXboIWBY+BgAigPEPxj8AAgCj4GMAIAIY/2D8AyAAMAI+BgAigPEPxj8AAgDRdR8DmDsJEAGMfzD+ARAAiM/HAEAEMP7B+AcgkB1HwCkX9P9ObxMnAdciP4zzbrpYXxn/gPEPwEVwBwCnee4I4NoM4k4A4x+MfwAEAGJwsQAigPEPxj8AAgDRdQ8DdNEAIoDxD8Y/AAIAI/DUEYAIYPyD8Q+AAEBw7gIAEcD4B+MfAAGA8XAXAIgAxj8Y/wAIAETnLgAQAYx/MP4BEAAYD3cBwEgjgPEPxj8AAgAj0t0FIALAyCKA8Q/GPwACAOP0LL1WjgHGEQGMfzD+ARAAGKl0gZHH/76TgPgRwPgH4x8AAQARIF9ozJ0ExI0Axj8Y/wAIAPDrRYcjgJgRwPgH4x8AAQB+5YGAEDMCGP9g/AMQ244j4LzSWHjXDQ6gXxbpdbd7bofxD8Y/ALznDgC2ca/wrQDQRxvdCWD8g/EPgAAAp+o+CuBbAWDAEcD4B+MfAAEAzhoB8gWJixIYYAQw/sH4B0AAgE3luwAWjgGGEwGMfzD+ARAAYGPdg8Y8DwAGEgGMfzD+ARinm46Ai9C27aosy3+lX86cBvTSF+n1h/Tf09+l9784DjD+ARgfXwPIhfKTRQAw/gHoJ3cAcKHatl2UZZlvM77jNADA+AdAACB2BHhTlmVVrD93DAAY/wAIAASOAK9FAAAw/gHoD98CwKVJFzMP0tvcSQCA8Q+AAEB8+esBF44BAIx/AAQAAksXNqv0dlcEAADjHwABABEAAIx/ABAAEAEAwPgHAAEAEQAAjH8AEAAQAQDA+AcAAQARAACMfwAEABABAMD4B0AAABEAAIx/AAQAEAEAMP4BQAAAEQAA4x8ABABEAAAw/gFAAEAEAADjHwAEAEQAADD+AUAAQAQAAOMfAAEARAAAMP4BEABABAAA4x8AAQBEAACMfwAQAEAEAMD4BwABAEQAAIx/ABAAEAFEAACMfwAQABABAMD4BwABABEAAIx/AAQAEAEAwPgHQAAAEQAA4x8ABAAQAQAw/gFAAAARAADjHwAEABABADD+AUAAABEAAOMfAAQAEAEAMP4BQABABAAA4x8ABABEAACMf8cAgAAAIgAAxj8ACAAgAgBg/AOAAAAiAADGPwAIACACAGD8A4AAACIAAMY/AAgAIAIAYPwDgAAAIgAAxj8ACACIACIAgPEPAAIAiAAAGP8AIACACACA8Q8AAgCIAAAY/wAgAIAIAIDxDwACAIgAABj/ACAAgAgAgPEPAAIAiAAAxj8AIACACABg/AOAAACIAADGPwAIACACAGD8A4AAACIAAMY/AAgAIAIAYPwDgAAAIgAAxj8ACAAgAgAY/8Y/AAgAIAIAGP8AgAAAIgCA8Q8ACAAgAgAY/wAgAAAiAIDxDwACACACABj/ACAAgAgAgPEPAAIAiAAAGP8AIACACABg/AMAAgCIAADGPwAgAIAIAGD8AwACAIgAAMY/AAgAgAgAYPwDgAAAiAAAxj8ACACACABg/AOAAAAigAgAGP8AgAAAIgCA8Q8ACAAgAgAY/wCAAAAiAIDxDwAIACACABj/ACAAACIAgPEPAAIAIAIAGP8AIAAAIgCA8Q8AAgAgAgDGPwAgAAAiAGD8AwACAIgAAMY/ACAAgAgAYPwDAAIAiAAAxj8ACACOAEQAAOMfAAQAQAQAMP4BQAAARADA+AcABABABACMfwBAAABEAMD4BwAEAEAEAIx/AEAAABFABACMfwBAAAARAMD4BwAEABABAIx/ABAAABEAMP4BAAEAEAEA4x8AEAAAEQAw/gEAAQAQAQDjHwAQAAARADD+AQABABABAOMfABAAABEAMP4BAAEARAAA4x8ABABABACMfwBAAABEAMD4BwAEAEAEAIx/AEAAAEQAwPgHAAQAQAQAjH8AQAAARADA+AcABABABACMfwBAAABEADD+AQABABABRAAw/gEAAQAQAQDjHwAQAAARADD+AQABABABAOMfABAAABEAMP4BAAEAEAEA4x8AEAAAEQCMf+MfABAAABEAjH8AAAEAEAHA+AcABAAAEQCMfwBAAABEAMD4BwAEAEAEAIx/AEAAAEQAwPgHAAQAQAQAjH8AQAAARAAw/gEABABABADjHwBAAABEADD+AQABAEAEAOMfABAAAEQAMP4BAAEAEAFEADD+AQABABABAOMfABAAABEAjH8AAAEAEAHA+AcAEAAAEQCMfwAAAQAQAcD4BwAEAAARAIx/AEAAABABwPgHAAQAABEAjH8AQAAAEAHA+AcABABABADjHwBAAABEADD+AQAEAEAEAOMfAEAAAEQAMP4BAAQAQAQA4x8AEAAARAAw/gEAAQBABADjHwAQAABEAIx/AAABAEAEwPgHABAAAEQAjH8AAAEAEAHA+AcAEAAAEQCMfwAAAQAQAcD4BwAEAAARAIx/AEAAABABMP4BAAQAABEA4x8AQAAAEAEw/gEABAAAEQDjHwBAAAAQATD+AQAEAEAEEAEw/gEABABABADjHwAQAABEADD+AQABAEAEwPgHABAAAEQAjH8AAAEAQATA+AcAEAAARACMfwAAAQBABMD4BwAQAABEAIx/AAABAEAEwPgHABAAABEA4x8AQAAAEAEw/gEABAAAEQDjHwBAAAAQATD+AQAEAAARAOMfAEAAABABMP4BAAQAABEA4x8AQAAAOHcEMBiNfwCAsG46AoCiaNv2l/R6XZZllf5y6kSMfwAAAQAgdggQAYYp38Xx5zT+/+ooAAA+zkcAAP5PGpEP0tsDJzGo8X83/b4dOQoAAAEAYNMIcJje7nXjkv7KD2/8Kv1+eYgjAIAAAHDuCJB/ouwbAvrrsFj/5F+kAQA4gx1HAHC63d3dSXp7kV57TqM3POwPAGBDHgII8AndNwT8rSzLn9Nf3kmvW07l2uS7Mf6Yxv/fHQUAwGZ8BADgjNLofFb4SMB1en/+Pu8PAHA+PgIAcA67u7tP0ttjJ3EllsX6lv+5owAAOD93AACcQxqjOQDcLtwNcNnyT/1vG/8AANtzBwDAlnZ3dx8V67sBJk7jwuSwsm/4AwAIAAB9iwB5/B+k18xpbGXVDf9DRwEAIAAA9DkEVF0I8JWBmw//5+n1LI3/leMAABAAAIYSAupi/bGA2mkY/gAAAgDAOELA/cJHAwx/AAABAGAUIaAq1ncE5I8GjPlhgctu+B8a/gAAAgBA5BAw6SLAw/Sajugf/TC9XnqqPwCAAAAwxhiQA8D9LghUAf8R81f55Z/2H/lpPwCAAABArBgwT6/X3ehf+p0FABAAAPjtGFB1IeCbYv0tAn1+ZsDyg9E/95N+AAABAIDzB4F8d8C0CwInv74Oedzn2/qPu/eFn/IDAAgAAFx+FKi6GPBl9+vJBcWBefd+/MFfL419AAABAID+BYKNYoCn8wMAAAAAAARwwxEAAACAAAAAAAAIAAAAAIAAAAAAAAgAAAAAgAAAAAAACAAAAACAAAAAAAAIAAAAACAAAAAAAAIAAAAAIAAAAAAAAgAAAAAgAAAAAAACAAAAACAAAAAAAAIAAAAACAAAAACAAAAAAAAIAAAAAIAAAAAAAAgAAAAAgAAAAAAACAAAAACAAAAAAAACAAAAACAAAAAAAAIAAAAAIAAAAAAAAgAAAAAgAAAAAAACAAAAACAAAAAAAAIAAAAACAAAAACAAAAAAAAIAAAAAIAAAAAAAAgAAAAAgAAAAAAACAAAAACAAAAAAAACAAAAACAAAAAAAAIAAAAAIAAAAAAAAgAAAAAgAAAAAAACAAAAACAAAAAAgAAAAAAACAAAAACAAAAAAAAIAAAAAIAAAAAAAAgAAAAAgAAAAAAACAAAAACAAAAAAAACAAAAACAAAAAAAAIAAAAAIAAAAAAAAgAAAAAgAAAAAAACAAAAACAAAAAAgAAAAAAACAAAAACAAAAAAAAIAAAAAIAAAAAAAAgAAAAAgAAAAAAACAAAAAAgAAAAAAACAAAAACAAAAAAAAIAAAAAIAAAAAAAAgAAAAAgAAAAAAACAAAAACAAAAAAgAAAAAAACAAAAACAAAAAAAAIAAAAAIAAAAAAAAgAAAAAgAAAAAAACAAAAAAgAAAAAAACAAAAACAAAAAAAAIAAAAAIAAAAAAAAgAAAAAgAAAAAAACAAAAAAgAAAAAgAAAAAAACAAAAACAAAAAAAAIAAAAAIAAAAAAAAgAAAAAgAAAAAAACAAAAAAgAAAAAAACAAAAACAAAAAAAAIAAAAAIAAAAAAAAgAAAAAgAAAAAAACAAAAAAgAAAAAgAAAAAAACAAAAACAAAAAAAAIAAAAAIAAAAAAAAgAAAAAgAAAAAAAAgAAAAAgAAAAAAACAAAAACAAAAAAAAIAAAAAIAAAAAAAAgAAAAAgAAAAAAACAAAAAAgAAAAAgAAAAAAACAAAAACAAAAAAAAIAAAAAIAAAAAAAAgAAAAAgAAAAAAAAgAAAAAgAAAAAAACAAAAACAAAAAAAAIAAAAAIAAAAAAAAgAAAAAgAAAAAIAAAAAAAAgAAAAAgAAAAAAACAAAAMB/2bEDGQAAAIBB/tb3+AojAAEAAAAACAAAAABAAAAAAAACAAAAABAAAAAAIAAAAAAAAQAAAAAIAAAAAEAAAAAAAAIAAAAAEAAAAACAAAAAAAAEAAAAAAgAAAAAQAAAAAAAAgAAAAAQAAAAAIAAAAAAAAQAAAAAIAAAAAAAAQAAAAACAAAAABAAAAAAgAAAAAAABAAAAAAgAAAAAAABAAAAAAgAAAAAQAAAAAAAAgAAAAAEAAAAACAAAAAAAAEAAAAACAAAAABAAAAAAAACAAAAABAAAAAAgAAAAAAAAQAAAAAIAAAAAEAAAAAAAAIAAAAAEAAAAACAAAAAAAAEAAAAACAAAAAAQAAAAAAAAgAAAAAQAAAAAIAAAAAAAAQAAAAAIAAAAAAAAQAAAAAIAAAAAEAAAAAAgAAAAAAAFhJAgAEApKo6nvcfVk8AAAAASUVORK5CYII=';
@@ -2116,7 +2356,7 @@ async function acildurumegitimpdf()
             [
                 { text: egitimicerik.baslik, style: 'ustbaslik', margin: [0, 50, 0, 10] },
                 { text: 'İşyeri Unvanı: ' + isyeriadi, style: 'normalsatir', margin: [80, 0, 0, 5] },
-                { text: 'Katılımcı Adı Soyadı: ' + calisan.ad, style: 'normalsatir', margin: [80, 0, 0, 5] },
+                { text: 'Katılımcı Adı Soyadı: ' + calisan.x, style: 'normalsatir', margin: [80, 0, 0, 5] },
                 { text: 'Katılımcının Görev Unvanı: ' + calisanunvan, style: 'normalsatir', margin: [80, 0, 0, 5] },
                 { text: 'Tarih: ' + egitimtarih, style: 'normalsatir', margin: [80, 0, 0, 5] },
                 { text: 'Eğitim Süresi: ' + egitimsaat, style: 'normalsatir', margin: [80, 0, 0, 5] },
@@ -2187,8 +2427,8 @@ async function acildurumkatılımlistesiyaz()
             const calisan = calisanliste[i];
             tableBody.push([
                 { text: (i + 1).toString(), alignment: 'center', fontSize: 10, margin: [0, 11, 0, 11] },
-                { text: calisan.ad || '', alignment: 'left', fontSize: 10, margin: [0, 11, 0, 11] },
-                { text: calisan.un || '', alignment: 'left', fontSize: 10, margin: [0, 11, 0, 11] },
+                { text: calisan.x || '', alignment: 'left', fontSize: 10, margin: [0, 11, 0, 11] },
+                { text: calisan.y || '', alignment: 'left', fontSize: 10, margin: [0, 11, 0, 11] },
                 { text: '' }
             ]);
         }
@@ -2231,6 +2471,7 @@ async function acildurumkatılımlistesiyaz()
     }
     pdfMake.createPdf(katilimlistesi).getBlob(function (blob) { saveAs(blob, 'Katılım Listesi.pdf');});
 }
+
 function acildurumustbilgi(i, t, e, s, k, bas)
 {
     return [
@@ -2243,6 +2484,241 @@ function acildurumustbilgi(i, t, e, s, k, bas)
     ];
 }
 
+async function acildurumgirisyazdocx()
+{
+    let acildurumkonusecim = store.get("acildurumkonusecim");
+    let uzmanad = store.get("uzmanad");
+    let uzmanno = store.get("uzmanno");
+    let isyeri = store.get('xjsonfirma');
+    isyeri = JSON.parse(isyeri);
+    var tehlikesinifimap = { 1: "Az Tehlikeli", 2: "Tehlikeli", 3: "Çok Tehlikeli"};
+    let tehlikesinifi = tehlikesinifimap[isyeri.ts];
+    let tehlikeno = isyeri.ts;
+    let acildurumtarih = store.get("acildurumtarih");
+    let acildurumyil = acildurumtarih.split('.')[2];
+    let gecerlitarih = acildurumgecerlilik(acildurumtarih, tehlikeno);
+    let isyeriismi = isyeri.fi;
+    let isyeriadresi = isyeri.ad;
+    let isyerisehir = isyeri.sh;
+    let isveren = isyeri.is;
+    let hekimad = isyeri.hk;
+    let hekimno = isyeri.hn;
+    let kapaksecim = parseInt($('#kapaksecim').val());
+    let isyeribaslik = isyeribaslikayar(kapaksecim, isyeriismi);
+    let ustbaslik = "";
+    let altbaslik = "";
+    if (isyeribaslik)
+    {
+        ustbaslik = isyeribaslik.ustbaslik.toLocaleUpperCase("tr-TR");
+        altbaslik = isyeribaslik.altbaslik.toLocaleLowerCase('tr-TR').split(' ').map(w => w.charAt(0).toLocaleUpperCase('tr-TR') + w.slice(1)).join(' ');
+    }
+    const { Document, Packer, TextRun, Paragraph, BorderStyle, PageBreak, AlignmentType } = docx; 
+    const girisparagraflar =
+        [
+            new Paragraph({ children: [new TextRun({ text: "ACİL DURUM PLANI", bold: true, size: 24, font: "Calibri" })], spacing: { before: 0, after: 100 }, alignment: "center" }),
+            new Paragraph({ children: [new TextRun({ text: "İşyeri Unvanı", bold: true, size: 22, font: "Calibri" })], spacing: { before: 100, after: 100 }, alignment: "left" }),
+            new Paragraph({ children: [new TextRun({ text: isyeriismi, size: 22, font: "Calibri" })], spacing: { before: 100, after: 100 }, alignment: "left" }),
+            new Paragraph({ children: [new TextRun({ text: "İşyeri Adresi", bold: true, size: 22, font: "Calibri" })], spacing: { before: 100, after: 100 }, alignment: "left" }),
+            new Paragraph({ children: [new TextRun({ text: isyeriadresi, size: 22, font: "Calibri" })], spacing: { before: 100, after: 100 }, alignment: "left" }),
+            new Paragraph({ children: [new TextRun({ text: "İşveren Vekili Adı Soyadı", bold: true, size: 22, font: "Calibri" })], spacing: { before: 100, after: 100 }, alignment: "left" }),
+            new Paragraph({ children: [new TextRun({ text: isveren, size: 22, font: "Calibri" })], spacing: { before: 100, after: 100 }, alignment: "left" }),
+            new Paragraph({ children: [new TextRun({ text: "Acil Durum Plan Tarihi", bold: true, size: 22, font: "Calibri" })], spacing: { before: 100, after: 100 }, alignment: "left" }),
+            new Paragraph({ children: [new TextRun({ text: acildurumtarih, bold: false, size: 22, font: "Calibri" })], spacing: { before: 100, after: 100 }, alignment: "left" }),
+            new Paragraph({ children: [new TextRun({ text: "Acil Durum Planı Son Geçerlilik Tarihi", bold: true, size: 22, font: "Calibri" })], spacing: { before: 100, after: 100 }, alignment: "left" }),
+            new Paragraph({ children: [new TextRun({ text: gecerlitarih, size: 22, font: "Calibri" })], spacing: { before: 100, after: 100 }, alignment: "left" }),
+            new Paragraph({ children: [new TextRun({ text: "Acil Eylem Planı Revizyon Tarihi – Revizyon No", bold: true, size: 22, font: "Calibri" })], spacing: { before: 100, after: 100 }, alignment: "left" }),
+            new Paragraph({ children: [new TextRun({ text: "01.10.2024-3", size: 22, font: "Calibri" })], spacing: { before: 100, after: 100 }, alignment: "left" }),
+            new Paragraph({ children: [new TextRun({ text: "Hazırlayan Adı Soyadı - Unvanı", bold: true, size: 22, font: "Calibri" })], spacing: { before: 100, after: 100 }, alignment: "left" }),
+            new Paragraph({ children: [new TextRun({ text: uzmanad + " - İş Güvenliği Uzmanı / " + hekimad + " İşyeri Hekimi", bold: false, size: 22, font: "Calibri" })], spacing: { before: 100, after: 100 }, alignment: "left" }),
+            new Paragraph({ children: [new TextRun({ text: "Tehlike Sınıfı", bold: true, size: 22, font: "Calibri" })], spacing: { before: 100, after: 100 }, alignment: "left" }),
+            new Paragraph({ children: [new TextRun({ text: tehlikesinifi, size: 22, font: "Calibri" })], spacing: { before: 100, after: 100 }, alignment: "left" }),
+            new Paragraph({ children: [new TextRun({ text: "Çalışan Sayısı", bold: true, size: 22, font: "Calibri" })], spacing: { before: 100, after: 100 }, alignment: "left" }),
+            new Paragraph({ children: [new TextRun({ text: $("#calisansayi").val(), size: 22, font: "Calibri" })], spacing: { before: 100, after: 100 }, alignment: "left" }),
+            new Paragraph({ children: [new TextRun({ text: "İşyeri İletişim Bilgileri", bold: true, size: 22, font: "Calibri" })], spacing: { before: 100, after: 100 }, alignment: "left" }),
+            new Paragraph({ children: [new TextRun({ text: $("#isyeriiletisim").val(), size: 22, font: "Calibri" })], spacing: { before: 100, after: 100 }, alignment: "left" }),
+            ...Array(3).fill().map(() => new Paragraph({ text: "" })),
+            new Paragraph({ children: [new PageBreak()] }),
+            new Paragraph({ children: [new TextRun({ text: "\tTANIMLAR", bold: true, size: 24, font: "Calibri" })], spacing: { before: 0, after: 100 }, alignment: "left" }),
+            new Paragraph({ children: [new TextRun({ text: "\tAcil durum:", bold: true, font: "Calibri", size: 22 }), new TextRun({ text: " İşyerinin tamamında veya bir kısmında meydana gelebilecek veya işyerini dışarıdan etkileyebilecek yangın, patlama, tehlikeli kimyasal maddelerden kaynaklanan yayılım, zehirlenme, salgın hastalık, radyoaktif sızıntı, sabotaj ve doğal afet gibi ivedilikle müdahale gerektiren olayları ifade eder.", font: "Calibri", size: 22 })], alignment: AlignmentType.JUSTIFIED, spacing: { after: 100 } }),
+            new Paragraph({ children: [new TextRun({ text: "\tAcil durum planı:", bold: true, font: "Calibri", size: 22 }), new TextRun({ text: " İşyerlerinde meydana gelebilecek acil durumlarda yapılacak iş ve işlemler ile uygulamaya yönelik eylemlerin yer aldığı planı ifade eder.", font: "Calibri", size: 22 })], alignment: AlignmentType.JUSTIFIED, spacing: { after: 100 } }),
+            new Paragraph({ children: [new TextRun({ text: "\tToplanma yeri:", bold: true, font: "Calibri", size: 22 }), new TextRun({ text: " Acil durumların olumsuz sonuçlarından çalışanların etkilenmeyeceği mesafede veya korunakta belirlenmiş güvenli yeri ifade eder.", font: "Calibri", size: 22 })], alignment: AlignmentType.JUSTIFIED, spacing: { after: 100 } }),
+            new Paragraph({ children: [new TextRun({ text: "\tAcil Çağrı:", bold: true, font: "Calibri", size: 22 }), new TextRun({ text: " Acil durumlarda, etkilenen veya etkilenenleri gören kişi ya da acil durum algılayıcı cihazlar tarafından, telefon, telsiz, kısa mesaj, otomatik mesaj, sosyal medya, internet ve diğer iletişim araçları ile acil çağrı merkezlerine yapılan başvuruyu ifade eder.", font: "Calibri", size: 22 })], alignment: AlignmentType.JUSTIFIED, spacing: { after: 100 } }),
+            new Paragraph({ children: [new TextRun({ text: "\tAcil Çağrı Merkezi (112):", bold: true, font: "Calibri", size: 22 }), new TextRun({ text: " Kullanıcıların veya acil durum algılayıcı cihazların acil yardım talebinde bulunmak amacıyla acil yardım çağrı hizmeti numaralarına doğru yapacakları çağrılara cevap vermekle yetkili kurum veya kuruluşu ifade eder. Bu kapsamda, yasal düzenlemeye göre ülkemizde 112 acil çağrı merkezini ifade eder.", font: "Calibri", size: 22 })], alignment: AlignmentType.JUSTIFIED, spacing: { after: 100 } }),
+            new Paragraph({ children: [new TextRun({ text: "\tAcil Çıkış:", bold: true, font: "Calibri", size: 22 }), new TextRun({ text: " Tehlike anında kapalı mekândaki insanların süratle ve güvenli bir şekilde tahliye edilmesine imkân verecek yolu ve dışarıya doğru açılan kapıyı ifade eder.", font: "Calibri", size: 22 })], alignment: AlignmentType.JUSTIFIED, spacing: { after: 100 } }),
+            new Paragraph({ children: [new TextRun({ text: "\tAFAD:", bold: true, font: "Calibri", size: 22 }), new TextRun({ text: " Afet ve Acil Durum Yönetimi Başkanlığını ifade eder.", font: "Calibri", size: 22 })], alignment: AlignmentType.JUSTIFIED, spacing: { after: 100 } }),
+            new Paragraph({ children: [new TextRun({ text: "\tAcil Durum Risk Seviyesi:", bold: true, font: "Calibri", size: 22 }), new TextRun({ text: " Acil durumun yol açtığı ve acil duruma bağlı nedenlerle oluşabilecek can kayıpları, yaralanma ve sakat kalmalar, yapı ve altyapı hasarları gibi fiziksel hasarlarla ekonomik, sosyal ve psikolojik kayıpların tümünü ifade eder.", font: "Calibri", size: 22 })], alignment: AlignmentType.JUSTIFIED, spacing: { after: 100 } }),
+            new Paragraph({ children: [new TextRun({ text: "\tBoğulma:", bold: true, font: "Calibri", size: 22 }), new TextRun({ text: " Sel, deniz, göl, kuyu, sıvı birikintisi oluşabilecek çukurlar vb. alanlarda nefes borusuna sıvı dolması, suda nefessiz kalma, tank vb. kapalı alanlarda gazla zehirlenme, yangın anında oluşan karbon monoksit nedeniyle vücuttaki dokulara yeterli oksijen gitmemesi sonucu dokularda bozulma meydana gelmesi durumunu ifade eder.", font: "Calibri", size: 22 })], alignment: AlignmentType.JUSTIFIED, spacing: { after: 100 } }),
+        ];
+        if (acildurumkonusecim.yangin === 1)
+        {
+            girisparagraflar.push(new Paragraph({ children: [new TextRun({ text: "\tYangın:", bold: true, font: "Calibri", size: 22 }), new TextRun({ text: " Maddenin yeterli derecede ısı ve oksijen (hava) ile birleşmesi sonucunda yanarak kimyasal şekil değişliğine uğraması olayını ifade eder. Yangının oluşabilmesi için yanıcı madde, yüksek ısı ve oksijene ihtiyaç vardır. Kontrolsüz veya kontrol edilemeyen şekilde açığa çıkan, yakıcı etkisiyle madde ve eşyaları kullanılmaz hâle getiren, boğucu etkisiyle canlıların yaşamına son veren tehlikedir.", font: "Calibri", size: 22 })], alignment: AlignmentType.JUSTIFIED, spacing: { after: 100 } }),);
+        }
+        if (acildurumkonusecim.deprem === 1)
+        {
+            girisparagraflar.push(new Paragraph({ children: [new TextRun({ text: "\tDeprem:", bold: true, font: "Calibri", size: 22 }), new TextRun({ text: " Tektonik kuvvetlerin veya volkan faaliyetlerinin etkisiyle yer kabuğunun kırılması sonucunda ortaya çıkan enerjinin sismik dalgalar hâlinde yayılarak geçtikleri ortamları ve yeryüzünü kuvvetle sarsması olayını ifade eder.", font: "Calibri", size: 22 })], alignment: AlignmentType.JUSTIFIED, spacing: { after: 100 } }),);
+        }
+        if (acildurumkonusecim.sel === 1)
+        {
+            girisparagraflar.push(new Paragraph({ children: [new TextRun({ text: "\tSel:", bold: true, font: "Calibri", size: 22 }), new TextRun({ text: " Suların bulunduğu yerde yükselerek veya başka bir yerden gelerek, genellikle kuru olan yüzeyleri kaplaması olayı.", font: "Calibri", size: 22 })], alignment: AlignmentType.JUSTIFIED, spacing: { after: 100 } }),);
+        }
+        if (acildurumkonusecim.sabotaj === 1)
+        {
+            girisparagraflar.push(new Paragraph({ children: [new TextRun({ text: "\tSabotaj:", bold: true, font: "Calibri", size: 22 }), new TextRun({ text: " İşyeri veya çalışanlarını hedef alan ve idari yapının tamamen veya geçici bir süre için faaliyet dışı kalmasını sağlamak amacıyla tahribine yönelik saldırgan bir yıkıcı faaliyet şeklini ifade eder.", font: "Calibri", size: 22 })], alignment: AlignmentType.JUSTIFIED, spacing: { after: 100 } }),);
+            girisparagraflar.push(new Paragraph({ children: [new TextRun({ text: "\tGasp:", bold: true, font: "Calibri", size: 22 }), new TextRun({ text: " Başkasının zilyetliğindeki taşınabilir bir malı, zilyedinin rızası olmaksızın, faydalanmak amacıyla, cebir veya tehdit kullanarak bulunduğu yerden almayı ifade eder.", font: "Calibri", size: 22 })], alignment: AlignmentType.JUSTIFIED, spacing: { after: 100 } }),);
+            girisparagraflar.push(new Paragraph({ children: [new TextRun({ text: "\tKaçırılma:", bold: true, font: "Calibri", size: 22 }), new TextRun({ text: " Kişiyi hürriyetinden yoksun bırakmak amacıyla bir kişiyi hukuka aykırı yollarla, iradesi dışında, bir yere götürmek veya bir yerde bulundurmayı, alıkoymayı ifade eder.", font: "Calibri", size: 22 })], alignment: AlignmentType.JUSTIFIED, spacing: { after: 100 } }),);
+        }
+        if (acildurumkonusecim.elektrik === 1)
+        {
+            girisparagraflar.push(new Paragraph({ children: [new TextRun({ text: "\tElektrik:", bold: true, font: "Calibri", size: 22 }), new TextRun({ text: " Elektrik tesisatında veya elektrikli ekipmanlardan kaynaklanan hata akımı, yanlış müdahale/temas veya atlama sonucunda insanda oluşturduğu olumsuz etkiyi ifade eder. Alternatif akımda 50 Volt ve üzeri, doğru akımda ise 120 volt üzeri elektrik çarpması tehlikeli olarak kabul edilir.", font: "Calibri", size: 22 })], alignment: AlignmentType.JUSTIFIED, spacing: { after: 100 } }),);
+        }
+        if (acildurumkonusecim.salgin === 1)
+        {
+            girisparagraflar.push(new Paragraph({ children: [new TextRun({ text: "\tSalgın Hastalık:", bold: true, font: "Calibri", size: 22 }), new TextRun({ text: " Belirli bir alanda, belirli bir grup insan arasında, belirli bir süre boyunca bir biyolojik risk etmeninden kaynaklanan hastalığın bireylerde beklenenden daha fazla görülmesi, anormal miktarda artması durumu ve bulaşmasını ifade eder. Covid-19 bu hastalığa örnek gösterilebilir. Bir hastalığın beklenen görülme sıklığı ve salgın hastalık olup olmadığı Dünya Sağlık Örgütü ve T.C. Sağlık Bakanlığı tarafından belirlenir.", font: "Calibri", size: 22 })], alignment: AlignmentType.JUSTIFIED, spacing: { after: 100 } }),);
+            girisparagraflar.push(new Paragraph({ children: [new TextRun({ text: "\tBiyolojik Kaynaklı Yayılım/Sızıntı:", bold: true, font: "Calibri", size: 22 }), new TextRun({ text: " Biyolojik etkenle doğrudan çalışılan veya biyolojik etkenin kullanıldığı bir işyerinden biyolojik risk etmeninin sızıntısını ifade eder.", font: "Calibri", size: 22 })], alignment: AlignmentType.JUSTIFIED, spacing: { after: 100 } }),);
+        }
+        if (acildurumkonusecim.iskaza === 1)
+        {
+            girisparagraflar.push(new Paragraph({ children: [new TextRun({ text: "\tİş Kazası:", bold: true, font: "Calibri", size: 22 }), new TextRun({ text: " İşyerinde veya işin yürütümü nedeniyle meydana gelen, ölüme sebebiyet veren veya vücut bütünlüğünü ruhen ya da bedenen engelli hâle getiren olayı ifade eder.", font: "Calibri", size: 22 })], alignment: AlignmentType.JUSTIFIED, spacing: { after: 100 } }),);
+        }
+        if (acildurumkonusecim.gida === 1)
+        {
+            girisparagraflar.push(new Paragraph({ children: [new TextRun({ text: "\t Zehirlenme", bold: true, font: "Calibri", size: 22 }), new TextRun({ text: " Az miktarlarda solunduğunda, ağız yoluyla alındığında, deri yoluyla emildiğinde insan sağlığı üzerinde akut veya kronik hasarlar meydana getiren olayı ifade eder.", font: "Calibri", size: 22 })], alignment: AlignmentType.JUSTIFIED, spacing: { after: 100 } }),);
+        }
+        if (acildurumkonusecim.yildirim === 1)
+        {
+            girisparagraflar.push(new Paragraph({ children: [new TextRun({ text: "\tYıldırım Düşmesi:", bold: true, font: "Calibri", size: 22 }), new TextRun({ text: " Yeryüzü ile bulutlar arasında meydana gelen elektrik boşalması sonucunda oluşan yıldırımın, işyerine veya bir canlıya isabet etmesini ifade eder.", font: "Calibri", size: 22 })], alignment: AlignmentType.JUSTIFIED, spacing: { after: 100 } }),);
+        }
+        if (acildurumkonusecim.basiclikap === 1)
+        {
+            girisparagraflar.push(new Paragraph({ children: [new TextRun({ text: "\tBasınçlı Kap Patlaması:", bold: true, font: "Calibri", size: 22 }), new TextRun({ text: " Kaynaklı, 0,5 bar’dan daha yüksek iç basınca tabi tutulması amaçlanan bir kabın, içinde bulunan gazın azami basınç seviyesinin üzerine çıkarak aniden, kontrolsüz bir biçimde boşalması ve metal aksamın parçalanarak hızlı bir şekilde etrafa yayılmasıdır.", font: "Calibri", size: 22 })], alignment: AlignmentType.JUSTIFIED, spacing: { after: 100 } }),);
+        }
+        if (acildurumkonusecim.kmaruziyet === 1)
+        {
+            girisparagraflar.push(new Paragraph({ children: [new TextRun({ text: "\tKimyasal Maruziyet:", bold: true, font: "Calibri", size: 22 }), new TextRun({ text: " Belirli bir referans sürede çalışanların solunum bölgesindeki havada bulunan kimyasal madde konsantrasyonunun zaman ağırlıklı ortalamasının üst sınırını (STEL) veya çalışma süresinin herhangi bir anında çalışanların solunum bölgesindeki havada bulunan kimyasal madde konsantrasyonunun aşılmaması gereken üst sınırın aşılması sonucu oluşabilecek AKUT zehirlenme", font: "Calibri", size: 22 })], alignment: AlignmentType.JUSTIFIED, spacing: { after: 100 } }),);
+        }
+        if (acildurumkonusecim.ksizinti === 1)
+        {
+            girisparagraflar.push(new Paragraph({ children: [new TextRun({ text: "\tKimyasal Sızıntı:", bold: true, font: "Calibri", size: 22 }), new TextRun({ text: " Canlılar üzerinde tahriş edici, yakıcı, felç edici veya öldürücü etkileri olan, deri, solunum veya sindirim sistemi yoluyla bünyeye girebilen gaz, sıvı ya da katı şekildeki toksik kimyasal maddelerin kasten veya kazaen çevreye yayılmasına neden olabilecek her türlü olayı ifade eder.", font: "Calibri", size: 22 })], alignment: AlignmentType.JUSTIFIED, spacing: { after: 100 } }),);
+        }
+        if (acildurumkonusecim.patlama === 1)
+        {
+            girisparagraflar.push(new Paragraph({ children: [new TextRun({ text: "\tPatlayıcı Ortam:", bold: true, font: "Calibri", size: 22 }), new TextRun({ text: " Yanıcı maddelerin gaz, buhar, sis ve tozlarının atmosferik şartlar altında hava ile oluşturduğu ve herhangi bir tutuşturucu kaynakla temasında tümüyle yanabilen karışımı ifade eder.", font: "Calibri", size: 22 })], alignment: AlignmentType.JUSTIFIED, spacing: { after: 100 } }),);
+        }
+        if (acildurumkonusecim.bakimonarim === 1)
+        {
+            girisparagraflar.push(new Paragraph({ children: [new TextRun({ text: "\tBakım Onarım:", bold: true, font: "Calibri", size: 22 }), new TextRun({ text: " İşyeri iş akışında planlı/periyodik bakım işleri ile beklenmedik bir şekilde oluşan arızların ivedilikle yapılması için gerekli her türlü müdahaleyi ifade eder.", font: "Calibri", size: 22 })], alignment: AlignmentType.JUSTIFIED, spacing: { after: 100 } }),);
+        }
+        if (acildurumkonusecim.hayvansokma === 1)
+        {
+            girisparagraflar.push(new Paragraph({ children: [new TextRun({ text: "\tHayvan Sokması/Isırması:", bold: true, font: "Calibri", size: 22 }), new TextRun({ text: " Çalışma alanında veya çevresinde bulunan arı, akrep, yılan, böcek, köpek gibi hayvanların sokması, ısırması veya saldırması sonucu çalışanlarda meydana gelen zehirlenme, alerjik reaksiyon, yara, enfeksiyon gibi sağlık sorunlarını ifade eder.", font: "Calibri", size: 22 })], alignment: AlignmentType.JUSTIFIED, spacing: { after: 100 } }),);
+        }        
+        girisparagraflar.push(new Paragraph({ children: [new TextRun({ text: "\tAMAÇ", bold: true, size: 24, font: "Calibri" })], spacing: { before: 0, after: 100 }, alignment: "left" }));
+        girisparagraflar.push(new Paragraph({ children: [new TextRun({ text: "\tİşyerinde yürütülen çalışma sırasında, olağan dışı olayların sonuçlarından en az kayıp ve zararla kurtulabilmesi için yapılması gereken iş ve işlemlerin, olaylar olmadan önce planlaması ve olay sırasında; uygulanmasını gerektiren tüm faaliyetler zamanında, hızlı ve etkili bir şekilde uygulanmasını amaçlamaktadır.", size: 22, font: "Calibri" })], spacing: { before: 100, after: 100 }, alignment: AlignmentType.JUSTIFIED }));
+        girisparagraflar.push(new Paragraph({ children: [new TextRun({ text: "\tDAYANAK", bold: true, size: 24, font: "Calibri" })], spacing: { before: 0, after: 100 }, alignment: "left" }));
+        girisparagraflar.push(new Paragraph({ children: [new TextRun({ text: "\tBu plan, İş sağlığı ve güvenliği kanunu 11,12 ve 30. maddeleri ile 18.06.2013 tarihli “İşyerlerinde Acil Durumlar Hakkında Yönetmelik” ve yine aynı yönetmeliğin 01.10.2021 tarihinde yapılan değişikliklere göre hazırlanmıştır.", size: 22, font: "Calibri" })], spacing: { before: 100, after: 100 }, alignment: AlignmentType.JUSTIFIED }));
+        girisparagraflar.push(new Paragraph({ children: [new TextRun({ text: "\tACİL DURUM EKİPLERİ GÖREV TANIMLARI", bold: true, size: 24, font: "Calibri" })], spacing: { before: 0, after: 100 }, alignment: "left" }));
+        girisparagraflar.push(new Paragraph({ children: [new TextRun({ text: "\tSöndürme ekibi:", bold: true, font: "Calibri", size: 22 }), new TextRun({ text: " İşyerinde çıkabilecek yangınlara derhal müdahale ederek mümkünse yangını kontrol altına almak, yangının genişlemesine mani olmak ve söndürme faaliyetlerini yürütmek.", font: "Calibri", size: 22 })], alignment: AlignmentType.JUSTIFIED, spacing: { after: 100 } }),);
+        girisparagraflar.push(new Paragraph({ children: [new TextRun({ text: "\tKurtarma ekibi:", bold: true, font: "Calibri", size: 22 }), new TextRun({ text: " İşyerlerinde acil durum sonrası; çalışanların, ziyaretçilerin ve diğer kişilerin arama ve kurtarma işlerini gerçekleştirmek.", font: "Calibri", size: 22 })], alignment: AlignmentType.JUSTIFIED, spacing: { after: 100 } }),);
+        girisparagraflar.push(new Paragraph({ children: [new TextRun({ text: "\tKoruma ekibi:", bold: true, font: "Calibri", size: 22 }), new TextRun({ text: " Acil durum nedeniyle ortaya çıkması muhtemel panik ve kargaşayı önlemek, acil durum ekipleri arasındaki koordinasyon işlerini gerçekleştirmek, sayım işlerini yürütmek, gerektiğinde ilgili ulusal ve yerel kurumların müdahale ekiplerine bilgi vermek.", font: "Calibri", size: 22 })], alignment: AlignmentType.JUSTIFIED, spacing: { after: 100 } }),);
+        girisparagraflar.push(new Paragraph({ children: [new TextRun({ text: "\tİlkyardım ekibi:", bold: true, font: "Calibri", size: 22 }), new TextRun({ text: " Acil durumdan olumsuz etkilenen kişilerin ilk yardım müdahalelerini gerçekleştirmek.", font: "Calibri", size: 22 })], alignment: AlignmentType.JUSTIFIED, spacing: { after: 100 } }),);
+        girisparagraflar.push(new Paragraph({ children: [new TextRun({ text: "\tDestek elemanı:", bold: true, font: "Calibri", size: 22 }), new TextRun({ text: " Asli görevinin yanında acil durumlara ilişkin ulusal ve yerel kurum ve kuruluşlarla irtibatı sağlamak, iş sağlığı ve güvenliği ile ilgili önleme, koruma, tahliye, yangınla mücadele, ilk yardım ve benzeri konularda özel olarak görevli olan kişidir.", font: "Calibri", size: 22 })], alignment: AlignmentType.JUSTIFIED, spacing: { after: 100 } }),);
+        girisparagraflar.push(new Paragraph({ children: [new TextRun({ text: "\tSorumluluk alanı:", bold: true, font: "Calibri", size: 22 }), new TextRun({ text: " Ekiplerde yer alan görevli kişilerin (destek elemanlarının) acil duruma ilişkin görevini gerçekleştireceği birim veya bölümü ifade eder.", font: "Calibri", size: 22 })], alignment: AlignmentType.JUSTIFIED, spacing: { after: 100 } }),);
+        girisparagraflar.push(new Paragraph({ children: [new TextRun({ text: "\tKoordinasyon:", bold: true, font: "Calibri", size: 22 }), new TextRun({ text: " Koordinasyonla görevli olan kişi, koruma ekibinde yer alıp ayrıca ekipler arasında iletişimi ve organizasyonu yapmakla da ayrıca görevlidirler.", font: "Calibri", size: 22 })], alignment: AlignmentType.JUSTIFIED, spacing: { after: 100 } }),);
+    const doc = new Document
+    ({
+        sections:
+        [
+            {
+                properties: { page: { margin: { top: 567, bottom: 567, left: 567, right: 567 }, borders: { pageBorderTop: { style: BorderStyle.SINGLE, size: 8, color: "000000" }, pageBorderBottom: { style: BorderStyle.SINGLE, size: 8, color: "000000" }, pageBorderLeft: { style: BorderStyle.SINGLE, size: 8, color: "000000" }, pageBorderRight: { style: BorderStyle.SINGLE, size: 8, color: "000000" }, pageBorders: { display: docx.PageBorderDisplay.FIRST_PAGE, offsetFrom: docx.PageBorderOffsetFrom.TEXT, zOrder: docx.PageBorderZOrder.FRONT } } } },
+                children:
+                [
+                    new Paragraph({ children: [new TextRun({ text: ustbaslik, bold: true, size: 36, font: "Tahoma" })], spacing: { before: 350, after: 200 }, alignment: "center" }),
+                    new Paragraph({ children: [new TextRun({ text: altbaslik, size: 28, font: "Tahoma" })], spacing: { before: 200, after: 100 }, alignment: "center" }),
+                    ...Array(26).fill().map(() => new Paragraph({ text: "" })),
+                    new Paragraph({ children: [new TextRun({ text: "ACİL DURUM PLANI", bold: true, size: 36, font: "Tahoma" })], alignment: "center" }),
+                    ...Array(31).fill().map(() => new Paragraph({ text: "" })),
+                    new Paragraph({ children: [new TextRun({ text: isyerisehir + " - " + acildurumyil, bold: true, size: 36, font: "Tahoma" })], alignment: "center" }),
+                ]
+            },
+            {
+                properties:{page:{margin:{top:1134,bottom:1701,left:1134,right:1134,footer: 1134}}},
+                children: [...girisparagraflar],
+                footers:
+                {
+                    default: new docx.Footer({ children: [docxucluimzadikey(uzmanad, uzmanno, hekimad, hekimno, isveren)]})
+                }
+            }
+        ],
+    });
+    const blob = await Packer.toBlob(doc);
+    saveAs(blob, "Acil Durum Giriş.docx");
+}
+
+async function acildurumkonusecimdocx()
+{
+    let acildurumkonular = acildurumkonuliste();
+    let uzmanad = store.get("uzmanad");
+    let uzmanno = store.get("uzmanno");
+    let isyeri = store.get('xjsonfirma');
+    isyeri = JSON.parse(isyeri);
+    let isveren = isyeri.is;
+    let hekimad = isyeri.hk;
+    let hekimno = isyeri.hn;
+    const { Document, Packer, TextRun, Paragraph, Table, TableRow, TableCell, WidthType, BorderStyle, AlignmentType } = docx;
+    const girisparagraflar =
+    [
+        new Paragraph({children:[new TextRun({text:"İŞYERİ İÇİN BELİRLENEN ACİL DURUMLAR",bold:true,size:24,font:"Calibri"})],spacing:{before:0,after:100},alignment:AlignmentType.CENTER}),
+        new Paragraph({children:[new TextRun({text:"\tİşyerinin tamamında veya bir kısmında meydana gelebilecek veya işyerini dışarıdan etkileyebilecek ve ivedilikle müdahale gerektiren acil durumlar aşağıda listelenmiştir.",size:22,font:"Calibri"})],spacing:{before:100,after:100},alignment:AlignmentType.JUSTIFIED})
+    ];
+    const tablosatirlari = [];
+    tablosatirlari.push(new TableRow({
+        children:
+        [
+            new TableCell({width:{size:10,type:WidthType.PERCENTAGE},children:[new Paragraph({alignment:AlignmentType.CENTER,spacing:{before:140,after:140},children:[new TextRun({text:"NO",bold:true,size:22,font:"Calibri"})]})]}),
+            new TableCell({width:{size:90,type:WidthType.PERCENTAGE},children:[new Paragraph({alignment:AlignmentType.CENTER,spacing:{before:140,after:140},children:[new TextRun({text:"ACİL DURUM PLAN KONULARI",bold:true,size:22,font:"Calibri"})]})]})
+        ]
+    }));
+    acildurumkonular.forEach((item, index) =>
+    {
+        tablosatirlari.push(new TableRow({
+            children:
+            [
+                new TableCell({width:{size:10,type:WidthType.PERCENTAGE},children:[new Paragraph({alignment:AlignmentType.CENTER,spacing:{before:140,after:140},children:[new TextRun({text:(index+1).toString(),bold:true,size:22,font:"Calibri"})]})]}),
+                new TableCell({width:{size:90,type:WidthType.PERCENTAGE},children:[new Paragraph({alignment:AlignmentType.LEFT,spacing:{before:140,after:140},indent:{left:60},children:[new TextRun({text:item.ad,size:22,font:"Calibri"})]})]})
+            ]
+        }));
+    });
+    const tablo=new Table({width:{size:100,type:WidthType.PERCENTAGE},rows:tablosatirlari,borders:{top:{style:BorderStyle.SINGLE,size:1,color:"000000"},bottom:{style:BorderStyle.SINGLE,size:1,color:"000000"},left:{style:BorderStyle.SINGLE,size:1,color:"000000"},right:{style:BorderStyle.SINGLE,size:1,color:"000000"},insideHorizontal:{style:BorderStyle.SINGLE,size:1,color:"000000"},insideVertical:{style:BorderStyle.SINGLE,size:1,color:"000000"}}});
+    const doc = new Document
+    ({
+        sections:
+        [{
+            properties: {},
+            children: [...girisparagraflar, new Paragraph({ text: ""}), tablo],
+            footers: { default: new docx.Footer({ children: [docxucluimzadikey(uzmanad, uzmanno, hekimad, hekimno, isveren)]})}
+        }]
+    });
+    const blob = await Packer.toBlob(doc);
+    saveAs(blob, "Acil Durum Plan Konuları.docx");
+}
+
+function acildurumdevam1()
+{
+    let tarih = $('#tarih').val().trim();
+    if (tarihkontrol(tarih) === false)
+    {
+        alertify.error("Lütfen geçerli bir tarih giriniz");
+        return;
+    }
+    store.set("acildurumtarih", tarih);
+    let sonuc = {};
+    $('.csscheckbox').each(function () { const id = $(this).attr('id'); if (id) { sonuc[id] = $(this).is(':checked') ? 1 : 0; }});
+    store.set("acildurumkonusecim", sonuc);
+    let firmaid = firmasecimoku();
+    window.location.href = "acildurum2.aspx?id=" + encodeURIComponent(firmaid);
+}
+
+////////////////////////////İŞYERİ/////////////////////////////////////////////İŞYERİ/////////////////////////////////////////////İŞYERİ/////////////////////////////////////////////
 
 function isyeriyeniload()
 {
@@ -2260,6 +2736,7 @@ function isyeriyeniload()
         }
     }
 }
+
 function isyeriekletamam()
 {
     try
@@ -2304,42 +2781,6 @@ function isyeriekletamam()
         alertify.error("Beklenmedik bir hata oluştu: " + e.message);
         return false;
     }
-}
-function metinuret(karaktersayisi)
-{
-    const harfler = "abcdefghijklmnopqrstuvwxyz0123456789";
-    let sifre = "";
-    for (let i = 0; i < karaktersayisi; i++)
-    {
-        const rastgeleIndex = Math.floor(Math.random() * harfler.length);
-        sifre += harfler[rastgeleIndex];
-    }
-    return sifre;
-}
-function basharfbuyuk(e){let t=e.value;t=t.replace(/\s+/g," ").trim().replace(/[^\p{L} ',.()\/-_]/gu,"");if(!t.trim()){e.value="";return}let n=t.toLocaleLowerCase("tr-TR").split(" ").map(e=>e.charAt(0).toLocaleUpperCase("tr-TR")+e.slice(1)).join(" ").replace(/ Ve /g," ve ");e.value=n}
-function tekbosluk(e) { let t = e.value; t = t.replace(/\s+/g, " ").trim(); e.value = t }
-function adsoyadduzelt(e){let t=e.value;t=t.replace(/\s+/g," ").trim(),t=t.replace(/[^a-zA-ZçÇğĞıİöÖşŞüÜ\s'-]/g,"");if(!t.trim()){e.value="";return}let l=t.split(/(\s+)/),a=l.length-1;for(;a>=0&&""===l[a].trim();)a--;if(a<0){e.value=t;return}l[a]=l[a].toLocaleUpperCase("tr-TR");for(let t=0;t<a;t++)""!==l[t].trim()&&(l[t]=l[t].charAt(0).toLocaleUpperCase("tr-TR")+l[t].slice(1).toLocaleLowerCase("tr-TR"));e.value=l.join("")}
-function rakamvenokta(i){i.value=i.value.replace(/[^0-9.]/g,"").trim()}
-function firmajsonokuma()
-{
-    let firmajson = store.get('firmajson');
-    if (typeof firmajson === "string")
-    {
-        try
-        {
-            firmajson = JSON.parse(firmajson);
-        }
-        catch
-        {
-            alertify.error("Firma verisi okunamadı");
-            firmajson = [];
-        }
-    }
-    else if (!Array.isArray(firmajson))
-    {
-        firmajson = [];
-    }
-    return firmajson;
 }
 
 function isyeriduzenlemeload()
@@ -2447,6 +2888,7 @@ function idoku(id)
     store.set("isyerisilmeid", id);
     $("#isyersil").fadeIn();
 }
+
 function isyerisilmeonay()
 {
     $('#isyersil').fadeOut();
@@ -2519,7 +2961,6 @@ function isyerisecimload()
     } 
 }
 
-
 function isyerisecimtamam()
 {
     let firmajson = firmajsonokuma(); 
@@ -2572,179 +3013,6 @@ function isyerisecimtamam()
     }    
 }
 
-function calisangenellisteload()
-{
-    var json = calisangetir();
-    if (json.length === 0)
-    {
-        return;
-    }
-    $('#tablo').DataTable
-    ({
-        data: json,
-        columns:
-        [
-            { title:"Ad", data:"ad" },
-            { title:"Unvan", data: "un" },
-            { title: "Düzenle", data: "id", orderable: false, searchable: false, render: function (d) { return '<input type="button" class="cssbutontamam" value="Düzenle" onclick="calisanduzenlegoster(\'' + d + '\')">'; } },
-            { title: "Sil", data: "id", orderable: false, searchable: false, render: function (d) { return '<input type="button" class="cssbutontamam" value="Sil" onclick="calisansilgoster(\'' + d + '\')">'; } }
-        ],
-        language:{search:"Çalışan Ara:",lengthMenu:"Sayfa başına _MENU_ kayıt göster",zeroRecords:"Böyle bir çalışan bulunamadı",info:"_TOTAL_ kayıttan _START_ ile _END_ arası gösteriliyor",infoEmpty:"Kayıt yok",infoFiltered:"(toplam _MAX_ kayıttan filtrelendi)",emptyTable:"Kayıtlı çalışan bulunamadı"},
-        createdRow: function (row)
-        {
-            $(row).find('td').eq(0).css('text-align', 'left');
-            $(row).find('td').eq(1).css('text-align', 'left');
-            $(row).find('td').eq(2).css('text-align', 'center');
-            $(row).find('td').eq(3).css('text-align', 'center');
-        },
-        headerCallback: function(thead) { $(thead).find('th').css('text-align', 'center');}
-    });
-    $('.dt-search input').css({ "background-color": "white" }).attr("autocomplete", "off");
-    $('.dt-length select').css({ "background-color": "white" });
-}
-
-function calisangetir()
-{
-    let json = $('#HiddenField1').val();
-    try
-    {
-        json = JSON.parse(json);
-    }
-    catch
-    {
-        json = [];
-    }
-    return json;
-}
-function calisanduzenlegoster(id)
-{
-    var json = calisangetir();
-    json = json.find(r => r.id == id);
-    if (json)
-    {
-        $('#adsoyad2').val(json.ad);
-        $('#unvan2').val(json.un);
-        store.set("calisanid", id);
-        $('#diyalogduzenle').fadeIn();
-    }
-}
-function calisanjsonguncelle()
-{
-    let data = calisangetir();
-    var calisanid = store.get("calisanid");
-    var calisanad = $('#adsoyad2').val().trim();
-    var unvan = $('#unvan2').val().trim();
-    if (!calisanad)
-    {
-        alertify.error("Ad Soyad boş olamaz.");
-        return false;
-    }
-    var kontrol = false;
-    for (var i = 0; i < data.length; i++)
-    {
-        if (data[i].id == calisanid)
-        {
-            data[i].ad = calisanad;
-            data[i].un = unvan;
-            kontrol = true;
-            break;
-        }
-    }
-    if (kontrol === false)
-    {
-        alertify.error("Güncellenecek çalışan bulunamadı.");
-        return false;
-    }
-    data = calisansiralama(data);
-    $('#HiddenField1').val(JSON.stringify(data));
-    $('#diyalogduzenle').fadeOut();
-    return true;
-}
-function gostercalisanekle()
-{
-    $('#adsoyad1').val('');
-    $('#unvan1').val('');
-    $('#diyalogekle').fadeIn();
-}
-function calisanjsonekle()
-{
-    let json = calisangetir();
-    var calisanad = $('#adsoyad1').val().trim();
-    var calisanunvan = $('#unvan1').val().trim();
-    if (!calisanad)
-    {
-        alertify.error("Ad Soyad boş olamaz.");
-        return false;
-    }
-    var yenicalisan={id:metinuret(3),ad:calisanad,un:calisanunvan,a:0,t:0,r:0,e:"",s:"",i:""};
-    json.push(yenicalisan);
-    json = calisansiralama(json);
-    $('#HiddenField1').val(JSON.stringify(json));
-    $('#diyalogekle').fadeOut();
-    return true;
-}
-function calisansilgoster(id)
-{
-    var json = calisangetir();
-    json = json.find(r => r.id == id);
-    if (json)
-    {
-        $('#silbilgi').text(json.ad + " adlı çalışanı silmek istediğinizden emin misiniz ?");
-        store.set("calisanid", id);
-        $('#diyalogsil').fadeIn();
-    }
-}
-function calisanjsonsil()
-{
-    try
-    {
-        let json = calisangetir();
-        var calisanid = store.get("calisanid");
-        json = json.filter(r => r.id != calisanid);
-        json = calisansiralama(json);
-        $('#HiddenField1').val(JSON.stringify(json));
-        $('#diyalogsil').fadeOut();
-        return true;
-    }
-    catch
-    {
-        $('#diyalogsil').fadeOut();
-        alertify.error("Çalışan silinemedi");
-        return false;
-    }
-}
-function calisansiralama(json)
-{
-    if (typeof json === "string")
-    {
-        json = JSON.parse(json);
-    }
-    return json.sort((a, b) => a.ad.localeCompare(b.ad, 'tr-TR', { sensitivity: 'base' }));
-}
-
-function calisanlistepdfyaz()
-{
-    let dosyaid = metinuret(3);
-    let json = calisangetir();
-    json = calisansiralama(json);
-    const icerik =
-    [
-        [{ text: 'No', style: 'header' }, { text: 'Çalışan Ad Soyad', style: 'header' }, { text: 'Çalışan Unvan', style: 'header' }],
-        ...json.map((x,i)=>[{text:i+1,alignment:'center'},x.ad,x.un])
-    ];
-    const dokuman =
-    {
-        pageSize: 'A4',
-        pageMargins: [30, 30, 30, 30],
-        content:[{table:{headerRows:1,widths:['7%','46%','47%'],body:icerik},layout:'solid'}],
-        styles:{header:{fontSize:12,bold:true,alignment:'center'}},
-    };
-    pdfMake.createPdf(dokuman).download('Çalışan Listesi - ' + dosyaid + '.pdf');
-}
-
-function adsoyadstring(s){let t=s.replace(/\s+/g," ").trim().replace(/[^a-zA-ZçÇğĞıİöÖşŞüÜ\s'-]/g,"");if(!t.trim())return"";let p=t.split(/(\s+)/),l=p.length-1;while(l>=0&&p[l].trim()==="")l--;if(l<0)return t;p[l]=p[l].toLocaleUpperCase("tr-TR");for(let i=0;i<l;i++)p[i].trim()!==""&&(p[i]=p[i].charAt(0).toLocaleUpperCase("tr-TR")+p[i].slice(1).toLocaleLowerCase("tr-TR"));return p.join("")}
-function basharfstring(s){let t=s.replace(/\s+/g," ").trim().replace(/[^\p{L} ',.()\/-_]/gu,"");if(!t.trim())return"";return t.toLocaleLowerCase("tr-TR").split(" ").map(w=>w.charAt(0).toLocaleUpperCase("tr-TR")+w.slice(1)).join(" ").replace(/ Ve /g," ve")}
-
 function isyerilistesiload()
 {
     let firmajson = firmajsonokuma();
@@ -2781,6 +3049,456 @@ function isyerilistesiload()
         window.location.href = "isyeriduzenleme.aspx?id=" + encodeURIComponent(id);
     });
 }
+
+function isyerilistesiyazdir()
+{
+    let json = firmajsonokuma();
+    if (!json || json.length === 0) { return false; }
+    let dosyaid = metinuret(3);
+    const icerik =
+    [
+        [{ text: 'No', style: 'header' }, { text: 'İşyeri Unvanı', style: 'header' }, { text: 'İşyeri Adresi', style: 'header' }, { text: 'İşyeri Hekimi', style: 'header' }, { text: 'İşveren Vekili', style: 'header' }],
+        ...json.map((x,i)=>[{text:i+1,alignment:'center'},x.fi,x.ad,x.hk,x.is])
+    ];
+    const dokuman =
+    {
+        pageSize: 'A4',
+        pageOrientation: 'landscape',
+        pageMargins: [20, 20, 20, 20],
+        content:[{table:{headerRows:1,widths:['4%','36%','36%','12%','12%'],body:icerik},layout:'solid'}],
+        styles:{header:{fontSize:12,bold:true,alignment:'center'}},
+    };
+    pdfMake.createPdf(dokuman).download('İşyeri Listesi - ' + dosyaid + '.pdf');
+}
+
+////////////////////////////ÇALIŞAN/////////////////////////////////////////////ÇALIŞAN/////////////////////////////////////////////ÇALIŞAN/////////////////////////////////////////////
+
+function calisangenellisteload()
+{
+    var json = jsoncevir($('#HiddenField1').val());
+    if (json.length === 0)
+    {
+        return;
+    }
+    $('#tablo').DataTable
+    ({
+        data: json,
+        columns:
+        [
+            { title:"Ad", data:"x" },
+            { title:"Unvan", data: "y" },
+            { title: "Düzenle", data: "id", orderable: false, searchable: false, render: function (d) { return '<input type="button" class="cssbutontamam" value="Düzenle" onclick="calisanduzenlegoster(\'' + d + '\')">'; } },
+            { title: "Sil", data: "id", orderable: false, searchable: false, render: function (d) { return '<input type="button" class="cssbutontamam" value="Sil" onclick="calisansilgoster(\'' + d + '\')">'; } }
+        ],
+        language:{search:"Çalışan Ara:",lengthMenu:"Sayfa başına _MENU_ kayıt göster",zeroRecords:"Böyle bir çalışan bulunamadı",info:"_TOTAL_ kayıttan _START_ ile _END_ arası gösteriliyor",infoEmpty:"Kayıt yok",infoFiltered:"(toplam _MAX_ kayıttan filtrelendi)",emptyTable:"Kayıtlı çalışan bulunamadı"},
+        createdRow: function (row)
+        {
+            $(row).find('td').eq(0).css('text-align', 'left');
+            $(row).find('td').eq(1).css('text-align', 'left');
+            $(row).find('td').eq(2).css('text-align', 'center');
+            $(row).find('td').eq(3).css('text-align', 'center');
+        },
+        headerCallback: function(thead) { $(thead).find('th').css('text-align', 'center');}
+    });
+    $('.dt-search input').css({ "background-color": "white" }).attr("autocomplete", "off");
+    $('.dt-length select').css({ "background-color": "white" });
+}
+
+function calisanduzenlegoster(id)
+{
+    var json = jsoncevir($('#HiddenField1').val());
+    json = json.find(r => r.id == id);
+    if (json)
+    {
+        $('#adsoyad2').val(json.x);
+        $('#unvan2').val(json.y);
+        store.set("calisanid", id);
+        $('#diyalogduzenle').fadeIn();
+    }
+}
+function calisanjsonguncelle()
+{
+    let data = jsoncevir($('#HiddenField1').val());
+    var calisanid = store.get("calisanid");
+    var calisanad = $('#adsoyad2').val().trim();
+    var unvan = $('#unvan2').val().trim();
+    if (!calisanad)
+    {
+        alertify.error("Ad Soyad boş olamaz.");
+        return false;
+    }
+    var kontrol = false;
+    for (var i = 0; i < data.length; i++)
+    {
+        if (data[i].id == calisanid)
+        {
+            data[i].x = calisanad;
+            data[i].y = unvan;
+            kontrol = true;
+            break;
+        }
+    }
+    if (kontrol === false)
+    {
+        alertify.error("Güncellenecek çalışan bulunamadı.");
+        return false;
+    }
+    data = calisansiralama(data);
+    $('#HiddenField1').val(JSON.stringify(data));
+    $('#diyalogduzenle').fadeOut();
+    return true;
+}
+function gostercalisanekle()
+{
+    $('#adsoyad1').val('');
+    $('#unvan1').val('');
+    $('#diyalogekle').fadeIn();
+}
+function calisanjsonekle()
+{
+    let json = jsoncevir($('#HiddenField1').val());
+    var calisanad = $('#adsoyad1').val().trim();
+    var calisanunvan = $('#unvan1').val().trim();
+    if (!calisanad)
+    {
+        alertify.error("Ad Soyad boş olamaz.");
+        return false;
+    }
+    var yenicalisan={id:metinuret(3),x:calisanad,y:calisanunvan,a:0,t:0,r:0,e:"",s:"",i:""};
+    json.push(yenicalisan);
+    json = calisansiralama(json);
+    $('#HiddenField1').val(JSON.stringify(json));
+    $('#diyalogekle').fadeOut();
+    return true;
+}
+function calisansilgoster(id)
+{
+    var json = jsoncevir($('#HiddenField1').val());
+    json = json.find(r => r.id == id);
+    if (json)
+    {
+        $('#silbilgi').text(json.x + " adlı çalışanı silmek istediğinizden emin misiniz ?");
+        store.set("calisanid", id);
+        $('#diyalogsil').fadeIn();
+    }
+}
+function calisanjsonsil()
+{
+    try
+    {
+        let json = jsoncevir($('#HiddenField1').val());
+        var calisanid = store.get("calisanid");
+        json = json.filter(r => r.id != calisanid);
+        json = calisansiralama(json);
+        $('#HiddenField1').val(JSON.stringify(json));
+        $('#diyalogsil').fadeOut();
+        return true;
+    }
+    catch
+    {
+        $('#diyalogsil').fadeOut();
+        alertify.error("Çalışan silinemedi");
+        return false;
+    }
+}
+function calisansiralama(json)
+{
+    if (typeof json === "string")
+    {
+        json = JSON.parse(json);
+    }
+    return json.sort((a, b) => a.x.localeCompare(b.x, 'tr-TR', { sensitivity: 'base' }));
+}
+
+function calisanlistepdfyaz()
+{
+    let dosyaid = metinuret(3);
+    let json = jsoncevir($('#HiddenField1').val());
+    json = calisansiralama(json);
+    const icerik =
+    [
+        [{ text: 'No', style: 'header' }, { text: 'Çalışan Ad Soyad', style: 'header' }, { text: 'Çalışan Unvan', style: 'header' }],
+        ...json.map((x,i)=>[{text:i+1,alignment:'center'},x.x,x.y])
+    ];
+    const dokuman =
+    {
+        pageSize: 'A4',
+        pageMargins: [30, 30, 30, 30],
+        content:[{table:{headerRows:1,widths:['7%','46%','47%'],body:icerik},layout:'solid'}],
+        styles:{header:{fontSize:12,bold:true,alignment:'center'}},
+    };
+    pdfMake.createPdf(dokuman).download('Çalışan Listesi - ' + dosyaid + '.pdf');
+}
+
+function excelleduzenleload2()
+{
+    let mysqljson = store.get('mysqljson');
+    mysqljson = mysqljson ? JSON.parse(mysqljson) : [];
+    $('#HiddenField1').val(JSON.stringify(mysqljson));
+    const ekleData = JSON.parse(store.get('eklejson') || "[]");
+    const silData = JSON.parse(store.get('siljson') || "[]");
+    const guncelleData = JSON.parse(store.get('gunceljson') || "[]");
+    function tabloOlustur(tabloId, data)
+    {
+        $(`#${tabloId}`).DataTable
+        ({
+            destroy: true,
+            data: data,
+            order: [[0, 'asc']],
+            dom: 't',
+            pageLength: -1,
+            language: {zeroRecords: "Bulunamadı", emptyTable: "Bulunamadı"},
+            columns:
+            [
+                { data: 'x', title: 'Ad Soyad'},
+                { data: 'y', title: 'Unvan'}
+            ],
+            createdRow: function (row){$(row).find('td').eq(0).css('text-align', 'left'); $(row).find('td').eq(1).css('text-align', 'left');},
+            headerCallback: function (thead) { $(thead).find('th').css('text-align', 'center');}
+        });
+    }
+    tabloOlustur('ekletablo', ekleData);
+    tabloOlustur('siltablo', silData);
+    tabloOlustur('guncelletablo', guncelleData);
+}
+
+function excelleduzenleekle()
+{
+    const mysqljson = $('#HiddenField1').val();
+    let mysqlData = mysqljson ? JSON.parse(mysqljson) : [];
+    const eklejsonStr = store.get('eklejson');
+    if (!eklejsonStr)
+    {
+        alertify.error("Eklenmek üzere çalışan bulunamadı.");
+        return false;
+    }
+    const ekleData = JSON.parse(eklejsonStr);
+    if (ekleData.length === 0)
+    {
+        alertify.warning("Yeni eklenecek çalışan bulunamadı.");
+        return false;
+    }
+    const mevcutAdSet = new Set(mysqlData.map(x => x.x));
+    ekleData.forEach(c=>{if(!mevcutAdSet.has(c.x)){mysqlData.push({x:c.x,y:c.y,a:0,t:0,r:0,e:"",s:"",i:"",id:metinuret(3)});mevcutAdSet.add(c.x)}});
+    mysqlData = calisansiralama(mysqlData);
+    store.set('mysqljson', JSON.stringify(mysqlData));
+    $('#HiddenField1').val(JSON.stringify(mysqlData));
+    store.set('eklejson', '[]');
+    $('#ekletablo').DataTable().clear().draw();
+}
+
+function excelleduzenlesil()
+{
+    const mysqljson = $('#HiddenField1').val();
+    let mysqlData = mysqljson ? JSON.parse(mysqljson) : [];
+    const siljsonStr = store.get('siljson');
+    if (!siljsonStr)
+    {
+        alertify.error("Silinecek çalışan bilgisi bulunamadı.");
+        return false;
+    }
+    const silData = JSON.parse(siljsonStr);
+    const silinecekler = silData.map(x => x.id);
+    if (silinecekler.length === 0)
+    {
+        alertify.warning("Silinecek çalışan bulunamadı.");
+        return false;
+    }
+    mysqlData = mysqlData.filter(calisan => !silinecekler.includes(calisan.id));
+    mysqlData = calisansiralama(mysqlData);
+    $('#HiddenField1').val(JSON.stringify(mysqlData));
+    store.set('mysqljson', JSON.stringify(mysqlData));
+    store.set('siljson', '[]');
+    $('#siltablo').DataTable().clear().draw();
+}
+
+function excelleduzenleguncelleme()
+{
+    const mysqljson = $('#HiddenField1').val();
+    let mysqlData = mysqljson ? JSON.parse(mysqljson) : [];
+    const gunceljsonStr = store.get('gunceljson');
+    if (!gunceljsonStr)
+    {
+        alertify.error("Güncellenecek çalışan bilgisi bulunamadı.");
+        return false;
+    }
+    const guncelData = JSON.parse(gunceljsonStr);
+    if (guncelData.length === 0)
+    {
+        alertify.warning("Güncellenecek çalışan bulunamadı.");
+        return false;
+    }
+    const guncelleMap = new Map(guncelData.map(x => [x.id, x]));
+    mysqlData=mysqlData.map(c=>guncelleMap.has(c.id)?{...c,x:guncelleMap.get(c.id).x,y:guncelleMap.get(c.id).y}:c);
+    mysqlData = calisansiralama(mysqlData);
+    store.set('mysqljson', JSON.stringify(mysqlData));
+    $('#HiddenField1').val(JSON.stringify(mysqlData));
+    store.set('gunceljson', '[]');
+    $('#guncelletablo').DataTable().clear().draw();
+}
+
+function excelleduzenleload1()
+{
+    var $container = $('#excelveri');
+    var containerWidth = $(window).width() * 0.8;
+    excelwebayar($container, containerWidth, "0");
+    $('#durum').on('change', function ()
+    {
+        let durum = $(this).val();
+        excelwebayar($container, containerWidth, durum);
+    });
+}
+function excelwebayar($container, containerWidth, durum)
+{
+    let options={tabs:false,toolbar:false,worksheets:[]};
+    if (durum === "0")
+    {
+        options.worksheets.push
+        ({
+            minDimensions: [2, 500],
+            columns: [
+                { width: containerWidth / 3, title: 'Ad Soyad' },
+                { width: containerWidth / 3, title: 'Unvan' }
+            ]
+        });
+    }
+    else if (durum === "1")
+    {
+        options.worksheets.push
+        ({
+            minDimensions: [3, 500],
+            columns: [
+                { width: containerWidth / 4, title: 'Ad' },
+                { width: containerWidth / 4, title: 'Soyad' },
+                { width: containerWidth / 4, title: 'Unvan' }
+            ]
+        });
+    }
+    $container.html("");
+    var spreadsheetInstance = jspreadsheet($container[0], options);
+    $container.css({width:'80%',margin:'0 auto'});
+    $container.data('spreadsheetInstance', spreadsheetInstance);
+}
+
+function calisanexcelduzenletamam1()
+{
+    var $container = $('#excelveri');
+    var spreadsheetInstance = $container.data('spreadsheetInstance');
+    if (!spreadsheetInstance) { alert("Spreadsheet yüklenmedi veya instance bulunamadı!");
+      return;
+    }
+    let durum = $('#durum').val();
+    var rawData = spreadsheetInstance[0].getData();
+    var excelveri = [];
+
+    if (durum === "0") {
+        excelveri = $.map(rawData, function (row) {
+            return {
+                x: row[0] ? adsoyadstring(row[0].toString().trim()) : "",
+                y: row[1] ? basharfstring(row[1].toString().trim()) : ""
+            };
+        }).filter(function (row) { return row.x !== ""; });
+    }
+    else if (durum === "1") {
+        excelveri = $.map(rawData, function (row) {
+            let adsoyad = "";
+            if (row[0] || row[1]) {
+                adsoyad = (row[0] ? row[0].toString().trim() : "") + " " +
+                          (row[1] ? row[1].toString().trim() : "");
+            }
+            return {
+                x: adsoyad ? adsoyadstring(adsoyad.trim()) : "",
+                y: row[2] ? basharfstring(row[2].toString().trim()) : ""
+            };
+        }).filter(function (row) { return row.x !== ""; });
+    }
+
+    let mysqljson = $('#HiddenField1').val();
+    mysqljson = mysqljson ? JSON.parse(mysqljson) : [];
+
+    const sonjson = [];
+
+    // excelde olup mysql'de olmayanlar
+    excelveri.forEach(e => {
+        const m = mysqljson.find(x => x.x === e.x);
+        if (!m) {
+            sonjson.push({ x: e.x, y: e.y, sonuc: 1 });
+        }
+    });
+
+    // mysql'de olup excelde bulunan/bulunmayanlar
+    mysqljson.forEach(m => {
+        const e = excelveri.find(x => x.x === m.x);
+        if (e) {
+            sonjson.push({
+                x: e.x,
+                y: e.y,
+                a: m.a,
+                t: m.t,
+                r: m.r,
+                e: m.e,
+                s: m.s,
+                i: m.i,
+                id: m.id,
+                sonuc: 2
+            });
+        } else {
+            sonjson.push({ x: m.x, y: m.y, id: m.id, sonuc: 0 });
+        }
+    });
+
+    const eklejson = sonjson.filter(x => x.sonuc === 1);
+    const siljson = sonjson.filter(x => x.sonuc === 0);
+    const gunceljson = sonjson.filter(x => x.sonuc === 2);
+
+    store.set('eklejson', JSON.stringify(eklejson));
+    store.set('siljson', JSON.stringify(siljson));
+    store.set('gunceljson', JSON.stringify(gunceljson));
+    store.set('mysqljson', JSON.stringify(mysqljson));
+
+    const link = new URLSearchParams(window.location.search);
+    const firmaid = link.get('id');
+    window.location.href = "calisanexcelleduzenle2.aspx?id=" + encodeURIComponent(firmaid);
+}
+
+function dokumancalisanload()
+{
+    let calisanjson = jsoncevir($('#HiddenField1').val());
+    $('#tablo').DataTable
+    ({
+        data: calisanjson,
+        order: [[1, 'asc']],
+        columns:
+        [
+            { data:null,title:"Seç",render:(d,t,r)=>`<input type="checkbox" class="row-checkbox" data-id="${r.x}|${r.y}">`,orderable:false},
+            { data: "x", title: "Ad Soyad" },
+            { data: "y", title: "Unvan" },
+        ],
+        language:{search:"Çalışan Ara:",lengthMenu:"Sayfa başına _MENU_ kayıt göster",zeroRecords:"Çalışan bulunamadı",info:"_TOTAL_ kayıttan _START_ ile _END_ arası gösteriliyor",infoEmpty:"Çalışan bulunamadı",infoFiltered:"(toplam _MAX_ kayıttan filtrelendi)",emptyTable:"Çalışan bulunamadı"},
+        createdRow:function(r){$(r).find("td").eq(1).css("text-align","left");$(r).find("td").eq(2).css("text-align","left");},
+        headerCallback: function (thead) {$(thead).find('th').css('text-align', 'center');}
+    });
+    $('.dt-search input').css({ "background-color": "white" }).attr("autocomplete", "off");
+    $('.dt-length select').css({ "background-color": "white" });
+}
+
+function dokumancalisansecim()
+{
+    var calisanjson = [];
+    $('#tablo').DataTable().rows().nodes().to$().find('.row-checkbox:checked').each(function ()
+    {
+        var rowKey = $(this).data('id');
+        if (rowKey)
+        {
+            var [adsoyad, unvan] = rowKey.split('|');
+            calisanjson.push({ a: adsoyad, u: unvan });
+        }
+    });
+    store.set("calisansecimjsonx", JSON.stringify(calisanjson));
+    return calisanjson;
+}
+
+////////////////////////////ŞİFRE/////////////////////////////////////////////ŞİFRE/////////////////////////////////////////////ŞİFRE/////////////////////////////////////////////
 
 function sifredegistirmedogrulama()
 {
@@ -2822,19 +3540,15 @@ function sifredegistirmedogrulama()
     $('#HiddenField2').val(yeni);
 }
 
-function mesaj(text)
-{
-    alertify.error(text);
-}
-
+////////////////////////////HEKİM TANIMLAMA/////////////////////////////////////////////HEKİM TANIMLAMA/////////////////////////////////////////////HEKİM TANIMLAMA/////////////////////////////////////////////
 
 function hekimtanimlamaload()
 {
-    let json = $('#HiddenField1').val();
-    data = calisansiralama(json);
+    let json = jsoncevir($('#HiddenField1').val());
+    json = json.sort((a, b) => a.ad.localeCompare(b.ad, 'tr-TR', { sensitivity: 'base' }));
     var table = $('#kisitablo').DataTable
     ({
-        data: data,
+        data: json,
         dom: 't',
         pageLength: -1,
         ordering: false,
@@ -2879,6 +3593,7 @@ function hekimtanimlamaload()
         }
     });
 }
+
 function hekimtanimekle()
 {
     let ad = $('#adsoyad1').val().trim();
@@ -2975,17 +3690,19 @@ function hekimtanimsil()
     $('#dylghekimsil').fadeOut();
 }
 
+////////////////////////////GÖREVLENDİRME/////////////////////////////////////////////GÖREVLENDİRME/////////////////////////////////////////////GÖREVLENDİRME/////////////////////////////////////////////
+
 function gorevlendirmeacildurumload()
 {
     const ekipliste={0:"Görevli Değil",1:"İlkyardım Ekibi - Ekip Başı",2:"İlkyardım Ekibi - Ekip Personeli",3:"Söndürme Ekibi - Ekip Başı",4:"Söndürme Ekibi - Ekip Personeli",5:"Koruma Ekibi - Ekip Başı + Koordinasyon",6:"Koruma Ekibi - Ekip Personeli + Koordinasyon",7:"Koruma Ekibi - Ekip Personeli",8:"Kurtarma Ekibi - Ekip Başı",9:"Kurtarma Ekibi - Ekip Personeli",10:"Destek Elemanı"};
-    let calisanjson = calisangetir();
+    let calisanjson = jsoncevir($('#HiddenField1').val());
     $('#tablo').DataTable
     ({
         data: calisanjson,
         columns:
         [
-            { data: 'ad', title: 'Ad Soyad' },
-            { data: 'un', title: 'Unvan' },
+            { data: 'x', title: 'Ad Soyad' },
+            { data: 'y', title: 'Unvan' },
             { data:"a",title:"Acil Durum Görevi",render:function(d){const k=parseInt(d);return typeof ekipliste[k]!=="undefined"?ekipliste[k]:"Bilinmiyor"}},
             { data:null,title:"Görevlendirme",orderable:false,render:function(){return'<input type="button" name="sec" class="cssbutontamam" value="Seç"/>'}}
         ],
@@ -3018,7 +3735,7 @@ function gorevlendirmeacildurumguncelle()
         return;
     }
     const yeniGorev = parseInt($('#gorevselect').val());
-    let calisanlar = calisangetir();
+    let calisanlar = jsoncevir($('#HiddenField1').val());
     const index = calisanlar.findIndex(x => x.id === secilen.id);
     if (index !== -1)
     {
@@ -3047,7 +3764,7 @@ function gorevlendirmeacildurumguncelle()
 function gorevlendirmeacildurumpdf()
 {
     const ekipliste={0:"Görevli Değil",1:"İlkyardım Ekibi - Ekip Başı",2:"İlkyardım Ekibi - Ekip Personeli",3:"Söndürme Ekibi - Ekip Başı",4:"Söndürme Ekibi - Ekip Personeli",5:"Koruma Ekibi - Ekip Başı + Koordinasyon",6:"Koruma Ekibi - Ekip Personeli + Koordinasyon",7:"Koruma Ekibi - Ekip Personeli",8:"Kurtarma Ekibi - Ekip Başı",9:"Kurtarma Ekibi - Ekip Personeli",10:"Destek Elemanı"};
-    let json = calisangetir();
+    let json = jsoncevir($('#HiddenField1').val());
     if (!json || json.length === 0) { alertify.error("Görevli çalışan bulunamadı"); return false; }
     json = json.filter(x => x.a !== 0);
     if (!json || json.length === 0) { alertify.error("Görevli çalışan bulunamadı"); return false; }
@@ -3060,7 +3777,7 @@ function gorevlendirmeacildurumpdf()
             { text: 'Çalışan Ad Soyad', style: 'header' },
             { text: 'Acil Durum Ekip Görevi', style: 'header' }
         ],
-        ...json.map((x,i)=>[{text:i+1,alignment:'center'},x.ad,ekipliste[x.a]||"Bilinmiyor"])
+        ...json.map((x,i)=>[{text:i+1,alignment:'center'},x.x,ekipliste[x.a]||"Bilinmiyor"])
     ];
     const dokuman =
     {
@@ -3084,14 +3801,14 @@ function gorevlendirmeacildurumpdf()
 function gorevlendirmecalisanload()
 {
     const ekipliste={0:"Görevli Değil",1:"Çalışan Temsilcisi",2:"Çalışan Baş Temsilcisi"};
-    let calisanjson = calisangetir();
+    let calisanjson = jsoncevir($('#HiddenField1').val());
     const table = $('#tablo').DataTable
     ({
         data: calisanjson,
         columns:
         [
-            { data: 'ad', title: 'Ad Soyad' },
-            { data: 'un', title: 'Unvan' },
+            { data: 'x', title: 'Ad Soyad' },
+            { data: 'y', title: 'Unvan' },
             { data:'t', title:'Çalışan Temsilcisi',render:d=>ekipliste[parseInt(d)]||'Bilinmiyor'},
             { data:null, title:'Görevlendirme',orderable:false,render:()=>'<input name="sec" type="button" class="cssbutontamam" value="Seç"/>'}
         ],
@@ -3124,7 +3841,7 @@ function gorevlendirmetemsilciguncelle()
         return;
     }
     const yeniGorev = parseInt($('#gorevselect').val());
-    let calisanlar = calisangetir();
+    let calisanlar = jsoncevir($('#HiddenField1').val());
     const index = calisanlar.findIndex(x => x.id === secilen.id);
     if (index !== -1)
     {
@@ -3150,12 +3867,10 @@ function gorevlendirmetemsilciguncelle()
     $('#dylgcalisantemsilcisi').fadeOut();
 }
 
-
-
 function gorevlendirmetemsilcipdf()
 {
     const ekipliste={0:"Görevli Değil",1:"Çalışan Temsilcisi",2:"Çalışan Baş Temsilcisi"};
-    let json = calisangetir();
+    let json = jsoncevir($('#HiddenField1').val());
     if (!json || json.length === 0) { alertify.error("Görevli çalışan bulunamadı"); return false; }
     json = json.filter(x => x.t !== 0);
     if (!json || json.length === 0) { alertify.error("Görevli temsilci bulunamadı"); return false; }
@@ -3168,7 +3883,7 @@ function gorevlendirmetemsilcipdf()
             { text: 'Çalışan Ad Soyad', style: 'header' },
             { text: 'Temsilci Görevi', style: 'header' }
         ],
-        ...json.map((x,i)=>[{text:i+1,alignment:'center'},x.ad,ekipliste[x.t]||"Bilinmiyor"])
+        ...json.map((x,i)=>[{text:i+1,alignment:'center'},x.x,ekipliste[x.t]||"Bilinmiyor"])
     ];
     const dokuman =
     {
@@ -3189,211 +3904,6 @@ function gorevlendirmetemsilcipdf()
     pdfMake.createPdf(dokuman).download('Çalışan Temsilcisi - ' + dosyaid + '.pdf');
 }
 
-
-function excelleduzenleload2()
-{
-    let mysqljson = store.get('mysqljson');
-    mysqljson = mysqljson ? JSON.parse(mysqljson) : [];
-    $('#HiddenField1').val(JSON.stringify(mysqljson));
-    const ekleData = JSON.parse(store.get('eklejson') || "[]");
-    const silData = JSON.parse(store.get('siljson') || "[]");
-    const guncelleData = JSON.parse(store.get('gunceljson') || "[]");
-    function tabloOlustur(tabloId, data)
-    {
-        $(`#${tabloId}`).DataTable
-        ({
-            destroy: true,
-            data: data,
-            order: [[0, 'asc']],
-            dom: 't',
-            pageLength: -1,
-            language: {zeroRecords: "Bulunamadı", emptyTable: "Bulunamadı"},
-            columns:
-            [
-                { data: 'ad', title: 'Ad Soyad', className: 'text-left' },
-                { data: 'un', title: 'Unvan', className: 'text-left' }
-            ],
-            createdRow: function (row){$(row).find('td').eq(0).css('text-align', 'left'); $(row).find('td').eq(1).css('text-align', 'left');},
-            headerCallback: function (thead) { $(thead).find('th').css('text-align', 'center');}
-        });
-    }
-    tabloOlustur('ekletablo', ekleData);
-    tabloOlustur('siltablo', silData);
-    tabloOlustur('guncelletablo', guncelleData);
-}
-
-function excelleduzenleekle()
-{
-    const mysqljson = $('#HiddenField1').val();
-    let mysqlData = mysqljson ? JSON.parse(mysqljson) : [];
-    const eklejsonStr = store.get('eklejson');
-    if (!eklejsonStr)
-    {
-        alertify.error("Eklenmek üzere çalışan bulunamadı.");
-        return false;
-    }
-    const ekleData = JSON.parse(eklejsonStr);
-    if (ekleData.length === 0)
-    {
-        alertify.warning("Yeni eklenecek çalışan bulunamadı.");
-        return false;
-    }
-    const mevcutAdSet = new Set(mysqlData.map(x => x.ad));
-    ekleData.forEach(c=>{if(!mevcutAdSet.has(c.ad)){mysqlData.push({ad:c.ad,un:c.un,a:0,t:0,r:0,e:"",s:"",i:"",id:metinuret(3)});mevcutAdSet.add(c.ad)}});
-    mysqlData = calisansiralama(mysqlData);
-    store.set('mysqljson', JSON.stringify(mysqlData));
-    $('#HiddenField1').val(JSON.stringify(mysqlData));
-    store.set('eklejson', '[]');
-    $('#ekletablo').DataTable().clear().draw();
-}
-
-function excelleduzenlesil()
-{
-    const mysqljson = $('#HiddenField1').val();
-    let mysqlData = mysqljson ? JSON.parse(mysqljson) : [];
-    const siljsonStr = store.get('siljson');
-    if (!siljsonStr)
-    {
-        alertify.error("Silinecek çalışan bilgisi bulunamadı.");
-        return false;
-    }
-    const silData = JSON.parse(siljsonStr);
-    const silinecekler = silData.map(x => x.id);
-    if (silinecekler.length === 0)
-    {
-        alertify.warning("Silinecek çalışan bulunamadı.");
-        return false;
-    }
-    mysqlData = mysqlData.filter(calisan => !silinecekler.includes(calisan.id));
-    mysqlData = calisansiralama(mysqlData);
-    $('#HiddenField1').val(JSON.stringify(mysqlData));
-    store.set('mysqljson', JSON.stringify(mysqlData));
-    store.set('siljson', '[]');
-    $('#siltablo').DataTable().clear().draw();
-}
-
-function excelleduzenleguncelleme()
-{
-    const mysqljson = $('#HiddenField1').val();
-    let mysqlData = mysqljson ? JSON.parse(mysqljson) : [];
-    const gunceljsonStr = store.get('gunceljson');
-    if (!gunceljsonStr)
-    {
-        alertify.error("Güncellenecek çalışan bilgisi bulunamadı.");
-        return false;
-    }
-    const guncelData = JSON.parse(gunceljsonStr);
-    if (guncelData.length === 0)
-    {
-        alertify.warning("Güncellenecek çalışan bulunamadı.");
-        return false;
-    }
-    const guncelleMap = new Map(guncelData.map(x => [x.id, x]));
-    mysqlData=mysqlData.map(c=>guncelleMap.has(c.id)?{...c,ad:guncelleMap.get(c.id).ad,un:guncelleMap.get(c.id).un}:c);
-    mysqlData = calisansiralama(mysqlData);
-    store.set('mysqljson', JSON.stringify(mysqlData));
-    $('#HiddenField1').val(JSON.stringify(mysqlData));
-    store.set('gunceljson', '[]');
-    $('#guncelletablo').DataTable().clear().draw();
-}
-
-function isyerigetir()
-{
-    const dropdown = $('#isyeri');
-    dropdown.empty();
-    dropdown.append($('<option>', { text: 'Lütfen işyerini seçiniz', value: '', disabled: true, selected: true }));
-    let firmajson = firmajsonokuma();
-    if (firmajson.length > 0)
-    {
-        firmajson.sort((a, b) => a.fk.localeCompare(b.fk, 'tr', { sensitivity: 'base' }));
-        $.each(firmajson, function (_, row) { dropdown.append($('<option>', { text: row.fk, value: row.id }));});
-    }
-    else
-    {
-        alertify.error("Kayıtlı işyeri bulunamadı");
-    }
-    dropdown.select2({ placeholder: "Lütfen işyerini seçiniz", theme: "classic",  allowClear: true, language: { noResults: function () { return "Sonuç bulunamadı";}}});
-}
-
-function excelleduzenleload1()
-{
-    var $container = $('#excelveri');
-    var containerWidth = $(window).width() * 0.8;
-    excelwebayar($container, containerWidth, "0");
-    $('#durum').on('change', function ()
-    {
-        let durum = $(this).val();
-        excelwebayar($container, containerWidth, durum);
-    });
-}
-function excelwebayar($container, containerWidth, durum)
-{
-    let options={tabs:false,toolbar:false,worksheets:[]};
-    if (durum === "0")
-    {
-        options.worksheets.push
-        ({
-            minDimensions: [2, 500],
-            columns: [
-                { width: containerWidth / 3, title: 'Ad Soyad' },
-                { width: containerWidth / 3, title: 'Unvan' }
-            ]
-        });
-    }
-    else if (durum === "1")
-    {
-        options.worksheets.push
-        ({
-            minDimensions: [3, 500],
-            columns: [
-                { width: containerWidth / 4, title: 'Ad' },
-                { width: containerWidth / 4, title: 'Soyad' },
-                { width: containerWidth / 4, title: 'Unvan' }
-            ]
-        });
-    }
-    $container.html("");
-    var spreadsheetInstance = jspreadsheet($container[0], options);
-    $container.css({width:'80%',margin:'0 auto'});
-    $container.data('spreadsheetInstance', spreadsheetInstance);
-}
-
-function calisanexcelduzenletamam1()
-{
-    var $container = $('#excelveri');
-    var spreadsheetInstance = $container.data('spreadsheetInstance');
-    if (!spreadsheetInstance)
-    {
-        alert("Spreadsheet yüklenmedi veya instance bulunamadı!");
-        return;
-    }
-    let durum = $('#durum').val();
-    var rawData = spreadsheetInstance[0].getData();
-    var excelveri = [];
-    if (durum === "0")
-    {
-        excelveri=$.map(rawData,function(row){return{ad:row[0]?adsoyadstring(row[0].toString().trim()):"",un:row[1]?basharfstring(row[1].toString().trim()):""};}).filter(function(row){return row.ad!=="";});
-    }
-    else if (durum === "1")
-    {
-        excelveri=$.map(rawData,function(row){let adsoyad="";if(row[0]||row[1]){adsoyad=(row[0]?row[0].toString().trim():"")+" "+(row[1]?row[1].toString().trim():"");}return{ad:adsoyad?adsoyadstring(adsoyad.trim()):"",un:row[2]?basharfstring(row[2].toString().trim()):""};}).filter(function(row){return row.ad!=="";});
-    }
-    let mysqljson = $('#HiddenField1').val();
-    mysqljson = mysqljson ? JSON.parse(mysqljson) : [];
-    const sonjson = [];
-    excelveri.forEach(e=>{const m=mysqljson.find(x=>x.ad===e.ad);if(!m){sonjson.push({ad:e.ad,un:e.un,sonuc:1});}});
-    mysqljson.forEach(m=>{const e=excelveri.find(x=>x.ad===m.ad);if(e){sonjson.push({ad:e.ad,un:e.un,a:m.a,t:m.t,r:m.r,e:m.e,s:m.s,i:m.i,id:m.id,sonuc:2});}else{sonjson.push({ad:m.ad,un:m.un,id:m.id,sonuc:0});}});
-    const eklejson = sonjson.filter(x => x.sonuc === 1);
-    const siljson = sonjson.filter(x => x.sonuc === 0);
-    const gunceljson = sonjson.filter(x => x.sonuc === 2);
-    store.set('eklejson', JSON.stringify(eklejson));
-    store.set('siljson', JSON.stringify(siljson));
-    store.set('gunceljson', JSON.stringify(gunceljson));
-    store.set('mysqljson', JSON.stringify(mysqljson));
-    const link = new URLSearchParams(window.location.search);
-    const firmaid = link.get('id');
-    window.location.href = "calisanexcelleduzenle2.aspx?id=" + encodeURIComponent(firmaid);
-}
 
 function gorevlendirmeriskload()
 {
@@ -3419,18 +3929,75 @@ function gorevlendirmeriskload()
     }
     $('#hekim').append($('<option>', { text: firma.hk + ' - ' + firma.hn }));
     $('#isveren').append($('<option>', { text: firma.is }));
-    let calisanjson = calisangetir();
+    let calisanjson = jsoncevir($('#HiddenField1').val());
     const dropdownlar = ['#DropDownList1', '#DropDownList2', '#DropDownList3'];
-    dropdownlar.forEach(function(dropid){const $ddl=$(dropid);$ddl.empty();$ddl.append($('<option>',{text:'Görevli Değil',value:''}));$.each(calisanjson,function(i,calisan){$ddl.append($('<option>',{value:calisan.id,text:calisan.ad}))});});
+    dropdownlar.forEach(function(dropid){const $ddl=$(dropid);$ddl.empty();$ddl.append($('<option>',{text:'Görevli Değil',value:''}));$.each(calisanjson,function(i,calisan){$ddl.append($('<option>',{value:calisan.id,text:calisan.x}))});});
     calisanjson.forEach(function(calisan){if(calisan.r==1){$('#DropDownList1').val(calisan.id);}else if(calisan.r==2){$('#DropDownList2').val(calisan.id);}else if(calisan.r==3){$('#DropDownList3').val(calisan.id);}});
     secimkontrolgorev();
 }
 
-function riskdegerlendirmepdfyazdir()
+function secimkontrolgorev()
 {
-    let calisanjson = calisangetir();
+    let secilenler = { DropDownList1: $('#DropDownList1').val(), DropDownList2: $('#DropDownList2').val(), DropDownList3: $('#DropDownList3').val()};
+    ['#DropDownList1','#DropDownList2','#DropDownList3'].forEach(function(ddlId){ $(ddlId + ' option').prop('disabled', false);});
+    Object.entries(secilenler).forEach(([ddlName,secilenId])=>{if(secilenId&&secilenId!==""){['DropDownList1','DropDownList2','DropDownList3'].forEach(otherDDL=>{if(otherDDL!==ddlName){$(`#${otherDDL} option`).each(function(){if($(this).val()===secilenId){$(this).prop('disabled',true);}});}});}});
+}
+
+function temsilciguncelle()
+{
+    let calisanjson = jsoncevir($('#HiddenField1').val());
+    calisanjson.forEach(c => { if (c.r == 2) c.r = 0; });
+    const secilenId = $('#DropDownList2').val();
+    if (secilenId && secilenId !== "")
+    {
+        const eslesenCalisan = calisanjson.find(c => c.id == secilenId);
+        if (eslesenCalisan) { eslesenCalisan.r = 2; }
+    }
+    $('#HiddenField1').val(JSON.stringify(calisanjson));
+    secimkontrolgorev();
+    return true;
+}
+function bilgilicalisanguncelle()
+{
+    let calisanjson = jsoncevir($('#HiddenField1').val());
+    calisanjson.forEach(c => { if (c.r == 3) c.r = 0; });
+    const secilenId = $('#DropDownList3').val();
+    if (secilenId && secilenId !== "")
+    {
+        const eslesenCalisan = calisanjson.find(c => c.id == secilenId);
+        if (eslesenCalisan) { eslesenCalisan.r = 3; }
+    }
+    $('#HiddenField1').val(JSON.stringify(calisanjson));
+    secimkontrolgorev();
+    return true;
+}
+function destekelemaniguncelle()
+{
+    let calisanjson = jsoncevir($('#HiddenField1').val());
+    calisanjson.forEach(c => { if (c.r == 1) c.r = 0; });
+    const secilenId = $('#DropDownList1').val();
+    if (secilenId && secilenId !== "")
+    {
+        const eslesenCalisan = calisanjson.find(c => c.id == secilenId);
+        if (eslesenCalisan) { eslesenCalisan.r = 1;}
+    }
+    $('#HiddenField1').val(JSON.stringify(calisanjson));
+    secimkontrolgorev();
+    return true;
+}
+
+function gorevlendirmeriskekipyazpdf()
+{
+    console.log($('#HiddenField1').val());
+    let calisanjson = jsoncevir($('#HiddenField1').val());
     calisanjson = calisanjson.filter(x => x.r !== 0);
-    calisanjson = calisanjson.map(x=>({adsoyad:x.ad,unvan:x.un,gorev:x.r===1?"Destek Elemanı":x.r===2?"Çalışan Temsilcisi":x.r===3?"Bilgi Sahibi Çalışan":"Bilinmiyor"}));
+    calisanjson = calisanjson.map(x => ({ adsoyad: x.x, unvan: x.y, gorev: x.r === 1 ? "Destek Elemanı" : x.r === 2 ? "Çalışan Temsilcisi" : x.r === 3 ? "Bilgi Sahibi Çalışan" : "Bilinmiyor" }));
+    let isyerijson = isyersecimfirmaoku();
+    let isveren = isyerijson.is;
+    let hekim = isyerijson.hk;
+    let uzman = store.get('uzmanad');
+    const ekle = [ { adsoyad: isveren, unvan: "İşveren Vekili", gorev: "İşveren Vekili" }, { adsoyad: uzman, unvan: "İş Güvenliği Uzmanı", gorev: "İş Güvenliği Uzmanı" }, { adsoyad: hekim, unvan: "İşyeri Hekimi", gorev: "İşyeri Hekimi" }];
+    calisanjson = [...ekle, ...calisanjson];
     const tableBody=[[{text:"Ad Soyad",bold:!0,alignment:"center"},{text:"Unvan",bold:!0,alignment:"center"},{text:"Ekip Görevi",bold:!0,alignment:"center"}],...calisanjson.map(x=>[{text:x.adsoyad,alignment:"left"},{text:x.unvan,alignment:"left"},{text:x.gorev,alignment:"left"}])];
     const docDefinition =
     {
@@ -3457,11 +4024,10 @@ function riskdegerlendirmepdfyazdir()
     pdfMake.createPdf(docDefinition).getBlob(blob=>saveAs(blob,"Risk Değerlendirme Ekibi - " + metinuret(2) + ".pdf"));
 }
 
-
 function kurulgorevlendirmeload()
 {
     let unvanlar=["İSG Kurul Başkanı","İşveren Vekili","Çalışan Baş Temsilcisi","Çalışan Temsilcisi","İnsan Kaynakları","Mali İşler Sorumlusu","Muhasebe","Sivil Savunma Uzmanı","Formen","Ustabaşı","Usta","Alt İşveren Temsilcisi"];
-    let jsonData = calisangetir();
+    let jsonData = jsoncevir($('#HiddenField1').val());
     while (jsonData.length < 10)
     {
         jsonData.push({ a: '', u: '' });
@@ -3496,6 +4062,7 @@ function kurulgorevlendirmeload()
         headerCallback:function(thead){$(thead).find('th').css('text-align','center');}
     });
 }
+
 function kurulgorevlendirmeyaz()
 {
     const table = $('#kurultablo').DataTable();
@@ -3517,61 +4084,42 @@ function kurulgorevlendirmeyaz()
     $('#HiddenField1').val(JSON.stringify(data));
 }
 
-function dokumancalisanload()
+function isgkurulgorevlendirmeyazdir()
 {
-    let calisanjson = calisangetir();
-    $('#tablo').DataTable
-    ({
-        data: calisanjson,
-        order: [[1, 'asc']],
-        columns:
-        [
-            { data:null,title:"Seç",render:(d,t,r)=>`<input type="checkbox" class="row-checkbox" data-id="${r.ad}|${r.un}">`,orderable:false},
-            { data: "ad", title: "Ad Soyad" },
-            { data: "un", title: "Unvan" },
-        ],
-        language:{search:"Çalışan Ara:",lengthMenu:"Sayfa başına _MENU_ kayıt göster",zeroRecords:"Çalışan bulunamadı",info:"_TOTAL_ kayıttan _START_ ile _END_ arası gösteriliyor",infoEmpty:"Çalışan bulunamadı",infoFiltered:"(toplam _MAX_ kayıttan filtrelendi)",emptyTable:"Çalışan bulunamadı"},
-        createdRow:function(r){$(r).find("td").eq(1).css("text-align","left");$(r).find("td").eq(2).css("text-align","left");},
-        headerCallback: function (thead) {$(thead).find('th').css('text-align', 'center');}
-    });
-    $('.dt-search input').css({ "background-color": "white" }).attr("autocomplete", "off");
-    $('.dt-length select').css({ "background-color": "white" });
-}
-
-function dokumancalisansecim()
-{
-    var calisanjson = [];
-    $('#tablo').DataTable().rows().nodes().to$().find('.row-checkbox:checked').each(function ()
+    let json = $('#HiddenField1').val();
+    try
     {
-        var rowKey = $(this).data('id');
-        if (rowKey)
-        {
-            var [adsoyad, unvan] = rowKey.split('|');
-            calisanjson.push({ a: adsoyad, u: unvan });
-        }
-    });
-    store.set("calisansecimjsonx", JSON.stringify(calisanjson));
-    return calisanjson;
-}
-
-function firmasecimoku()
-{
-    let jsonfirmatumu = firmajsonokuma();
-    let firmaid = $('#isyeri').val();
-    var firmasatir = $.grep(jsonfirmatumu, function (f) { return f.id == firmaid; })[0];
-    if (!firmasatir)
-    {
-        alertify.error("Lütfen bir işyeri seçiniz", 7);
-        return;
+        json = JSON.parse(json);
     }
-    store.set('xjsonfirma', JSON.stringify(firmasatir));
-    store.set('xfirmaid', firmaid);
-    return firmaid;
+    catch
+    {
+        alertify.error("Beklenmedik bir hata oluştu");
+    }
+    let firmajson = isyersecimfirmaoku();
+    let hekimad = firmajson.hk;
+    let uzmanad = store.get("uzmanad");
+    json.unshift({ a: uzmanad, u: "İş Güvenliği Uzmanı" }, { a: hekimad, u: "İşyeri Hekimi" });
+    let dosyaid = metinuret(3);
+    const icerik =
+    [
+        [{ text: 'No', style: 'header' }, { text: 'Kurul Üyesi Ad Soyad', style: 'header' }, { text: 'Kurul Üyesi Görevi', style: 'header' }],
+        ...json.map((x,i)=>[{text:i+1,alignment:'center'},x.a,x.u])
+    ];
+    const dokuman =
+    {
+        pageSize: 'A4',
+        pageMargins: [30, 30, 30, 30],
+        content:[{table:{headerRows:1,widths:['7%','46%','47%'],body:icerik},layout:'solid'}],
+        styles:{header:{fontSize:12,bold:true,alignment:'center'}},
+    };
+    pdfMake.createPdf(dokuman).download('İSG Kurul Üyeleri - ' + dosyaid + '.pdf');
 }
+
+////////////////////////////EVRAK KAYIT/////////////////////////////////////////////EVRAK KAYIT/////////////////////////////////////////////EVRAK KAYIT/////////////////////////////////////////////
 
 function evrakkayitcalisanload()
 {
-    let data = calisangetir();
+    let data = jsoncevir($('#HiddenField1').val());
     $('#tablo').DataTable
     ({
         order: [[0, 'asc']],
@@ -3580,7 +4128,7 @@ function evrakkayitcalisanload()
         data: data,
         columns:
         [
-            { title: "Ad Soyad", data: 'ad', width: "30%"},
+            { title: "Ad Soyad", data: 'x', width: "30%"},
             { title: "İSG Eğitim",data:"e",width:"19%",render:function(d,t,r){return'<input style="text-align:center" class="csstextbox100" onfocus="datepickerjquery(this)" value="'+(d||"")+'"/>';}},
             { title: "Sağlık Raporu",data:"s",width:"19%",render:function(d,t,r){return'<input style="text-align:center" class="csstextbox100" onfocus="datepickerjquery(this)" value="'+(d||"")+'"/>';}},
             { title: "İlkyardım",data:"i",width:"19%",render:function(d,t,r){return'<input style="text-align:center" class="csstextbox100" onfocus="datepickerjquery(this)" value="'+(d||"")+'"/>';}},
@@ -3604,7 +4152,7 @@ function evrakkayitcalisanload()
 
 function evrakkayitcalisanguncelle()
 {
-    let data = calisangetir();
+    let data = jsoncevir($('#HiddenField1').val());
     $('#tablo tbody tr').each(function ()
     {
         var row = $(this);
@@ -3686,19 +4234,6 @@ function evrakisyerikaydet()
     }
 }
 
-function isyersecimfirmaoku()
-{
-    let jsonfirmatumu = firmajsonokuma();
-    let firmaid = store.get('xfirmaid');
-    var firmasatir = $.grep(jsonfirmatumu, function (f) { return f.id == firmaid; })[0];
-    if (!firmasatir)
-    {
-        alertify.error("Lütfen bir işyeri seçiniz", 7);
-        return;
-    }
-    return firmasatir;
-}
-
 function raporlamasecim()
 {
     var secim = $('#raportipi').val() + $('#dosyatipi').val();
@@ -3708,7 +4243,7 @@ function raporlamasecim()
 function calisanraporlamaexcel()
 {
     let firmajson = isyersecimfirmaoku();
-    var data = calisangetir();
+    var data = jsoncevir($('#HiddenField1').val());
     let tehlike = parseInt(firmajson.ts);
     var workbook = new ExcelJS.Workbook();
     var worksheet = workbook.addWorksheet("Rapor");
@@ -3762,9 +4297,9 @@ function calisanraporlamaexcel()
     {
         const rowNumber = index + 3;
         worksheet.getRow(rowNumber).height = 30;
-        worksheet.getCell(`A${rowNumber}`).value = item.ad;
+        worksheet.getCell(`A${rowNumber}`).value = item.x;
         adsoyadexcelrapor(worksheet.getCell(`A${rowNumber}`));
-        worksheet.getCell(`B${rowNumber}`).value = item.un;
+        worksheet.getCell(`B${rowNumber}`).value = item.y;
         adsoyadexcelrapor(worksheet.getCell(`B${rowNumber}`));
         worksheet.getCell(`C${rowNumber}`).value = item.e;
         tarihexcelrapor(worksheet.getCell(`C${rowNumber}`));
@@ -3788,7 +4323,7 @@ function calisanraporlamaexcel()
 function calisanraporlamapdf()
 {
     let firmajson = isyersecimfirmaoku();
-    var data = calisangetir();
+    var data = jsoncevir($('#HiddenField1').val());
     let tehlike = parseInt(firmajson.ts);
     let tableBody =
     [
@@ -3810,8 +4345,8 @@ function calisanraporlamapdf()
         let ilkyardimGecerlilik = ilkyardimgecerlilik(item.i);
         tableBody.push
         ([
-            { text: item.ad || '', style: 'leftCell' },
-            { text: item.un || '', style: 'leftCell' },
+            { text: item.x || '', style: 'leftCell' },
+            { text: item.y || '', style: 'leftCell' },
             { text: item.e || '', style: 'cell' },
             { text: egitimGecerlilik || '', style: 'cell' },
             { text: item.s || '', style: 'cell' },
@@ -3848,15 +4383,7 @@ function isyeriraporalpdf()
 {
     let firmajson = isyersecimfirmaoku();
     let tehlike = parseInt(firmajson.ts);
-    var json = $('#HiddenField2').val();
-    try
-    {
-        json = JSON.parse(json);
-    }
-    catch
-    {
-        alertify.error("Beklenmedik bir hata oluştu");
-    }
+    var json = jsoncevir($('#HiddenField2').val());
     var riskveri ={ tarih: json.r1, tip: json.r2, uzman: json.r3, hekim: json.r4 };
     var acilveri ={ tarih: json.a1, uzman: json.a2, hekim: json.a3};
     var tatbikat ={ tarih: json.t1, adsoyad: json.t2, unvan: json.t3, tur: json.t4};
@@ -4064,21 +4591,11 @@ function isyeriraporalpdf()
     pdfMake.createPdf(docDefinition).getBlob(function (blob) {saveAs(blob, 'İşyeri Rapor.pdf');});
 }
 
-
-
 async function isyeriraporalexcel()
 {
     let firmajson = isyersecimfirmaoku();
     let tehlike = parseInt(firmajson.ts);
-    var json = $('#HiddenField2').val();
-    try
-    {
-        json = JSON.parse(json);
-    }
-    catch
-    {
-        alertify.error("Beklenmedik bir hata oluştu");
-    }
+    var json = jsoncevir($('#HiddenField2').val());
     let uzmanAd = store.get("uzmanad") || '';
     var riskveri = { tarih: json.r1, tip: json.r2, uzman: json.r3, hekim: json.r4 };
     var acilveri = { tarih: json.a1, uzman: json.a2, hekim: json.a3 };
@@ -4429,7 +4946,7 @@ function gorevlendirmeraporexcel()
     let hekimno = firmajson.hn;
     let uzmanad = store.get("uzmanad") || '';
     let uzmanno = store.get("uzmanno") || '';
-    var data = calisangetir();
+    var data = jsoncevir($('#HiddenField1').val());
     const normalmetin={font:{name:'Calibri',size:11,bold:false},alignment:{horizontal:'left',vertical:'middle'},border:{top:{style:'thin'},left:{style:'thin'},bottom:{style:'thin'},right:{style:'thin'}}};
     const tablobaslikstil={font:{bold:true,color:{argb:'FFFFFFFF'}},alignment:{horizontal:'center',vertical:'middle',wrapText:true},fill:{type:'pattern',pattern:'solid',fgColor:{argb:'FF545454'}},border:{top:{style:'thin'},left:{style:'thin'},bottom:{style:'thin'},right:{style:'thin'}}};
     const altbaslik = {font: { name: 'Calibri', size: 11, bold: true }, alignment: { horizontal: 'center', vertical: 'middle' }};
@@ -4459,9 +4976,9 @@ function gorevlendirmeraporexcel()
     acildurumekibi.forEach((item) =>
     {
         worksheet.getRow(hedefsatir).height = 20;
-        worksheet.getCell(hedefsatir, 1).value = item.ad;
+        worksheet.getCell(hedefsatir, 1).value = item.x;
         worksheet.getCell(hedefsatir, 1).style = normalmetin;
-        worksheet.getCell(hedefsatir, 2).value = item.un;
+        worksheet.getCell(hedefsatir, 2).value = item.y;
         worksheet.getCell(hedefsatir, 2).style = normalmetin;
         worksheet.getCell(hedefsatir, 3).value = item.a;
         worksheet.getCell(hedefsatir, 3).style = normalmetin;
@@ -4485,9 +5002,9 @@ function gorevlendirmeraporexcel()
     temsilciekibi.forEach((item) =>
     {
         worksheet.getRow(hedefsatir).height = 20;
-        worksheet.getCell(hedefsatir, 1).value = item.ad;
+        worksheet.getCell(hedefsatir, 1).value = item.x;
         worksheet.getCell(hedefsatir, 1).style = normalmetin;
-        worksheet.getCell(hedefsatir, 2).value = item.un;
+        worksheet.getCell(hedefsatir, 2).value = item.y;
         worksheet.getCell(hedefsatir, 2).style = normalmetin;
         worksheet.getCell(hedefsatir, 3).value = item.t;
         worksheet.getCell(hedefsatir, 3).style = normalmetin;
@@ -4532,7 +5049,7 @@ function gorevlendirmeraporexcel()
     worksheet.getCell(hedefsatir, 3).value = 'İşyeri Hekimi';
     worksheet.getCell(hedefsatir, 3).style = normalmetin;
     hedefsatir = hedefsatir + 1;
-    riskanaliziekibi.forEach((item) => { worksheet.getRow(hedefsatir).height = 20; worksheet.getCell(hedefsatir, 1).value = item.ad; worksheet.getCell(hedefsatir, 1).style = normalmetin; worksheet.getCell(hedefsatir, 2).value = item.un; worksheet.getCell(hedefsatir, 2).style = normalmetin; worksheet.getCell(hedefsatir, 3).value = item.r; worksheet.getCell(hedefsatir, 3).style = normalmetin; hedefsatir = hedefsatir + 1; });
+    riskanaliziekibi.forEach((item) => { worksheet.getRow(hedefsatir).height = 20; worksheet.getCell(hedefsatir, 1).value = item.x; worksheet.getCell(hedefsatir, 1).style = normalmetin; worksheet.getCell(hedefsatir, 2).value = item.y; worksheet.getCell(hedefsatir, 2).style = normalmetin; worksheet.getCell(hedefsatir, 3).value = item.r; worksheet.getCell(hedefsatir, 3).style = normalmetin; hedefsatir = hedefsatir + 1; });
     workbook.xlsx.writeBuffer().then(function(data){saveAs(new Blob([data],{type:"application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"}),"Çalışan Rapor.xlsx");});
 }
 
@@ -4544,13 +5061,13 @@ function gorevlendirmeraporpdf()
     let hekimno = firmajson.hn;
     let uzmanad = store.get("uzmanad") || '';
     let uzmanno = store.get("uzmanno") || '';
-    var data = calisangetir();
+    var data = jsoncevir($('#HiddenField1').val());
     const acilliste = { 0: "Görevli Değil", 1: "İlkyardım Ekibi - Ekip Başı", 2: "İlkyardım Ekibi - Ekip Personeli", 3: "Söndürme Ekibi - Ekip Başı", 4: "Söndürme Ekibi - Ekip Personeli", 5: "Koruma Ekibi - Ekip Başı + Koordinasyon", 6: "Koruma Ekibi - Ekip Personeli + Koordinasyon", 7: "Koruma Ekibi - Ekip Personeli", 8: "Kurtarma Ekibi - Ekip Başı", 9: "Kurtarma Ekibi - Ekip Personeli", 10: "Destek Elemanı" };
     const temsilciliste = { 0: "Görevli Değil", 1: "Çalışan Temsilcisi", 2: "Çalışan Baş Temsilcisi" };
     const riskliste = { 0: "Görevli Değil", 1: "Destek Elemanı", 2: "Çalışan Temsilcisi", 3: "Bilgi Sahibi Çalışan" };
-    let acildurumekibi=data.filter(p=>p.a!==0).sort((a,b)=>a.a-b.a).map(p=>[p.ad,p.un,acilliste[p.a]||"Bilinmiyor"]);
-    let temsilciekibi=data.filter(p=>p.t!==0).sort((a,b)=>a.t-b.t).map(p=>[p.ad,p.un,temsilciliste[p.t]||"Bilinmiyor"]);
-    let riskanaliziekibi=data.filter(p=>p.r!==0).sort((a,b)=>a.r-b.r).map(p=>[p.ad,p.un,riskliste[p.r]||"Bilinmiyor"]);
+    let acildurumekibi=data.filter(p=>p.a!==0).sort((a,b)=>a.a-b.a).map(p=>[p.x,p.y,acilliste[p.a]||"Bilinmiyor"]);
+    let temsilciekibi=data.filter(p=>p.t!==0).sort((a,b)=>a.t-b.t).map(p=>[p.x,p.y,temsilciliste[p.t]||"Bilinmiyor"]);
+    let riskanaliziekibi=data.filter(p=>p.r!==0).sort((a,b)=>a.r-b.r).map(p=>[p.x,p.y,riskliste[p.r]||"Bilinmiyor"]);
     riskanaliziekibi.unshift([isveren,"İşveren Vekili","İşveren Vekili"],[uzmanad,uzmanno,"İş Güvenliği Uzmanı"],[hekimad,hekimno,"İşyeri Hekimi"]);
     function generateTable(title, headers, rows)
     {
@@ -4592,538 +5109,8 @@ function gorevlendirmeraporpdf()
     };
     pdfMake.createPdf(docDefinition).download('Çalışan Raporu.pdf');
 }
-function isgegitimgecerlilik(tarih,tehlike){if(!tarih)return"";const[gun,ay,yil]=tarih.split(".").map(Number);if(!gun||!ay||!yil)return"";let ekYil=0;switch(tehlike){case 1:ekYil=3;break;case 2:ekYil=2;break;case 3:ekYil=1;break;default:return""}const g=new Date(yil+ekYil,ay-1,gun),p=n=>n.toString().padStart(2,"0");return`${p(g.getDate())}.${p(g.getMonth()+1)}.${g.getFullYear()}`}
-function saglikgecerlilik(t,d){if(!t)return"";const[g,a,y]=t.split(".").map(Number);if(!g||!a||!y)return"";let e=0;switch(d){case 1:e=5;break;case 2:e=3;break;case 3:e=1;break;default:return""}const n=new Date(y+e,a-1,g),p=n=>n.toString().padStart(2,"0");return`${p(n.getDate())}.${p(n.getMonth()+1)}.${n.getFullYear()}`}
-function ilkyardimgecerlilik(t){if(!t)return"";const[g,a,y]=t.split(".").map(Number);if(!g||!a||!y)return"";const e=new Date(y+3,a-1,g),p=n=>n.toString().padStart(2,"0");return`${p(e.getDate())}.${p(e.getMonth()+1)}.${e.getFullYear()}`}
-function yesilbaslik(cell) { cell.fill = { type: 'pattern', pattern: 'solid', fgColor: { argb: 'FF4F81BD' } }; cell.font = { color: { argb: 'FFFFFFFF' }, bold: true, size: 11, name: 'Calibri' }; cell.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } };}
-function adsoyadexcelrapor(cell) { cell.font = { size: 11, name: 'Calibri' }; cell.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }; cell.alignment = { vertical: 'middle', horizontal: 'left', wrapText: true };}
-function tarihexcelrapor(cell) { cell.font = { size: 11, name: 'Calibri' }; cell.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }; cell.alignment = { vertical: 'middle', horizontal: 'center', wrapText: true };}
-function gribaslik(cell) { cell.fill = { type: 'pattern', pattern: 'solid', fgColor: { argb: 'FFE5E7E9' } }; cell.font = { color: { argb: 'FF000000' }, bold: true, size: 11, name: 'Calibri' }; cell.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } };}
-function ortala(cell) { cell.alignment = { vertical: 'middle', horizontal: 'center', wrapText: true };}
-function riskdegerlendirmegecerlilik(tarih,tehlike){if(!tarih)return"";const[g,a,y]=tarih.split(".").map(Number);if(!g||!a||!y)return"";let e=0;switch(tehlike){case 1:e=6;break;case 2:e=4;break;case 3:e=2;break;default:return""}const d=new Date(y+e,a-1,g),p=n=>n.toString().padStart(2,"0");return`${p(d.getDate())}.${p(d.getMonth()+1)}.${d.getFullYear()}`}
-function acildurumtatbikat(tarih){if(!tarih)return"";const[g,a,y]=tarih.split(".").map(Number);if(!g||!a||!y)return"";const d=new Date(y+1,a-1,g),p=n=>n.toString().padStart(2,"0");return`${p(d.getDate())}.${p(d.getMonth()+1)}.${d.getFullYear()}`}
-function isekipmanigecerlilik(tarih){if(!tarih)return"";const[g,a,y]=tarih.split(".").map(Number);if(!g||!a||!y)return"";const d=new Date(y+1,a-1,g),p=n=>n.toString().padStart(2,"0");return`${p(d.getDate())}.${p(d.getMonth()+1)}.${d.getFullYear()}`}
-function isgkurulgorevlendirmeyazdir()
-{
-    let json = $('#HiddenField1').val();
-    try
-    {
-        json = JSON.parse(json);
-    }
-    catch
-    {
-        alertify.error("Beklenmedik bir hata oluştu");
-    }
-    let firmajson = isyersecimfirmaoku();
-    let hekimad = firmajson.hk;
-    let uzmanad = store.get("uzmanad");
-    json.unshift({ a: uzmanad, u: "İş Güvenliği Uzmanı" }, { a: hekimad, u: "İşyeri Hekimi" });
-    let dosyaid = metinuret(3);
-    const icerik =
-    [
-        [{ text: 'No', style: 'header' }, { text: 'Kurul Üyesi Ad Soyad', style: 'header' }, { text: 'Kurul Üyesi Görevi', style: 'header' }],
-        ...json.map((x,i)=>[{text:i+1,alignment:'center'},x.a,x.u])
-    ];
-    const dokuman =
-    {
-        pageSize: 'A4',
-        pageMargins: [30, 30, 30, 30],
-        content:[{table:{headerRows:1,widths:['7%','46%','47%'],body:icerik},layout:'solid'}],
-        styles:{header:{fontSize:12,bold:true,alignment:'center'}},
-    };
-    pdfMake.createPdf(dokuman).download('İSG Kurul Üyeleri - ' + dosyaid + '.pdf');
-}
 
-function isyerilistesiyazdir()
-{
-    let json = firmajsonokuma();
-    if (!json || json.length === 0) { return false; }
-    let dosyaid = metinuret(3);
-    const icerik =
-    [
-        [{ text: 'No', style: 'header' }, { text: 'İşyeri Unvanı', style: 'header' }, { text: 'İşyeri Adresi', style: 'header' }, { text: 'İşyeri Hekimi', style: 'header' }, { text: 'İşveren Vekili', style: 'header' }],
-        ...json.map((x,i)=>[{text:i+1,alignment:'center'},x.fi,x.ad,x.hk,x.is])
-    ];
-    const dokuman =
-    {
-        pageSize: 'A4',
-        pageOrientation: 'landscape',
-        pageMargins: [20, 20, 20, 20],
-        content:[{table:{headerRows:1,widths:['4%','36%','36%','12%','12%'],body:icerik},layout:'solid'}],
-        styles:{header:{fontSize:12,bold:true,alignment:'center'}},
-    };
-    pdfMake.createPdf(dokuman).download('İşyeri Listesi - ' + dosyaid + '.pdf');
-}
-
-function temelisgegitim1load()
-{
-    $('#gundrop').on('change',function(){const i=this.selectedIndex;for(let j=1;j<=4;j++)$('#alan'+j).toggle(j<=i+1)}).trigger('change');
-    let isyeri = isyersecimfirmaoku();
-    const saatSec = isyeri.ts;
-    const saatMap = { '1': '8 Saat', '2': '12 Saat', '3': '16 Saat' };
-    if (saatMap[saatSec])
-    {
-        $('#saat').val(saatMap[saatSec]);
-    }
-    const firmaid = store.get('xfirmaid');
-    let ayar = jsoncevir(store.get('ayar'));
-    const mevcut = ayar.find(obj => obj.id === firmaid);
-    if (mevcut && mevcut.e)
-    {
-        const eString = mevcut.e;
-        for (let i = 0; i < eString.length; i++)
-        {
-            const ch = eString.charAt(i);
-            const checkboxId = 's' + (1 + i);
-            $('#' + checkboxId).prop('checked', ch === '1');
-        }
-    }
-}
-
-function temelisgegitim1devam()
-{
-    let isgegitimkod = '';
-    for (let i = 1; i <= 8; i++)
-    {
-        isgegitimkod += $('#s' + i).is(':checked') ? '1' : '0';
-    }
-    const jsonData =
-    {
-        toplamgun: $('#gundrop').val(),
-        tarih1: $('#tarih1').val(),
-        tarih2: $('#tarih2').val(),
-        tarih3: $('#tarih3').val(),
-        tarih4: $('#tarih4').val(),
-        saat: $('#saat').val(),
-        egitimyeri: $('#egitimyeri').val(),
-        sinav: $('#sinav').val(),
-        bossatir: parseInt($("#bossatir").val()) || 0,
-        sertifika: $('#sertifika').val(),
-        isgegitimkod: isgegitimkod
-    };
-    const firmaid = store.get('xfirmaid');
-    let ayar = store.get('ayar') || [];
-    if (!Array.isArray(ayar)) ayar = [];
-    const mevcut = ayar.find(obj => obj.id === firmaid);
-    if (mevcut)
-    {
-        mevcut.e = isgegitimkod;
-    }
-    else
-    {
-        ayar.push({ e: isgegitimkod, i: "", id: firmaid });
-    }
-    store.set('isgegitimveri', JSON.stringify(jsonData));
-    store.set("isgegitimkayittarih", jsonData.tarih1);
-    store.set("ayar", ayar);
-    window.location.href = "temelisgegitim2.aspx?id=" + encodeURIComponent(firmaid);
-}
-function temelisgegitim2tamam()
-{
-    try
-    {
-        if (store.get("isgegitimkayittarih") === null || store.get("ayar") === null || store.get("isgegitimkayittarih") === null)
-        {
-            alertify.error("Doküman sayfasına dönüp tekrar deneyiniz");
-            return false;
-        }
-        let ayar = store.get("ayar") || [];
-        $('#HiddenField2').val(JSON.stringify(ayar));
-        let calisansecim = dokumancalisansecim();
-        var egitimtarihi = store.get("isgegitimkayittarih");
-        var jsonData = $('#HiddenField1').val();
-        var calisanjson = JSON.parse(jsonData);
-        calisansecim.forEach(function (secili)
-        {
-            calisanjson.forEach(function (item)
-            {
-                if (item.ad === secili.a && item.un === secili.u) {
-                    item.e = egitimtarihi;
-                }
-            });
-        });
-        $('#HiddenField1').val(JSON.stringify(calisanjson));
-        store.set("dosyaciktitipi", "1");
-        return true;
-    }
-    catch
-    {
-        alertify.error("Doküman sayfasına dönüp tekrar deneyiniz");
-        return false;
-    }
-}
-function tumunusec() {let table = $('#tablo').DataTable();table.page.len(-1).draw();let t=0;table.rows({page:"all"}).nodes().to$().find(".row-checkbox").each(function(){$(this).prop("checked",!0);t++});alertify.error(t+" çalışan seçildi",7);}
-function tumunukaldir() {let table = $('#tablo').DataTable();table.rows({page:"all"}).nodes().to$().find(".row-checkbox").prop("checked",!1);alertify.error("Tüm seçimler kaldırıldı",5);}
-
-function isebaslamatamam1()
-{
-    let firmaid = firmasecimoku();
-    let secimjson = [];
-    $(".csscheckbox").each(function(){let id=$(this).attr("id"),checked=$(this).is(":checked")?1:0,obj={};obj[id]=checked;secimjson.push(obj);});
-    const liste =
-    {
-        tarih: $("#tarih").val().trim(),
-        adsoyad: adsoyadstring($("#adsoyad").val().trim()),
-        saat: $("#saat").val(),
-        secimler: secimjson
-    };
-    store.set('isebaslamaveri', JSON.stringify(liste));
-    window.location.href = "isebaslamaegitim2.aspx?id=" + encodeURIComponent(firmaid);
-}
-
-function isebaslamatamam2()
-{
-    dokumancalisansecim();
-    store.set("dosyaciktitipi", "2");
-    window.location.href = "dosyacikti.aspx?id=2";
-}
-
-function digeregitimdevam1()
-{
-    let firmaid = firmasecimoku();
-    const verijson =
-    {
-        tarih: $("#tarih").val(),
-        egitimtur: $("#egitimtur").val(),
-        saat: $("#saat").val(),
-        egitimsekli: $("#egitimsekli").val(),
-        bossatir: parseInt($("#bossatir").val()) || 0
-    };
-    store.set("digeregitimveri", JSON.stringify(verijson));
-    window.location.href = "digeregitim2.aspx?id=" + encodeURIComponent(firmaid);
-}
-
-function digeregitimdevam2()
-{
-    dokumancalisansecim();
-    store.set("dosyaciktitipi", "3");
-    window.location.href = "dosyacikti.aspx?id=3";
-}
-
-function kkdsablonolusturload()
-{
-    store.set("kkdjsonsecim", []);
-    $('#sablonkaydet').hide();
-    fetch("https://cdn.jsdelivr.net/gh/MEHMETCERANX12/isgevrak@main/kkd.json").then(response => response.json()).then(data =>
-    {
-        store.set("kkdjsonveri", data);
-        let kkdjson = data;
-        kkdjson.sort((a, b) => a.sira - b.sira);
-        let table = $('#tablo').DataTable
-        ({
-            data: kkdjson,
-            pageLength: -1,
-            ordering: false,
-            dom: 't',
-            columns:
-            [
-                { data: "tur", title: "KKD Adı"},
-                { data: "aciklama", title: "Açıklama"},
-                { data: null, title:"Ekle",render:(d,t,r)=>`<input type="button" class="cssbutontamam" value="Ekle" data-id="${r.i}" onclick="kkdsablonekle(this);"/>`}
-            ],
-            createdRow:function(r){$(r).find("td").eq(0).css("text-align","left");$(r).find("td").eq(1).css("text-align","left");},
-            headerCallback: function (thead) { $(thead).find('th').css('text-align', 'center');}
-        });
-        $('#kkdselect').on('change', function ()
-        {
-            const secilen = $(this).val();
-            const index = this.selectedIndex;
-            if (index === 0)
-            {
-                table.clear().rows.add(kkdjson).draw();
-            }
-            else
-            {
-                const filtreli = kkdjson.filter(item => item.tur === secilen);
-                table.clear().rows.add(filtreli).draw();
-            }
-        });
-        $('#diyalogkkd').fadeIn()
-    })
-}
-
-function kkdsablonekle(button)
-{
-    let kkdjsonsecim = store.get("kkdjsonsecim") || [];
-    let kkdjsonveri = store.get("kkdjsonveri");
-    let i = button.getAttribute("data-id");
-    if (kkdjsonsecim.some(item => item.i === i))
-    {
-        alertify.error("Bu KKD zaten listede var");
-        return;
-    }
-    const satir = kkdjsonveri.find(item => item.i === i);
-    if (satir)
-    {
-        kkdjsonsecim.push({ k: satir.k, s: satir.s, i: satir.i, a: 1 });
-    }
-    else
-    {
-        alertify.error("Beklenmedik bir hata oluştu");
-        return;
-    }
-    $('#diyalogkkd').fadeOut();
-    store.set("kkdjsonsecim", kkdjsonsecim);
-    kkdsablontablo(kkdjsonsecim);
-}
-
-function kkdsablontablo(kkdjsonsecim)
-{
-    const jsonliste = kkdjsonsecim || [];
-    if (jsonliste.length > 0)
-    {
-        $('#sablonkaydet').show();
-    }
-    else
-    {
-        $('#sablonkaydet').hide();
-    }
-    if ($.fn.DataTable.isDataTable('#kkdtablo'))
-    {
-        let kkdtablo = $('#kkdtablo').DataTable();
-        kkdtablo.clear().rows.add(jsonliste).draw();
-        return;
-    }
-    $('#kkdtablo').DataTable
-    ({
-        data: jsonliste,
-        ordering: false,
-        dom: 't',
-        pageLength: -1,
-        language:{zeroRecords:"Eklenmiş Kişisel Koruyucu Donanım Yok",infoEmpty:"Eklenmiş Kişisel Koruyucu Donanım Yok",emptyTable:"Eklenmiş Kişisel Koruyucu Donanım Yok"},
-        columns:
-        [
-            {data:"k",title:"KKD Adı",width:"30%",render:d=>`<input type="text" class="csstextbox100" value="${d}" />`},
-            {data:"s",title:"Standardı",width:"40%",render:d=>`<input type="text" class="csstextbox100" value="${d}" />`},
-            {data:"a",title:"Adet",width:"12%",render:d=>`<input type="text" class="csstextbox100" style="text-align:center;" value="${d}" />`},
-            {data:"i",title:"Sil",width:"18%",render:d=>`<input type="button" class="cssbutontamam" value="Sil" data-id="${d}" onclick="kkdsablonsil(this);"/>`}
-        ],
-        headerCallback: thead => { $(thead).find('th').css('text-align', 'center'); }
-    });
-}
-
-function kkdsablonsil(button)
-{
-    const id = button.getAttribute("data-id");
-    let kkdjsonsecim = store.get("kkdjsonsecim");
-    kkdjsonsecim = kkdjsonsecim.filter(item => item.i !== id);
-    store.set("kkdjsonsecim", kkdjsonsecim);
-    kkdsablontablo(kkdjsonsecim);
-}
-
-function kkdsablonkaydet()
-{
-    let ad = $('#kkdad').val().trim();    
-    if (ad.length < 3)
-    {
-        alertify.error("Lütfen en az 3 karakterden oluşan bir şablon adı giriniz.");
-        return false;
-    }
-    ad = basharfstring(ad);
-    const mevcutJsonStr = $('#HiddenField1').val();
-    let mevcutListe = [];
-    try
-    {
-        if (mevcutJsonStr)
-        {
-            mevcutListe = JSON.parse(mevcutJsonStr);
-        }
-    }
-    catch
-    {
-        mevcutListe = [];
-        return false;
-    }
-    const yeniListe = [];
-    $('#kkdtablo tbody tr').each(function ()
-    {
-        const k = $(this).find('td:eq(0) input').val().trim();
-        const s = $(this).find('td:eq(1) input').val().trim();
-        const a = $(this).find('td:eq(2) input').val().trim();
-        yeniListe.push({k, s, a});
-    });
-    const id = metinuret(3);
-    mevcutListe = mevcutListe.filter(item => item.ad !== ad);
-    mevcutListe.push({ ad: ad, id: id, x: yeniListe });
-    if (mevcutListe.length === 0) {return false;}
-    $('#HiddenField1').val(JSON.stringify(mevcutListe));
-    store.set("jsonkkdliste", mevcutListe);
-    return true;
-}
-
-function kkdzimmettamam1()
-{
-    let firmaid = firmasecimoku()
-    let tarih = $('#tarih').val() || '....../....../20...';
-    store.set('kkdzimmettarih', tarih);
-    window.location.href = "kkdzimmetcikti2.aspx?id=" + encodeURIComponent(firmaid);
-}
-
-function kkdzimmettamam2()
-{
-    dokumancalisansecim();
-    window.location.href = "kkdzimmetcikti3.aspx";
-}
-
-function kkdzimmetcikti3load()
-{
-    let kkdjson = JSON.parse($('#HiddenField1').val());
-    const select = $('#kkddrop');
-    select.empty();
-    if (Array.isArray(kkdjson) && kkdjson.length > 0)
-    {
-        select.append('<option value="" disabled selected>Lütfen bir şablon seçiniz</option>');
-        kkdjson.forEach(item => { select.append(`<option value="${item.id}">${item.ad}</option>`); });
-    }
-    else
-    {
-        select.append('<option disabled value="" selected>KKD şablonu bulunamadı</option>');
-        return;
-    }
-    let table = $('#kkdtablo').DataTable
-    ({
-        data: [],
-        ordering: false,
-        dom: 't',
-        columns:
-        [
-            {data:"k",title:"KKD Adı",width:"30%",render:d=>`<input type="text" class="csstextbox100" value="${d}" />`},
-            {data:"s",title:"Standardı",width:"40%",render:d=>`<input type="text" class="csstextbox100" value="${d}" />`},
-            {data:"a",title:"Adet",width:"12%",render:d=>`<input type="text" class="csstextbox100" style="text-align:center;" value="${d}" />`}
-        ],
-        language: { zeroRecords: "Kayıtlı KKD Yok", infoEmpty: "Kayıtlı KKD Yok", emptyTable: "Kayıtlı KKD Yok"},
-        headerCallback: (thead) => { $(thead).find('th').css('text-align', 'center');}
-    });
-    $('#kkdtablo').hide();
-    $('#tamam').hide();
-    $('#kkddrop').on('change', function ()
-    {
-        $('#tamam').show();
-        $('#kkdtablo').show();
-        const secilenId = $(this).val();
-        const sablon = kkdjson.find(item => item.id === secilenId);
-
-        if (!sablon || !Array.isArray(sablon.x))
-        {
-            table.clear().draw();
-            return;
-        }
-        table.clear().rows.add(sablon.x).draw();
-    });
-}
-function kkdzimmettamam3()
-{
-    const $select = $("#kkddrop");
-    if ($select.length === 0 || $select.prop("selectedIndex") === 0)
-    {
-        alertify.error("Lütfen bir şablon seçiniz.");
-        return;
-    }
-    const liste = [];
-    $("#kkdtablo tbody tr").each(function ()
-    {
-        const $td = $(this).find("td");
-        liste.push
-        ({
-            k: $td.eq(0).find("input").val().trim(),
-            s: $td.eq(1).find("input").val().trim(),
-            a: $td.eq(2).find("input").val().trim()
-        });
-    });
-    store.set("kkdzimmetsonliste", liste);
-    store.set("dosyaciktitipi", "4");
-    window.location.href = "dosyacikti.aspx?id=4";
-}
-
-function kkdsablonduzenleload()
-{
-    let kkdjson = $('#HiddenField1').val();
-    if ($('#HiddenField2').val() === "1")
-    {
-        kkdjson = jsoncevir(kkdjson);
-        store.set("jsonkkdliste", kkdjson);
-    }
-    else if ($('#HiddenField2').val() === "0")
-    {
-        kkdjson = store.get("jsonkkdliste");
-        kkdjson = jsoncevir(kkdjson);
-    }
-    else
-    {
-        alertify.error("Beklenmedik bir hata oluştu");
-        return false;
-    }
-    $('#tablo').DataTable
-    ({
-        data: kkdjson,
-        pageLength: -1,
-        order: false,
-        lengthMenu: [[10, 25, 50, 100, -1], [10, 25, 50, 100, "Tümü"]],
-        columns:
-        [
-            { data: "ad", title: "KKD Şablon Adı", orderable: false, width: "60%" },
-            { data:null,title:"Düzenle",orderable:!1,width:"20%",render:(d,t,r)=>`<input type="button" class="cssbutontamam" value="Düzenle" data-id="${r.id}" onclick="jsonkkdsablonduzenle(this);"/>`},
-            { data:null,title:"Sil",orderable:!1,width:"20%",render:(d,t,r)=>`<input type="button" class="cssbutontamam" value="Sil" data-id="${r.id}" onclick="sildialog(this);"/>`}
-        ],
-        language:{search:"KKD Ara:",lengthMenu:"Sayfa başına _MENU_ kayıt göster",zeroRecords:"KKD şablon bulunamadı",info:"_TOTAL_ kayıttan _START_ ile _END_ arası gösteriliyor",infoEmpty:"KKD şablon bulunamadı",infoFiltered:"(toplam _MAX_ kayıttan filtrelendi)",emptyTable:"KKD şablon bulunamadı"},
-        createdRow: function (row) { $(row).find('td').eq(0).css('text-align', 'left'); },
-        headerCallback: function (thead) { $(thead).find('th').css('text-align', 'center');}
-    });
-    $('.dt-search input').css({ "background-color": "white" }).attr("autocomplete", "off");
-    $('.dt-length select').css({ "background-color": "white" });
-}
-function sildialog(button)
-{
-    let kkdsilid = button.getAttribute("data-id");
-    store.set("kkdsilid", kkdsilid);
-    $('#diyolagkkdsil').fadeIn();
-}
-function jsonkkdsablonsil()
-{
-    try
-    {
-        let kkdsilid = store.get("kkdsilid");
-        if (!kkdsilid)
-        {
-            alertify.error("Silinecek öğe bulunamadı.");
-            return false;
-        }
-        let table = $('#tablo').DataTable();
-        let liste = jsoncevir(store.get("jsonkkdliste"));
-        const guncelListe = liste.filter(item => item.id !== kkdsilid);
-        store.set("jsonkkdliste", guncelListe);
-        const rowsToRemove = table.rows((idx, data) => String(data.id) === String(kkdsilid));
-        rowsToRemove.remove().draw();
-        $('#diyolagkkdsil').fadeOut();
-        $('#HiddenField1').val(JSON.stringify(guncelListe));
-        kkdsilid = null;
-        return true;
-    }
-    catch (e)
-    {
-        $('#HiddenField1').val("[]")
-        alertify.error("Silme işlemi sırasında bir hata oluştu.");
-        return false;
-    }
-}
-function jsonkkdsablonduzenle(button)
-{
-    const id = button.getAttribute("data-id");
-    let liste = store.get("jsonkkdliste");
-    liste = jsoncevir(liste);
-    liste = liste.find(item => item.id === id);
-    if (liste)
-    {
-        store.set("jsonkkdsablonsecim", [liste]);
-    }
-    else
-    {
-        store.set("jsonkkdsablonsecim", []);
-    }
-    window.location.href = "kkdsablonduzenle2.aspx";
-}
-
-function jsoncevir(j) { if (typeof j === "string") { try { j = JSON.parse(j) } catch (e) { j = [] } } return j; }
+////////////////////////ÇALIŞAN TEMSİLCİSİ DOKUMAN////////////////////////ÇALIŞAN TEMSİLCİSİ DOKUMAN////////////////////////ÇALIŞAN TEMSİLCİSİ DOKUMAN////////////////////////
 
 function calisantemsilcisigorevlendirmeyaz()
 {
@@ -5146,15 +5133,15 @@ function calisantemsilcisigorevlendirmeyaz()
             new Paragraph({ children: [new TextRun({ text: `\tİşyeri Unvanı: ${isyerijson.fi}`, size: 24, font: "Calibri" })], alignment: "left", spacing: {after: 120} }),
             ...(isyerijson.ad ? [new Paragraph({ children:[new TextRun({text:`\tİşyeri Adresi: ${isyerijson.ad}`,size:24,font:"Calibri"})], alignment:"left", spacing:{after:120} })] : []),
             ...(isyerijson.sc ? [new Paragraph({ children: [new TextRun({ text: `\tİşyeri Sicil No: ${isyerijson.sc}`, size: 24, font: "Calibri" })], alignment: "left", spacing: { after: 120 } })] : []),
-            new Paragraph({ children: [new TextRun({ text: `\tÇalışan Adı Soyadı: ${json.ad}`, size: 24, font: "Calibri" })], alignment: "left", spacing: { after: 120 } }),
-            new Paragraph({ children: [new TextRun({ text: `\tÇalışan Görev/Unvan: ${json.un}`, size: 24, font: "Calibri" })], alignment: "left", spacing: {after: 240 } }),
+            new Paragraph({ children: [new TextRun({ text: `\tÇalışan Adı Soyadı: ${json.x}`, size: 24, font: "Calibri" })], alignment: "left", spacing: { after: 120 } }),
+            new Paragraph({ children: [new TextRun({ text: `\tÇalışan Görev/Unvan: ${json.y}`, size: 24, font: "Calibri" })], alignment: "left", spacing: {after: 240 } }),
             new Paragraph({ children: [new TextRun({ text: `\tYukarıda kimlik bilgileri yazılı çalışanımız 6331 sayılı İş Sağlığı ve Güvenliği Kanunu 20.Maddesinde belirtilen iş sağlığı ve güvenliği ile ilgili çalışmalara katılma, çalışmaları izleme, tedbir alınmasını isteme, tekliflerde bulunma ve benzeri konularda çalışanları temsil etme hususunda çalışan temsilcisi olarak atanmış ve iş bu görevi kabul etmiştir.`, size: 24, font: "Calibri" })], alignment: "both", spacing: { after: 240 } }),
         ];
         const imzatablo = new Table
         ({
             rows:
             [
-                new TableRow({children:[new TableCell({width:{size:50,type:"pct"},children:[new Paragraph({alignment:"center",children:[new TextRun({text:json.ad,font:"Calibri",bold:true,size:24})]})]}),new TableCell({width:{size:50,type:"pct"},children:[new Paragraph({alignment:"center",children:[new TextRun({text:isyerijson.is,font:"Calibri",bold:true,size:24})]})]})]}),
+                new TableRow({children:[new TableCell({width:{size:50,type:"pct"},children:[new Paragraph({alignment:"center",children:[new TextRun({text:json.x,font:"Calibri",bold:true,size:24})]})]}),new TableCell({width:{size:50,type:"pct"},children:[new Paragraph({alignment:"center",children:[new TextRun({text:isyerijson.is,font:"Calibri",bold:true,size:24})]})]})]}),
                 new TableRow({children:[new TableCell({children:[new Paragraph({alignment:"center",children:[new TextRun({text:"Çalışan Temsilcisi",font:"Calibri",size:24})]})]}),new TableCell({children:[new Paragraph({alignment:"center",children:[new TextRun({text:"İşveren Vekili",font:"Calibri",size:24})]})]})]}),
                 new TableRow({children:[new TableCell({children:[new Paragraph({alignment:"center",children:[new TextRun({text:"İmza",font:"Calibri",size:24})]})]}),new TableCell({children:[new Paragraph({alignment:"center",children:[new TextRun({text:"İmza",font:"Calibri",size:24})]})]})]})
             ],
@@ -5170,8 +5157,8 @@ function calisantemsilcisigorevlendirmeyaz()
         const bastemsilci = temsilcijson.find(x => x.ekipgorev === "Çalışan Baş Temsilcisi");
         if (bastemsilci)
         {
-            calisanbastemsiciadsoyad = bastemsilci.ad;
-            calisanbastemsiciunvan = bastemsilci.un;
+            calisanbastemsiciadsoyad = bastemsilci.x;
+            calisanbastemsiciunvan = bastemsilci.y;
         }
         let bastemsilciaciklama =
         [
@@ -5200,7 +5187,7 @@ function calisantemsilcisigorevlendirmeyaz()
             rows:
             [
                 new TableRow({height:{value:600,rule:"atLeast"},children:[new TableCell({verticalAlign:"center",width:{size:45,type:"pct"},children:[new Paragraph({alignment:"center",children:[new TextRun({text:"Çalışan Adı Soyadı",bold:true,font:"Calibri",size:24})]})]}),new TableCell({verticalAlign:"center",width:{size:25,type:"pct"},children:[new Paragraph({alignment:"center",children:[new TextRun({text:"Temsilci Görevi",bold:true,font:"Calibri",size:24})]})]}),new TableCell({verticalAlign:"center",width:{size:30,type:"pct"},children:[new Paragraph({alignment:"center",children:[new TextRun({text:"İmza",bold:true,font:"Calibri",size:24})]})]})]}),
-                ...temsilcijson.map(item => new TableRow({height:{value:1000,rule:"atLeast"},children:[new TableCell({verticalAlign:"center",margins:{left:75},children:[new Paragraph({alignment:"left",children:[new TextRun({text:item.ad,font:"Calibri",size:24})]})]}),new TableCell({verticalAlign:"center",margins:{left:75},children:[new Paragraph({alignment:"left",children:[new TextRun({text:item.ekipgorev,font:"Calibri",size:24})]})]}),new TableCell({verticalAlign:"center",children:[new Paragraph({alignment:"center",children:[new TextRun({text:"",font:"Calibri",size:24})]})]})]}))
+                ...temsilcijson.map(item => new TableRow({height:{value:1000,rule:"atLeast"},children:[new TableCell({verticalAlign:"center",margins:{left:75},children:[new Paragraph({alignment:"left",children:[new TextRun({text:item.x,font:"Calibri",size:24})]})]}),new TableCell({verticalAlign:"center",margins:{left:75},children:[new Paragraph({alignment:"left",children:[new TextRun({text:item.ekipgorev,font:"Calibri",size:24})]})]}),new TableCell({verticalAlign:"center",children:[new Paragraph({alignment:"center",children:[new TextRun({text:"",font:"Calibri",size:24})]})]})]}))
             ],
             width: { size: 100, type: "pct" },
         });
@@ -5209,10 +5196,11 @@ function calisantemsilcisigorevlendirmeyaz()
     const doc = new Document({sections:gorevlendirme.map(s=>({properties:{page:{size:{width:11906,height:16838,orientation:"portrait"},margin:{top:1134,right:1134,bottom:1134,left:1134}}},children:s.children}))});
     Packer.toBlob(doc).then(blob => saveAs(blob, "Temsilci Görevlendirme.docx"));
 }
+
 function calisantemsilciekibi()
 {
     const ekipliste = {0:"Görevli Değil",1:"Çalışan Temsilcisi",2:"Çalışan Baş Temsilcisi"};
-    let json = calisangetir();
+    let json = jsoncevir($('#HiddenField1').val());
     if (!json || json.length === 0) { alertify.error("Kayıtlı çalışan bulunamadı"); return false; }
     json = json.filter(x => x.t !== 0);
     if (!json || json.length === 0) { alertify.error("Çalışan temsilcisi bulunamadı"); return false; }
@@ -5235,11 +5223,9 @@ function calisantemsilciekibi()
         }
     }
     json.sort((a, b) => b.t - a.t);
-    const temsilcijson=json.map(item=>({ad:item.ad,un:item.un,ekipgorev:ekipliste[item.t]||"Bilinmiyor"}));
+    const temsilcijson=json.map(item=>({x:item.x,y:item.y,ekipgorev:ekipliste[item.t]||"Bilinmiyor"}));
     return temsilcijson;
 }
-
-function tarihreturn(t){var r=/^(\d{2})\.(\d{2})\.(\d{4})$/;if(!r.test(t))return"....../....../20....";var p=t.match(r),d=parseInt(p[1],10),m=parseInt(p[2],10),y=parseInt(p[3],10),o=new Date(y,m-1,d);return o.getFullYear()===y&&o.getMonth()===m-1&&o.getDate()===d?t:"....../....../20...."}
 
 function calisantemsilcisikatilimyaz()
 {
@@ -5247,7 +5233,7 @@ function calisantemsilcisikatilimyaz()
     if ($('#HiddenField1').val() === "" || $('#HiddenField1').val() === null)
     {
         window.location.href = "calisantemsilcisievrak.aspx";
-    }
+calisantemsilciekibi()    }
     let egitimtarih =  store.get("egitimtarih");
     egitimtarih = tarihreturn(egitimtarih);
     let egitimsaat =  store.get("egitimsaat");
@@ -5267,7 +5253,7 @@ function calisantemsilcisikatilimyaz()
     katilimlistesi.push
     ([
         { text: (index + 1).toString(), alignment: 'center', fontSize: 10, margin:[0,15] },
-        { text: item.ad, alignment: 'left', fontSize: 10, margin:[0,15] },
+        { text: item.x, alignment: 'left', fontSize: 10, margin:[0,15] },
         { text: item.ekipgorev, alignment: 'left', fontSize: 10, margin:[0,15] },
         { text: '', alignment: 'center', fontSize: 10, margin:[0,15] }
     ]);
@@ -5283,6 +5269,7 @@ function calisantemsilcisikatilimyaz()
     };
     pdfMake.createPdf(pdficerik).download("Temsilci Katılım Listesi.pdf");
 }
+
 function temscilcikatilimustbilgi(i, t, e, s, k)
 {
     return [
@@ -5349,8 +5336,8 @@ async function calisantemsilcisisertifikayaz()
             [
                 { text: egitimicerik.baslik, style: 'ustbaslik', margin: [0, 50, 0, 10] },
                 { text: 'İşyeri Unvanı: ' + isyeriismi, style: 'normalsatir', margin: [80, 0, 0, 5] },
-                { text: 'Katılımcı Adı Soyadı: ' + calisan.ad, style: 'normalsatir', margin: [80, 0, 0, 5] },
-                { text: 'Katılımcının Görev Unvanı: ' + calisan.un + " - " + calisan.ekipgorev, style: 'normalsatir', margin: [80, 0, 0, 5] },
+                { text: 'Katılımcı Adı Soyadı: ' + calisan.x, style: 'normalsatir', margin: [80, 0, 0, 5] },
+                { text: 'Katılımcının Görev Unvanı: ' + calisan.y + " - " + calisan.ekipgorev, style: 'normalsatir', margin: [80, 0, 0, 5] },
                 { text: 'Tarih: ' + tarih, style: 'normalsatir', margin: [80, 0, 0, 5] },
                 { text: 'Eğitim Süresi: ' + egitimsaat, style: 'normalsatir', margin: [80, 0, 0, 5] },
                 { text: 'Eğitim Şekli: ' + egitimyeri, style: 'normalsatir', margin: [80, 0, 0, 5] },
@@ -5380,16 +5367,85 @@ async function calisantemsilcisisertifikayaz()
     pdfcikti.getBlob((blob) => {saveAs(blob, 'Temsilci Sertifika.pdf');});
 }
 
-function maskele(veri)
-{
-    const model = {'A':'Ş', 'B':'Ü', 'C':'Ö', 'Ç':'Ğ', 'D':'İ', 'E':'Z', 'F':'Y', 'G':'V', 'Ğ':'U', 'H':'T', 'I':'S', 'İ':'R', 'J':'P', 'K':'O', 'L':'N', 'M':'Q', 'N':'L', 'O':'K', 'Ö':'J', 'P':'I', 'R':'H', 'S':'Ğ', 'Ş':'G', 'T':'F', 'U':'E', 'Ü':'D', 'V':'C', 'Y':'Ç', 'Z':'B', 'a':'ş', 'b':'ü', 'c':'ö', 'ç':'ğ', 'd':'i', 'e':'z', 'f':'y', 'g':'v', 'ğ':'u', 'h':'t', 'ı':'s', 'i':'r', 'j':'p', 'k':'o', 'l':'n', 'm':'w', 'n':'l', 'o':'k', 'ö':'j', 'p':'ı', 'r':'h', 's':'ğ', 'ş':'g', 't':'f', 'u':'e', 'ü':'d', 'v':'c', 'y':'ç', 'z':'b', '0':'5', '1':'6', '2':'7', '3':'8', '4':'9', '5':'0', '6':'1', '7':'2', '8':'3', '9':'4', '+':'€', '-':'£', '(':'¥', ')':'¤', '=':'§', '?':'©', '*':'®', ';':'™', ',':'µ', ':':'¶', '.':'·', ' ':'_'};
-    return veri.split('').map(c => model[c] || c).join('');
-}
+////////////////////////İSG TALİMAT////////////////////////İSG TALİMAT////////////////////////İSG TALİMAT////////////////////////İSG TALİMAT////////////////////////
 
-function maskecoz(veri)
+async function talimatyazdirword(button)
 {
-    const model = {'Ş':'A', 'Ü':'B', 'Ö':'C', 'Ğ':'Ç', 'İ':'D', 'Z':'E', 'Y':'F', 'V':'G', 'U':'Ğ', 'T':'H', 'S':'I', 'R':'İ', 'P':'J', 'O':'K', 'N':'L', 'Q':'M', 'L':'N', 'K':'O', 'J':'Ö', 'I':'P', 'H':'R', 'Ğ':'S', 'G':'Ş', 'F':'T', 'E':'U', 'D':'Ü', 'C':'V', 'Ç':'Y', 'B':'Z', 'ş':'a', 'ü':'b', 'ö':'c', 'ğ':'ç', 'i':'d', 'z':'e', 'y':'f', 'v':'g', 'u':'ğ', 't':'h', 's':'ı', 'r':'i', 'p':'j', 'o':'k', 'n':'l', 'w':'m', 'l':'n', 'k':'o', 'j':'ö', 'ı':'p', 'h':'r', 'ğ':'s', 'g':'ş', 'f':'t', 'e':'u', 'd':'ü', 'c':'v', 'ç':'y', 'b':'z', '5':'0', '6':'1', '7':'2', '8':'3', '9':'4', '0':'5', '1':'6', '2':'7', '3':'8', '4':'9', '€':'+', '£':'-', '¥':'(', '¤':')', '§':'=', '©':'?', '®':'*', '™':';', 'µ':',', '¶':':', '·':'.', '_':' '};
-    return veri.split('').map(c => model[c] || c).join('');
+    const { Document, Packer, Paragraph, TextRun, Table, TableRow, TableCell, WidthType, AlignmentType, Header, Footer, BorderStyle } = window.docx;
+    let isyerijson = store.get('xjsonfirma');
+    if (!isyerijson)
+    {
+        return alertify.error("İşyeri bilgisi alınamadı.");
+    }
+    try
+    {
+        isyerijson = JSON.parse(isyerijson);
+    }
+    catch
+    {
+        return alertify.error("İşyeri JSON verisi geçersiz.");
+    }
+    const isveren = isyerijson.is || "";
+    let adsoyad = "";
+    let unvan = "";
+    if (button.id === "bosyazdir")
+    { 
+        adsoyad = "......................"; 
+        unvan = "Çalışan";
+    }
+    else
+    {
+        adsoyad = (button.getAttribute("data-ad") || "").trim();
+        unvan = (button.getAttribute("data-un") || "").trim(); 
+    }
+    const uzmanad = store.get("uzmanad") || "";
+    const talimatlarHam = [$('#HiddenField2').val(), $('#HiddenField3').val(), $('#HiddenField4').val(), $('#HiddenField5').val(), $('#HiddenField6').val()];
+    const sections = [];
+    const altbilgi = new Table({
+        rows:
+        [
+                new TableRow({ children: [new TableCell({ children: [new Paragraph({ children: [new TextRun({ text: uzmanad, font: "Calibri", size: 22, bold: true })], alignment: AlignmentType.CENTER })], verticalAlign: "center", width: { size: 31, type: WidthType.PERCENTAGE }, borders: { top: { style: BorderStyle.NONE, size: 0, color: "FFFFFF" }, bottom: { style: BorderStyle.NONE, size: 0, color: "FFFFFF" }, left: { style: BorderStyle.NONE, size: 0, color: "FFFFFF" }, right: { style: BorderStyle.NONE, size: 0, color: "FFFFFF" } } }), new TableCell({ children: [new Paragraph({ children: [new TextRun({ text: isveren, font: "Calibri", size: 22, bold: true })], alignment: AlignmentType.CENTER })], verticalAlign: "center", width: { size: 31, type: WidthType.PERCENTAGE }, borders: { top: { style: BorderStyle.NONE, size: 0, color: "FFFFFF" }, bottom: { style: BorderStyle.NONE, size: 0, color: "FFFFFF" }, left: { style: BorderStyle.NONE, size: 0, color: "FFFFFF" }, right: { style: BorderStyle.NONE, size: 0, color: "FFFFFF" } } }), new TableCell({ children: [new Paragraph({ children: [new TextRun({ text: adsoyad, font: "Calibri", size: 22, bold: true })], alignment: AlignmentType.CENTER })], verticalAlign: "center", width: { size: 38, type: WidthType.PERCENTAGE }, borders: { top: { style: BorderStyle.NONE, size: 0, color: "FFFFFF" }, bottom: { style: BorderStyle.NONE, size: 0, color: "FFFFFF" }, left: { style: BorderStyle.NONE, size: 0, color: "FFFFFF" }, right: { style: BorderStyle.NONE, size: 0, color: "FFFFFF" } } })] }),
+                new TableRow({ children: [new TableCell({ children: [new Paragraph({ children: [new TextRun({ text: "İş Güvenliği Uzmanı", font: "Calibri", size: 22 })], alignment: AlignmentType.CENTER })], verticalAlign: "center", borders: { top: { style: BorderStyle.NONE, size: 0, color: "FFFFFF" }, bottom: { style: BorderStyle.NONE, size: 0, color: "FFFFFF" }, left: { style: BorderStyle.NONE, size: 0, color: "FFFFFF" }, right: { style: BorderStyle.NONE, size: 0, color: "FFFFFF" } } }), new TableCell({ children: [new Paragraph({ children: [new TextRun({ text: "İşveren Vekili", font: "Calibri", size: 22 })], alignment: AlignmentType.CENTER })], verticalAlign: "center", borders: { top: { style: BorderStyle.NONE, size: 0, color: "FFFFFF" }, bottom: { style: BorderStyle.NONE, size: 0, color: "FFFFFF" }, left: { style: BorderStyle.NONE, size: 0, color: "FFFFFF" }, right: { style: BorderStyle.NONE, size: 0, color: "FFFFFF" } } }), new TableCell({ children: [new Paragraph({ children: [new TextRun({ text: unvan, font: "Calibri", size: 22})], alignment: AlignmentType.CENTER })], verticalAlign: "center", borders: { top: { style: BorderStyle.NONE, size: 0, color: "FFFFFF" }, bottom: { style: BorderStyle.NONE, size: 0, color: "FFFFFF" }, left: { style: BorderStyle.NONE, size: 0, color: "FFFFFF" }, right: { style: BorderStyle.NONE, size: 0, color: "FFFFFF" } } })] }),
+                new TableRow({ children: [new TableCell({ children: [new Paragraph({ children: [new TextRun({ text: "İmza", font: "Calibri", size: 22 })], alignment: AlignmentType.CENTER })], verticalAlign: "center", borders: { top: { style: BorderStyle.NONE, size: 0, color: "FFFFFF" }, bottom: { style: BorderStyle.NONE, size: 0, color: "FFFFFF" }, left: { style: BorderStyle.NONE, size: 0, color: "FFFFFF" }, right: { style: BorderStyle.NONE, size: 0, color: "FFFFFF" } } }), new TableCell({ children: [new Paragraph({ children: [new TextRun({ text: "İmza", font: "Calibri", size: 22 })], alignment: AlignmentType.CENTER })], verticalAlign: "center", borders: { top: { style: BorderStyle.NONE, size: 0, color: "FFFFFF" }, bottom: { style: BorderStyle.NONE, size: 0, color: "FFFFFF" }, left: { style: BorderStyle.NONE, size: 0, color: "FFFFFF" }, right: { style: BorderStyle.NONE, size: 0, color: "FFFFFF" } } }), new TableCell({ children: [new Paragraph({ children: [new TextRun({ text: "İmza", font: "Calibri", size: 22})], alignment: AlignmentType.CENTER })], verticalAlign: "center", borders: { top: { style: BorderStyle.NONE, size: 0, color: "FFFFFF" }, bottom: { style: BorderStyle.NONE, size: 0, color: "FFFFFF" }, left: { style: BorderStyle.NONE, size: 0, color: "FFFFFF" }, right: { style: BorderStyle.NONE, size: 0, color: "FFFFFF" } } })] }),
+        ],
+        width: { size: 100, type: WidthType.PERCENTAGE },
+        alignment: AlignmentType.CENTER
+    });
+    for (let i = 0; i < talimatlarHam.length; i++)
+    {
+        let t = talimatlarHam[i];
+        if (!t || t === "Yok") continue;
+        let icerik;
+        try
+        {
+            icerik = JSON.parse(t);
+        }
+        catch
+        {
+            continue;
+        }
+        const baslik = Object.keys(icerik)[0];
+        const paragraflar = (icerik[baslik] || []).map(p => p.i);
+        const headerTable=new Table({rows:[new TableRow({children:[new TableCell({children:[new Paragraph({children:[new TextRun({text:baslik,bold:true,font:"Calibri",size:24})],alignment:AlignmentType.CENTER})],verticalAlign:"center"})]})],width:{size:100,type:WidthType.PERCENTAGE},alignment:AlignmentType.CENTER});
+        sections.push
+        ({
+            properties:{page:{margin:{top:1134,bottom:1417,left:851,right:851,header:567,footer:1134}}},
+            headers: { default: new Header({ children: [headerTable] })},
+            footers: { default: new Footer({ children: [altbilgi] }) },
+            children:[...paragraflar.map(text=>new Paragraph({children:[new TextRun({text,font:"Calibri",size:22})],alignment:AlignmentType.JUSTIFIED,spacing:{after:100}})),]
+        });
+    }
+    if (sections.length === 0) return alertify.error("Hiçbir talimat içeriği alınamadı.");
+    const doc = new Document({ sections });
+    const blob = await Packer.toBlob(doc);
+    if (button.id === "bosyazdir")
+    { 
+        saveAs(blob, `Boş İSG Talimat.docx`);
+    }
+    else
+    {
+        saveAs(blob, `${adsoyad} İSG Talimat.docx`);
+    }
 }
 
 function talimatduzenle1load()
@@ -5786,15 +5842,15 @@ function talimatciktidevam2()
 
 function talimatcikti3load()
 {
-    let calisanjson = calisangetir();
+    let calisanjson = jsoncevir($('#HiddenField1').val());
     $('#tablo').DataTable
     ({
         data: calisanjson,
         columns:
         [
-            { data: "ad", title: "Ad Soyad" },
-            { data: "un", title: "Unvan" },
-            { title: "Yazdır", data: null, orderable: !1, searchable: !1, render: function (a, b, c, d) { return `<input type="button" value="Word Yazdır" class="cssbutontamam" data-ad="${c.ad}" data-un="${c.un}" onclick="talimatyazdirword(this);">` } }
+            { data: "x", title: "Ad Soyad" },
+            { data: "y", title: "Unvan" },
+            { title: "Yazdır", data: null, orderable: !1, searchable: !1, render: function (a, b, c, d) { return `<input type="button" value="Word Yazdır" class="cssbutontamam" data-ad="${c.x}" data-un="${c.y}" onclick="talimatyazdirword(this);">` } }
         ],
         ordering: false,
         pageLength: -1, 
@@ -5807,264 +5863,7 @@ function talimatcikti3load()
     $('.dt-search input').css({"background-color": "white", "width": "12vw", "margin": "0 auto", "display": "inline-block", "font-size": "1vw", "font-family": "Calibri", "text-align": "left"});
 }
 
-function acildurumdevam1()
-{
-    let tarih = $('#tarih').val().trim();
-    if (tarihkontrol(tarih) === false)
-    {
-        alertify.error("Lütfen geçerli bir tarih giriniz");
-        return;
-    }
-    store.set("acildurumtarih", tarih);
-    let sonuc = {};
-    $('.csscheckbox').each(function () { const id = $(this).attr('id'); if (id) { sonuc[id] = $(this).is(':checked') ? 1 : 0; }});
-    store.set("acildurumkonusecim", sonuc);
-    let firmaid = firmasecimoku();
-    window.location.href = "acildurum2.aspx?id=" + encodeURIComponent(firmaid);
-}
-
-function tarihkontrol(t) { var r = /^(\d{2})\.(\d{2})\.(\d{4})$/; if (!r.test(t)) return false; var p = t.match(r), d = parseInt(p[1], 10), m = parseInt(p[2], 10), y = parseInt(p[3], 10), o = new Date(y, m - 1, d); return o.getFullYear() === y && o.getMonth() === m - 1 && o.getDate() === d }
-
-function secimkontrolgorev()
-{
-    let secilenler = { DropDownList1: $('#DropDownList1').val(), DropDownList2: $('#DropDownList2').val(), DropDownList3: $('#DropDownList3').val()};
-    ['#DropDownList1','#DropDownList2','#DropDownList3'].forEach(function(ddlId){ $(ddlId + ' option').prop('disabled', false);});
-    Object.entries(secilenler).forEach(([ddlName,secilenId])=>{if(secilenId&&secilenId!==""){['DropDownList1','DropDownList2','DropDownList3'].forEach(otherDDL=>{if(otherDDL!==ddlName){$(`#${otherDDL} option`).each(function(){if($(this).val()===secilenId){$(this).prop('disabled',true);}});}});}});
-}
-function temsilciguncelle()
-{
-    let calisanjson = calisangetir();
-    calisanjson.forEach(c => { if (c.r == 2) c.r = 0; });
-    const secilenId = $('#DropDownList2').val();
-    if (secilenId && secilenId !== "")
-    {
-        const eslesenCalisan = calisanjson.find(c => c.id == secilenId);
-        if (eslesenCalisan) { eslesenCalisan.r = 2; }
-    }
-    $('#HiddenField1').val(JSON.stringify(calisanjson));
-    secimkontrolgorev();
-    return true;
-}
-function bilgilicalisanguncelle()
-{
-    let calisanjson = calisangetir();
-    calisanjson.forEach(c => { if (c.r == 3) c.r = 0; });
-    const secilenId = $('#DropDownList3').val();
-    if (secilenId && secilenId !== "")
-    {
-        const eslesenCalisan = calisanjson.find(c => c.id == secilenId);
-        if (eslesenCalisan) { eslesenCalisan.r = 3; }
-    }
-    $('#HiddenField1').val(JSON.stringify(calisanjson));
-    secimkontrolgorev();
-    return true;
-}
-function destekelemaniguncelle()
-{
-    let calisanjson = calisangetir();
-    calisanjson.forEach(c => { if (c.r == 1) c.r = 0; });
-    const secilenId = $('#DropDownList1').val();
-    if (secilenId && secilenId !== "")
-    {
-        const eslesenCalisan = calisanjson.find(c => c.id == secilenId);
-        if (eslesenCalisan) { eslesenCalisan.r = 1;}
-    }
-    $('#HiddenField1').val(JSON.stringify(calisanjson));
-    secimkontrolgorev();
-    return true;
-}
-
-function kkdsablonduzenleload2()
-{
-    let veri = store.get("jsonkkdsablonsecim");
-    veri = jsoncevir(veri);
-    $('#kkdad').val(veri[0].ad);
-    veri = veri[0].x.map(item => ({...item, i: metinuret(3)}));
-    store.set("kkdjsonsecim", veri);
-    kkdsablontablo(veri);
-    fetch("https://cdn.jsdelivr.net/gh/MEHMETCERANX12/isgevrak@main/kkd.json").then(response => response.json()).then(data =>
-    {
-        store.set("kkdjsonveri", data);
-        let kkdjson = data;
-        kkdjson.sort((a, b) => a.sira - b.sira);
-        let table = $('#tablo').DataTable
-        ({
-            data: kkdjson,
-            pageLength: -1,
-            ordering: false,
-            dom: 't',
-            columns:
-            [
-                { data: "tur", title: "KKD Adı"},
-                { data: "aciklama", title: "Açıklama"},
-                { data: null, title:"Ekle",render:(d,t,r)=>`<input type="button" class="cssbutontamam" value="Ekle" data-id="${r.i}" onclick="kkdsablonekle(this);"/>`}
-            ],
-            createdRow:function(r){$(r).find("td").eq(0).css("text-align","left");$(r).find("td").eq(1).css("text-align","left");},
-            headerCallback: function (thead) { $(thead).find('th').css('text-align', 'center');}
-        });
-        $('#kkdselect').on('change', function ()
-        {
-            const secilen = $(this).val();
-            const index = this.selectedIndex;
-            if (index === 0)
-            {
-                table.clear().rows.add(kkdjson).draw();
-            }
-            else
-            {
-                const filtreli = kkdjson.filter(item => item.tur === secilen);
-                table.clear().rows.add(filtreli).draw();
-            }
-        });
-    })
-}
-function kkdsablonduzenlekaydet()
-{
-    const ad = $('#kkdad').val().trim();
-    if (ad.length < 3)
-    {
-        alertify.error("Lütfen en az 3 karakterden oluşan bir şablon adı giriniz.");
-        return false;
-    }
-    let mevcutliste = store.get("jsonkkdliste") || [];
-    if (typeof mevcutliste === "string")
-    {
-        try
-        {
-            mevcutliste = JSON.parse(mevcutliste);
-        }
-        catch
-        {
-            mevcutliste = [];
-        }
-    }
-    let yeniliste = [];
-    $('#kkdtablo tbody tr').each(function ()
-    {
-        const k = $(this).find('td:eq(0) input').val().trim();
-        const s = $(this).find('td:eq(1) input').val().trim();
-        const a = $(this).find('td:eq(2) input').val().trim();
-        yeniliste.push({ k, s, a });
-    });
-    /////////////////////////////////////////////////////
-    let secim = store.get("jsonkkdsablonsecim");
-    let kkdid = null;
-
-    if (Array.isArray(secim) && secim.length > 0)
-    {
-        kkdid = secim[0].id;
-    }
-    for (let i = 0; i < mevcutliste.length; i++)
-    {
-        if (mevcutliste[i].id === kkdid) {
-            mevcutliste[i].ad = ad;
-            mevcutliste[i].x = yeniliste;
-            store.set(
-                "jsonkkdsablonsecim",
-                JSON.stringify([{ id: mevcutliste[i].id, ad: mevcutliste[i].ad, x: yeniliste }])
-            );
-            break;
-        }
-    }
-    $('#HiddenField1').val(JSON.stringify(mevcutliste));
-    store.set("jsonkkdliste", JSON.stringify(mevcutliste));
-    return true;
-}
-
-function mastermenublok(durum)
-{
-    var $blok = $("#blok" + durum);
-    if ($blok.is(":visible"))
-    {
-        $blok.slideUp();
-    }
-    else
-    {
-        $(".menublok").slideUp();
-        $blok.stop(true, true).slideDown();
-    }
-}
-function mastermenugizle()
-{
-    $('#mastermenu').fadeOut();
-    $('#gizlimenu').fadeIn();
-    $("#gizlimenu").css("display", "flex");
-    $('#aspicerik').css({"margin-left": "3%", "width": "97%"});
-}
-function mastermenugoster()
-{
-    $('#mastermenu').fadeIn();
-    $('#gizlimenu').fadeOut();
-    $('#aspicerik').css({"margin-left": "10.7%","width": "89.3%"});
-}
-function dokumansecimsayfamenu(btn)
-{
-    var $btn = $(btn);
-    var $submenu = $btn.next('.menuicerik');
-    $('.menuicerik').not($submenu).slideUp();
-    $submenu.slideToggle();
-}
-
-function acilisverisianasayfa()
-{
-    let deger = $("#HiddenField4").val();
-    if (deger === "1")
-    {
-        store.set('firmajson', $("#HiddenField1").val());
-        let uzman = JSON.parse($("#HiddenField2").val());
-        store.set("uzmanad", uzman[0].uz);
-        store.set("uzmanno", uzman[0].un);
-        store.set("uzmankurum", uzman[0].kr);
-        store.set("ayar", $("#HiddenField3").val());
-    }
-}
-function duyuruicerikanasayfa()
-{
-    const duyurular =
-    {
-        "1":
-        {
-            "baslik": "Mesleki Eğitim Belgesi Zorunluluğu ve Geçerli Belgeler",
-            "metin": "6331 sayılı İş Sağlığı ve Güvenliği Kanununa göre belirlenen tehlikeli ve çok tehlikeli sınıfta yer alan işlerde çalışanların mesleki eğitimlerinin usul ve esaslarını düzenleyen Tehlikeli ve Çok Tehlikeli İşlerde Çalışanların Mesleki Eğitimlerine Dair Yönetmeliğin Ek-1 çizelgesinde yer alan işlerde fiilen çalıştırılacakların, yaptığı işe uygun ve Yönetmeliğin 6. maddesinde tanımlanan belgelerden birisine sahip olmaları zorunludur. Söz konusu 6. maddede bu eğitimi hangi kurum / kuruluşların ne şartlarda verebileceği belirtilmiştir.<br/><br/>Ancak 6645 sayılı İş Sağlığı ve Güvenliği Kanunu ile Bazı Kanun ve Kanun Hükmünde Kararnamelerde Değişiklik Yapılmasına Dair Kanunun 74. maddesi ile 5544 sayılı Mesleki Yeterlilik Kurumu Kanununda değişiklik yapılarak 5544 sayılı Kanuna göre belirlenmiş işlerde de mesleki eğitim belgesi zorunluluğu getirilmiştir.<br/><br/>Söz konusu değişiklik ile Meslekî Yeterlilik Belgesi zorunluluğu getirilen meslekleri belirlemek amacıyla Meslekî Yeterlilik Belgesi Zorunluluğu Getirilen Mesleklere İlişkin Tebliğler yayımlanmıştır. Anılan Tebliğlerde yayımlanan meslekler için geçerli olan mesleki eğitim belgeleri;<br/><br/><strong>-3308 sayılı Mesleki Eğitim Kanununa göre alınmış ustalık belgesi,</strong><br/><br/><strong>-Millî Eğitim Bakanlığına bağlı meslekî ve teknik eğitim okullarından ve üniversitelerin meslekî ve teknik eğitim veren okul ve bölümlerin ilgili alanından alınmış diploma,</strong><br/><br/><strong>- İlgili alanda alınmış MYK Belgesi’dir.</strong><br/><br/> Adı geçen Yönetmeliğin Ek-1 listesinde yer alan bir işin MYK belge zorunluluğu getirilen meslekler arasına alınması durumunda, MYK mevzuatı kapsamında belirtilen geçerli mesleki eğitim belgesine sahip olunması zorunludur. MYK tarafından zorunluluk getirilmeyen ancak anılan Yönetmeliğin Ek-1 listesinde yer alan faaliyetler için ise 6331 sayılı Kanun kapsamında mesleki eğitim zorunluluğu olacağından söz konusu Yönetmeliğin 6. maddesinde belirtilen geçerli mesleki eğitim belgesine sahip olunmalıdır.<br/><br/>Bilgilerinize sunulur."
-        },
-        "2":
-        {
-            "baslik": "İşyerlerinde İşveren veya İşveren Vekili Tarafından Yürütülecek İş Sağlığı ve Güvenliği Hizmetlerine Yönelik Sıkça Sorulan Sorular",
-            "metin": "<strong>1- Eğitim sonunda aldığımız belgenin geçerlilik süresi ne kadardır?</strong><br/><br/>“İşyerlerinde İşveren veya İşveren Vekili Tarafından Yürütülecek İş Sağlığı ve Güvenliği Hizmetlerine İlişkin Yönetmelik” kapsamında eğitim alan kişilere Yönetmeliğin Ek-3’ündeki örneğine uygun “İş Sağlığı ve Güvenliği Hizmetlerinin Yürütümüne İlişkin İşveren veya İşveren Vekili Eğitimi Tamamlama Belgesi” düzenlenir. Düzenlenen bu belge ve alınan eğitim süresiz şekilde geçerlidir. <br/><br/><strong>2- İşveren Vekili ile kastınız nedir? Noterden vekâlet mi almamız gerekiyor? Herkes vekil olabiliyor mu? Ben burada çalışan biri olarak eğitime katılabilir miyim? </strong><br/><br/>“İşyerlerinde İşveren veya İşveren Vekili Tarafından Yürütülecek İş Sağlığı ve Güvenliği Hizmetlerine İlişkin Yönetmelik” in 4 üncü maddesinin birinci fıkrasının (f) bendinde işveren vekili şu şekilde tanımlanmıştır: <br/><br/> “f) İşveren vekili: Bu Yönetmelik kapsamındaki işyerlerinde, işveren adına hareket eden, işin ve işyerinin bütününün yönetiminde görev alan kişiyi,” <br/><br/>Bu tanım kapsamında, kişilerin işveren vekili olup olmadığına ilişkin tespitler, Sosyal Güvenlik Kurumu (SGK) işyeri tescil kayıtları esas alınarak yapılmaktadır. <br/><br/>Bununla birlikte aynı Yönetmeliğin 5 inci maddesinin altıncı fıkrasında yer alan aşağıdaki hükümde işveren vekili tanımı detaylandırılmıştır: <br/><br/>“İşveren vekili; 4 üncü maddede yer alan işveren vekili tanımına uygun ve işyerinde tam süreli hizmet akdi ile çalışanlar arasından görevlendirilir. Kamu kurum ve kuruluşlarında iş sağlığı ve güvenliği hizmetlerini en üst amir, yardımcıları veya bu görevi yürütenler üstlenebilir.” <br/><br/>Bu itibarla, “İş Sağlığı ve Güvenliği Hizmetlerinin Yürütümüne İlişkin İşveren veya İşveren Vekili Eğitimi” herhangi bir şart olmaksızın herkes tarafından katılım sağlanabilecek bir eğitim olup eğitimi alan kişiler, SGK işyeri tescil kayıtlarında herhangi bir işyerinde İşveren – Ortak – İşveren Vekili – Yönetici koduyla kayıtlı olması halinde, İSG-KATİP üzerinden yetkilisi oldukları işyeri için taahhüt işlemi yapabilecektir. <br/><br/><strong>3- Eğitime katılmak için üniversite mezunu olmam gerekiyor mu? </strong><br/><br/>“İş Sağlığı ve Güvenliği Hizmetlerinin Yürütümüne İlişkin İşveren veya İşveren Vekili Eğitimi” herhangi bir şart olmaksızın herkes tarafından katılım sağlanabilecek bir eğitimdir. <br/><br/><strong>4- Aldığım belge ile 1’den fazla iş yerine bakabilir miyim? </strong><br/><br/> “İş Sağlığı ve Güvenliği Hizmetlerinin Yürütümüne İlişkin İşveren veya İşveren Vekili Eğitimi Tamamlama Belgesi” bulunan işverenler, toplam çalışan sayısının 50’den az olması şartıyla kendilerine ait az tehlikeli sınıfta yer alan aynı il sınırları içerisindeki birden fazla işyerinin iş sağlığı ve güvenliği hizmetlerini üstlenebilir. <br/><br/>Anılan belgeye sahip işveren vekilleri ise tam süreli hizmet akdi ile çalıştıkları yalnızca tek bir işyerinin iş sağlığı ve güvenliği hizmetlerini üstlenebilir. <br/><br/><strong>5- Denetleme olursa ceza alır mıyım? </strong><br/><br/>6331 sayılı İş Sağlığı ve Güvenliği Kanununun 26 ncı maddesi gereğince Kanun hükümlerinin yerine getirilmemesi durumunda idari para cezaları uygulanmaktadır. İdari para cezaları, gerekçesi belirtilmek suretiyle Çalışma ve İş Kurumu il müdürlüklerince verilmektedir. <br/><br/><strong>6- İş sağlığı ve güvenliği lisans veya ön lisans programı mezunuyum. Çalıştığım yerde görev yapabilmek için ben de eğitimi almak zorunda mıyım? </strong><br/><br/>İş Güvenliği Uzmanlarının Görev, Yetki, Sorumluluk Ve Eğitimleri Hakkında Yönetmeliğin 4 üncü maddesinde bahse konu mezunlar teknik eleman olarak tanımlanmış olup aynı Yönetmeliğin 8 inci maddesinde de teknik elemanların nasıl iş güvenliği uzmanı belgesi alabileceği açıklanmaktadır. <br/><br/>Bu doğrultuda iş güvenliği uzmanlığı belgesine sahip olan bahse konu olan mezunların İşyerlerinde İşveren veya İşveren Vekili Tarafından Yürütülecek İş Sağlığı ve Güvenliği Hizmetlerine İlişkin Yönetmeliğin 18 inci maddesinde “(1) Bu Yönetmelik kapsamındaki işyerlerinde iş güvenliği uzmanlığı belgesi bulunan işveren veya işveren vekilleri, 7 nci ve 8 inci maddelerde belirtilen hizmetler hariç iş sağlığı ve güvenliği hizmetlerini üstlenebilir.” hükmü kapsamında ilgili hizmetleri iş güvenliği uzmanı olarak yürütebilir. <br/><br/><strong>7- Daha önceden aldığım sertifikamı kullanabilir miyim? İSG-KATİP’e kaydımı nasıl oluştururum? </strong><br/><br/>İş Sağlığı ve Güvenliği Hizmetlerinin Yürütümüne İlişkin İşveren veya İşveren Vekili Eğitimi Tamamlama Belgesi’ne dair geçerlilik süresi tanımlanmadığından belgeye sahip işveren veya işveren vekillerinin İSG-KATİP üzerinden ilgili işyeri için taahhüt işlemi yapması gerekmektedir. İSG-KATİP’e tanımlama işleminin yapılması ile ilgili bilgi için; https://isgkatip.csgb.gov.tr/ adresi Duyurular kısmından “İŞVEREN VE İŞVEREN VEKİLİ TAAHHÜTNAMESİ SİSTEM KILAVUZU” incelenmelidir. <br/><br/><strong>8- Eğitimi tamamladım, şimdi ne yapmam gerekiyor? </strong><br/><br/>İş Sağlığı ve Güvenliği Hizmetlerinin Yürütümüne İlişkin İşveren veya İşveren Vekili Eğitimi Tamamlama Belgesi’ne sahip işveren veya işveren vekillerinin İSG-KATİP üzerinden ilgili işyeri için taahhüt işlemi yapması gerekmektedir."
-        },
-        "3":
-        {
-            "baslik": "Eğitim ve Sınav Şartı Olmaksızın Üst Belgeye Geçiş Hakkında",
-            "metin": "<strong>(B) sınıfı iş güvenliği uzmanlığı belgesiyle, çok tehlikeli sınıftaki işyerlerinde 31/12/2024 tarihi itibarıyla en az üç yıl fiilen görev yaptığını iş güvenliği uzmanlığı sözleşmesi ile belgeleyenlerden son vize döneminde ihtar puanı veya askıya alma işlemi uygulanmamış olanlara, 31/3/2025 tarihine kadar başvurmaları halinde (A) sınıfı iş güvenliği uzmanlığı belgesi EK-1’deki örneğine uygun olarak Genel Müdürlükçe verilir.<br/><br/>(2) (C) sınıfı iş güvenliği uzmanlığı belgesiyle, tehlikeli ve/veya çok tehlikeli sınıftaki işyerlerinde 31/12/2024 tarihi itibarıyla en az üç yıl fiilen görev yaptığını iş güvenliği uzmanlığı sözleşmesi ile belgeleyenlerden son vize döneminde ihtar puanı veya askıya alma işlemi uygulanmamış olanlara, 31/3/2025 tarihine kadar başvurmaları halinde (B) sınıfı iş güvenliği uzmanlığı belgesi EK-1’deki örneğine uygun olarak Genel Müdürlükçe verilir. <br/><br/>(3) Birinci ve ikinci fıkrada belirtilen fiili çalışma süresinin hesabında sadece İSG-KATİP’te kayıtlı iş güvenliği uzmanlığı sözleşmeleri esas alınır.”şeklindedir. <br/><br/>İlgili maddenin yürürlüğe girmesi ile birlikte Genel Müdürlüğümüzce iki husus hakkında açıklama gereği duyulmuştur. <br/><br/>1. Eğitim ve Sınav Şartı Olmaksızın Üst Belge Verilmesi Hususu:</strong><br/><br/>20/6/2012 tarihli ve 6331 sayılı İş Sağlığı ve Güvenliği Kanununda işyerleri yapılan işin özelliği, işin her safhasında kullanılan veya ortaya çıkan maddeler, iş ekipmanı, üretim yöntem ve şekilleri, çalışma ortam ve şartları vb. diğer hususlar dikkate alınarak tehlike sınıflarına göre gruplandırılmıştır. Bu sınıflama kapsamında işyerleri, az tehlikeli, tehlikeli ve çok tehlikeli olmak üzere 3 gruba ayrılmıştır. Kanun çerçevesinde yürütülen işlemlerin genelinde bu tehlike sınıfları esastır.<br/><br/>Bununla birlikte; mezkûr Kanunda işverene iş sağlığı ve güvenliği ile ilgili konularda rehberlik ve danışmanlık yapmak üzere iş güvenliği uzmanı ve işyeri hekimi görevlendirme yükümlülüğü getirilmiştir. İş güvenliği uzmanı görevlendirme yükümlülüğünün yerine getirilmesinde işyeri tehlike sınıfları esas alınmıştır. Bu kapsamda; iş güvenliği uzmanlarının görev alabilmeleri için; çok tehlikeli sınıfta yer alan işyerlerinde (A) sınıfı, tehlikeli sınıfta yer alan işyerlerinde en az (B) sınıfı, az tehlikeli sınıfta yer alan işyerlerinde ise en az (C) sınıfı iş güvenliği uzmanlığı belgesine sahip olmaları şartı aranmaktadır. <br/><br/>6331 sayılı Kanunda yer verilen (A), (B) ve (C) sınıfı iş güvenliği uzmanlarının,  nitelikleri ve görevlendirilmeleri ile iş güvenliği uzmanlığı belgesi alınmasına ilişkin şartlar ise 29/12/2012 tarihli ve 28512 sayılı Resmî Gazete’de yayımlanan İş Güvenliği Uzmanlarının Görev, Yetki, Sorumluluk ve Eğitimleri Hakkında Yönetmelik ile düzenlenmiştir. Yönetmeliğin dayanak maddesinde yer alan 6331 sayılı Kanunun 30 uncu maddesinin birinci fıkrasında “Aşağıdaki konular ile bunlara ilişkin usul ve esaslar Bakanlıkça çıkarılacak yönetmeliklerle düzenlenir” hükmü yer almaktadır. Anılan fıkranın (b) bendinin (5) numaralı alt bendinde yer alan “İşyeri hekimi, iş güvenliği uzmanı ve diğer sağlık personelinin eğitimleri ve belgelendirilmeleri, unvanlarına göre kimlerin hangi sınıf belge alabilecekleri, işyeri hekimi, iş güvenliği uzmanı ve diğer sağlık personeli eğitimi verecek kurumların belgelendirilmeleri, yetkilendirilmeleri ile eğitim programlarının ve bu programlarda görev alacak eğiticilerin niteliklerinin belirlenmesi ve belgelendirilmeleri, eğitimlerin sonunda yapılacak sınavlar ve düzenlenecek belgeler.” hükmü uyarınca ilgili Yönetmeliğin “İş güvenliği uzmanlığı belgesi” başlıklı 8 inci maddesinde bu hususlar düzenlenmiştir. <br/><br/>İlgili maddeye bakıldığında ise; (A) sınıfı iş güvenliği uzmanlığı belgesinin verilme şartlarının kategorik olarak iki gruba ayrıldığı görülmektedir. <br/><br/>Birinci grup belirli şartları sağlaması halinde iş güvenliği uzmanlığı eğitimine katılma ve sınavında başarılı olma halidir. İlgili maddenin birinci fıkrasının (a) bendinin (1) numaralı alt bendinde bu husus “(B) sınıfı iş güvenliği uzmanlığı belgesiyle en az dört yıl fiilen görev yaptığını iş güvenliği uzmanlığı sözleşmesi ile belgeleyen ve (A) sınıfı iş güvenliği uzmanlığı eğitimine katılarak yapılacak (A) sınıfı iş güvenliği uzmanlığı sınavında başarılı olanlara” şeklinde tanımlanmıştır. <br/><br/>İkinci grup ise mühendislik veya mimarlık eğitimi veren fakülte mezunları ile teknik elemanlardan, mezuniyet ve/veya unvan gibi belirli şartları sağlayanlara iş güvenliği uzmanlığı eğitimine ve ilgili sınava katılma şartı olmaksızın doğrudan belgenin verilmesi halidir. İlgili maddenin birinci fıkrasının (a) bendinin (2) numaralı alt bendinde iş sağlığı ve güvenliği veya iş güvenliği doktora mezunlarına, (3) numaralı alt bendinde Genel Müdürlük veya bağlı birimlerinde en az on yıl görev yapmış olanlara, (4) numaralı alt bendinde iş sağlığı ve güvenliği alanında müfettiş yardımcılığı süresi dâhil en az on yıl görev yapmış iş müfettişlerine ve (5) numaralı alt bendinde Genel Müdürlük ve bağlı birimlerinde uzman yardımcılığı süresi dâhil en az on yıl fiilen görev yapmış iş sağlığı ve güvenliği uzmanlarına (A) sınıfı iş güvenliği uzmanlığı belgesinin doğrudan verileceği düzenlenmiştir. <br/><br/> (B) ve (C) sınıfı iş güvenliği uzmanlığı belgeleri için de benzer ve farklı düzenlemeler yine ilgili maddede belirlenmiştir. <br/><br/> (A) sınıfı belgeye sahip bir iş güvenliği uzmanı, çok tehlikeli, tehlikeli ve az tehlikeli, (B) sınıfı belgeye iş güvenliği uzmanı tehlikeli ve az tehlikeli, (C) sınıfı belgeye sahip iş güvenliği uzmanı ise sadece az tehlikeli sınıfta yer alan işyerlerinde görev yapabilmektedir. Bununla birlikte, bu genel kurala İş Sağlığı ve Güvenliği Hizmetleri Yönetmeliğinin 5 inci maddesinin üçüncü fıkrasıyla istisna getirilerek, birden fazla iş güvenliği uzmanı görevlendirilen kamu, maden, inşaat, metal, tekstil, sağlık, ulaşım, taşımacılık, ticaret, imalat, bakım, onarım, kurulum, enerji, kimya, tarım, ziraat, hayvancılık, mobilya, ormancılık, gıda, matbaa, atık yönetimi, su temini, temizlik, ilaçlama sektörlerine ait işyerlerinde, tam süreli iş güvenliği uzmanlarından sadece birisinde uygun belge sınıfı olması halinde diğerleri için uygun belge şartı aranmayacağı hükme bağlanmıştır. Diğer bir deyişle, bu kapsamda olan çok tehlikeli sınıfta yer alan işyerlerinde (B) ve (C) sınıfı iş güvenliği uzmanlığı belgesi sahibi olanlar sözleşme imzalayabilmekte ve tehlikeli sınıfta yer alan işyerlerinde ise (C) sınıfı iş güvenliği uzmanlığı belgesi sahibi olanlar sözleşme imzalayabilmektedir. Bu kapsamda üst sınıfta görev yapan kişilerin sayısı oldukça fazladır. <br/><br/>Ancak uygulamada yaşanan zorluklar nedeniyle 2015 yılında 6331 sayılı Kanuna eklenen geçici 4 üncü maddesinin birinci fıkrası ile mezkûr Kanunun 8 inci maddesinde belirtilen çok tehlikeli sınıfta yer alan işyerlerinde (A) sınıfı belgeye sahip iş güvenliği uzmanı görevlendirme yükümlülüğü, (B) sınıfı belgeye sahip iş güvenliği uzmanı görevlendirilmesi; tehlikeli sınıfta yer alan işyerlerinde ise (B) sınıfı belgeye sahip iş güvenliği uzmanı görevlendirme yükümlülüğü, (C) sınıfı belgeye sahip iş güvenliği uzmanı görevlendirilmesi kaydıyla 38 inci maddenin birinci fıkrasının (a) bendinin (1) numaralı alt bendinde yer alan yürürlük tarihine kadar yerine getirilmiş sayılır hükmü getirilmiştir. Diğer bir deyişle, (B) sınıfı belgeye sahip olanların bir üst sınıf olan (A) sınıfı belgeye sahip olanların sözleşme imzalayabilecekleri çok tehlikeli sınıfta, (C) sınıfı belgeye sahip olanların bir üst sınıf olan (B) sınıfı belgeye sahip olanların sözleşme imzalayabilecekleri tehlikeli sınıfta yer alan işyerleri ile iş güvenliği uzmanlığı sözleşmesi imzalama imkânı getirilmiştir. Bu kapsamda ilgili yıldan bugüne kadar bir üst sınıf işyerlerinde görev yapan kişi sayısı oldukça yüksektir. Ancak ilgili madde ile tanınan bu imkânın yürürlüğü 31/12/2024 tarihinde sona ermiş olup, bu kapsamdaki sözleşmeler İSG-KATİP sisteminde kendiliğinden iptal olmuştur. <br/><br/>Söz konusu açıklamalar çerçevesinde üst sınıfta fiilen üç yıl görev yapmış ve son vize döneminde hakkında herhangi bir idari yaptırım uygulanmamış olan iş güvenliği uzmanlarının yetkinlik ve deneyimlerinden faydalanmak amacıyla bu kapsamdakilere eğitim ve sınav şartı olmaksızın bir üst sınıf belge hakkı verilmesi öngörülmektedir. Yönetmeliğin genel kurgusuna bakıldığında görülecektir ki, ilgili eğitimi alma ve sonrasında ilgili sınavda başarılı olma şartı, ilgili alanda belirli bir çalışması ve tecrübesi olmayanlarla ilgilidir. Kısaca, eğitim daha önce tecrübe etmediği üst sınıftaki tehlike sınıfı hakkında bilgi edinmesi, sınav ise bu eğitim sonucunda yeterli bilgiye ulaşıp ulaşmadığını ölçmek içindir. Oysaki getirilen düzenlemede, ilgili kişiler halihazırda en az üç yıl üst sınıf tehlike sınıfında fiilen iş güvenliği uzmanı olarak görev yapmış ve bu görev zamanında da herhangi bir idari yaptırıma sebep olabilecek bir hata yapmamıştır. Kısaca, işbaşı eğitim gibi değerlendirildiğinde ilgili tehlike sınıfı için yeterli bilgiye ulaşma imkânı kazanmış ve idari yaptırımla karşılaşmayarak da yeterli bilgiye ulaştığını ispat etmiş bulunmaktadır. <br/><br/>Sonuç itibarıyla, yukarıdaki açıklamalar çerçevesinde en az üç yıl ve üzerinde kendi sınıfından üst tehlike sınıfında iş güvenliği uzman olarak görev yapan ve son vize döneminde de herhangi bir idari yaptırım (askı veya ihtar) almayan kişilere, kazandıkları yetkinlik ve tecrübeye binaen eğitim ve sınav şartı olmaksızın bir kereye mahsus yine kazandıkları yetkinlik ve tecrübeye uygun olarak bir üst sınıf belgesi verilmesi için, 6331 sayılı Kanunun 30 uncu maddesi ile Çalışma ve Sosyal Güvenlik Bakanlığına yönetmelikle düzenleme yetkisi verilen alanda ve belirlilik ilkesine de uygun bir şekilde geçici bir düzenleme yapılmıştır. <br/><br/><strong>2. Yardımcı İş Güvenliği Uzmanlığı Sözleşmelerinin Bu Kapsamda Değerlendirilmemesi Hususu: </strong><br/><br/>İş Güvenliği Uzmanlarının Görev, Yetki, Sorumluluk ve Eğitimleri Hakkında Yönetmelik'in 7 nci maddesinin beşinci fıkrasında yer alan “(5) (Ek:RG-30/4/2015-29342) İşveren, bu Yönetmelikte belirtilen zorunlu çalışma sürelerine bağlı kalmak şartıyla işyerinin tehlike sınıfına uygun olarak görevlendirilmesi zorunlu olan en az bir iş güvenliği uzmanının yanında, Kanunda ve Yönetmelikte belirtilen esas sorumluluklar saklı kalmak kaydıyla iş güvenliği uzmanına yardımcı olmak üzere, iş güvenliği uzmanlığı belgesine sahip ve işyerinin tam süreli sigortalı çalışanları arasından iş güvenliği uzmanı görevlendirmesi yapabilir.” hüküm gereğince işyerlerinde asıl görevlendirilen iş güvenliği uzmanına yardımcı olmak üzere yardımcı iş güvenliği uzmanlığı görevlendirmesi yapılabilmesi sağlanmıştır. <br/><br/>Bu fıkra kapsamında yapılan görevlendirmelerde fıkrada yer alan “Kanunda ve Yönetmelikte belirtilen esas sorumluluklar saklı kalmak kaydıyla” ifadesi kapsamında yardımcı iş güvenliği uzmanlarının işyerindeki iş sağlığı ve güvenliği konusunda yürütülen işlerde herhangi bir sorumluluğu ve yetkisi bulunmamaktadır. <br/><br/>Bu maddenin ana amacı özellikle çok tehlikeli sınıftaki işyerlerinde görev yapan ve C sınıfı belgeye sahip olan kişilerin bir üst belge sınıfına geçebilmeleri için çalıştıkları mevcut işyerinden ayrılmak zorunda kalmadan sürelerinin işletilebilmesi olup aynı Yönetmeliğin belgelendirme usul ve esaslarının belirlendiği 8 inci maddesinde ifade edilen “(C) sınıfı iş güvenliği uzmanlığı belgesiyle en az üç yıl fiilen görev yaptığını iş güvenliği uzmanlığı sözleşmesi ile belgeleyen ve (B) sınıfı iş güvenliği uzmanlığı eğitimine katılarak yapılacak (B) sınıfı iş güvenliği uzmanlığı sınavında başarılı olan mühendislik veya mimarlık eğitimi veren fakültelerin mezunları ile teknik elemanlara,” hüküm kapsamında eğitim ve sınav şartı sağlanmak koşuluyla fiili çalışma süresi hesabına yardımcı iş güvenliği uzmanlığı sözleşmeleri dahil edilmektedir. Bu kapsamda, yardımcı iş güvenliği uzmanı olarak görev yapan kişilerin, fiili çalışma süresini tamamlamış olmaları halinde eğitim katılmaları ve 2025 yılı Mayıs ile Aralık aylarında yapılacak sınavlarda başarılı olmaları halinde bir üst sınıftaki belgeyi alma hakları bulunmaktadır. <br/><br/>Bununla birlikte, İş Güvenliği Uzmanlarının Görev, Yetki, Sorumluluk ve Eğitimleri Hakkında Yönetmelik 9, 10 ve 11’nci maddelerinde iş güvenliği uzmanlarının görev, yetki ve yükümlülükleri tanımlanmakta olup bu görev, yetki, yükümlülükler kapsamında herhangi bir ihlal tespit edilmesi halinde aynı Yönetmeliğin 33 ve 34 üncü maddeleri gereğince kişilere ihtar puanı veya askıya alma cezası uygulanmaktadır. Ancak, yardımcı iş güvenliği uzmanı olarak görevlendirilen kişiler için Yönetmelik içinde belirlenmiş herhangi bir görev, yetki veya sorumluluğu tanımlanmamış olduğundan bu kişilere yaptıkları işlerden dolayı herhangi bir şekilde ihtar puanı veya askıya alma cezası gibi idari bir işlem uygulanması ihtimali de yoktur. <br/><br/>27/12/2024 tarihinde yapılan düzenleme ile yürürlüğe giren geçici 9 uncu madde hükmünden de anlaşılacağı üzere, bir üst belge verilebilmesi için iki şartın birlikte sağlanması gerekmektedir. Bunlar; <br/><br/>31/12/2024 tarihi itibarıyla iş güvenliği belgesiyle, kendi belge sınıfından daha üst bir tehlike sınıfındaki işyerinde İSG-KATİP’te kayıtlı bir İGU sözleşmesiyle en az üç yıl fiilen görev yaptığını belgelemek. <br/><br/>Son vize döneminde herhangi bir ihtar puanı veya askıya alma işlemi uygulanmamış olmak. <br/><br/>Bu düzenlemenin ana amacı, hali hazırda en az üç yıl üst sınıf tehlike sınıfında fiilen iş güvenliği uzmanı olarak görev yapmış, asli olarak yaptığı görevin tüm sorumluluğunu üstlenmiş, mevzuattaki tüm yükümlülüklerini yerine getirmiş ve bu görevleri yaparken de herhangi bir idari yaptırıma sebep olabilecek bir hata yapmamış kişilerin edindikleri deneyimin dikkate alınarak bir üst belgenin verilmesidir. <br/><br/>Oysaki yardımcı iş güvenliği uzmanı olarak görev yapan kişilerin, işyerlerinde herhangi bir yetkisi ve sorumluluğu olmaması sebebiyle (Risk değerlendirmesi yapılması, eğitimlerin verilmesi ve benzeri görevleri yerine getirme ve bunlara imza yetkisi bulunmamaktadır.) iş sağlığı ve güvenliği açısından işyerinde yapılması gereken asli işlerde görev alma şansı olmadığından kişinin yetkinlik kazanıp kazanmadığının ölçülebilme şansı yoktur. Bu sebeple de bahse konu geçici madde ile bir üst belge verme şartlarından olan herhangi bir idari yaptırım almamış olmaları şartını yerine getirme ihtimalleri bulunmamaktadır. <br/><br/>Sonuç olarak, yukarıda yapılan açıklamalar ve ilgili mevzuat çerçevesinde, her iki şartı birlikte yerine getirme ihtimali olmayan, diğer bir deyişle ilgili sözleşme dönemi boyunca herhangi bir yetki ve sorumluluğu olmayıp bu kapsamda herhangi bir idari yaptırımla muhatap kalma ihtimali bulunmayan yardımcı iş güvenliği uzmanlığı sözleşme süreleri, geçici 9 uncu madde kapsamında kazanılan yetkinlik ve tecrübeye binaen eğitim ve sınav şartı olmaksızın bir kereye mahsus yine kazanılan yetkinlik ve tecrübeye uygun olarak bir üst sınıf belgesi verilmesi için dikkate alınmamıştır.<br/><br/>Bilgilerinize sunulur."
-        }
-    };
-    let $select = $('<select>', { id: 'duyuruListesi', size: 5 });
-    $.each(duyurular, (k, v) => $select.append($('<option>', { value: k, text: v.baslik })));  
-    $('#duyurusecimanasayfa').append($select);
-    $select.on('change', () =>
-    {
-        const secilen = $select.val();  
-        $('#duyuruaciklamakutu').html(duyurular[secilen]?.metin || "Açıklama yok.").show();  
-    });
-}
-function datepickerjquery(input)
-{
-    $.datepicker.setDefaults
-    ({
-        dateFormat: "dd.mm.yy",
-        firstDay: 1,
-        changeMonth: true,
-        changeYear: true,
-        dayNames: ["Pazar", "Pazartesi", "Salı", "Çarşamba", "Perşembe", "Cuma", "Cumartesi"],
-        dayNamesMin: ["Paz", "Pzt", "Sal", "Çar", "Per", "Cum", "Cmt"],
-        monthNamesShort: ["Ocak", "Şubat", "Mart", "Nisan", "Mayıs", "Haziran", "Temmuz", "Ağustos", "Eylül", "Ekim", "Kasım", "Aralık"],
-        nextText: "İleri",
-        prevText: "Geri",
-        beforeShow:function(){setTimeout(function(){$('.ui-datepicker td a').css({'display':'flex','align-items':'center','justify-content':'center','text-align':'center','width':'100%','height':'100%'});},1);}
-    });    
-    $(input).datepicker();
-    setTimeout(function () {$(input).datepicker("show");}, 10);
-}
+////////////////////////RİSK DEĞERLENDİRME////////////////////////RİSK DEĞERLENDİRME////////////////////////RİSK DEĞERLENDİRME////////////////////////RİSK DEĞERLENDİRME////////////////////////
 
 function riskdegerlendirmecikti1()
 {
@@ -6081,8 +5880,6 @@ function riskdegerlendirmecikti1()
     store.set("riskkapaksecim", kapaksecim);
     window.location.href = "riskdegerlendirmecikti2.aspx?id=" + encodeURIComponent(firmaid);
 }
-
-function tarihkontrol(t) { var r = /^(\d{2})\.(\d{2})\.(\d{4})$/; if (!r.test(t)) return false; var p = t.match(r), d = parseInt(p[1], 10), m = parseInt(p[2], 10), y = parseInt(p[3], 10), o = new Date(y, m - 1, d); return o.getFullYear() === y && o.getMonth() === m - 1 && o.getDate() === d }
 
 function riskdegerlendirmecikti2load()
 {
@@ -6241,17 +6038,20 @@ async function riskdegerlendirmepdfyazdir()
     let destekunvan = "";
     let temsilciunvan = "";
     let bilgisahibiunvan = "";
-    for (let kisi of calisanjson) {
-        if (kisi.r === 1) {
-            destekelemanad += (destekelemanad ? ", " : "") + kisi.ad;
+    for (let kisi of calisanjson)
+    {
+        if (kisi.r === 1)
+        {
+            destekelemanad += (destekelemanad ? ", " : "") + kisi.x;
             destekunvan = "Destek Elemanı";
         }
-        else if (kisi.r === 2) {
-            calisatemsilcisiad += (calisatemsilcisiad ? ", " : "") + kisi.ad;
+        else if (kisi.r === 2)
+        {
+            calisatemsilcisiad += (calisatemsilcisiad ? ", " : "") + kisi.x;
             temsilciunvan = "Çalışan Temsilcisi";
         }
         else if (kisi.r === 3) {
-            bilgisahibicalisanad += (bilgisahibicalisanad ? ", " : "") + kisi.ad;
+            bilgisahibicalisanad += (bilgisahibicalisanad ? ", " : "") + kisi.x;
             bilgisahibiunvan = "Bilgi Sahibi Çalışan";
         }
     }
@@ -6269,7 +6069,7 @@ async function riskdegerlendirmepdfyazdir()
     let tumkisiler = isveren + " - " + "İşveren Vekili / " + uzmanad + " - İş Güvenliği Uzmanı / " + hekimad + " - İşyeri Hekimi / ";
     for (let kisi of calisanjson)
     {
-        tumkisiler = tumkisiler + kisi.ad + " - " + kisi.riskekipbolum + " / ";
+        tumkisiler = tumkisiler + kisi.x + " - " + kisi.riskekipbolum + " / ";
     }
     tumkisiler = tumkisiler.slice(0, -3);
     let riskdegerlendirmetarih = store.get("riskdegerlendirmetarih");
@@ -6321,7 +6121,7 @@ async function riskdegerlendirmepdfyazdir()
                 ],
                 ...calisanjson.map(item =>
                 [
-                    { text: item.ad, style: 'normalsol', margin: [2, 20, 0, 20] },
+                    { text: item.x, style: 'normalsol', margin: [2, 20, 0, 20] },
                     { text: item.riskekipbolum, style: 'normalsol', margin: [2, 20, 0, 20] },
                     { text: '' }
                 ])
@@ -6648,4 +6448,266 @@ async function riskdegerlendirmepdfyazdir()
         }
     };
     pdfMake.createPdf(dokuman).download('Risk Değerlendirme Giriş - ' + metinuret(3) + '.pdf');
+}
+
+//////////////////////YARDIM FONKSİYONLAR/////////////////////////////////////YARDIM FONKSİYONLAR/////////////////////////////////////YARDIM FONKSİYONLAR/////////////////////////////////////YARDIM FONKSİYONLAR///////////////
+//////////////////////YARDIM FONKSİYONLAR/////////////////////////////////////YARDIM FONKSİYONLAR/////////////////////////////////////YARDIM FONKSİYONLAR/////////////////////////////////////YARDIM FONKSİYONLAR///////////////
+//////////////////////YARDIM FONKSİYONLAR/////////////////////////////////////YARDIM FONKSİYONLAR/////////////////////////////////////YARDIM FONKSİYONLAR/////////////////////////////////////YARDIM FONKSİYONLAR///////////////
+//////////////////////YARDIM FONKSİYONLAR/////////////////////////////////////YARDIM FONKSİYONLAR/////////////////////////////////////YARDIM FONKSİYONLAR/////////////////////////////////////YARDIM FONKSİYONLAR///////////////
+
+function tarihkontrol(t) { var r = /^(\d{2})\.(\d{2})\.(\d{4})$/; if (!r.test(t)) return false; var p = t.match(r), d = parseInt(p[1], 10), m = parseInt(p[2], 10), y = parseInt(p[3], 10), o = new Date(y, m - 1, d); return o.getFullYear() === y && o.getMonth() === m - 1 && o.getDate() === d }
+function datepickerjquery(a){$.datepicker.setDefaults({dateFormat:"dd.mm.yy",firstDay:1,changeMonth:!0,changeYear:!0,dayNames:["Pazar","Pazartesi","Salı","Çarşamba","Perşembe","Cuma","Cumartesi"],dayNamesMin:["Paz","Pzt","Sal","Çar","Per","Cum","Cmt"],monthNamesShort:["Ocak","Şubat","Mart","Nisan","Mayıs","Haziran","Temmuz","Ağustos","Eylül","Ekim","Kasım","Aralık"],nextText:"İleri",prevText:"Geri",beforeShow:function(){setTimeout(function(){$(".ui-datepicker td a").css({display:"flex",alignItems:"center",justifyContent:"center",textAlign:"center",width:"100%",height:"100%"})},1)}});$(a).datepicker(),setTimeout(function(){$(a).datepicker("show")},10);}
+
+function acilisverisianasayfa()
+{
+    let deger = $("#HiddenField4").val();
+    if (deger === "1")
+    {
+        store.set('firmajson', $("#HiddenField1").val());
+        let uzman = JSON.parse($("#HiddenField2").val());
+        store.set("uzmanad", uzman[0].uz);
+        store.set("uzmanno", uzman[0].un);
+        store.set("uzmankurum", uzman[0].kr);
+        store.set("ayar", $("#HiddenField3").val());
+    }
+}
+function duyuruicerikanasayfa()
+{
+    const duyurular =
+    {
+        "1":
+        {
+            "baslik": "Mesleki Eğitim Belgesi Zorunluluğu ve Geçerli Belgeler",
+            "metin": "6331 sayılı İş Sağlığı ve Güvenliği Kanununa göre belirlenen tehlikeli ve çok tehlikeli sınıfta yer alan işlerde çalışanların mesleki eğitimlerinin usul ve esaslarını düzenleyen Tehlikeli ve Çok Tehlikeli İşlerde Çalışanların Mesleki Eğitimlerine Dair Yönetmeliğin Ek-1 çizelgesinde yer alan işlerde fiilen çalıştırılacakların, yaptığı işe uygun ve Yönetmeliğin 6. maddesinde tanımlanan belgelerden birisine sahip olmaları zorunludur. Söz konusu 6. maddede bu eğitimi hangi kurum / kuruluşların ne şartlarda verebileceği belirtilmiştir.<br/><br/>Ancak 6645 sayılı İş Sağlığı ve Güvenliği Kanunu ile Bazı Kanun ve Kanun Hükmünde Kararnamelerde Değişiklik Yapılmasına Dair Kanunun 74. maddesi ile 5544 sayılı Mesleki Yeterlilik Kurumu Kanununda değişiklik yapılarak 5544 sayılı Kanuna göre belirlenmiş işlerde de mesleki eğitim belgesi zorunluluğu getirilmiştir.<br/><br/>Söz konusu değişiklik ile Meslekî Yeterlilik Belgesi zorunluluğu getirilen meslekleri belirlemek amacıyla Meslekî Yeterlilik Belgesi Zorunluluğu Getirilen Mesleklere İlişkin Tebliğler yayımlanmıştır. Anılan Tebliğlerde yayımlanan meslekler için geçerli olan mesleki eğitim belgeleri;<br/><br/><strong>-3308 sayılı Mesleki Eğitim Kanununa göre alınmış ustalık belgesi,</strong><br/><br/><strong>-Millî Eğitim Bakanlığına bağlı meslekî ve teknik eğitim okullarından ve üniversitelerin meslekî ve teknik eğitim veren okul ve bölümlerin ilgili alanından alınmış diploma,</strong><br/><br/><strong>- İlgili alanda alınmış MYK Belgesi’dir.</strong><br/><br/> Adı geçen Yönetmeliğin Ek-1 listesinde yer alan bir işin MYK belge zorunluluğu getirilen meslekler arasına alınması durumunda, MYK mevzuatı kapsamında belirtilen geçerli mesleki eğitim belgesine sahip olunması zorunludur. MYK tarafından zorunluluk getirilmeyen ancak anılan Yönetmeliğin Ek-1 listesinde yer alan faaliyetler için ise 6331 sayılı Kanun kapsamında mesleki eğitim zorunluluğu olacağından söz konusu Yönetmeliğin 6. maddesinde belirtilen geçerli mesleki eğitim belgesine sahip olunmalıdır.<br/><br/>Bilgilerinize sunulur."
+        },
+        "2":
+        {
+            "baslik": "İşyerlerinde İşveren veya İşveren Vekili Tarafından Yürütülecek İş Sağlığı ve Güvenliği Hizmetlerine Yönelik Sıkça Sorulan Sorular",
+            "metin": "<strong>1- Eğitim sonunda aldığımız belgenin geçerlilik süresi ne kadardır?</strong><br/><br/>“İşyerlerinde İşveren veya İşveren Vekili Tarafından Yürütülecek İş Sağlığı ve Güvenliği Hizmetlerine İlişkin Yönetmelik” kapsamında eğitim alan kişilere Yönetmeliğin Ek-3’ündeki örneğine uygun “İş Sağlığı ve Güvenliği Hizmetlerinin Yürütümüne İlişkin İşveren veya İşveren Vekili Eğitimi Tamamlama Belgesi” düzenlenir. Düzenlenen bu belge ve alınan eğitim süresiz şekilde geçerlidir. <br/><br/><strong>2- İşveren Vekili ile kastınız nedir? Noterden vekâlet mi almamız gerekiyor? Herkes vekil olabiliyor mu? Ben burada çalışan biri olarak eğitime katılabilir miyim? </strong><br/><br/>“İşyerlerinde İşveren veya İşveren Vekili Tarafından Yürütülecek İş Sağlığı ve Güvenliği Hizmetlerine İlişkin Yönetmelik” in 4 üncü maddesinin birinci fıkrasının (f) bendinde işveren vekili şu şekilde tanımlanmıştır: <br/><br/> “f) İşveren vekili: Bu Yönetmelik kapsamındaki işyerlerinde, işveren adına hareket eden, işin ve işyerinin bütününün yönetiminde görev alan kişiyi,” <br/><br/>Bu tanım kapsamında, kişilerin işveren vekili olup olmadığına ilişkin tespitler, Sosyal Güvenlik Kurumu (SGK) işyeri tescil kayıtları esas alınarak yapılmaktadır. <br/><br/>Bununla birlikte aynı Yönetmeliğin 5 inci maddesinin altıncı fıkrasında yer alan aşağıdaki hükümde işveren vekili tanımı detaylandırılmıştır: <br/><br/>“İşveren vekili; 4 üncü maddede yer alan işveren vekili tanımına uygun ve işyerinde tam süreli hizmet akdi ile çalışanlar arasından görevlendirilir. Kamu kurum ve kuruluşlarında iş sağlığı ve güvenliği hizmetlerini en üst amir, yardımcıları veya bu görevi yürütenler üstlenebilir.” <br/><br/>Bu itibarla, “İş Sağlığı ve Güvenliği Hizmetlerinin Yürütümüne İlişkin İşveren veya İşveren Vekili Eğitimi” herhangi bir şart olmaksızın herkes tarafından katılım sağlanabilecek bir eğitim olup eğitimi alan kişiler, SGK işyeri tescil kayıtlarında herhangi bir işyerinde İşveren – Ortak – İşveren Vekili – Yönetici koduyla kayıtlı olması halinde, İSG-KATİP üzerinden yetkilisi oldukları işyeri için taahhüt işlemi yapabilecektir. <br/><br/><strong>3- Eğitime katılmak için üniversite mezunu olmam gerekiyor mu? </strong><br/><br/>“İş Sağlığı ve Güvenliği Hizmetlerinin Yürütümüne İlişkin İşveren veya İşveren Vekili Eğitimi” herhangi bir şart olmaksızın herkes tarafından katılım sağlanabilecek bir eğitimdir. <br/><br/><strong>4- Aldığım belge ile 1’den fazla iş yerine bakabilir miyim? </strong><br/><br/> “İş Sağlığı ve Güvenliği Hizmetlerinin Yürütümüne İlişkin İşveren veya İşveren Vekili Eğitimi Tamamlama Belgesi” bulunan işverenler, toplam çalışan sayısının 50’den az olması şartıyla kendilerine ait az tehlikeli sınıfta yer alan aynı il sınırları içerisindeki birden fazla işyerinin iş sağlığı ve güvenliği hizmetlerini üstlenebilir. <br/><br/>Anılan belgeye sahip işveren vekilleri ise tam süreli hizmet akdi ile çalıştıkları yalnızca tek bir işyerinin iş sağlığı ve güvenliği hizmetlerini üstlenebilir. <br/><br/><strong>5- Denetleme olursa ceza alır mıyım? </strong><br/><br/>6331 sayılı İş Sağlığı ve Güvenliği Kanununun 26 ncı maddesi gereğince Kanun hükümlerinin yerine getirilmemesi durumunda idari para cezaları uygulanmaktadır. İdari para cezaları, gerekçesi belirtilmek suretiyle Çalışma ve İş Kurumu il müdürlüklerince verilmektedir. <br/><br/><strong>6- İş sağlığı ve güvenliği lisans veya ön lisans programı mezunuyum. Çalıştığım yerde görev yapabilmek için ben de eğitimi almak zorunda mıyım? </strong><br/><br/>İş Güvenliği Uzmanlarının Görev, Yetki, Sorumluluk Ve Eğitimleri Hakkında Yönetmeliğin 4 üncü maddesinde bahse konu mezunlar teknik eleman olarak tanımlanmış olup aynı Yönetmeliğin 8 inci maddesinde de teknik elemanların nasıl iş güvenliği uzmanı belgesi alabileceği açıklanmaktadır. <br/><br/>Bu doğrultuda iş güvenliği uzmanlığı belgesine sahip olan bahse konu olan mezunların İşyerlerinde İşveren veya İşveren Vekili Tarafından Yürütülecek İş Sağlığı ve Güvenliği Hizmetlerine İlişkin Yönetmeliğin 18 inci maddesinde “(1) Bu Yönetmelik kapsamındaki işyerlerinde iş güvenliği uzmanlığı belgesi bulunan işveren veya işveren vekilleri, 7 nci ve 8 inci maddelerde belirtilen hizmetler hariç iş sağlığı ve güvenliği hizmetlerini üstlenebilir.” hükmü kapsamında ilgili hizmetleri iş güvenliği uzmanı olarak yürütebilir. <br/><br/><strong>7- Daha önceden aldığım sertifikamı kullanabilir miyim? İSG-KATİP’e kaydımı nasıl oluştururum? </strong><br/><br/>İş Sağlığı ve Güvenliği Hizmetlerinin Yürütümüne İlişkin İşveren veya İşveren Vekili Eğitimi Tamamlama Belgesi’ne dair geçerlilik süresi tanımlanmadığından belgeye sahip işveren veya işveren vekillerinin İSG-KATİP üzerinden ilgili işyeri için taahhüt işlemi yapması gerekmektedir. İSG-KATİP’e tanımlama işleminin yapılması ile ilgili bilgi için; https://isgkatip.csgb.gov.tr/ adresi Duyurular kısmından “İŞVEREN VE İŞVEREN VEKİLİ TAAHHÜTNAMESİ SİSTEM KILAVUZU” incelenmelidir. <br/><br/><strong>8- Eğitimi tamamladım, şimdi ne yapmam gerekiyor? </strong><br/><br/>İş Sağlığı ve Güvenliği Hizmetlerinin Yürütümüne İlişkin İşveren veya İşveren Vekili Eğitimi Tamamlama Belgesi’ne sahip işveren veya işveren vekillerinin İSG-KATİP üzerinden ilgili işyeri için taahhüt işlemi yapması gerekmektedir."
+        },
+        "3":
+        {
+            "baslik": "Eğitim ve Sınav Şartı Olmaksızın Üst Belgeye Geçiş Hakkında",
+            "metin": "<strong>(B) sınıfı iş güvenliği uzmanlığı belgesiyle, çok tehlikeli sınıftaki işyerlerinde 31/12/2024 tarihi itibarıyla en az üç yıl fiilen görev yaptığını iş güvenliği uzmanlığı sözleşmesi ile belgeleyenlerden son vize döneminde ihtar puanı veya askıya alma işlemi uygulanmamış olanlara, 31/3/2025 tarihine kadar başvurmaları halinde (A) sınıfı iş güvenliği uzmanlığı belgesi EK-1’deki örneğine uygun olarak Genel Müdürlükçe verilir.<br/><br/>(2) (C) sınıfı iş güvenliği uzmanlığı belgesiyle, tehlikeli ve/veya çok tehlikeli sınıftaki işyerlerinde 31/12/2024 tarihi itibarıyla en az üç yıl fiilen görev yaptığını iş güvenliği uzmanlığı sözleşmesi ile belgeleyenlerden son vize döneminde ihtar puanı veya askıya alma işlemi uygulanmamış olanlara, 31/3/2025 tarihine kadar başvurmaları halinde (B) sınıfı iş güvenliği uzmanlığı belgesi EK-1’deki örneğine uygun olarak Genel Müdürlükçe verilir. <br/><br/>(3) Birinci ve ikinci fıkrada belirtilen fiili çalışma süresinin hesabında sadece İSG-KATİP’te kayıtlı iş güvenliği uzmanlığı sözleşmeleri esas alınır.”şeklindedir. <br/><br/>İlgili maddenin yürürlüğe girmesi ile birlikte Genel Müdürlüğümüzce iki husus hakkında açıklama gereği duyulmuştur. <br/><br/>1. Eğitim ve Sınav Şartı Olmaksızın Üst Belge Verilmesi Hususu:</strong><br/><br/>20/6/2012 tarihli ve 6331 sayılı İş Sağlığı ve Güvenliği Kanununda işyerleri yapılan işin özelliği, işin her safhasında kullanılan veya ortaya çıkan maddeler, iş ekipmanı, üretim yöntem ve şekilleri, çalışma ortam ve şartları vb. diğer hususlar dikkate alınarak tehlike sınıflarına göre gruplandırılmıştır. Bu sınıflama kapsamında işyerleri, az tehlikeli, tehlikeli ve çok tehlikeli olmak üzere 3 gruba ayrılmıştır. Kanun çerçevesinde yürütülen işlemlerin genelinde bu tehlike sınıfları esastır.<br/><br/>Bununla birlikte; mezkûr Kanunda işverene iş sağlığı ve güvenliği ile ilgili konularda rehberlik ve danışmanlık yapmak üzere iş güvenliği uzmanı ve işyeri hekimi görevlendirme yükümlülüğü getirilmiştir. İş güvenliği uzmanı görevlendirme yükümlülüğünün yerine getirilmesinde işyeri tehlike sınıfları esas alınmıştır. Bu kapsamda; iş güvenliği uzmanlarının görev alabilmeleri için; çok tehlikeli sınıfta yer alan işyerlerinde (A) sınıfı, tehlikeli sınıfta yer alan işyerlerinde en az (B) sınıfı, az tehlikeli sınıfta yer alan işyerlerinde ise en az (C) sınıfı iş güvenliği uzmanlığı belgesine sahip olmaları şartı aranmaktadır. <br/><br/>6331 sayılı Kanunda yer verilen (A), (B) ve (C) sınıfı iş güvenliği uzmanlarının,  nitelikleri ve görevlendirilmeleri ile iş güvenliği uzmanlığı belgesi alınmasına ilişkin şartlar ise 29/12/2012 tarihli ve 28512 sayılı Resmî Gazete’de yayımlanan İş Güvenliği Uzmanlarının Görev, Yetki, Sorumluluk ve Eğitimleri Hakkında Yönetmelik ile düzenlenmiştir. Yönetmeliğin dayanak maddesinde yer alan 6331 sayılı Kanunun 30 uncu maddesinin birinci fıkrasında “Aşağıdaki konular ile bunlara ilişkin usul ve esaslar Bakanlıkça çıkarılacak yönetmeliklerle düzenlenir” hükmü yer almaktadır. Anılan fıkranın (b) bendinin (5) numaralı alt bendinde yer alan “İşyeri hekimi, iş güvenliği uzmanı ve diğer sağlık personelinin eğitimleri ve belgelendirilmeleri, unvanlarına göre kimlerin hangi sınıf belge alabilecekleri, işyeri hekimi, iş güvenliği uzmanı ve diğer sağlık personeli eğitimi verecek kurumların belgelendirilmeleri, yetkilendirilmeleri ile eğitim programlarının ve bu programlarda görev alacak eğiticilerin niteliklerinin belirlenmesi ve belgelendirilmeleri, eğitimlerin sonunda yapılacak sınavlar ve düzenlenecek belgeler.” hükmü uyarınca ilgili Yönetmeliğin “İş güvenliği uzmanlığı belgesi” başlıklı 8 inci maddesinde bu hususlar düzenlenmiştir. <br/><br/>İlgili maddeye bakıldığında ise; (A) sınıfı iş güvenliği uzmanlığı belgesinin verilme şartlarının kategorik olarak iki gruba ayrıldığı görülmektedir. <br/><br/>Birinci grup belirli şartları sağlaması halinde iş güvenliği uzmanlığı eğitimine katılma ve sınavında başarılı olma halidir. İlgili maddenin birinci fıkrasının (a) bendinin (1) numaralı alt bendinde bu husus “(B) sınıfı iş güvenliği uzmanlığı belgesiyle en az dört yıl fiilen görev yaptığını iş güvenliği uzmanlığı sözleşmesi ile belgeleyen ve (A) sınıfı iş güvenliği uzmanlığı eğitimine katılarak yapılacak (A) sınıfı iş güvenliği uzmanlığı sınavında başarılı olanlara” şeklinde tanımlanmıştır. <br/><br/>İkinci grup ise mühendislik veya mimarlık eğitimi veren fakülte mezunları ile teknik elemanlardan, mezuniyet ve/veya unvan gibi belirli şartları sağlayanlara iş güvenliği uzmanlığı eğitimine ve ilgili sınava katılma şartı olmaksızın doğrudan belgenin verilmesi halidir. İlgili maddenin birinci fıkrasının (a) bendinin (2) numaralı alt bendinde iş sağlığı ve güvenliği veya iş güvenliği doktora mezunlarına, (3) numaralı alt bendinde Genel Müdürlük veya bağlı birimlerinde en az on yıl görev yapmış olanlara, (4) numaralı alt bendinde iş sağlığı ve güvenliği alanında müfettiş yardımcılığı süresi dâhil en az on yıl görev yapmış iş müfettişlerine ve (5) numaralı alt bendinde Genel Müdürlük ve bağlı birimlerinde uzman yardımcılığı süresi dâhil en az on yıl fiilen görev yapmış iş sağlığı ve güvenliği uzmanlarına (A) sınıfı iş güvenliği uzmanlığı belgesinin doğrudan verileceği düzenlenmiştir. <br/><br/> (B) ve (C) sınıfı iş güvenliği uzmanlığı belgeleri için de benzer ve farklı düzenlemeler yine ilgili maddede belirlenmiştir. <br/><br/> (A) sınıfı belgeye sahip bir iş güvenliği uzmanı, çok tehlikeli, tehlikeli ve az tehlikeli, (B) sınıfı belgeye iş güvenliği uzmanı tehlikeli ve az tehlikeli, (C) sınıfı belgeye sahip iş güvenliği uzmanı ise sadece az tehlikeli sınıfta yer alan işyerlerinde görev yapabilmektedir. Bununla birlikte, bu genel kurala İş Sağlığı ve Güvenliği Hizmetleri Yönetmeliğinin 5 inci maddesinin üçüncü fıkrasıyla istisna getirilerek, birden fazla iş güvenliği uzmanı görevlendirilen kamu, maden, inşaat, metal, tekstil, sağlık, ulaşım, taşımacılık, ticaret, imalat, bakım, onarım, kurulum, enerji, kimya, tarım, ziraat, hayvancılık, mobilya, ormancılık, gıda, matbaa, atık yönetimi, su temini, temizlik, ilaçlama sektörlerine ait işyerlerinde, tam süreli iş güvenliği uzmanlarından sadece birisinde uygun belge sınıfı olması halinde diğerleri için uygun belge şartı aranmayacağı hükme bağlanmıştır. Diğer bir deyişle, bu kapsamda olan çok tehlikeli sınıfta yer alan işyerlerinde (B) ve (C) sınıfı iş güvenliği uzmanlığı belgesi sahibi olanlar sözleşme imzalayabilmekte ve tehlikeli sınıfta yer alan işyerlerinde ise (C) sınıfı iş güvenliği uzmanlığı belgesi sahibi olanlar sözleşme imzalayabilmektedir. Bu kapsamda üst sınıfta görev yapan kişilerin sayısı oldukça fazladır. <br/><br/>Ancak uygulamada yaşanan zorluklar nedeniyle 2015 yılında 6331 sayılı Kanuna eklenen geçici 4 üncü maddesinin birinci fıkrası ile mezkûr Kanunun 8 inci maddesinde belirtilen çok tehlikeli sınıfta yer alan işyerlerinde (A) sınıfı belgeye sahip iş güvenliği uzmanı görevlendirme yükümlülüğü, (B) sınıfı belgeye sahip iş güvenliği uzmanı görevlendirilmesi; tehlikeli sınıfta yer alan işyerlerinde ise (B) sınıfı belgeye sahip iş güvenliği uzmanı görevlendirme yükümlülüğü, (C) sınıfı belgeye sahip iş güvenliği uzmanı görevlendirilmesi kaydıyla 38 inci maddenin birinci fıkrasının (a) bendinin (1) numaralı alt bendinde yer alan yürürlük tarihine kadar yerine getirilmiş sayılır hükmü getirilmiştir. Diğer bir deyişle, (B) sınıfı belgeye sahip olanların bir üst sınıf olan (A) sınıfı belgeye sahip olanların sözleşme imzalayabilecekleri çok tehlikeli sınıfta, (C) sınıfı belgeye sahip olanların bir üst sınıf olan (B) sınıfı belgeye sahip olanların sözleşme imzalayabilecekleri tehlikeli sınıfta yer alan işyerleri ile iş güvenliği uzmanlığı sözleşmesi imzalama imkânı getirilmiştir. Bu kapsamda ilgili yıldan bugüne kadar bir üst sınıf işyerlerinde görev yapan kişi sayısı oldukça yüksektir. Ancak ilgili madde ile tanınan bu imkânın yürürlüğü 31/12/2024 tarihinde sona ermiş olup, bu kapsamdaki sözleşmeler İSG-KATİP sisteminde kendiliğinden iptal olmuştur. <br/><br/>Söz konusu açıklamalar çerçevesinde üst sınıfta fiilen üç yıl görev yapmış ve son vize döneminde hakkında herhangi bir idari yaptırım uygulanmamış olan iş güvenliği uzmanlarının yetkinlik ve deneyimlerinden faydalanmak amacıyla bu kapsamdakilere eğitim ve sınav şartı olmaksızın bir üst sınıf belge hakkı verilmesi öngörülmektedir. Yönetmeliğin genel kurgusuna bakıldığında görülecektir ki, ilgili eğitimi alma ve sonrasında ilgili sınavda başarılı olma şartı, ilgili alanda belirli bir çalışması ve tecrübesi olmayanlarla ilgilidir. Kısaca, eğitim daha önce tecrübe etmediği üst sınıftaki tehlike sınıfı hakkında bilgi edinmesi, sınav ise bu eğitim sonucunda yeterli bilgiye ulaşıp ulaşmadığını ölçmek içindir. Oysaki getirilen düzenlemede, ilgili kişiler halihazırda en az üç yıl üst sınıf tehlike sınıfında fiilen iş güvenliği uzmanı olarak görev yapmış ve bu görev zamanında da herhangi bir idari yaptırıma sebep olabilecek bir hata yapmamıştır. Kısaca, işbaşı eğitim gibi değerlendirildiğinde ilgili tehlike sınıfı için yeterli bilgiye ulaşma imkânı kazanmış ve idari yaptırımla karşılaşmayarak da yeterli bilgiye ulaştığını ispat etmiş bulunmaktadır. <br/><br/>Sonuç itibarıyla, yukarıdaki açıklamalar çerçevesinde en az üç yıl ve üzerinde kendi sınıfından üst tehlike sınıfında iş güvenliği uzman olarak görev yapan ve son vize döneminde de herhangi bir idari yaptırım (askı veya ihtar) almayan kişilere, kazandıkları yetkinlik ve tecrübeye binaen eğitim ve sınav şartı olmaksızın bir kereye mahsus yine kazandıkları yetkinlik ve tecrübeye uygun olarak bir üst sınıf belgesi verilmesi için, 6331 sayılı Kanunun 30 uncu maddesi ile Çalışma ve Sosyal Güvenlik Bakanlığına yönetmelikle düzenleme yetkisi verilen alanda ve belirlilik ilkesine de uygun bir şekilde geçici bir düzenleme yapılmıştır. <br/><br/><strong>2. Yardımcı İş Güvenliği Uzmanlığı Sözleşmelerinin Bu Kapsamda Değerlendirilmemesi Hususu: </strong><br/><br/>İş Güvenliği Uzmanlarının Görev, Yetki, Sorumluluk ve Eğitimleri Hakkında Yönetmelik'in 7 nci maddesinin beşinci fıkrasında yer alan “(5) (Ek:RG-30/4/2015-29342) İşveren, bu Yönetmelikte belirtilen zorunlu çalışma sürelerine bağlı kalmak şartıyla işyerinin tehlike sınıfına uygun olarak görevlendirilmesi zorunlu olan en az bir iş güvenliği uzmanının yanında, Kanunda ve Yönetmelikte belirtilen esas sorumluluklar saklı kalmak kaydıyla iş güvenliği uzmanına yardımcı olmak üzere, iş güvenliği uzmanlığı belgesine sahip ve işyerinin tam süreli sigortalı çalışanları arasından iş güvenliği uzmanı görevlendirmesi yapabilir.” hüküm gereğince işyerlerinde asıl görevlendirilen iş güvenliği uzmanına yardımcı olmak üzere yardımcı iş güvenliği uzmanlığı görevlendirmesi yapılabilmesi sağlanmıştır. <br/><br/>Bu fıkra kapsamında yapılan görevlendirmelerde fıkrada yer alan “Kanunda ve Yönetmelikte belirtilen esas sorumluluklar saklı kalmak kaydıyla” ifadesi kapsamında yardımcı iş güvenliği uzmanlarının işyerindeki iş sağlığı ve güvenliği konusunda yürütülen işlerde herhangi bir sorumluluğu ve yetkisi bulunmamaktadır. <br/><br/>Bu maddenin ana amacı özellikle çok tehlikeli sınıftaki işyerlerinde görev yapan ve C sınıfı belgeye sahip olan kişilerin bir üst belge sınıfına geçebilmeleri için çalıştıkları mevcut işyerinden ayrılmak zorunda kalmadan sürelerinin işletilebilmesi olup aynı Yönetmeliğin belgelendirme usul ve esaslarının belirlendiği 8 inci maddesinde ifade edilen “(C) sınıfı iş güvenliği uzmanlığı belgesiyle en az üç yıl fiilen görev yaptığını iş güvenliği uzmanlığı sözleşmesi ile belgeleyen ve (B) sınıfı iş güvenliği uzmanlığı eğitimine katılarak yapılacak (B) sınıfı iş güvenliği uzmanlığı sınavında başarılı olan mühendislik veya mimarlık eğitimi veren fakültelerin mezunları ile teknik elemanlara,” hüküm kapsamında eğitim ve sınav şartı sağlanmak koşuluyla fiili çalışma süresi hesabına yardımcı iş güvenliği uzmanlığı sözleşmeleri dahil edilmektedir. Bu kapsamda, yardımcı iş güvenliği uzmanı olarak görev yapan kişilerin, fiili çalışma süresini tamamlamış olmaları halinde eğitim katılmaları ve 2025 yılı Mayıs ile Aralık aylarında yapılacak sınavlarda başarılı olmaları halinde bir üst sınıftaki belgeyi alma hakları bulunmaktadır. <br/><br/>Bununla birlikte, İş Güvenliği Uzmanlarının Görev, Yetki, Sorumluluk ve Eğitimleri Hakkında Yönetmelik 9, 10 ve 11’nci maddelerinde iş güvenliği uzmanlarının görev, yetki ve yükümlülükleri tanımlanmakta olup bu görev, yetki, yükümlülükler kapsamında herhangi bir ihlal tespit edilmesi halinde aynı Yönetmeliğin 33 ve 34 üncü maddeleri gereğince kişilere ihtar puanı veya askıya alma cezası uygulanmaktadır. Ancak, yardımcı iş güvenliği uzmanı olarak görevlendirilen kişiler için Yönetmelik içinde belirlenmiş herhangi bir görev, yetki veya sorumluluğu tanımlanmamış olduğundan bu kişilere yaptıkları işlerden dolayı herhangi bir şekilde ihtar puanı veya askıya alma cezası gibi idari bir işlem uygulanması ihtimali de yoktur. <br/><br/>27/12/2024 tarihinde yapılan düzenleme ile yürürlüğe giren geçici 9 uncu madde hükmünden de anlaşılacağı üzere, bir üst belge verilebilmesi için iki şartın birlikte sağlanması gerekmektedir. Bunlar; <br/><br/>31/12/2024 tarihi itibarıyla iş güvenliği belgesiyle, kendi belge sınıfından daha üst bir tehlike sınıfındaki işyerinde İSG-KATİP’te kayıtlı bir İGU sözleşmesiyle en az üç yıl fiilen görev yaptığını belgelemek. <br/><br/>Son vize döneminde herhangi bir ihtar puanı veya askıya alma işlemi uygulanmamış olmak. <br/><br/>Bu düzenlemenin ana amacı, hali hazırda en az üç yıl üst sınıf tehlike sınıfında fiilen iş güvenliği uzmanı olarak görev yapmış, asli olarak yaptığı görevin tüm sorumluluğunu üstlenmiş, mevzuattaki tüm yükümlülüklerini yerine getirmiş ve bu görevleri yaparken de herhangi bir idari yaptırıma sebep olabilecek bir hata yapmamış kişilerin edindikleri deneyimin dikkate alınarak bir üst belgenin verilmesidir. <br/><br/>Oysaki yardımcı iş güvenliği uzmanı olarak görev yapan kişilerin, işyerlerinde herhangi bir yetkisi ve sorumluluğu olmaması sebebiyle (Risk değerlendirmesi yapılması, eğitimlerin verilmesi ve benzeri görevleri yerine getirme ve bunlara imza yetkisi bulunmamaktadır.) iş sağlığı ve güvenliği açısından işyerinde yapılması gereken asli işlerde görev alma şansı olmadığından kişinin yetkinlik kazanıp kazanmadığının ölçülebilme şansı yoktur. Bu sebeple de bahse konu geçici madde ile bir üst belge verme şartlarından olan herhangi bir idari yaptırım almamış olmaları şartını yerine getirme ihtimalleri bulunmamaktadır. <br/><br/>Sonuç olarak, yukarıda yapılan açıklamalar ve ilgili mevzuat çerçevesinde, her iki şartı birlikte yerine getirme ihtimali olmayan, diğer bir deyişle ilgili sözleşme dönemi boyunca herhangi bir yetki ve sorumluluğu olmayıp bu kapsamda herhangi bir idari yaptırımla muhatap kalma ihtimali bulunmayan yardımcı iş güvenliği uzmanlığı sözleşme süreleri, geçici 9 uncu madde kapsamında kazanılan yetkinlik ve tecrübeye binaen eğitim ve sınav şartı olmaksızın bir kereye mahsus yine kazanılan yetkinlik ve tecrübeye uygun olarak bir üst sınıf belgesi verilmesi için dikkate alınmamıştır.<br/><br/>Bilgilerinize sunulur."
+        }
+    };
+    let $select = $('<select>', { id: 'duyuruListesi', size: 5 });
+    $.each(duyurular, (k, v) => $select.append($('<option>', { value: k, text: v.baslik })));  
+    $('#duyurusecimanasayfa').append($select);
+    $select.on('change', () =>
+    {
+        const secilen = $select.val();  
+        $('#duyuruaciklamakutu').html(duyurular[secilen]?.metin || "Açıklama yok.").show();  
+    });
+}
+
+function mastermenublok(durum)
+{
+    var $blok = $("#blok" + durum);
+    if ($blok.is(":visible"))
+    {
+        $blok.slideUp();
+    }
+    else
+    {
+        $(".menublok").slideUp();
+        $blok.stop(true, true).slideDown();
+    }
+}
+function mastermenugizle()
+{
+    $('#mastermenu').fadeOut();
+    $('#gizlimenu').fadeIn();
+    $("#gizlimenu").css("display", "flex");
+    $('#aspicerik').css({"margin-left": "3%", "width": "97%"});
+}
+function mastermenugoster()
+{
+    $('#mastermenu').fadeIn();
+    $('#gizlimenu').fadeOut();
+    $('#aspicerik').css({"margin-left": "10.7%","width": "89.3%"});
+}
+function dokumansecimsayfamenu(btn)
+{
+    var $btn = $(btn);
+    var $submenu = $btn.next('.menuicerik');
+    $('.menuicerik').not($submenu).slideUp();
+    $submenu.slideToggle();
+}
+
+function tarihkontrol(t) { var r = /^(\d{2})\.(\d{2})\.(\d{4})$/; if (!r.test(t)) return false; var p = t.match(r), d = parseInt(p[1], 10), m = parseInt(p[2], 10), y = parseInt(p[3], 10), o = new Date(y, m - 1, d); return o.getFullYear() === y && o.getMonth() === m - 1 && o.getDate() === d }
+
+
+function maskele(veri)
+{
+    const model = {'A':'Ş', 'B':'Ü', 'C':'Ö', 'Ç':'Ğ', 'D':'İ', 'E':'Z', 'F':'Y', 'G':'V', 'Ğ':'U', 'H':'T', 'I':'S', 'İ':'R', 'J':'P', 'K':'O', 'L':'N', 'M':'Q', 'N':'L', 'O':'K', 'Ö':'J', 'P':'I', 'R':'H', 'S':'Ğ', 'Ş':'G', 'T':'F', 'U':'E', 'Ü':'D', 'V':'C', 'Y':'Ç', 'Z':'B', 'a':'ş', 'b':'ü', 'c':'ö', 'ç':'ğ', 'd':'i', 'e':'z', 'f':'y', 'g':'v', 'ğ':'u', 'h':'t', 'ı':'s', 'i':'r', 'j':'p', 'k':'o', 'l':'n', 'm':'w', 'n':'l', 'o':'k', 'ö':'j', 'p':'ı', 'r':'h', 's':'ğ', 'ş':'g', 't':'f', 'u':'e', 'ü':'d', 'v':'c', 'y':'ç', 'z':'b', '0':'5', '1':'6', '2':'7', '3':'8', '4':'9', '5':'0', '6':'1', '7':'2', '8':'3', '9':'4', '+':'€', '-':'£', '(':'¥', ')':'¤', '=':'§', '?':'©', '*':'®', ';':'™', ',':'µ', ':':'¶', '.':'·', ' ':'_'};
+    return veri.split('').map(c => model[c] || c).join('');
+}
+
+function maskecoz(veri)
+{
+    const model = {'Ş':'A', 'Ü':'B', 'Ö':'C', 'Ğ':'Ç', 'İ':'D', 'Z':'E', 'Y':'F', 'V':'G', 'U':'Ğ', 'T':'H', 'S':'I', 'R':'İ', 'P':'J', 'O':'K', 'N':'L', 'Q':'M', 'L':'N', 'K':'O', 'J':'Ö', 'I':'P', 'H':'R', 'Ğ':'S', 'G':'Ş', 'F':'T', 'E':'U', 'D':'Ü', 'C':'V', 'Ç':'Y', 'B':'Z', 'ş':'a', 'ü':'b', 'ö':'c', 'ğ':'ç', 'i':'d', 'z':'e', 'y':'f', 'v':'g', 'u':'ğ', 't':'h', 's':'ı', 'r':'i', 'p':'j', 'o':'k', 'n':'l', 'w':'m', 'l':'n', 'k':'o', 'j':'ö', 'ı':'p', 'h':'r', 'ğ':'s', 'g':'ş', 'f':'t', 'e':'u', 'd':'ü', 'c':'v', 'ç':'y', 'b':'z', '5':'0', '6':'1', '7':'2', '8':'3', '9':'4', '0':'5', '1':'6', '2':'7', '3':'8', '4':'9', '€':'+', '£':'-', '¥':'(', '¤':')', '§':'=', '©':'?', '®':'*', '™':';', 'µ':',', '¶':':', '·':'.', '_':' '};
+    return veri.split('').map(c => model[c] || c).join('');
+}
+
+function tarihreturn(t){var r=/^(\d{2})\.(\d{2})\.(\d{4})$/;if(!r.test(t))return"....../....../20....";var p=t.match(r),d=parseInt(p[1],10),m=parseInt(p[2],10),y=parseInt(p[3],10),o=new Date(y,m-1,d);return o.getFullYear()===y&&o.getMonth()===m-1&&o.getDate()===d?t:"....../....../20...."}
+
+
+function jsoncevir(j) { if (typeof j === "string") { try { j = JSON.parse(j) } catch (e) { j = [] } } return j; }
+
+
+function tumunusec() {let table = $('#tablo').DataTable();table.page.len(-1).draw();let t=0;table.rows({page:"all"}).nodes().to$().find(".row-checkbox").each(function(){$(this).prop("checked",!0);t++});alertify.error(t+" çalışan seçildi",7);}
+function tumunukaldir() {let table = $('#tablo').DataTable();table.rows({page:"all"}).nodes().to$().find(".row-checkbox").prop("checked",!1);alertify.error("Tüm seçimler kaldırıldı",5);}
+
+function isgegitimgecerlilik(tarih,tehlike){if(!tarih)return"";const[gun,ay,yil]=tarih.split(".").map(Number);if(!gun||!ay||!yil)return"";let ekYil=0;switch(tehlike){case 1:ekYil=3;break;case 2:ekYil=2;break;case 3:ekYil=1;break;default:return""}const g=new Date(yil+ekYil,ay-1,gun),p=n=>n.toString().padStart(2,"0");return`${p(g.getDate())}.${p(g.getMonth()+1)}.${g.getFullYear()}`}
+function saglikgecerlilik(t,d){if(!t)return"";const[g,a,y]=t.split(".").map(Number);if(!g||!a||!y)return"";let e=0;switch(d){case 1:e=5;break;case 2:e=3;break;case 3:e=1;break;default:return""}const n=new Date(y+e,a-1,g),p=n=>n.toString().padStart(2,"0");return`${p(n.getDate())}.${p(n.getMonth()+1)}.${n.getFullYear()}`}
+function ilkyardimgecerlilik(t){if(!t)return"";const[g,a,y]=t.split(".").map(Number);if(!g||!a||!y)return"";const e=new Date(y+3,a-1,g),p=n=>n.toString().padStart(2,"0");return`${p(e.getDate())}.${p(e.getMonth()+1)}.${e.getFullYear()}`}
+function yesilbaslik(cell) { cell.fill = { type: 'pattern', pattern: 'solid', fgColor: { argb: 'FF4F81BD' } }; cell.font = { color: { argb: 'FFFFFFFF' }, bold: true, size: 11, name: 'Calibri' }; cell.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } };}
+function adsoyadexcelrapor(cell) { cell.font = { size: 11, name: 'Calibri' }; cell.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }; cell.alignment = { vertical: 'middle', horizontal: 'left', wrapText: true };}
+function tarihexcelrapor(cell) { cell.font = { size: 11, name: 'Calibri' }; cell.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }; cell.alignment = { vertical: 'middle', horizontal: 'center', wrapText: true };}
+function gribaslik(cell) { cell.fill = { type: 'pattern', pattern: 'solid', fgColor: { argb: 'FFE5E7E9' } }; cell.font = { color: { argb: 'FF000000' }, bold: true, size: 11, name: 'Calibri' }; cell.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } };}
+function ortala(cell) { cell.alignment = { vertical: 'middle', horizontal: 'center', wrapText: true };}
+function riskdegerlendirmegecerlilik(tarih,tehlike){if(!tarih)return"";const[g,a,y]=tarih.split(".").map(Number);if(!g||!a||!y)return"";let e=0;switch(tehlike){case 1:e=6;break;case 2:e=4;break;case 3:e=2;break;default:return""}const d=new Date(y+e,a-1,g),p=n=>n.toString().padStart(2,"0");return`${p(d.getDate())}.${p(d.getMonth()+1)}.${d.getFullYear()}`}
+function acildurumtatbikat(tarih){if(!tarih)return"";const[g,a,y]=tarih.split(".").map(Number);if(!g||!a||!y)return"";const d=new Date(y+1,a-1,g),p=n=>n.toString().padStart(2,"0");return`${p(d.getDate())}.${p(d.getMonth()+1)}.${d.getFullYear()}`}
+function isekipmanigecerlilik(tarih){if(!tarih)return"";const[g,a,y]=tarih.split(".").map(Number);if(!g||!a||!y)return"";const d=new Date(y+1,a-1,g),p=n=>n.toString().padStart(2,"0");return`${p(d.getDate())}.${p(d.getMonth()+1)}.${d.getFullYear()}`}
+function metinuret(karaktersayisi)
+{
+    const harfler = "abcdefghijklmnopqrstuvwxyz0123456789";
+    let sifre = "";
+    for (let i = 0; i < karaktersayisi; i++)
+    {
+        const rastgeleIndex = Math.floor(Math.random() * harfler.length);
+        sifre += harfler[rastgeleIndex];
+    }
+    return sifre;
+}
+function basharfbuyuk(e){let t=e.value;t=t.replace(/\s+/g," ").trim().replace(/[^\p{L} ',.()\/-_]/gu,"");if(!t.trim()){e.value="";return}let n=t.toLocaleLowerCase("tr-TR").split(" ").map(e=>e.charAt(0).toLocaleUpperCase("tr-TR")+e.slice(1)).join(" ").replace(/ Ve /g," ve ");e.value=n}
+function tekbosluk(e) { let t = e.value; t = t.replace(/\s+/g, " ").trim(); e.value = t }
+function adsoyadduzelt(e){let t=e.value;t=t.replace(/\s+/g," ").trim(),t=t.replace(/[^a-zA-ZçÇğĞıİöÖşŞüÜ\s'-]/g,"");if(!t.trim()){e.value="";return}let l=t.split(/(\s+)/),a=l.length-1;for(;a>=0&&""===l[a].trim();)a--;if(a<0){e.value=t;return}l[a]=l[a].toLocaleUpperCase("tr-TR");for(let t=0;t<a;t++)""!==l[t].trim()&&(l[t]=l[t].charAt(0).toLocaleUpperCase("tr-TR")+l[t].slice(1).toLocaleLowerCase("tr-TR"));e.value=l.join("")}
+function rakamvenokta(i){i.value=i.value.replace(/[^0-9.]/g,"").trim()}
+function firmajsonokuma()
+{
+    let firmajson = store.get('firmajson');
+    if (typeof firmajson === "string")
+    {
+        try
+        {
+            firmajson = JSON.parse(firmajson);
+        }
+        catch
+        {
+            alertify.error("Firma verisi okunamadı");
+            firmajson = [];
+        }
+    }
+    else if (!Array.isArray(firmajson))
+    {
+        firmajson = [];
+    }
+    return firmajson;
+}
+
+function temelisgkonutablo(i){const{konular:t,basliklar:n}=temelisgtumkonular(i),e=[];e.push([{text:"EĞİTİM KONULARI",colSpan:2,alignment:"center",bold:!0,fontSize:12},{}]);let l=0,a=1,o="1.";for(let i=0;i<t.length;i++){if(l<n.length&&i===n[l].index){e.push([{text:n[l].title,colSpan:2,alignment:"center",bold:!0},{}]),o=l+1+".",a=1,l++}e.push([{text:o+a,alignment:"center"},{text:t[i],alignment:"left"}]),a++}return{table:{headerRows:1,widths:["10%","90%"],body:e},layout:{hLineWidth:function(i,t){return 0===i||i===t.table.body.length?1:.5},vLineWidth:function(){return.5},hLineColor:function(){return"#aaa"},vLineColor:function(){return"#aaa"},paddingLeft:function(){return 5},paddingRight:function(){return 5},paddingTop:function(){return 5},paddingBottom:function(){return 5}}}}
+async function temelpdfolusturma(docDefinition){return new Promise((resolve, reject) => {pdfMake.createPdf(docDefinition).getBuffer((buffer) => {resolve(buffer);});});}
+function temelisgtumkonular(i){const e=["Çalışma mevzuatı ile ilgili bilgiler","Çalışanların yasal hak ve sorumlulukları","İşyeri temizliği ve düzeni","İş kazası ve meslek hastalığından doğan hukuki sonuçlar","Meslek hastalıklarının sebepleri","Hastalıktan korunma prensipleri ve korunma tekniklerinin uygulanması","Biyolojik ve psikososyal risk etmenleri","İlkyardım","Tütün ürünlerinin zararları ve pasif etkilenim","Kimyasal, fiziksel ve ergonomik risk etmenleri","Elle kaldırma ve taşıma","Parlama, patlama, yangın ve yangından korunma","İş ekipmanlarının güvenli kullanımı","Ekranlı araçlarla çalışma","Elektrik tehlikeleri, riskleri ve önlemleri","Güvenlik ve sağlık işaretleri","İş kazalarının sebepleri ve korunma prensipleri ile tekniklerinin uygulanması","Kişisel koruyucu donanım kullanımı","İş sağlığı ve güvenliği genel kuralları ve güvenlik kültürü","Tahliye ve kurtarma"],t=["Yapı işlerinde tehlikeler, riskler ve önlemler","Radyosyon, tehlikeleri, riskleri ve önlemleri","Trafik kuralları ve güvenli sürüş teknikleri","Malzeme güvenlik bilgi formları","Kapalı ortamda çalışma","Kaynakla çalışma","Yüksekte çalışma","Hijyen Eğitimi"],n=[...e];for(let e=0;e<i.length&&e<t.length;e++)"1"===i[e]&&n.push(t[e]);const o=[{index:0,title:"GENEL KONULAR"},{index:4,title:"SAĞLIK KONULARI"},{index:9,title:"TEKNİK KONULAR"},{index:20,title:"DİĞER KONULAR"}];return{konular:n,basliklar:o}}
+function temelimzatablo(a, b, c, d, e, f) { return { table: { widths: [47, 207, 207, 207, 47], body: [["", { text: a, alignment: "center", fontSize: 11, bold: !0 }, { text: b, alignment: "center", fontSize: 11, bold: !0 }, { text: c, alignment: "center", fontSize: 11, bold: !0 }, ""], ["", { text: "İş Güvenliği Uzmanı", alignment: "center", fontSize: 11 }, { text: "İşveren Vekili", alignment: "center", fontSize: 11 }, { text: "İşyeri Hekimi", alignment: "center", fontSize: 11 }, ""], ["", { text: "Belge No: " + d, alignment: "center", fontSize: 11 }, "", { text: "Belge No: " + e, alignment: "center", fontSize: 11 }, ""], [{ colSpan: 5, text: f, alignment: "center", fontSize: 9 }, "", "", "", ""]] }, layout: "noBorders" } }
+function temeltarihbul(v) { const t = "....../....../202....", a = v.tarih1 || t, b = v.tarih2 || t, c = v.tarih3 || t, d = v.tarih4 || t, g = parseInt(v.toplamgun) || 1; switch (g) { case 1: return a; case 2: return `${a} - ${b}`; case 3: return `${a} - ${b} - ${c}`; case 4: return `${a} - ${b} - ${c} - ${d}`; default: return a } }
+function temelegitimsuregun(h, t, s) { let r = ""; if (s === "8 Saat") { if (h === "1" && t === 1) r = "8 Saat"; else if (t === 2 && ["1", "2"].includes(h)) r = "4 Saat"; else if (t === 3) { if (h === "1") r = "4 Saat"; if (["2", "3"].includes(h)) r = "2 Saat" } else if (t === 4 && ["1", "2", "3", "4"].includes(h)) r = "2 Saat" } else if (s === "12 Saat") { if (t === 2) { if (h === "1") r = "4 Saat"; if (h === "2") r = "8 Saat" } else if (t === 3 && ["1", "2", "3"].includes(h)) r = "4 Saat"; else if (t === 4) { if (["1", "2"].includes(h)) r = "2 Saat"; if (["3", "4"].includes(h)) r = "4 Saat" } } else if (s === "16 Saat") { if (t === 2 && ["1", "2"].includes(h)) r = "8 Saat"; else if (t === 3) { if (h === "1") r = "8 Saat"; if (["2", "3"].includes(h)) r = "4 Saat" } else if (t === 4 && ["1", "2", "3", "4"].includes(h)) r = "4 Saat" } return r; }
+function temelsertifikasaat(s1, s2, s3, s4, g) { let s = "", t = 16; for (let i = 0; i < g; i++) { try { if (i === 0) { s = s1; t = parseInt(s1.replace(" Saat", "")) } else if (i === 1) { s += " - " + s2; t += parseInt(s2.replace(" Saat", "")) } else if (i === 2) { s += " - " + s3; t += parseInt(s3.replace(" Saat", "")) } else if (i === 3) { s += " - " + s4; t += parseInt(s4.replace(" Saat", "")) } } catch (e) { } } return s + " (Toplam: " + t + " Saat)"; }
+function genelucluimzatablo(a,b,c,d,e){return{table:{widths:[47,207,207,207,47],body:[["",{text:a,alignment:"center",fontSize:11,bold:!0},{text:b,alignment:"center",fontSize:11,bold:!0},{text:c,alignment:"center",fontSize:11,bold:!0},""],["",{text:"İş Güvenliği Uzmanı",alignment:"center",fontSize:11},{text:"İşveren Vekili",alignment:"center",fontSize:11},{text:"İşyeri Hekimi",alignment:"center",fontSize:11},""],["",{text:"Belge No: "+d,alignment:"center",fontSize:11},"",{text:"Belge No: "+e,alignment:"center",fontSize:11},""]]},layout:"noBorders"}}
+
+
+function docxucluimzadikey(uzman,uzmanno,hekim,hekimno,isveren){return new docx.Table({width:{size:100,type:docx.WidthType.PERCENTAGE},borders:{top:{style:docx.BorderStyle.NONE,size:0,color:"FFFFFF"},bottom:{style:docx.BorderStyle.NONE,size:0,color:"FFFFFF"},left:{style:docx.BorderStyle.NONE,size:0,color:"FFFFFF"},right:{style:docx.BorderStyle.NONE,size:0,color:"FFFFFF"},insideHorizontal:{style:docx.BorderStyle.NONE,size:0,color:"FFFFFF"},insideVertical:{style:docx.BorderStyle.NONE,size:0,color:"FFFFFF"}},rows:[new docx.TableRow({children:[new docx.TableCell({width:{size:33,type:docx.WidthType.PERCENTAGE},children:[new docx.Paragraph({alignment:docx.AlignmentType.CENTER,children:[new docx.TextRun({text:uzman,font:"Calibri",size:22,bold:!0})]})]}),new docx.TableCell({width:{size:34,type:docx.WidthType.PERCENTAGE},children:[new docx.Paragraph({alignment:docx.AlignmentType.CENTER,children:[new docx.TextRun({text:isveren,font:"Calibri",size:22,bold:!0})]})]}),new docx.TableCell({width:{size:33,type:docx.WidthType.PERCENTAGE},children:[new docx.Paragraph({alignment:docx.AlignmentType.CENTER,children:[new docx.TextRun({text:hekim,font:"Calibri",size:22,bold:!0})]})]})]}),new docx.TableRow({children:[new docx.TableCell({children:[new docx.Paragraph({alignment:docx.AlignmentType.CENTER,children:[new docx.TextRun({text:"İş Güvenliği Uzmanı",font:"Calibri",size:22})]})]}),new docx.TableCell({children:[new docx.Paragraph({alignment:docx.AlignmentType.CENTER,children:[new docx.TextRun({text:"İşveren Vekili",font:"Calibri",size:22})]})]}),new docx.TableCell({children:[new docx.Paragraph({alignment:docx.AlignmentType.CENTER,children:[new docx.TextRun({text:"İşyeri Hekimi",font:"Calibri",size:22})]})]})]}),new docx.TableRow({children:[new docx.TableCell({children:[new docx.Paragraph({alignment:docx.AlignmentType.CENTER,children:[new docx.TextRun({text:"Belge No: "+uzmanno,font:"Calibri",size:22})]})]}),new docx.TableCell({children:[new docx.Paragraph({alignment:docx.AlignmentType.CENTER,children:[new docx.TextRun({text:"",font:"Calibri",size:22})]})]}),new docx.TableCell({children:[new docx.Paragraph({alignment:docx.AlignmentType.CENTER,children:[new docx.TextRun({text:"Belge No: "+hekimno,font:"Calibri",size:22})]})]})]})]})}
+function acildurumgecerlilik(tarih, tehlike) { if (!tarih) return ""; const [g, a, y] = tarih.split(".").map(Number); if (!g || !a || !y) return ""; let e = 0; switch (tehlike) { case 1: e = 6; break; case 2: e = 4; break; case 3: e = 2; break; default: return "" }const d = new Date(y + e, a - 1, g), p = n => n.toString().padStart(2, "0"); return `${p(d.getDate())}.${p(d.getMonth() + 1)}.${d.getFullYear()}` }
+function isyeribaslikayar(a, v) { if (!v || typeof v !== "string" || v.trim().length === 0) { alert("Lütfen geçerli bir veri girin!"); return } const k = v.trim().split(" ").filter(k => k.length > 0); if (k.length === 0) { alert("Geçerli veri girin!"); return } let s = {}; switch (a) { case 1: s = { ustbaslik: k[0], altbaslik: k.slice(1).join(" ") }; break; case 2: if (k.length < 2) { alert("Script 2 için en az 2 kelime gerekli!"); return } s = { ustbaslik: k.slice(0, 2).join(" "), altbaslik: k.slice(2).join(" ") }; break; case 3: if (k.length < 3) { alert("Script 3 için en az 3 kelime gerekli!"); return } s = { ustbaslik: k.slice(0, 3).join(" "), altbaslik: k.slice(3).join(" ") }; break; default: alertify.error("Geçersiz giriş (1, 2 veya 3 olmalı)"); return }return s }
+
+
+function acildurumekipjson(){const e={0:"Görevli Değil",1:"İlkyardım Ekibi - Ekip Başı",2:"İlkyardım Ekibi - Ekip Personeli",3:"Söndürme Ekibi - Ekip Başı",4:"Söndürme Ekibi - Ekip Personeli",5:"Koruma Ekibi - Ekip Başı + Koordinasyon",6:"Koruma Ekibi - Ekip Personeli + Koordinasyon",7:"Koruma Ekibi - Ekip Personeli",8:"Kurtarma Ekibi - Ekip Başı",9:"Kurtarma Ekibi - Ekip Personeli",10:"Destek Elemanı"};let n=$('#HiddenField1').val();if("string"==typeof n)try{n=JSON.parse(n)}catch(t){console.error("JSON parse hatası:",t),n=[]}const i=[];return $.each(n,function(n,t){t.a&&0!==t.a&&i.push({x:t.x,y:t.y,ekipgorev:e[t.a]||"Tanımsız",ekipkod:t.a})}),i}
+function genelDataDetayliJsonOlustur(genelData)
+{
+    const acildurumgeneljson = store.get("acildurumgeneljson");
+    const yeniJson = genelData
+        .map(gItem => {
+            const detay = acildurumgeneljson.find(jItem => jItem.id == gItem.id);
+            if (!detay) return null;
+            return {
+                onlem: gItem.onlem,
+                id: gItem.id,
+                uygun: gItem.uygun,
+                yangin: detay.yangin,
+                deprem: detay.deprem,
+                sel: detay.sel,
+                sabotaj: detay.sabotaj,
+                iskaza: detay.iskaza,
+                elektrik: detay.elektrik,
+                salgin: detay.salgin,
+                gida: detay.gida,
+                yildirim: detay.yildirim,
+                basinc: detay.basinc,
+                kmaruziyet: detay.kmaruziyet,
+                ksizinti: detay.ksizinti,
+                patlama: detay.patlama,
+                bakim: detay.bakim,
+                hayvan: detay.hayvan
+            };
+        })
+        .filter(item => item !== null);
+    return yeniJson;
+}
+
+function adsoyadstring(s){let t=s.replace(/\s+/g," ").trim().replace(/[^a-zA-ZçÇğĞıİöÖşŞüÜ\s'-]/g,"");if(!t.trim())return"";let p=t.split(/(\s+)/),l=p.length-1;while(l>=0&&p[l].trim()==="")l--;if(l<0)return t;p[l]=p[l].toLocaleUpperCase("tr-TR");for(let i=0;i<l;i++)p[i].trim()!==""&&(p[i]=p[i].charAt(0).toLocaleUpperCase("tr-TR")+p[i].slice(1).toLocaleLowerCase("tr-TR"));return p.join("")}
+function basharfstring(s){let t=s.replace(/\s+/g," ").trim().replace(/[^\p{L} ',.()\/-_]/gu,"");if(!t.trim())return"";return t.toLocaleLowerCase("tr-TR").split(" ").map(w=>w.charAt(0).toLocaleUpperCase("tr-TR")+w.slice(1)).join(" ").replace(/ Ve /g," ve")}
+
+
+function isyerigetir()
+{
+    const dropdown = $('#isyeri');
+    dropdown.empty();
+    dropdown.append($('<option>', { text: 'Lütfen işyerini seçiniz', value: '', disabled: true, selected: true }));
+    let firmajson = firmajsonokuma();
+    if (firmajson.length > 0)
+    {
+        firmajson.sort((a, b) => a.fk.localeCompare(b.fk, 'tr', { sensitivity: 'base' }));
+        $.each(firmajson, function (_, row) { dropdown.append($('<option>', { text: row.fk, value: row.id }));});
+    }
+    else
+    {
+        alertify.error("Kayıtlı işyeri bulunamadı");
+    }
+    dropdown.select2({ placeholder: "Lütfen işyerini seçiniz", theme: "classic",  allowClear: true, language: { noResults: function () { return "Sonuç bulunamadı";}}});
+}
+
+function mesaj(text)
+{
+    alertify.error(text);
+}
+
+
+function firmasecimoku()
+{
+    let jsonfirmatumu = firmajsonokuma();
+    let firmaid = $('#isyeri').val();
+    var firmasatir = $.grep(jsonfirmatumu, function (f) { return f.id == firmaid; })[0];
+    if (!firmasatir)
+    {
+        alertify.error("Lütfen bir işyeri seçiniz", 7);
+        return;
+    }
+    store.set('xjsonfirma', JSON.stringify(firmasatir));
+    store.set('xfirmaid', firmaid);
+    return firmaid;
+}
+
+
+function isyersecimfirmaoku()
+{
+    let jsonfirmatumu = firmajsonokuma();
+    let firmaid = store.get('xfirmaid');
+    var firmasatir = $.grep(jsonfirmatumu, function (f) { return f.id == firmaid; })[0];
+    if (!firmasatir)
+    {
+        alertify.error("Lütfen bir işyeri seçiniz", 7);
+        return;
+    }
+    return firmasatir;
 }
