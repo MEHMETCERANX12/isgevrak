@@ -2409,7 +2409,7 @@ async function acildurumkatılımlistesiyaz()
     let calisanliste = acildurumekipjson();
     if (!Array.isArray(calisanliste) || calisanliste.length === 0)
     {
-        calisanliste = Array.from({ length: 13 }, () => ({ ad: "", un: "" }));
+        calisanliste = Array.from({ length: 13 }, () => ({ x: "", ekipgorev: "" }));
     }
     let isyeriismi = isyeri.fi;
     let egitimsaat = $("#admesaat").val();
@@ -2428,7 +2428,7 @@ async function acildurumkatılımlistesiyaz()
             tableBody.push([
                 { text: (i + 1).toString(), alignment: 'center', fontSize: 10, margin: [0, 11, 0, 11] },
                 { text: calisan.x || '', alignment: 'left', fontSize: 10, margin: [0, 11, 0, 11] },
-                { text: calisan.y || '', alignment: 'left', fontSize: 10, margin: [0, 11, 0, 11] },
+                { text: calisan.ekipgorev || '', alignment: 'left', fontSize: 10, margin: [0, 11, 0, 11] },
                 { text: '' }
             ]);
         }
