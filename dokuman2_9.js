@@ -1,7 +1,33 @@
+//////////////////ÇALIŞAN TEMSİLCİSİ//////////////ÇALIŞAN TEMSİLCİSİ//////////////ÇALIŞAN TEMSİLCİSİ//////////////ÇALIŞAN TEMSİLCİSİ//////////////ÇALIŞAN TEMSİLCİSİ//////////////ÇALIŞAN TEMSİLCİSİ////////
+function calisantemsilcisitamam1()
+{
+    try
+    {
+        store.set("gorevlendirmetarih", $('#tarih1').val().trim());
+        store.set("egitimtarih", $('#tarih2').val().trim());
+        store.set("egitimsaat", $("#saat").val());
+        let firmaid = firmasecimoku();
+        $('#HiddenField1').val(firmaid);
+        store.set("dosyaciktitipi", "5");
+        return true;
+    }
+    catch
+    {
+        $('#HiddenField1').val("");
+        return false;
+    }
+}
+function calisantemsilcisitamam2(json)
+{
+    let calisanjson = JSON.stringify(json);
+    store.set('calisanjson', calisanjson);
+    store.set("dosyaciktitipi", "5");
+    window.location = 'dosyacikti.aspx';
+}
 ////////////////////////////SAĞLIK RAPORU/////////////////////////////////////////////SAĞLIK RAPORU/////////////////////////////////////////////SAĞLIK RAPORU/////////////////////////////////////////////
 function saglikraporuload()
 {
-    let calisanjson = jsoncevir($('#HiddenField1').val());
+    let calisanjson = jsoncevir(store.get("loadjson"));
     $('#tablo').DataTable
     ({
         data: calisanjson,
@@ -777,7 +803,7 @@ function temelisgegitim2tamam()
         {
             calisanjson.forEach(function (item)
             {
-                if (item.ad === secili.a && item.un === secili.u) {
+                if (item.x === secili.a && item.y === secili.u) {
                     item.e = egitimtarihi;
                 }
             });
@@ -1484,23 +1510,20 @@ function kkdzimmettamam3()
     window.location.href = "dosyacikti.aspx?id=4";
 }
 
-function kkdsablonduzenleload()
+function kkdsablonduzenleload1()
 {
-    let kkdjson = $('#HiddenField1').val();
-    if ($('#HiddenField2').val() === "1")
+    let kkdjson = [];
+    const link = new URLSearchParams(window.location.search);
+    const id = link.get('id');
+    if(id === "1")
     {
-        kkdjson = jsoncevir(kkdjson);
+        kkdjson = jsoncevir($('#HiddenField1').val());
         store.set("jsonkkdliste", kkdjson);
-    }
-    else if ($('#HiddenField2').val() === "0")
-    {
-        kkdjson = store.get("jsonkkdliste");
-        kkdjson = jsoncevir(kkdjson);
     }
     else
     {
-        alertify.error("Beklenmedik bir hata oluştu");
-        return false;
+        kkdjson = store.get("jsonkkdliste");
+        kkdjson = jsoncevir(kkdjson);
     }
     $('#tablo').DataTable
     ({
@@ -3723,12 +3746,11 @@ function hekimtanimekle()
         alertify.error("Lütfen tüm alanları doldurunuz.");
         return false;
     }
-    let json = $('#HiddenField1').val();
-    data = calisansiralama(json);
+    let json = jsoncevir($('#HiddenField1').val());
     let yeni = { id: metinuret(3), ad: ad, no: no};
-    data.push(yeni);
-    data.sort((a, b) => a.ad.localeCompare(b.ad, 'tr-TR', { sensitivity: 'base' }));
-    $('#HiddenField1').val(JSON.stringify(data));
+    json.push(yeni);
+    json.sort((a, b) => a.ad.localeCompare(b.ad, 'tr-TR', { sensitivity: 'base' }));
+    $('#HiddenField1').val(JSON.stringify(json));
     $('#dylghekimekle').fadeOut();
 }
 
@@ -3742,18 +3764,17 @@ function hekimtanimguncelle()
         alertify.error("Lütfen bir hekim seçip tüm alanları doldurunuz.");
         return false;
     }
-    let json = $('#HiddenField1').val();
-    data = calisansiralama(json);
-    let index = data.findIndex(x => x.id === secilen);
+    let json = jsoncevir($('#HiddenField1').val());
+    let index = json.findIndex(x => x.id === secilen);
     if (index >= 0)
     {
-        data[index].ad = ad;
-        data[index].no = no;
-        data = calisansiralama(data);
-        $('#HiddenField1').val(JSON.stringify(data));
+        json[index].ad = ad;
+        json[index].no = no;
+        json.sort((a, b) => a.ad.localeCompare(b.ad, 'tr-TR', { sensitivity: 'base' }));
+        $('#HiddenField1').val(JSON.stringify(json));
         let hekimad = store.get("hekimad");
         let hekimno = store.get("hekimno");
-        data = [];
+        let data = [];
         data = firmajsonokuma();
         for (let i = 0; i < data.length; i++)
         {
@@ -3781,17 +3802,17 @@ function hekimtanimsil()
         alertify.error("Lütfen bir hekim seçiniz.");
         return false;
     }
-    let json = $('#HiddenField1').val();
-    data = calisansiralama(json);
+    let json = jsoncevir($('#HiddenField1').val());
+    json.sort((a, b) => a.ad.localeCompare(b.ad, 'tr-TR', { sensitivity: 'base' }));
     let ad = "";
     let no = "";
-    let silinen = data.find(x => x.id === secilen);
+    let silinen = json.find(x => x.id === secilen);
     if (silinen)
     {
         ad = silinen.ad || "";
         no = silinen.no || "";
     }
-    let yenidata = data.filter(x => x.id !== secilen);
+    let yenidata = json.filter(x => x.id !== secilen);
     yenidata.sort((a, b) => a.ad.localeCompare(b.ad, 'tr-TR', { sensitivity: 'base' }));
     $('#HiddenField1').val(JSON.stringify(yenidata));
     data = [];
@@ -4202,6 +4223,7 @@ function kurulgorevlendirmeyaz()
         }
     });
     $('#HiddenField1').val(JSON.stringify(data));
+    console.log(JSON.stringify(data));
 }
 
 function isgkurulgorevlendirmeyazdir()
@@ -5519,7 +5541,9 @@ async function talimatyazdirword(button)
         unvan = (button.getAttribute("data-un") || "").trim(); 
     }
     const uzmanad = store.get("uzmanad") || "";
-    const talimatlarHam = [$('#HiddenField2').val(), $('#HiddenField3').val(), $('#HiddenField4').val(), $('#HiddenField5').val(), $('#HiddenField6').val()];
+    let talimatlar = $('#HiddenField2').val();
+    talimatlar = jsoncevir(talimatlar);
+    console.log(talimatlar);
     const sections = [];
     const altbilgi = new Table({
         rows:
@@ -5531,19 +5555,10 @@ async function talimatyazdirword(button)
         width: { size: 100, type: WidthType.PERCENTAGE },
         alignment: AlignmentType.CENTER
     });
-    for (let i = 0; i < talimatlarHam.length; i++)
+    for (let i = 0; i < talimatlar.length; i++)
     {
-        let t = talimatlarHam[i];
-        if (!t || t === "Yok") continue;
-        let icerik;
-        try
-        {
-            icerik = JSON.parse(t);
-        }
-        catch
-        {
-            continue;
-        }
+        let icerik = talimatlar[i];
+        if (!icerik || icerik === "Yok") continue;
         const baslik = Object.keys(icerik)[0];
         const paragraflar = (icerik[baslik] || []).map(p => p.i);
         const headerTable=new Table({rows:[new TableRow({children:[new TableCell({children:[new Paragraph({children:[new TextRun({text:baslik,bold:true,font:"Calibri",size:24})],alignment:AlignmentType.CENTER})],verticalAlign:"center"})]})],width:{size:100,type:WidthType.PERCENTAGE},alignment:AlignmentType.CENTER});
@@ -6578,18 +6593,12 @@ async function riskdegerlendirmepdfyazdir()
 function tarihkontrol(t) { var r = /^(\d{2})\.(\d{2})\.(\d{4})$/; if (!r.test(t)) return false; var p = t.match(r), d = parseInt(p[1], 10), m = parseInt(p[2], 10), y = parseInt(p[3], 10), o = new Date(y, m - 1, d); return o.getFullYear() === y && o.getMonth() === m - 1 && o.getDate() === d }
 function datepickerjquery(a){$.datepicker.setDefaults({dateFormat:"dd.mm.yy",firstDay:1,changeMonth:!0,changeYear:!0,dayNames:["Pazar","Pazartesi","Salı","Çarşamba","Perşembe","Cuma","Cumartesi"],dayNamesMin:["Paz","Pzt","Sal","Çar","Per","Cum","Cmt"],monthNamesShort:["Ocak","Şubat","Mart","Nisan","Mayıs","Haziran","Temmuz","Ağustos","Eylül","Ekim","Kasım","Aralık"],nextText:"İleri",prevText:"Geri",beforeShow:function(){setTimeout(function(){$(".ui-datepicker td a").css({display:"flex",alignItems:"center",justifyContent:"center",textAlign:"center",width:"100%",height:"100%"})},1)}});$(a).datepicker(),setTimeout(function(){$(a).datepicker("show")},10);}
 
-function acilisverisianasayfa()
-{
-    let deger = $("#HiddenField4").val();
-    if (deger === "1")
-    {
-        store.set('firmajson', $("#HiddenField1").val());
-        let uzman = JSON.parse($("#HiddenField2").val());
-        store.set("uzmanad", uzman[0].uz);
-        store.set("uzmanno", uzman[0].un);
-        store.set("uzmankurum", uzman[0].kr);
-        store.set("ayar", $("#HiddenField3").val());
-    }
+function anasayfaload()
+{    
+    let uzman = jsoncevir(store.get("uzmanjson"));
+    store.set("uzmanad", uzman[0].uz);
+    store.set("uzmanno", uzman[0].un);
+    store.set("uzmankurum", uzman[0].kr);
 }
 function duyuruicerikanasayfa()
 {
