@@ -6826,8 +6826,6 @@ function firmasecimoku()
     store.set('xfirmaid', firmaid);
     return firmaid;
 }
-
-
 function isyersecimfirmaoku()
 {
     let jsonfirmatumu = firmajsonokuma();
@@ -6839,4 +6837,18 @@ function isyersecimfirmaoku()
         return;
     }
     return firmasatir;
+}
+function saatvetarihgoster()
+{
+    const now = new Date();
+    const days = ['Pazar', 'Pazartesi', 'Salı', 'Çarşamba', 'Perşembe', 'Cuma', 'Cumartesi'];
+    const months = ['Ocak', 'Şubat', 'Mart', 'Nisan', 'Mayıs', 'Haziran', 'Temmuz', 'Ağustos', 'Eylül', 'Ekim', 'Kasım', 'Aralık'];
+    const dayName = days[now.getDay()];
+    const monthName = months[now.getMonth()];
+    const date = now.getDate();
+    const year = now.getFullYear();
+    const hours = String(now.getHours()).padStart(2, '0');
+    const minutes = String(now.getMinutes()).padStart(2, '0');
+    const seconds = String(now.getSeconds()).padStart(2, '0');
+    $('#time').text("DUYURULAR - Saat: " + `${hours}:${minutes}:${seconds} - ${date} ${monthName} ${dayName} ${year}`);
 }
