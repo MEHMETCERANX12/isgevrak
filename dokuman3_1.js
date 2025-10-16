@@ -1,3 +1,92 @@
+////////İSG KURULU////////İSG KURULU////////İSG KURULU////////İSG KURULU////////İSG KURULU////////İSG KURULU////////İSG KURULU////////İSG KURULU////////İSG KURULU////////
+async function isgkurulciktiwordyaz()
+{
+    let json = jsoncevir(store.get("isgkurulsecim"));
+    let kurulveri = json.kurulveri || [];
+    kurulveri = jsoncevir(kurulveri);
+    let kuruluye = json.kuruluye || [];
+    kuruluye = jsoncevir(kuruluye);
+    let kurulicerik = json.kurulicerik || [];
+    kurulicerik = jsoncevir(kurulicerik);
+    let tarih = kurulveri[0].tarih;
+    let konu = kurulveri[0].konu;
+    let saat = kurulveri[0].saat;
+    const aylar = {0:"Olağanüstü İsg Kurul Toplantısı",1:"Ocak Ayı Olağan İsg Kurul Toplantısı",2:"Şubat Ayı Olağan İsg Kurul Toplantısı",3:"Mart Ayı Olağan İsg Kurul Toplantısı",4:"Nisan Ayı Olağan İsg Kurul Toplantısı",5:"Mayıs Ayı Olağan İsg Kurul Toplantısı",6:"Haziran Ayı Olağan İsg Kurul Toplantısı",7:"Temmuz Ayı Olağan İsg Kurul Toplantısı",8:"Ağustos Ayı Olağan İsg Kurul Toplantısı",9:"Eylül Ayı Olağan İsg Kurul Toplantısı",10:"Ekim Ayı Olağan İsg Kurul Toplantısı",11:"Kasım Ayı Olağan İsg Kurul Toplantısı",12:"Aralık Ayı Olağan İsg Kurul Toplantısı"};
+    let konuyazi = aylar[konu] || "Bilinmeyen Konu";
+    let isyeri = jsoncevir(store.get("xjsonfirma"));
+    let isyeriunvan = isyeri.fi;
+    let isyeriadres = isyeri.ad;
+    let sgksicil = isyeri.sc;
+    let tehlikesinifimap = { 1: "Az Tehlikeli", 2: "Tehlikeli", 3: "Çok Tehlikeli" };
+    let tehlikesinifi = parseInt(isyeri.ts);
+    tehlikesinifi = tehlikesinifimap[tehlikesinifi];
+    const { Document, Packer, TextRun, Paragraph, Table, TableRow, TableCell, WidthType, BorderStyle, AlignmentType, HeightRule, VerticalAlign } = docx;
+    let kararparagraf = [];
+    kurulicerik.forEach(item => { kararparagraf.push ( new Paragraph({ children: [ new TextRun({ text: `${item.i}-) ${item.m}`, size: 22, font: "Calibri" })], spacing: { before: 50, after: 50 }, alignment: AlignmentType.JUSTIFIED}));});
+    let kurulustbaslik = [];
+    kurulustbaslik.push(new Paragraph({ alignment: AlignmentType.CENTER, style: "Normal", spacing: { after: 200 }, border: { top: { color: "000000", space: 1, style: BorderStyle.SINGLE }, bottom: { color: "000000", space: 1, style: BorderStyle.SINGLE }, left: { color: "000000", space: 1, style: BorderStyle.SINGLE }, right: { color: "000000", space: 1, style: BorderStyle.SINGLE } }, children: [new TextRun({ text: "İŞ SAĞLIĞI ve GÜVENLİĞİ KURUL KARARI", bold: true, font: "Calibri", size: 28 })] }));
+    kurulustbaslik.push(new Paragraph({ text: `İşyeri Unvanı: ` + isyeriunvan, spacing: { after: 100 }, style: "Normal" }));
+    kurulustbaslik.push(new Paragraph({ text: `İşyeri Adresi: ` + isyeriadres, spacing: { after: 100 }, style: "Normal" }));
+    kurulustbaslik.push(new Paragraph({ text: `İşyeri SGK Sicil No: ` + sgksicil, spacing: { after: 100 }, style: "Normal" }));
+    kurulustbaslik.push(new Paragraph({ text: `Toplantı Tarihi: ` + tarih, spacing: { after: 100 }, style: "Normal" }));
+    kurulustbaslik.push(new Paragraph({ text: `Toplantı Saati: ` + saat, spacing: { after: 100 }, style: "Normal" }));
+    kurulustbaslik.push(new Paragraph({ text: `Toplantı Konusu: ` + konuyazi, spacing: { after: 100 }, style: "Normal" }));
+    kurulustbaslik.push(new Paragraph({ alignment: AlignmentType.CENTER, style: "Normal", spacing: { after: 200 }, border: { top: { color: "000000", space: 1, style: BorderStyle.SINGLE }, bottom: { color: "000000", space: 1, style: BorderStyle.SINGLE }, left: { color: "000000", space: 1, style: BorderStyle.SINGLE }, right: { color: "000000", space: 1, style: BorderStyle.SINGLE } }, children: [new TextRun({ text: "KURUL KARAR METNİ", bold: true, font: "Calibri", size: 28 })] }));
+    const imzaicerik = [];
+    imzaicerik.push(new TableRow
+    ({
+        height: { value: 400, rule: HeightRule.EXACT },
+        children:
+        [
+            new TableCell({verticalAlign: VerticalAlign.CENTER,width: { size: 30, type: WidthType.PERCENTAGE }, children: [ new Paragraph({ alignment: AlignmentType.CENTER, children: [ new TextRun({ text: "Katılımcı Bilgileri", bold: true, size: 22, font: "Calibri" }) ] }) ] }),
+            new TableCell({verticalAlign: VerticalAlign.CENTER, width: { size: 20, type: WidthType.PERCENTAGE }, children: [new Paragraph({ alignment: AlignmentType.CENTER, children: [new TextRun({ text: "İmza", bold: true, size: 22, font: "Calibri" })] })] }),
+            new TableCell({verticalAlign: VerticalAlign.CENTER, width: { size: 30, type: WidthType.PERCENTAGE }, children: [new Paragraph({ alignment: AlignmentType.CENTER, children: [new TextRun({ text: "Katılımcı Bilgileri", bold: true, size: 22, font: "Calibri" })] })] }),
+            new TableCell({verticalAlign: VerticalAlign.CENTER,width: { size: 20, type: WidthType.PERCENTAGE }, children: [ new Paragraph({ alignment: AlignmentType.CENTER, children: [ new TextRun({ text: "İmza", bold: true, size: 22, font: "Calibri" }) ] }) ] }),
+        ]
+    })
+);
+    for (let i = 0; i < kuruluye.length; i += 2)
+    {
+        const uye1 = kuruluye[i];
+        const uye2 = kuruluye[i + 1];
+        imzaicerik.push(new TableRow
+        ({
+            height: { value: 750, rule: HeightRule.EXACT },
+            children:
+            [
+                new TableCell({verticalAlign: VerticalAlign.CENTER,children:[new Paragraph({alignment:AlignmentType.CENTER,children:[new TextRun({text:uye1.a,size:22,font:"Calibri",bold:true}),new TextRun({text:uye1.u,break:1,size:22,font:"Calibri"})]})]}),
+                new TableCell({children:[new Paragraph({alignment:AlignmentType.CENTER,children:[new TextRun({text:"",size:22})]})]}),
+                new TableCell({verticalAlign: VerticalAlign.CENTER,children:[new Paragraph({alignment:AlignmentType.CENTER,children:[new TextRun({text: uye2 ? uye2.a : "",size:22,font:"Calibri",bold:true}),new TextRun({text: uye2 ? uye2.u : "",break:1,size:22,font:"Calibri"})]})]}),
+                new TableCell({children:[new Paragraph({alignment:AlignmentType.CENTER,children:[new TextRun({text:"",size:22})]})]})
+            ]
+        }));
+    }
+    const imzatablo = new Table({width: {size: 100, type: WidthType.PERCENTAGE},rows:imzaicerik,borders:{top:{style:BorderStyle.SINGLE,size:1,color:"000000"},bottom:{style:BorderStyle.SINGLE,size:1,color:"000000"},left:{style:BorderStyle.SINGLE,size:1,color:"000000"},right:{style:BorderStyle.SINGLE,size:1,color:"000000"},insideHorizontal:{style:BorderStyle.SINGLE,size:1,color:"000000"},insideVertical:{style:BorderStyle.SINGLE,size:1,color:"000000"}}});
+    const doc = new Document({
+    styles:
+    {
+        paragraphStyles:
+        [
+            {id: "Normal", run: { font: "Calibri", size: 22 }, paragraph: {alignment: AlignmentType.JUSTIFIED }},
+        ]
+    },
+    sections:
+    [
+        {
+            properties: { page: { margin: { top: 850, right: 850, bottom: 850, left: 850 } } },
+            headers: { default: new docx.Header({ children: kurulustbaslik})},
+            children: [...kararparagraf],
+            footers: { default: new docx.Footer({ children: [imzatablo] })}
+        }
+    ]
+    });
+    const blob = await Packer.toBlob(doc);
+    saveAs(blob, "İş Sağlığı ve Güvenliği Kurulu - " + metinuret(3) + ".docx");
+}
+
+
+
+
 //////////////////ÇALIŞAN TEMSİLCİSİ//////////////ÇALIŞAN TEMSİLCİSİ//////////////ÇALIŞAN TEMSİLCİSİ//////////////ÇALIŞAN TEMSİLCİSİ//////////////ÇALIŞAN TEMSİLCİSİ//////////////ÇALIŞAN TEMSİLCİSİ////////
 function calisantemsilcisitamam1()
 {
@@ -143,9 +232,7 @@ function saglikraporyazdir()
     const doc=new Document({sections:[{properties:{page:{size:{orientation:"landscape",width:8391,height:11906},margin:{top:567,right:567,bottom:567,left:567,header: 360,footer: 360}}},footers:{default:new Footer({children:[new Paragraph({children:[new TextRun({text:"\tBu form, Kişisel Verilerin Korunması kanunu kapsamında İşyeri Hekimi ve Diğer Sağlık Personelinin Görev, Yetki, Sorumluluk ve Eğitimleri Hakkında Yönetmeliğin EK-2 de yer alan “İşe Giriş ve Periyodik Muayene formunu” referans alarak hazırlanmıştır.",size:16,font:"Calibri"})]})]})},children:[...calisanparagraf]}]});
     Packer.toBlob(doc).then(blob => { saveAs(blob, "Sağlık Raporu.docx"); });
 }
-
 ////////////////////////////İŞE BAŞLAMA/////////////////////////////////////////////İŞE BAŞLAMA/////////////////////////////////////////////İŞE BAŞLAMA/////////////////////////////////////////////
-
 async function isebaslamegitimcikti()
 {
     let isebaslamaveri = JSON.parse(store.get('isebaslamaveri') || '{}');
@@ -268,7 +355,6 @@ return new docx.Table
     ]
 })
 }
-
 function isebaslamatamam1()
 {
     let firmaid = firmasecimoku();
@@ -284,16 +370,13 @@ function isebaslamatamam1()
     store.set('isebaslamaveri', JSON.stringify(liste));
     window.location.href = "isebaslamaegitim2.aspx?id=" + encodeURIComponent(firmaid);
 }
-
 function isebaslamatamam2()
 {
     dokumancalisansecim();
     store.set("dosyaciktitipi", "2");
     window.location.href = "dosyacikti.aspx?id=2";
 }
-
 ////////////////////////////İSG EĞİTİM/////////////////////////////////////////////İSG EĞİTİM/////////////////////////////////////////////İSG EĞİTİM/////////////////////////////////////////////
-
 function isgegitimsertifikakontrol()
 {
     $('#loading').show();
