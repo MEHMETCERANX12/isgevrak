@@ -6709,7 +6709,8 @@ function duyuruicerikanasayfa()
     $select.on('change', () =>
     {
         const secilen = $select.val();  
-        $('#duyuruaciklamakutu').html(duyurular[secilen]?.metin || "Açıklama yok.").show();  
+        $('#duyuruaciklamakutu').html(duyurular[secilen]?.metin || "Açıklama yok.").fadeIn();
+        $('#guncellemeler').fadeOut();
     });
 }
 
