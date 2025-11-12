@@ -26,7 +26,7 @@ function tehlikeanalizjsonkontrol()
 
 function tehlikeanalizjson()
 {
-    if (tehlikeanalizjson())
+    if (tehlikeanalizjsonkontrol())
     {
         $("#bolum1").fadeOut(300, function () { $("#bolum2").fadeIn(300); });
         const data = JSON.parse($("#riskdegerlendirme").val());
