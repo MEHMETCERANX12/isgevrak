@@ -1,5 +1,5 @@
 ////////TEHLİKE ANALİZ GPT////////TEHLİKE ANALİZ GPT////////TEHLİKE ANALİZ GPT////////TEHLİKE ANALİZ GPT////////TEHLİKE ANALİZ GPT////////TEHLİKE ANALİZ GPT////////TEHLİKE ANALİZ GPT////////TEHLİKE ANALİZ GPT////////TEHLİKE ANALİZ GPT////////
-function tehlikeanalizjson()
+function tehlikeanalizjsonkontrol()
 {
     let value = $("#riskdegerlendirme").val().trim();
     if (!value) return false;
@@ -24,9 +24,9 @@ function tehlikeanalizjson()
     }
 }
 
-function tehlikeoku()
+function tehlikeanalizjson()
 {
-    if (jsonkontrol())
+    if (tehlikeanalizjson())
     {
         $("#bolum1").fadeOut(300, function () { $("#bolum2").fadeIn(300); });
         const data = JSON.parse($("#riskdegerlendirme").val());
