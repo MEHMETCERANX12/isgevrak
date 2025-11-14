@@ -208,3 +208,6 @@ input[type="radio"]{width:1.3vw;height:1.3vw;cursor:pointer;vertical-align:middl
 .csstextarea{ width: 100%;font-size: 1vw;font-family: Calibri;padding-left: 0.5vw;-webkit-box-sizing: border-box;-moz-box-sizing: border-box;box-sizing: border-box;outline: none;}
 .csstextarea:focus{outline: none;border: 0.15vw solid black;}
 .cssdisplaynone{display:none} 
+.cssgenelkutu{width:95%;margin:0 auto;padding:2vw;background-color:#F9F9F9;border-radius:1vw;box-shadow:0 1vw 1vw rgba(0,0,0,.2);}
+.cssciftsutun{display:flex;flex-wrap:wrap;gap:2vw;}
+.cssteksutun{flex:1;min-width:300px;}
