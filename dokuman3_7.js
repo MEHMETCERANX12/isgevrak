@@ -1034,10 +1034,7 @@ function temelisgegitim2tamam()
         return false;
     }
 }
-
-
 ////////////////////////////DİĞER EĞİTİM/////////////////////////////////////////////DİĞER EĞİTİM/////////////////////////////////////////////DİĞER EĞİTİM/////////////////////////////////////////////
-
 async function digeregitimsertifikakontrol()
 {
     $('#loading').show();
@@ -3078,9 +3075,10 @@ function acildurumdevam1()
 }
 
 ////////////////////////////İŞYERİ/////////////////////////////////////////////İŞYERİ/////////////////////////////////////////////İŞYERİ/////////////////////////////////////////////
-
 function isyeriyeniload()
 {
+    $("#fi").on("blur", function () { if ($("#fiduzelt").prop("checked")) { basharfbuyuk(this); tekbosluk(this) } }); $("#fiduzelt").on("change", function () { if ($(this).prop("checked")) { basharfbuyuk($("#fi")[0]); tekbosluk($("#fi")[0]); } });
+    $("#ad").on("blur", function () { if ($("#adresduzelt").prop("checked")) { basharfbuyuk(this); tekbosluk(this) } }); $("#adresduzelt").on("change", function () { if ($(this).prop("checked")) { basharfbuyuk($("#ad")[0]); tekbosluk($("#ad")[0]); } });
     let json = $('#HiddenField1').val();
     if (json)
     {
@@ -3151,10 +3149,11 @@ function isyeriduzenlemeload()
     firmajson = firmajson.find(item => item.id === id);
     if (firmajson)
     {
+        console.log(firmajson.ts);
         $("#fi").val(firmajson.fi || "");
         $("#is").val(firmajson.is || "");
         $("#sh").val(firmajson.sh || "");
-        $("#ts").val(String(firmajson.ts) || "");
+        $("#ts").val(firmajson.ts || "");
         let hkAd = firmajson.hk || "";
         $("#hk option").each(function(){let t=$(this).val();if(t.startsWith(hkAd+"|")){$("#hk").val(t);return false}});
         $("#fk").val(firmajson.fk || "");
@@ -3166,6 +3165,7 @@ function isyeriduzenlemeload()
         alertify.error('Beklenmedik bir hata oluştu');
     }
 }
+
 function isyeriduzenlemetamam()
 {
     const link = new URLSearchParams(window.location.search);
