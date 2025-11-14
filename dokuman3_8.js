@@ -3432,6 +3432,29 @@ function isyerilistesiyazdir()
 
 ////////////////////////////ÇALIŞAN/////////////////////////////////////////////ÇALIŞAN/////////////////////////////////////////////ÇALIŞAN/////////////////////////////////////////////
 
+function calisangenellistemesaj(mesaj, durum)
+{
+    if (mesaj === "1" && durum == "1")
+    {
+        alertify.error("Çalışan Ekleme Başarılı", 7);
+    }
+    else if (mesaj === "1" && durum == "2")
+    {
+        alertify.error("Çalışan Güncelleme Başarılı", 7);
+    }
+    else if (mesaj === "1" && durum == "3")
+    {
+        alertify.error("Çalışan Silme Başarılı", 7);
+    }
+    else if (mesaj === "1" && durum == "4")
+    {
+        alertify.error("Çalışanların Tümü Silindi", 7);
+    }
+    else
+    {
+        alertify.error("İşlem başarısız", 7);
+    }
+}
 function calisangenellisteload()
 {
     var json = jsoncevir($('#HiddenField1').val());
@@ -3442,6 +3465,9 @@ function calisangenellisteload()
     $('#tablo').DataTable
     ({
         data: json,
+        pageLength: 10,
+        lengthMenu: [[10, 50, 100, 500, -1], ['10', '50', '100', '500']],
+        order: [[0, 'asc']],
         columns:
         [
             { title:"Ad", data:"x" },
@@ -3449,7 +3475,7 @@ function calisangenellisteload()
             { title: "Düzenle", data: "id", orderable: false, searchable: false, render: function (d) { return '<input type="button" class="cssbutontamam" value="Düzenle" onclick="calisanduzenlegoster(\'' + d + '\')">'; } },
             { title: "Sil", data: "id", orderable: false, searchable: false, render: function (d) { return '<input type="button" class="cssbutontamam" value="Sil" onclick="calisansilgoster(\'' + d + '\')">'; } }
         ],
-        language:{search:"Çalışan Ara:",lengthMenu:"Sayfa başına _MENU_ kayıt göster",zeroRecords:"Böyle bir çalışan bulunamadı",info:"_TOTAL_ kayıttan _START_ ile _END_ arası gösteriliyor",infoEmpty:"Kayıt yok",infoFiltered:"(toplam _MAX_ kayıttan filtrelendi)",emptyTable:"Kayıtlı çalışan bulunamadı"},
+        language: { search: "Çalışan Ara:", lengthMenu: "Sayfa başına _MENU_ kayıt göster", zeroRecords: "Böyle bir çalışan bulunamadı", info: "_TOTAL_ kayıttan _START_ ile _END_ arası gösteriliyor", infoEmpty: "Kayıt yok", infoFiltered: "(toplam _MAX_ kayıttan filtrelendi)", emptyTable: "Kayıtlı çalışan bulunamadı" },
         createdRow: function (row)
         {
             $(row).find('td').eq(0).css('text-align', 'left');
@@ -3461,6 +3487,65 @@ function calisangenellisteload()
     });
     $('.dt-search input').css({ "background-color": "white" }).attr("autocomplete", "off");
     $('.dt-length select').css({ "background-color": "white" });
+}
+
+async function calisanlisteexcelyaz()
+{
+
+    let dosyaid = metinuret(3);
+    let json = jsoncevir($('#HiddenField1').val());
+    json = calisansiralama(json);
+    const workbook = new ExcelJS.Workbook();
+    const sheet = workbook.addWorksheet("Çalışan Listesi", {
+        pageSetup: {
+            paperSize: 9,
+            orientation: 'portrait',
+            margins: {
+                left: 0.7, right: 0.7,
+                top: 0.7, bottom: 0.7,
+                header: 0.3, footer: 0.3
+            }
+        }
+    });
+    sheet.addRow(["No", "Çalışan Ad Soyad", "Çalışan Unvan"]);
+    json.forEach((x, i) => {
+        sheet.addRow([i + 1, x.x, x.y]);
+    });
+    sheet.columns = [
+        { width: 7 },
+        { width: 35 },
+        { width: 35 }
+    ];
+    const headerRow = sheet.getRow(1);
+    headerRow.eachCell((cell) => {
+        cell.font = { bold: true };
+        cell.alignment = { horizontal: "center", vertical: "middle" };
+        cell.fill = {
+            type: "pattern",
+            pattern: "solid",
+            fgColor: { argb: "FFE0E0E0" }
+        };
+        cell.border = {
+            top: { style: 'thin' },
+            left: { style: 'thin' },
+            right: { style: 'thin' },
+            bottom: { style: 'thin' }
+        };
+    });
+    sheet.eachRow((row, rowNumber) => {
+        row.eachCell((cell) => {
+            cell.border = {
+                top: { style: 'thin' },
+                left: { style: 'thin' },
+                right: { style: 'thin' },
+                bottom: { style: 'thin' }
+            };
+            cell.alignment = { vertical: "middle" };
+        });
+    });
+    sheet.getColumn(1).alignment = { horizontal: "center" };
+    const buffer = await workbook.xlsx.writeBuffer();
+    saveAs(new Blob([buffer], { type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" }), `Çalışan Listesi - ${dosyaid}.xlsx`);
 }
 
 function calisanduzenlegoster(id)
