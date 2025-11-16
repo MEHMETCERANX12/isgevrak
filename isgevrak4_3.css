@@ -211,3 +211,6 @@ input[type="radio"]{width:1.3vw;height:1.3vw;cursor:pointer;vertical-align:middl
 .cssgenelkutu{width:95%;margin:0 auto;padding:2vw;background-color:#F9F9F9;border-radius:1vw;box-shadow:0 1vw 1vw rgba(0,0,0,.2);}
 .cssciftsutun{display:flex;flex-wrap:wrap;gap:2vw;}
 .cssteksutun{flex:1;min-width:300px;}
+table.dataTable input.dt-select-checkbox{width:24px!important;height:24px!important;border-radius:0!important;position:relative!important;}
+table.dataTable input.dt-select-checkbox:checked:after{content:"✓";position:absolute;top:8px;left:0;width:100%;height:100%;display:flex;justify-content:center;align-items:center;line-height:1;}
+table.dataTable input.dt-select-checkbox:indeterminate:after{content:"";position:absolute;top:25%;left:25%;width:50%;height:50%;background-color:black;}
