@@ -3912,34 +3912,23 @@ function dokumancalisanload()
     ({
         data: calisanjson,
         order: [[1, 'asc']],
-        columns:
-        [
-            { data:null,title:"Seç",render:(d,t,r)=>`<input type="checkbox" class="row-checkbox" data-id="${r.x}|${r.y}">`,orderable:false},
-            { data: "x", title: "Ad Soyad" },
-            { data: "y", title: "Unvan" },
-        ],
-        language:{search:"Çalışan Ara:",lengthMenu:"Sayfa başına _MENU_ kayıt göster",zeroRecords:"Çalışan bulunamadı",info:"_TOTAL_ kayıttan _START_ ile _END_ arası gösteriliyor",infoEmpty:"Çalışan bulunamadı",infoFiltered:"(toplam _MAX_ kayıttan filtrelendi)",emptyTable:"Çalışan bulunamadı"},
+        pageLength: 10,
+        lengthMenu: [[10, 50, 100, 500, -1], [10, 50, 100, 500, "Tümü"]],
+        columns:[{data:null,orderable:false,render:DataTable.render.select(),width:"80px"},{data:"x",title:"Ad Soyad"},{data:"y",title:"Unvan"}],
+        select: { style: 'multi', selector: 'td:first-child'},
+        language:{select:{rows:"%d satır seçildi"},search:"Çalışan Ara:",lengthMenu:"Sayfa başına _MENU_ kayıt göster",zeroRecords:"Çalışan bulunamadı",info:"_TOTAL_ kayıttan _START_ ile _END_ arası gösteriliyor",infoEmpty:"Çalışan bulunamadı",infoFiltered:"(toplam _MAX_ kayıttan filtrelendi)",emptyTable:"Çalışan bulunamadı"},
         createdRow:function(r){$(r).find("td").eq(1).css("text-align","left");$(r).find("td").eq(2).css("text-align","left");},
-        headerCallback: function (thead) {$(thead).find('th').css('text-align', 'center');}
-    });
+        headerCallback: function (thead) { $(thead).find('th').css('text-align', 'center');}
+    });    
     $('.dt-search input').css({ "background-color": "white" }).attr("autocomplete", "off");
     $('.dt-length select').css({ "background-color": "white" });
 }
-
 function dokumancalisansecim()
 {
-    var calisanjson = [];
-    $('#tablo').DataTable().rows().nodes().to$().find('.row-checkbox:checked').each(function ()
-    {
-        var rowKey = $(this).data('id');
-        if (rowKey)
-        {
-            var [adsoyad, unvan] = rowKey.split('|');
-            calisanjson.push({ a: adsoyad, u: unvan });
-        }
-    });
-    store.set("calisansecimjsonx", JSON.stringify(calisanjson));
-    return calisanjson;
+    var secilenler = $('#tablo').DataTable().rows({ selected: true }).data().toArray();
+    var yeniListe = secilenler.map(function (item) { return { a: item.x, u: item.y};});
+    store.set("calisansecimjsonx", JSON.stringify(yeniListe));
+    return yeniListe;
 }
 
 ////////////////////////////ŞİFRE/////////////////////////////////////////////ŞİFRE/////////////////////////////////////////////ŞİFRE/////////////////////////////////////////////
