@@ -1,0 +1,81 @@
+        .menudokuman
+        {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+        .menudokuman li
+        {
+            list-style-type: none;
+        }
+        .menudokuman > li > a
+        {
+            display: block;
+            position: relative;
+            color: #ffffff;
+            background-color: #343A40;
+            border-radius: 0.4vw 0.4vw;
+            padding: 0.7vw;
+            text-decoration: none;
+            text-align: center;
+            margin-bottom: 0.1vw;
+            font-weight: bold;
+        }
+        .menudokuman > li > a.active
+        {
+            background-color: #0e6655; /* Aktif menü öğesi için arka plan rengi */
+        }
+        .menudokuman > li > a:hover
+        {
+            color: #DBFE03;
+        }
+        .menudokuman > li > a.active:hover
+        {
+           color: white;
+           font-weight: bold;
+           text-decoration: underline;
+        }
+        .menudokuman .submenudokuman
+        {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+            display: none;
+            background-color: transparent;
+            border-radius: 0.4vw 0.4vw;
+        }
+        .menudokuman .submenudokuman a:hover
+        {
+            background-color: brown;
+            color: white;
+        }
+        .item-count
+        {
+            position: absolute;
+            right: 4%;
+        }
+        .sayfaortalama
+        {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .menukutusu
+        {
+            width: 40%;
+            margin: 0 auto;
+            padding: 0.1vw;
+        }
+
+        .menudokuman .submenudokuman a
+        {
+            color: white;
+            display: block;
+            border: 0.1vw solid #abb2b9;
+            border-radius: 0.4vw 0.4vw;
+            color: black;
+            margin-bottom: 0.1vw;
+            text-decoration: none;
+            padding: 0.7vw;
+            background-color: #f4f6f7;
+        }
