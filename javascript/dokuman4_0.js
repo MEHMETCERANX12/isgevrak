@@ -1200,7 +1200,6 @@ const docDefinition = {
     pdfcikti.getBlob((blob) => {saveAs(blob, egitimturdosya + '.pdf');});
 }
 
-
 async function digerkatılımlistesiyaz()
 {
     let uzmanad = store.get("uzmanad");
@@ -1306,6 +1305,17 @@ async function digerkatılımlistesiyaz()
     pdfMake.createPdf(katilimlistesi).getBlob(function (blob) { saveAs(blob, 'Katılım Listesi.pdf');});
 }
 
+function digerkatilimustbilgi(i, t, e, s, k, bas)
+{
+    return [
+        [{ text: bas, colSpan: 4, alignment: 'center', fontSize: 11, bold: true, margin: [2, 2] }, '', '', ''],
+        [{ text: `İşyeri Unvanı: ${i}`, colSpan: 4, alignment: 'left', fontSize: 10, margin: [2, 2] }, '', '', ''],
+        [{ colSpan: 4, alignment: 'left', fontSize: 10, margin: [2, 2], text: [{ text: `Eğitim Tarihi: ${t}\t\t\t\tEğitim Şekli: ${e}\t\t\t\tSüresi: ${s}` }] }, '', '', ''],
+        [{ text: 'EĞİTİM KONULARI', colSpan: 4, alignment: 'center', fontSize: 11, bold: true, margin: [2, 2] }, '', '', ''],
+        [{ text: k, colSpan: 4, alignment: 'justify', fontSize: 10, margin: [0, 5] }, '', '', ''],
+        [{ text: 'Sıra', alignment: 'center', fontSize: 10, margin: [1, 1], bold: true }, { text: 'Ad Soyad', alignment: 'center', fontSize: 10, margin: [1, 1], bold: true }, { text: 'Unvan', alignment: 'center', fontSize: 10, margin: [1, 1], bold: true }, { text: 'İmza', alignment: 'center', fontSize: 10, margin: [1, 1], bold: true }]
+    ];
+}
 ////////////////////////////KKD ZİMMET/////////////////////////////////////////////KKD ZİMMET/////////////////////////////////////////////KKD ZİMMET/////////////////////////////////////////////
 
 async function kkdzimmettutanakkontrol()
