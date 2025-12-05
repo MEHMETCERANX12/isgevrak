@@ -18,6 +18,7 @@ async function acildurumtatbikatwordyaz()
     let uzmanad = store.get("uzmanad");
     let uzmanno = store.get("uzmanno");
     let geciciadres = isyeriadres;
+    let cikarilansonuc = store.get("sonucparagraf");
     if (!geciciadres)
     {
         geciciadres = ".................................................................................................";
@@ -80,9 +81,7 @@ async function acildurumtatbikatwordyaz()
     let tatbikatsonuc = [];
     tatbikatsonuc.push(new Paragraph({ text: ``, spacing: { after: 100 }, style: "Normal" }));
     tatbikatsonuc.push(new Paragraph({ text: `\t1.7-Çıkarılan Sonuçlar`, spacing: { after: 100 }, style: "Kalinsol" }));
-    tatbikatsonuc.push(new Paragraph({ text: `\t1.6 bölümünde belirtilen değerlendirme kriterleri doğrultusunda yapılan incelemeler sonucunda, yangın tatbikatının genel olarak başarılı bir şekilde gerçekleştirildiği tespit edilmiştir. Acil durum planı ile bu kapsamda verilen eğitimlerin uygulamada etkin biçimde karşılık bulduğu gözlemlenmiştir.`, spacing: { after: 100 }, style: "Normal" }));
-    tatbikatsonuc.push(new Paragraph({ text: `\tÇalışanların acil çıkış yollarını hızlı ve doğru şekilde kullanabildiği, yönlendirme işaretlerinin yeterli düzeyde fark edilebilir olduğu değerlendirilmiştir. Kurtarma ekibinin ise yangına dayanıklı kişisel koruyucu donanımlarını eksiksiz şekilde kullandığı görülmüştür.`, spacing: { after: 100 }, style: "Normal" }));
-    tatbikatsonuc.push(new Paragraph({ text: `\tTatbikat kapsamında işyerinde bulunan sedyenin kullanılmasıyla, çalışanların tahliye ve taşıma süreçlerine ilişkin pratik deneyim kazandığı anlaşılmıştır. Acil durum tatbikatı, acil durumlara hazırlık seviyesinin iyi olduğunu göstermiş ve süreç boyunca herhangi bir aksaklık tespit edilmemiştir.`, spacing: { after: 100 }, style: "Normal" }));
+    tatbikatsonuc.push(new Paragraph({ text: `\t` + cikarilansonuc, spacing: { after: 100 }, style: "Normal" }));
     const tatbikatekiptablo = [];
     tatbikatekiptablo.push(new TableRow
     ({
@@ -178,43 +177,41 @@ function tatbikatimza(uzman, uzmanno, isveren) { return new docx.Table({ width: 
 
 function aciltatbikatload2()
 {
-    var acildurum =
-        [
-            { konu: "Yangın algılamasının ardından tüm çalışanlara yangın ihbarı, alarm butonuna basılarak uyarıldı mı?" },
-            { konu: "Yangın senaryosuna uygun şekilde sözlü uyarı prosedürü uygulanarak 'Yangın Var' diye bağırılarak çalışanlar bilgilendirildi mi?" },
-            { konu: "Senaryo gereği acil çağrı merkezi 112’ye bildirim uygun şekilde yapıldı mı?" },
-            { konu: "Tahliye sürecinde acil çıkış yollarında engel, tıkanma veya erişim zafiyeti oluşturacak herhangi bir durum tespit edildi mi?" },
-            { konu: "Tüm çalışanların belirlenen tahliye planına uygun olarak toplanma bölgesine güvenli şekilde ulaşması sağlandı mı?" },
-            { konu: "Toplanma bölgesine yönlendirme ve tahliye hızı, tahliye planında belirtilen süre ve güvenlik kriterlerine uygun şekilde gerçekleştirildi mi?" },
-            { konu: "Senaryo gereği oluşturulan kontrollü yangına, söndürme ekibi müdahalesi eğitimlerde belirlenen tekniklere uygun ve etkili şekilde gerçekleştirildi mi?" },
-            { konu: "Yangın söndürme ekipmanlarına erişim, acil durumda gecikmeye neden olmayacak şekilde sağlandı mı?" },
-            { konu: "Yangın söndürme ekipmanlarının kullanılabilirliği ve işlevselliği müdahale sırasında teknik açıdan yeterli bulundu mu?" },
-            { konu: "Toplanma bölgesi, yönlendirme işaretleri ve acil durum talimatlarına uygun şekilde tüm çalışanlar tarafından hızlı ve doğru biçimde tespit edilebildi mi?" },
-            { konu: "Senaryo gereği ilkyardım ekibi, kazazedeye müdahaleyi ilkyardım standartlarına uygun şekilde gerçekleştirdi mi?" },
-            { konu: "Senaryo gereği söndürme ekibi yangını, yangın söndürme kurallarına uygun şekilde müdahale etti mi? " },
-            { konu: "Senaryo kapsamında koruma ekibi, bina giriş ve çıkışlarını güvenliğini uygun şekilde sağlayarak alan kontrolünü gerçekleştirdi mi?" },
-            { konu: "Senaryo gereği kurtarma ekibi, çalışanların tahliyesini uygun şekilde gerçekleştirdi mi?" },
-        ];
-    $('#tablo').DataTable({
-        data: acildurum,
+    var tatbikatkriter = [{konu:"Yangın algılamasının ardından tüm çalışanlara yangın ihbarı, alarm butonuna basılarak uyarıldı mı?"},{konu:"Yangın senaryosuna uygun şekilde sözlü uyarı prosedürü uygulanarak 'Yangın Var' diye bağırılarak çalışanlar bilgilendirildi mi?"},{konu:"Senaryo gereği acil çağrı merkezi 112’ye bildirim uygun şekilde yapıldı mı?"},{konu:"Tahliye sürecinde acil çıkış yollarında engel, tıkanma veya erişim zafiyeti oluşturacak herhangi bir durum tespit edildi mi?"},{konu:"Tüm çalışanların belirlenen tahliye planına uygun olarak toplanma bölgesine güvenli şekilde ulaşması sağlandı mı?"},{konu:"Toplanma bölgesine yönlendirme ve tahliye hızı, tahliye planında belirtilen süre ve güvenlik kriterlerine uygun şekilde gerçekleştirildi mi?"},{konu:"Senaryo gereği oluşturulan kontrollü yangına, söndürme ekibi müdahalesi eğitimlerde belirlenen tekniklere uygun ve etkili şekilde gerçekleştirildi mi?"},{konu:"Yangın söndürme ekipmanlarına erişim, acil durumda gecikmeye neden olmayacak şekilde sağlandı mı?"},{konu:"Yangın söndürme ekipmanlarının kullanılabilirliği ve işlevselliği müdahale sırasında teknik açıdan yeterli bulundu mu?"},{konu:"Toplanma bölgesi, yönlendirme işaretleri ve acil durum talimatlarına uygun şekilde tüm çalışanlar tarafından hızlı ve doğru biçimde tespit edilebildi mi?"},{konu:"Senaryo gereği ilkyardım ekibi, kazazedeye müdahaleyi ilkyardım standartlarına uygun şekilde gerçekleştirdi mi?"},{konu:"Senaryo gereği söndürme ekibi yangını, yangın söndürme kurallarına uygun şekilde müdahale etti mi?"},{konu:"Senaryo kapsamında koruma ekibi, bina giriş ve çıkışlarını güvenliğini uygun şekilde sağlayarak alan kontrolünü gerçekleştirdi mi?"},{konu:"Senaryo gereği kurtarma ekibi, çalışanların tahliyesini uygun şekilde gerçekleştirdi mi?"}];
+    var cikarilansonuclar = [{konu:"Değerlendirme kriterleri göz önünde bulundurularak yapılan incelemeler sonucunda, yangın tatbikatının başarılı bir şekilde gerçekleştirildiği tespit edilmiştir."},{konu:"Acil durum planı ile bu kapsamda verilen eğitimlerin uygulamada etkin biçimde karşılık bulduğu gözlemlenmiştir."},{konu:"Çalışanların acil çıkış yollarını hızlı ve doğru şekilde kullanabildiği, yönlendirme işaretlerinin yeterli düzeyde fark edilebilir olduğu değerlendirilmiştir."},{konu:"Acil durum tatbikatı, acil durumlara hazırlık seviyesinin iyi olduğunu göstermiş ve süreç boyunca herhangi bir aksaklık tespit edilmemiştir."},{konu:"112 Acil çağrı merkezi ile iletişimin sağlıklı bir şekilde kurulduğu gözlemlenmiştir."},{konu:"Çalışanlar tarafından toplanma alanının bilindiği ve acil bir durum anında bu alana toplanabildikleri gözlemlenmiştir."},{konu:"Kurtarma ekibinin yangına dayanıklı kişisel koruyucu donanımlarını eksiksiz şekilde kullandığı görülmüştür."},{konu:"Tatbikat kapsamında işyerinde bulunan sedyenin kullanılmasıyla çalışanların tahliye ve taşıma süreçlerine ilişkin pratik deneyim kazandığı anlaşılmıştır."}];
+    $('#tatbikatkriter').DataTable({
+        data: tatbikatkriter,
         dom: 't',
         pageLength: -1,
         columns:
             [
                 { data: null, orderable: false, render: DataTable.render.select(), width: "80px" },
-                { data: "konu", title: "Acil Durum Değerlendirme Tatbikat Kriterleri" },
+                { data: "konu", orderable: false,  title: "Acil Durum Değerlendirme Tatbikat Kriterleri" },
                 { data: null, title: "Uygunluk", orderable: false, width: "200px", render: function () { return '<select class="cssdropdown100" style="text-align:center"><option value="1">Uygun</option><option value="0">Uygun Değil</option></select>'; } }
             ],
         select: { style: "multi", selector: "td:first-child" },
         order: [],
-        language: { select: { rows: "%d satır seçildi" }, search: "Çalışan Ara:", lengthMenu: "Sayfa başına _MENU_ kayıt göster", zeroRecords: "Çalışan bulunamadı", info: "_TOTAL_ kayıttan _START_ ile _END_ arası gösteriliyor", infoEmpty: "Çalışan bulunamadı", infoFiltered: "(toplam _MAX_ kayıttan filtrelendi)", emptyTable: "Çalışan bulunamadı" },
         createdRow: function (r) { $(r).find("td").eq(1).css("text-align", "left"); },
         headerCallback: function (thead) { $(thead).find('th').css('text-align', 'center'); },
     });
-    $('#tablo').DataTable().rows().select();
+    $('#tatbikatkriter').DataTable().rows().select();
+    $('#cikarilansonuclar').DataTable
+    ({
+        data: cikarilansonuclar,
+        dom: 't',
+        pageLength: -1,
+        columns:
+            [
+                { data: null, orderable: false, render: DataTable.render.select(), width: "80px" },
+                { data: "konu", title: "Acil Durum Tatbikatından Çıkarılan Sonuçlar", orderable: false },
+            ],
+        select: { style: "multi", selector: "td:first-child" },
+        order: [],
+        createdRow: function (r) { $(r).find("td").eq(1).css("text-align", "left"); },
+        headerCallback: function (thead) { $(thead).find('th').css('text-align', 'center'); },
+    });
+    $('#cikarilansonuclar').DataTable().rows([0,1,2,3,4,5]).select();
 }
-
-
 function acildurumtatbikatdevam2()
 {
     try
@@ -233,7 +230,7 @@ function acildurumtatbikatdevam2()
         store.set("tatbikatbitis", bitis);
         store.set("tatbikatsayim", sayim);
         store.set("tatbikatcalisan", calisan);
-        var tablo = $('#tablo').DataTable();
+        var tablo = $('#tatbikatkriter').DataTable();
         var selected = tablo.rows({ selected: true }).count();
         if (selected < 1)
         {
@@ -249,6 +246,21 @@ function acildurumtatbikatdevam2()
             sonuc.push({ konu: d.konu, uygunluk: uygunluk });
         });
         store.set("tatbikatkriterleri", sonuc);
+        var sonuctablo = $('#cikarilansonuclar').DataTable();
+        selected = sonuctablo.rows({ selected: true }).count();
+        if (selected < 1)
+        {
+            alertify.error("Lütfen en az bir sonuç seçiniz");
+            return false;
+        }
+        sonuc = [];
+        sonuctablo.rows({ selected: true }).every(function ()
+        {
+            var d = this.data();
+            sonuc.push(d.konu.trim());
+        });
+        var sonucparagraf = sonuc.join(" ");
+        store.set("sonucparagraf", sonucparagraf);
         store.set("dosyaciktitipi", "8");
         window.location.href = "dosyacikti.aspx";
         return true;
