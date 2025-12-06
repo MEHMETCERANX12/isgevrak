@@ -154,6 +154,55 @@ async function acildurumtatbikatwordyaz()
     const blob = await Packer.toBlob(doc);
     saveAs(blob, "Acil Durum Tatbikatı - " + metinuret(3) + ".docx");
 }
+async function tatbikatkatilimlistesiyaz()
+{
+    let tatbikatekip = jsoncevir(store.get("tatbikatcalisan"));
+    let ekipteolmayanlar = tatbikatekip.filter(x => x.a === 0);
+    let ekipteolanlar = tatbikatekip.filter(x => x.a !== 0);
+    ekipteolanlar = tatbikatekipjson(ekipteolanlar);
+    let tatbikatkatilimlistesijson = [];
+    ekipteolanlar.forEach(e => { tatbikatkatilimlistesijson.push({ ad: e.x, ekipgorev: e.ekipgorev});});
+    ekipteolmayanlar.forEach(e => { tatbikatkatilimlistesijson.push({ ad: e.x, ekipgorev: e.y});});
+    tatbikatkatilimlistesijson.sort((a, b) => { return a.ad.localeCompare(b.ad, 'tr', { sensitivity: 'base' }); });
+    const tabloGovdesi =
+    [
+        [
+            { text: 'ACİL DURUM TATBİKAT LİSTESİ', style: 'title', colSpan: 4, alignment: 'center' },
+            {}, {}, {}
+        ],
+        [
+            { text: 'Sıra', style: 'tableHeader' },
+            { text: 'Ad Soyad', style: 'tableHeader' },
+            { text: 'Unvan', style: 'tableHeader' },
+            { text: 'İmza', style: 'tableHeader' },
+        ],
+        ...tatbikatkatilimlistesijson.map((kayit, index) =>
+        [
+            { text: (index + 1).toString(), style: 'tableCell', alignment: 'center' },
+            { text: kayit.ad, style: 'tableCell' },
+            { text: kayit.ekipgorev, style: 'tableCell' },
+            { text: "", style: 'tableCell', alignment: 'center' },
+        ]
+    )];
+    const belgeTanim =
+    {
+        pageMargins: [30, 30, 30, 30],
+        content:
+        [
+            {
+                table:{headerRows:2,widths:[20,'*','auto',90],body:tabloGovdesi},
+                layout: { fillColor: (rowIndex) => (rowIndex === 0 || rowIndex === 1 ? '#eeeeee' : null), paddingTop: (rowIndex) => { return rowIndex > 1 ? 12 : 4; }, paddingBottom: (rowIndex) => { return rowIndex > 1 ? 12 : 4; }, hLineWidth: () => 0.5, vLineWidth: () => 0.5 }
+            }
+        ],
+        styles:
+        {
+            title: { fontSize: 14, bold: true, alignment: 'center' },
+            tableHeader: { bold: true, fontSize: 11, alignment: 'center' },
+            tableCell: { fontSize: 10 }
+        }
+    };
+    pdfMake.createPdf(belgeTanim).download('Tatbikat Katılım Listesi - ' + '.pdf');    
+}
 function tatbikatekipjson(calisanjson)
 {
     const ekipKodlari = { 0: "Görevli Değil", 1: "İlkyardım Ekibi - Ekip Başı", 2: "İlkyardım Ekibi - Ekip Personeli", 3: "Söndürme Ekibi - Ekip Başı", 4: "Söndürme Ekibi - Ekip Personeli", 5: "Koruma Ekibi - Ekip Başı + Koordinasyon", 6: "Koruma Ekibi - Ekip Personeli + Koordinasyon", 7: "Koruma Ekibi - Ekip Personeli", 8: "Kurtarma Ekibi - Ekip Başı", 9: "Kurtarma Ekibi - Ekip Personeli", 10: "Destek Elemanı" };
