@@ -6152,6 +6152,62 @@ async function calisantemsilcisisertifikayaz()
 }
 
 ////////////////////////İSG TALİMAT////////////////////////İSG TALİMAT////////////////////////İSG TALİMAT////////////////////////İSG TALİMAT////////////////////////
+function talimatciktidevam1()
+{
+    let firmaid = firmasecimoku();
+    let secim = $('#secim').val();
+    store.set("talimatipi", secim);
+    window.location.href = "talimatcikti2.aspx?id=" + encodeURIComponent(firmaid);
+}
+function talimatciktidevam2()
+{
+    let liste = [];
+    $('#talimatliste tbody tr').each(function ()
+    {
+        let id = $(this).find('input[name="sil"]').data('id');
+        if (id !== undefined) {
+            liste.push(id);
+        }
+    });
+    let secim = store.get("talimatipi");
+    $("#HiddenField1").val(JSON.stringify(liste));
+    $("#HiddenField2").val(store.get('xfirmaid'));
+    $("#HiddenField3").val(secim);
+}
+
+async function isgtalimatduyuruyazdir()
+{
+    const { Document, Packer, Paragraph, TextRun, Table, TableRow, TableCell, WidthType, AlignmentType, BorderStyle, Header, Footer } = window.docx;
+    const sections = [];
+    let isyerijson = jsoncevir(store.get('xjsonfirma'));
+    let adres = isyerijson.ad || "";
+    let firmaadi = isyerijson.fi || "";
+    let talimatlar = jsoncevir($('#HiddenField1').val());
+    const altbilgi = new Table({
+        rows: [new TableRow({ children: [new TableCell({ children: [new Paragraph({ children: [new TextRun({ text: firmaadi, bold: true, size: 22, font: "Calibri" })], alignment: AlignmentType.CENTER }), new Paragraph({ children: [new TextRun({ text: adres, size: 22, font: "Calibri" })], alignment: AlignmentType.CENTER })], verticalAlign: "center", width: { size: 100, type: WidthType.PERCENTAGE }, borders: { top: { style: BorderStyle.SINGLE, size: 4, color: "000000" }, bottom: { style: BorderStyle.SINGLE, size: 4, color: "000000" }, left: { style: BorderStyle.SINGLE, size: 4, color: "000000" }, right: { style: BorderStyle.SINGLE, size: 4, color: "000000" } } })] })],
+        width: { size: 100, type: WidthType.PERCENTAGE },
+        alignment: AlignmentType.CENTER
+    });
+    for (let i = 0; i < talimatlar.length; i++)
+    {
+        let icerik = talimatlar[i];
+        if (!icerik || icerik === "Yok") continue;
+        const baslik = Object.keys(icerik)[0];
+        const paragraflar = (icerik[baslik] || []).map(p => p.i);
+        const headerTable = new Table({ rows: [new TableRow({ children: [new TableCell({ children: [new Paragraph({ children: [new TextRun({ text: baslik, bold: true, font: "Calibri", size: 24 })], alignment: AlignmentType.CENTER })], verticalAlign: "center" })] })], width: { size: 100, type: WidthType.PERCENTAGE }, alignment: AlignmentType.CENTER });
+        sections.push
+            ({
+                properties: { page: { margin: { top: 1134, bottom: 1417, left: 851, right: 851, header: 567, footer: 1134 } } },
+                headers: { default: new Header({ children: [headerTable] }) },
+                footers: { default: new Footer({ children: [altbilgi] }) },
+                children: [...paragraflar.map(text => new Paragraph({ children: [new TextRun({ text, font: "Calibri", size: 22 })], alignment: AlignmentType.JUSTIFIED, spacing: { after: 100 } })),]
+            });
+    }
+    if (sections.length === 0) return alertify.error("Hiçbir talimat içeriği alınamadı.");
+    const doc = new Document({ sections });
+    const blob = await Packer.toBlob(doc);
+    saveAs(blob, `İSG Talimat.docx`);
+}
 
 async function talimatyazdirword(button)
 {
@@ -6601,20 +6657,6 @@ function talimatsilliste(id)
     {
         $("#bilgi").fadeOut();
     }
-}
-function talimatciktidevam2()
-{
-    let liste = [];
-    $('#talimatliste tbody tr').each(function ()
-    {
-        let id = $(this).find('input[name="sil"]').data('id');
-        if (id !== undefined)
-        {
-            liste.push(id);
-        }
-    });
-    $("#HiddenField1").val(JSON.stringify(liste));
-    $("#HiddenField2").val(store.get('xfirmaid'));
 }
 
 function talimatcikti3load()
