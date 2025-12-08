@@ -564,10 +564,73 @@ async function isgkurulciktiwordyaz()
     const blob = await Packer.toBlob(doc);
     saveAs(blob, "İş Sağlığı ve Güvenliği Kurulu - " + metinuret(3) + ".docx");
 }
-
-
-
-
+async function isgkurulatamawordyaz()
+{
+    let kuruluye = jsoncevir(store.get("kuruluyejson"));
+    let isyeri = jsoncevir(store.get("xjsonfirma"));
+    let hekimad = isyeri.hk;
+    let uzmanad = store.get("uzmanad");
+    kuruluye.push( { a: uzmanad, u: "İş Güvenliği Uzmanı" }, { a: hekimad, u: "İşyeri Hekimi" });
+    const { Document, Packer, TextRun, Paragraph, Table, TableRow, TableCell, WidthType, BorderStyle, AlignmentType, HeightRule, VerticalAlign } = docx;
+    let isyeriunvan = isyeri.fi;
+    let isyeriadres = isyeri.ad;
+    let sgksicil = isyeri.sc;
+    let tehlikesinifimap = { 1: "Az Tehlikeli", 2: "Tehlikeli", 3: "Çok Tehlikeli" };
+    let tehlikesinifi = parseInt(isyeri.ts);
+    tehlikesinifi = tehlikesinifimap[tehlikesinifi];
+    let kurulustbaslik = [];
+    kurulustbaslik.push(new Paragraph({ alignment: AlignmentType.CENTER, style: "Normal", spacing: { after: 200 }, border: { top: { color: "000000", space: 1, style: BorderStyle.SINGLE }, bottom: { color: "000000", space: 1, style: BorderStyle.SINGLE }, left: { color: "000000", space: 1, style: BorderStyle.SINGLE }, right: { color: "000000", space: 1, style: BorderStyle.SINGLE } }, children: [new TextRun({ text: "İŞ SAĞLIĞI ve GÜVENLİĞİ KURUL ÜYE GÖREVLENDİRMESİ", bold: true, font: "Calibri", size: 28 })] }));
+    kurulustbaslik.push(new Paragraph({ text: `\tİşyeri Unvanı: ` + isyeriunvan, spacing: { after: 100 }, style: "Normal" }));
+    kurulustbaslik.push(new Paragraph({ text: `\tİşyeri Adresi: ` + isyeriadres, spacing: { after: 100 }, style: "Normal" }));
+    kurulustbaslik.push(new Paragraph({ text: `\tİşyeri SGK Sicil No: ` + sgksicil, spacing: { after: 100 }, style: "Normal" }));
+    kurulustbaslik.push(new Paragraph({ text: `\tİş Sağlığı ve Güvenliği Kurulları Hakkında Yönetmeliğin 6. Maddesi çerçevesinde işyerimizde iş sağlığı ve güvenliği kurulunun aşağıda adı, soyadı ve görevleri belirtilen kişilerden oluşmasına karar verilmiştir. Kurul, iş sağlığı ve güvenliği ile ilgili alınacak kararları oy birliği veya oy çokluğu esasına göre belirleyecek olup, alınan kararların en kısa sürede ve ivedilikle uygulanması işveren tarafından sağlanacaktır.`, spacing: { after: 200 }, style: "Normal" }));
+    const imzaicerik = [];
+    for (let i = 0; i < kuruluye.length; i += 3)
+    {
+        const uye1 = kuruluye[i];
+        const uye2 = kuruluye[i + 1];
+        const uye3 = kuruluye[i + 2];
+        imzaicerik.push(new TableRow
+        ({
+            height: { value: 1400, rule: HeightRule.EXACT },
+            children:
+            [
+                new TableCell({verticalAlign: VerticalAlign.CENTER, children: [new Paragraph({ alignment: AlignmentType.CENTER, children: [new TextRun({ text: uye1 ? uye1.a : "", size: 22, font: "Calibri", bold: true }), new TextRun({ text: uye1 ? uye1.u : "", break: 1, size: 22, font: "Calibri" }), new TextRun({ text: uye1 ? "İmza" : "", break: 1, size: 22, font: "Calibri" })] })] }),
+                new TableCell({verticalAlign:VerticalAlign.CENTER,children:[new Paragraph({alignment:AlignmentType.CENTER,children:[new TextRun({text:uye2?uye2.a:"",size:22,font:"Calibri",bold:true}),new TextRun({text:uye2?uye2.u:"",break:1,size:22,font:"Calibri"}), new TextRun({ text: uye2 ? "İmza" : "", break: 1, size: 22, font: "Calibri" })]})]}),
+                new TableCell({verticalAlign:VerticalAlign.CENTER,children:[new Paragraph({alignment:AlignmentType.CENTER,children:[new TextRun({text:uye3?uye3.a:"",size:22,font:"Calibri",bold:true}),new TextRun({text:uye3?uye3.u:"",break:1,size:22,font:"Calibri"}), new TextRun({ text: uye3 ? "İmza" : "", break: 1, size: 22, font: "Calibri" })]})]})
+            ]
+        }));
+        imzaicerik.push(new TableRow
+        ({
+            height: { value: 1000, rule: HeightRule.EXACT },
+            children:
+            [
+                new TableCell({children: [new Paragraph({children: [new TextRun({ text: "" })] })] }),
+                new TableCell({ children: [new Paragraph({ children: [new TextRun({ text: "" })] })] }),
+                new TableCell({children: [new Paragraph({children: [new TextRun({ text: "" })] })] })
+            ]
+        }));
+    }
+    const imzatablo=new Table({width:{size:100,type:WidthType.PERCENTAGE},rows:imzaicerik,borders:{top:{style:BorderStyle.NONE},bottom:{style:BorderStyle.NONE},left:{style:BorderStyle.NONE},right:{style:BorderStyle.NONE},insideHorizontal:{style:BorderStyle.NONE},insideVertical:{style:BorderStyle.NONE}}});
+    const doc = new Document({
+    styles:
+    {
+        paragraphStyles:
+        [
+            {id: "Normal", run: { font: "Calibri", size: 22 }, paragraph: {alignment: AlignmentType.JUSTIFIED }},
+        ]
+    },
+    sections:
+    [
+        {
+            properties: { page: { margin: { top: 850, right: 850, bottom: 850, left: 850 } } },
+            children: [...kurulustbaslik, imzatablo],
+        }
+    ]
+    });
+    const blob = await Packer.toBlob(doc);
+    saveAs(blob, "İş Sağlığı ve Güvenliği Kurulu - " + metinuret(3) + ".docx");
+}
 //////////////////ÇALIŞAN TEMSİLCİSİ//////////////ÇALIŞAN TEMSİLCİSİ//////////////ÇALIŞAN TEMSİLCİSİ//////////////ÇALIŞAN TEMSİLCİSİ//////////////ÇALIŞAN TEMSİLCİSİ//////////////ÇALIŞAN TEMSİLCİSİ////////
 function calisantemsilcisitamam1()
 {
