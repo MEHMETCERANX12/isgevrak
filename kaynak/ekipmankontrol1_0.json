@@ -1,0 +1,152 @@
+[
+  {
+    "kontrol": "Kompresör ve Hava Tankı Kontrolü",
+    "grup": "1",
+    "id": "b001"
+  },
+  {
+    "kontrol": "Hidrofor Genleşme Tankı  Kontrolü",
+    "grup": "1",
+    "id": "b002"
+  },
+  {
+    "kontrol": "Buhar Kazanı Kontrolü",
+    "grup": "1",
+    "id": "b003"
+  },
+  {
+    "kontrol": "Sıcak Su Kazanı Kontrolü",
+    "grup": "1",
+    "id": "b004"
+  },
+  {
+    "kontrol": "Otoklav Kontrolü",
+    "grup": "1",
+    "id": "b006"
+  },
+  {
+    "kontrol": "Kızgın Yağ Kazanı Kontrolü",
+    "grup": "2",
+    "id": "b005"
+  },
+  {
+    "kontrol": "Boyler/Akümülasyon Tankı Kontrolü",
+    "grup": "2",
+    "id": "b007"
+  },
+  {
+    "kontrol": "Buhar Jeneratörü Kontrolü",
+    "grup": "2",
+    "id": "b008"
+  },
+  {
+    "kontrol": "Kızgın Su Kazanı Kontrolü",
+    "grup": "2",
+    "id": "b009"
+  },
+  {
+    "kontrol": "Ütü Kazanı Kontrolü",
+    "grup": "2",
+    "id": "b010"
+  },
+  {
+    "kontrol": "Buharlı Pişirme Kazanı Kontrolü",
+    "grup": "2",
+    "id": "b011"
+  },
+  {
+    "kontrol": "Kazan Dairesi ve Isı Merkezi Yerleşim Yeri Kontrolü",
+    "grup": "2",
+    "id": "b012"
+  },
+  {
+    "kontrol": "Sanayi Gazları Depolama Tankı Kontrolü",
+    "grup": "2",
+    "id": "b013"
+  },
+  {
+    "kontrol": "Sıvılaştırılmış Gaz Tankları Kontrolü",
+    "grup": "2",
+    "id": "b014"
+  },
+  {
+    "kontrol": "Tehlikeli Sıvı Depolama Tankı Kontrolü",
+    "grup": "2",
+    "id": "b015"
+  },
+  {
+    "kontrol": "Vinç Kontrolü",
+    "grup": "1",
+    "id": "k001"
+  },
+  {
+    "kontrol": "Gezer Vinç Kontrolü",
+    "grup": "1",
+    "id": "k002"
+  },
+  {
+    "kontrol": "Caraskal Kontrolü",
+    "grup": "1",
+    "id": "k003"
+  },
+  {
+    "kontrol": "Forklift Kontrolü",
+    "grup": "1",
+    "id": "k004"
+  },
+  {
+    "kontrol": "Kaldrıma Aracı Aksesuarları Kontrolü",
+    "grup": "1",
+    "id": "k005"
+  },
+  {
+    "kontrol": "Transpalet",
+    "grup": "1",
+    "id": "k006"
+  },
+  {
+    "kontrol": "Yük Asansörü",
+    "grup": "1",
+    "id": "k007"
+  },
+  {
+    "kontrol": "İstif Makinası (Lift)",
+    "grup": "1",
+    "id": "k008"
+  },
+  {
+    "kontrol": "Araç Kaldırma Lifti",
+    "grup": "2",
+    "id": "k009"
+  },
+  {
+    "kontrol": "Asma İskele",
+    "grup": "2",
+    "id": "k010"
+  },
+  {
+    "kontrol": "İnşaat Asansörleri",
+    "grup": "2",
+    "id": "k011"
+  },
+  {
+    "kontrol": "Yüksekte Çalışma Mobil Platformlar",
+    "grup": "2",
+    "id": "k012"
+  },
+  {
+    "kontrol": "Sütunlu Çalışma Platformları",
+    "grup": "2",
+    "id": "k013"
+  },
+  {
+    "kontrol": "Mobil Vinç",
+    "grup": "2",
+    "id": "k014"
+  },
+  {
+    "kontrol": "Kule Vinç",
+    "grup": "2",
+    "id": "k015"
+  }
+]
