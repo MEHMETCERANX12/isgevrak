@@ -1,0 +1,172 @@
+[
+  {
+    "kontrol": "Kompresör ve Hava Tankı Kontrolü",
+    "grup": "Basınçlı Kaplar Kontrolü",
+    "id": "1"
+  },
+  {
+    "kontrol": "Hidrofor Genleşme Tankı  Kontrolü",
+    "grup": "Basınçlı Kaplar Kontrolü",
+    "id": "2"
+  },
+  {
+    "kontrol": "Buhar Kazanı Kontrolü",
+    "grup": "Basınçlı Kaplar Kontrolü",
+    "id": "3"
+  },
+  {
+    "kontrol": "Sıcak Su Kazanı Kontrolü",
+    "grup": "Basınçlı Kaplar Kontrolü",
+    "id": "4"
+  },
+  {
+    "kontrol": "Otoklav Kontrolü",
+    "grup": "Basınçlı Kaplar Kontrolü",
+    "id": "5"
+  },
+  {
+    "kontrol": "Kızgın Yağ Kazanı Kontrolü",
+    "grup": "Basınçlı Kaplar Kontrolü",
+    "id": "6"
+  },
+  {
+    "kontrol": "Boyler/Akümülasyon Tankı Kontrolü",
+    "grup": "Basınçlı Kaplar Kontrolü",
+    "id": "7"
+  },
+  {
+    "kontrol": "Buhar Jeneratörü Kontrolü",
+    "grup": "Basınçlı Kaplar Kontrolü",
+    "id": "8"
+  },
+  {
+    "kontrol": "Kızgın Su Kazanı Kontrolü",
+    "grup": "Basınçlı Kaplar Kontrolü",
+    "id": "9"
+  },
+  {
+    "kontrol": "Ütü Kazanı Kontrolü",
+    "grup": "Basınçlı Kaplar Kontrolü",
+    "id": "10"
+  },
+  {
+    "kontrol": "Buharlı Pişirme Kazanı Kontrolü",
+    "grup": "Basınçlı Kaplar Kontrolü",
+    "id": "11"
+  },
+  {
+    "kontrol": "Kazan Dairesi ve Isı Merkezi Yerleşim Yeri Kontrolü",
+    "grup": "Basınçlı Kaplar Kontrolü",
+    "id": "12"
+  },
+  {
+    "kontrol": "Sanayi Gazları Depolama Tankı Kontrolü",
+    "grup": "Basınçlı Kaplar Kontrolü",
+    "id": "13"
+  },
+  {
+    "kontrol": "Sıvılaştırılmış Gaz Tankları Kontrolü",
+    "grup": "Basınçlı Kaplar Kontrolü",
+    "id": "14"
+  },
+  {
+    "kontrol": "Tehlikeli Sıvı Depolama Tankı Kontrolü",
+    "grup": "Basınçlı Kaplar Kontrolü",
+    "id": "15"
+  },
+  {
+    "kontrol": "Vinç Kontrolü",
+    "grup": "Kaldırma Araçları Kontrolü",
+    "id": "16"
+  },
+  {
+    "kontrol": "Gezer Vinç Kontrolü",
+    "grup": "Kaldırma Araçları Kontrolü",
+    "id": "17"
+  },
+  {
+    "kontrol": "Caraskal Kontrolü",
+    "grup": "Kaldırma Araçları Kontrolü",
+    "id": "18"
+  },
+  {
+    "kontrol": "Forklift Kontrolü",
+    "grup": "Kaldırma Araçları Kontrolü",
+    "id": "19"
+  },
+  {
+    "kontrol": "Kaldrıma Aracı Aksesuarları Kontrolü",
+    "grup": "Kaldırma Araçları Kontrolü",
+    "id": "20"
+  },
+  {
+    "kontrol": "Transpalet",
+    "grup": "Kaldırma Araçları Kontrolü",
+    "id": "21"
+  },
+  {
+    "kontrol": "Yük Asansörü",
+    "grup": "Kaldırma Araçları Kontrolü",
+    "id": "22"
+  },
+  {
+    "kontrol": "İstif Makinası (Lift)",
+    "grup": "Kaldırma Araçları Kontrolü",
+    "id": "23"
+  },
+  {
+    "kontrol": "Araç Kaldırma Lifti",
+    "grup": "Kaldırma Araçları Kontrolü",
+    "id": "24"
+  },
+  {
+    "kontrol": "Asma İskele",
+    "grup": "Kaldırma Araçları Kontrolü",
+    "id": "25"
+  },
+  {
+    "kontrol": "İnşaat Asansörleri",
+    "grup": "Kaldırma Araçları Kontrolü",
+    "id": "26"
+  },
+  {
+    "kontrol": "Yüksekte Çalışma Mobil Platformlar",
+    "grup": "Kaldırma Araçları Kontrolü",
+    "id": "27"
+  },
+  {
+    "kontrol": "Sütunlu Çalışma Platformları",
+    "grup": "Kaldırma Araçları Kontrolü",
+    "id": "28"
+  },
+  {
+    "kontrol": "Mobil Vinç",
+    "grup": "Kaldırma Araçları Kontrolü",
+    "id": "29"
+  },
+  {
+    "kontrol": "Kule Vinç",
+    "grup": "Kaldırma Araçları Kontrolü",
+    "id": "30"
+  },
+  {
+    "kontrol": "",
+    "grup": "",
+    "id": ""
+  },
+  {
+    "kontrol": "",
+    "grup": "",
+    "id": ""
+  },
+  {
+    "kontrol": "",
+    "grup": "",
+    "id": ""
+  },
+  {
+    "kontrol": "",
+    "grup": "",
+    "id": ""
+  }
+]
