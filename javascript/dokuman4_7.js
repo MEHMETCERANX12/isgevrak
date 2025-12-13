@@ -1,3 +1,83 @@
+///////////////////YILLIK EĞİTİM PLANI///////////////////YILLIK EĞİTİM PLANI///////////////////YILLIK EĞİTİM PLANI///////////////////YILLIK EĞİTİM PLANI///////////////////YILLIK EĞİTİM PLANI///////////////////YILLIK EĞİTİM PLANI///////////////////
+async function yillikegitimplaniwordyaz()
+{
+    let isyeri = jsoncevir(store.get("xjsonfirma"));
+    let isyeriunvan = isyeri.fi;
+    let isyeriadres = isyeri.ad;
+    let isveren = isyeri.is;
+    let tehlikesinifimap = { 1: "Az Tehlikeli", 2: "Tehlikeli", 3: "Çok Tehlikeli" };
+    let tehlikesinifi = parseInt(isyeri.ts);
+    let egitimsuresi = "16 Saat";
+    if (tehlikesinifi === 1)
+    {
+        egitimsuresi = "8 Saat";
+    }
+    else if (tehlikesinifi === 2)
+    {
+        egitimsuresi = "12 Saat";
+    }
+    tehlikesinifi = tehlikesinifimap[tehlikesinifi];
+    let hekimad = isyeri.hk;
+    let hekimno = isyeri.hn;
+    let uzmanad = store.get("uzmanad");
+    let uzmanno = store.get("uzmanno");
+    let tarih = store.get("yillikegitimtarih");
+    let egitimtarih = jsoncevir(store.get("egitimgunleri"));
+    egitimtarih = egitimtarih.map(x => x.tarih).join(" - ");
+    let yilsecim = store.get("yilsecim");
+    let egitimkonuicerik = jsoncevir(store.get("egitimkonuicerik"));
+    const { Document, Packer, TextRun, Paragraph, Table, TableRow, TableCell, WidthType, BorderStyle, AlignmentType, HeightRule, VerticalAlign } = docx;
+    let egitimustbilgi = [];
+    egitimustbilgi.push(new Paragraph({ text: `Tarih: ` + tarih, spacing: { after: 100 }, style: "Sagayasli" }));
+    egitimustbilgi.push(new Paragraph({ text: yilsecim + ` YILI - YILLIK EĞİTİM PLANI`, spacing: { after: 100 }, style: "Kalin" }));
+    egitimustbilgi.push(new Paragraph({ text: `\tİşyeri Unvanı: ` + isyeriunvan, spacing: { after: 100 }, style: "Normal" }));
+    egitimustbilgi.push(new Paragraph({ text: `\tİşyeri Adresi: ` + isyeriadres, spacing: { after: 100 }, style: "Normal" }));
+    egitimustbilgi.push(new Paragraph({ text: `\tTehlike Sınıfı: ` + tehlikesinifi, spacing: { after: 100 }, style: "Normal" }));
+    egitimustbilgi.push(new Paragraph({ text: `\tPlanlanan İSG Eğitim Tarihi: ` + egitimtarih, spacing: { after: 100 }, style: "Normal" }));
+    egitimustbilgi.push(new Paragraph({ text: `\tYeni işe başlayan çalışanlar ile temel iş sağlığı ve güvenliği eğitiminin geçerlilik süresi dolmak üzere olan çalışanlara, iş sağlığı ve güvenliği temel eğitiminin aşağıda belirtilen tarihlerde verilmesine karar verilmiştir. Yeni işe başlayan çalışanlara, işe başlamadan önce ve çalışacakları işe özgü olacak şekilde, yetkin ve görevli kişiler tarafından işe başlama eğitimi verilecektir.`, spacing: { after: 100 }, style: "Normal" }));
+    egitimustbilgi.push(new Paragraph({ text: `\tİşe başlama eğitimleri; temel iş sağlığı ve güvenliği eğitimi tamamlanıncaya kadar geçen süre içerisinde, çalışanın maruz kalabileceği tehlike ve risklere karşı korunmasını sağlayacak nitelikte olacak, teorik ve uygulamalı olarak gerçekleştirilecektir. Bu eğitimler kapsamında çalışanlara; işyerinde karşılaşabilecekleri riskler, güvenli çalışma yöntemleri, acil durumlarda yapılması gerekenler ve kişisel koruyucu donanımların doğru kullanımı hakkında bilgilendirme yapılacaktır.`, spacing: { after: 100 }, style: "Normal" }));
+    egitimustbilgi.push(new Paragraph({ text: `\tTemel iş sağlığı ve güvenliği eğitimi; çalışanların yürüttükleri iş sırasında karşılaştıkları tehlikeleri tanımalarını, bu tehlikelere karşı alınması gerekli önleyici ve koruyucu tedbirleri öğrenmelerini sağlamak amacıyla planlanmıştır. Eğitim ile iş kazaları ve meslek hastalıklarının önlenmesi, çalışanların sağlık ve güvenlik bilincinin artırılması, iş gücü kayıplarının azaltılması ve işin yürütümünün sağlıklı ve güvenli bir şekilde sürdürülmesi hedeflenmektedir. Temel iş sağlığı ve güvenliği eğitiminin toplam süresi ` + egitimsuresi + ` olup, eğitimler işyerinde yüz yüze, yukarıda belirtilen tarihlerde mevzuata uygun şekilde gerçekleştirilecektir. Eğitimlerin sonunda, çalışanların katılım durumları kayıt altına alınacak ve gerekli belgelendirme işlemleri yapılacaktır.`, spacing: { after: 100 }, style: "Normal" }));
+    const egitimkonutablo = [];
+    egitimkonutablo.push(new TableRow({ height: { value: 400, rule: HeightRule.EXACT }, children: [new TableCell({ columnSpan: 2, verticalAlign: VerticalAlign.CENTER, width: { size: 100, type: WidthType.PERCENTAGE }, children: [new Paragraph({ alignment: AlignmentType.CENTER, children: [new TextRun({ text: "İş Sağlığı ve Güvenliği Eğitimi Konuları", bold: true, size: 22, font: "Calibri" })] })] })] }));
+    const toplam = egitimkonuicerik.length;
+    const solAdet = Math.ceil(toplam / 2);
+    for (let i = 0; i < solAdet; i++)
+    {
+        const solMetin = egitimkonuicerik[i] || "";
+        const sagMetin = egitimkonuicerik[i + solAdet] || "";
+        egitimkonutablo.push(new TableRow
+        ({
+            height: { value: 400, rule: HeightRule.ATLEAST },
+            children:
+            [
+                new TableCell({ verticalAlign: VerticalAlign.CENTER, children: [new Paragraph({ alignment: AlignmentType.LEFT, children: [new TextRun({ text: solMetin, font: { name: "Calibri" }, size: 22 })] })] }),
+                new TableCell({ verticalAlign: VerticalAlign.CENTER, margins: { left: 100 }, children: [new Paragraph({ alignment: AlignmentType.LEFT, children: [new TextRun({ text: sagMetin, font: { name: "Calibri" }, size: 22 })] })] })
+            ]
+        }));
+    }
+    const doc = new Document({
+        styles:
+        {
+            paragraphStyles:
+            [
+                { id: "Normal", run: { font: "Calibri", size: 22 }, paragraph: { alignment: AlignmentType.JUSTIFIED } },
+                { id: "Kalin", run: { font: "Calibri", size: 22, bold: true }, paragraph: { alignment: AlignmentType.CENTER } },
+                { id: "Kalinsol", run: { font: "Calibri", size: 22, bold: true }, paragraph: { alignment: AlignmentType.LEFT } },
+                { id: "Sagayasli", run: { font: "Calibri", size: 22 }, paragraph: { alignment: AlignmentType.RIGHT } },
+            ]
+        },
+        sections:
+        [
+            {
+                properties: { page: { margin: { top: 1000, right: 650, bottom: 1000, left: 650, header: 500, footer: 850 }}},
+                children: [...egitimustbilgi, new Table({ width: { size: 100, type: WidthType.PERCENTAGE }, rows: egitimkonutablo })],
+                footers: { default: new docx.Footer({ children: [docxucluimzadikey(uzmanad, uzmanno, hekimad, hekimno, isveren)] }) }
+            }
+        ]
+    });
+    const blob = await Packer.toBlob(doc);
+    saveAs(blob, "Yıllık Eğitim Planı - " + metinuret(3) + ".docx");
+}
 /////////ACİL DURUM TATBİKATI/////////ACİL DURUM TATBİKATI/////////ACİL DURUM TATBİKATI/////////ACİL DURUM TATBİKATI/////////ACİL DURUM TATBİKATI/////////ACİL DURUM TATBİKATI/////////ACİL DURUM TATBİKATI/////////
 async function acildurumtatbikatwordyaz()
 {
