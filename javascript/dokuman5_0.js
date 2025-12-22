@@ -3660,7 +3660,7 @@ async function acildurumgirisyazdocx()
     let tehlikeno = isyeri.ts;
     let acildurumtarih = store.get("acildurumtarih");
     let acildurumyil = acildurumtarih.split('.')[2];
-    let gecerlitarih = acildurumgecerlilik(acildurumtarih, tehlikeno);
+    let gecerlitarih = acildurumgecerlilik(acildurumtarih, parseInt(tehlikeno));
     let isyeriismi = isyeri.fi;
     let isyeriadresi = isyeri.ad;
     let isyerisehir = isyeri.sh;
