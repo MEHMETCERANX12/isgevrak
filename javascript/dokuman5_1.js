@@ -6,6 +6,7 @@ async function yillikcalismaplaniwordyaz()
     let isyeri = jsoncevir(store.get("xjsonfirma"));
     let isyeriunvan = isyeri.fi;
     let isyeriadres = isyeri.ad;
+    let isyerisicil = isyeri.sc;
     let isveren = isyeri.is;
     let tehlikesinifimap = { 1: "Az Tehlikeli", 2: "Tehlikeli", 3: "Çok Tehlikeli" };
     let tehlikesinifi = parseInt(isyeri.ts);
@@ -66,6 +67,7 @@ async function yillikcalismaplaniwordyaz()
     planustbilgi.push(new Paragraph({ text: `\tİşyeri Unvanı: ` + isyeriunvan, spacing: { after: 100 }, style: "Normal" }));
     planustbilgi.push(new Paragraph({ text: `\tİşyeri Adresi: ` + isyeriadres, spacing: { after: 100 }, style: "Normal" }));
     planustbilgi.push(new Paragraph({ text: `\tTehlike Sınıfı: ` + tehlikesinifi, spacing: { after: 100 }, style: "Normal" }));
+    planustbilgi.push(new Paragraph({ text: `\tSGK Sicil No: ` + isyerisicil, spacing: { after: 100 }, style: "Normal" }));
     planustbilgi.push(new Paragraph({ text: `\tRİSK DEĞERLENDİRMESİ`, spacing: { after: 100 }, style: "Kalinsol" }));
     planustbilgi.push(new Paragraph({ text: `\t` + riskmetin, spacing: { after: 100 }, style: "Normal" }));
     planustbilgi.push(new Paragraph({ text: `\tHazırlanan bu risk değerlendirmesi; işyerinin taşınması veya binalarda değişiklik yapılması, işyerinde uygulanan teknoloji, kullanılan madde ve ekipmanlarda değişiklikler meydana gelmesi, Üretim yönteminde değişiklikler olması, iş kazası, meslek hastalığı veya ramak kala olay meydana gelmesi, çalışma ortamına ait sınır değerlere ilişkin bir mevzuat değişikliği olması halinde risk değerlendirme ekibi ile birlikte yeniden gözden geçirilecek ve gerekli revizyonlar yapılarak güncellenecektir.`, spacing: { after: 100 }, style: "Normal" }));
