@@ -5848,40 +5848,133 @@ function calisanraporlamapdf()
     pdfMake.createPdf(docDefinition).download('Çalışan Rapor.pdf');
 }
 
+async function raporlamaaspxload()
+{
+    let data = jsoncevir($('#HiddenField1').val());
+    const evrakkayitjson = JSON.stringify(data.evrakkayit || [], null, 2);
+    const calisanjson = JSON.stringify(data.calisan || [], null, 2);
+    $('#HiddenField1').val(calisanjson);
+    $('#HiddenField2').val(evrakkayitjson);
+    let liste = [];
+    try
+    {
+        liste = await githuboku("https://cdn.jsdelivr.net/gh/MEHMETCERANX12/isgevrak@main/kaynak/yillikplan1_4.json");
+        if (!liste) return;
+        store.set("listeicerik", liste);
+    }
+    catch (err)
+    {
+        console.error(err);
+        alertify.error("Yıllık plan verisi indirilemedi");
+        return;
+    }
+}
+
 function isyeriraporalpdf()
 {
+    let githubjson = jsoncevir(store.get("listeicerik"));
     let firmajson = isyersecimfirmaoku();
     let tehlike = parseInt(firmajson.ts);
-    var json = jsoncevir($('#HiddenField2').val());
-    var riskveri ={ tarih: json.r1, tip: json.r2, uzman: json.r3, hekim: json.r4 };
-    var acilveri ={ tarih: json.a1, uzman: json.a2, hekim: json.a3};
-    var tatbikat ={ tarih: json.t1, adsoyad: json.t2, unvan: json.t3, tur: json.t4};
-    var saglikraporu = { tarih: json.s1, periyodik: json.s2, isegiris: json.s3 };
-    var isgegitim = { uzman: json.i1 };
-    var risktip = { 1: "Fine Kinney", 2: "L Tipi Matris", 3: "Hazop", 4: "Neden-Sonuç Analiz", 5: "Hata Ağacı Analiz", 6: "Hata Türleri ve Etki Analiz" };
     var tehlikesinifimap = { 1: "Az Tehlikeli", 2: "Tehlikeli", 3: "Çok Tehlikeli"};
-    var tatbikattur = { 1: "Yangın", 2: "Patlama", 3: "Sel", 4: "Kimyasal Madde Yayılım", 5: "Salgın Hastalık", 6: "Zehirlenme", 7: "Sabotaj", 8: "Radyoaktif Madde Yayılım", 9: "Nükleer Madde Yayılım" };
-    var mbunvan = { 1: "Elektrik Mühendisi", 2: "Elektrik ve Elektronik Mühendisi", 3: "Elektrik Yüksek Teknikeri", 4: "Elektrik Teknikeri", 5: "Elektrik Teknik Öğretmeni" },
-    meunvan = mbunvan,
-    mhunvan = mbunvan,
-    mkunvan = { 1: "Makine Mühendisi", 2: "Mekatronik Mühendisi", 3: "Makine Yüksek Teknikeri", 4: "Makine Teknikeri", 5: "Makine Teknik Öğretmeni", 6: "Metal Teknik Öğretmeni" },
-    mnunvan = { 1: "Makine Mühendisi", 2: "Metalurji ve Malzeme Mühendisi", 3: "Mekatronik Mühendisi", 4: "Makine Yüksek Teknikeri", 5: "Makine Teknikeri", 6: "Makine Teknik Öğretmeni", 7: "Metal Teknik Öğretmeni" },
-    mrunvan = { 1: "Makine Mühendisi", 2: "Makine Yüksek Teknikeri", 3: "Makine Teknikeri", 4: "Makine Teknik Öğretmeni", 5: "Metal Teknik Öğretmeni" },
-    muunvan = mrunvan,
-    mzunvan = mrunvan,
-    m1unvan = { 1: "Elektrik Mühendisi", 2: "Elektrik ve Elektronik Mühendisi", 3: "Elektronik Mühendisi", 4: "Elektrik Yüksek Teknikeri", 5: "Elektrik Teknikeri", 6: "Elektrik Teknik Öğretmeni" },
-    m4unvan = mkunvan,
-    m7unvan = { 1: "İnşaat Mühendisi", 2: "Makine Mühendisi", 3: "İnşaat Teknik Öğretmeni", 4: "Yapı Teknik Öğretmeni", 5: "Makine Teknik Öğretmeni", 6: "Metal Teknik Öğretmeni", 7: "İnşaat Teknikeri", 8: "İnşaat Yüksek Teknikeri" };
-    var isekipmaniolcum = { 0: "Elektrik Tesisatı ve Topraklama Kontrolü", 1: "Paratoner Tesisatı Kontrolü", 2: "Jeneratör Kontrolü", 3: "Kaldırma Aracı Kontrolü", 4: "Basınçlı Kap ve Tesisat Kontrolü", 5: "Havalandırma Tesisatı Kontrolü", 6: "Yangın Söndürme Sistemi Kontrolü", 7: "Portatif Yangın Söndürücü Kontrolü", 8: "Yangın Algılama Sistemi Kontrolü", 9: "Kaldırma Aksesuarı Kontrolü", 10: "İskele Kontrolü" };
-    var ortamolcumad={0:"Gürültü Ölçümü",1:"Toz Ölçümü",2:"Uçucu Organik Madde Ölçümü",3:"Gaz Ölçümü",4:"Aydınlatma Ölçümü",5:"Termal Konfor Ölçümü",6:"Titreşim Ölçümü"};
-    var obtip = { 1: "Kişisel (Dozimetrik)", 2: "Noktasal" };
-    var oetip = { 1: "Kişisel (Dozimetrik)", 2: "Noktasal" };
-    var ohtip = { 1: "Kişisel (Dozimetrik)", 2: "Noktasal" };
-    var oktip = { 1: "Kişisel (Dozimetrik)", 2: "Noktasal" };
-    var ontip = { 1: "Noktasal" };
-    var ortip = { 1: "Kişisel (Dozimetrik)", 2: "Ortam" };
-    var outip = { 1: "Kişisel (Dozimetrik)", 2: "Ekipman" };
-    var sagliktarama={0:"Akciğer Grafisi",1:"Tam Kan Testi",2:"Solunum Fonksiyon Testi",3:"Odiyometik Test",4:"Karaciğer Fonksiyon Testi",5:"Kanda Ağır Metal Testi",6:"Tam İdrar Tahlili",7:"Göz Muayenesi"};
+    let tehlikesinifi = tehlikesinifimap[firmajson.ts];
+    console.log($('#HiddenField2').val());
+    var json = jsoncevir($('#HiddenField2').val());
+    const riskmap={1:"Fine Kinney",2:"L Tipi Matris",3:"Hazop",4:"Neden-Sonuç Analiz",5:"Hata Ağacı Analiz",6:"Hata Türleri ve Etki Analiz"};
+    let risktarih = "";
+    let riskuzman = "";
+    let riskhekim = "";
+    let risktip = "";
+    if (json.riskdegerlendirme && json.riskdegerlendirme.length > 0)
+    {
+        let r = json.riskdegerlendirme[0];
+        risktarih = r.tarih;
+        riskuzman = r.uzman;
+        riskhekim = r.hekim;
+        risktip = riskmap[r.tip];
+    }
+    let aciltarih = "";
+    let aciluzman = "";
+    let acilhekim = "";
+    if (json.acildurum && json.acildurum.length > 0)
+    {
+        let a = json.acildurum[0];
+        aciltarih = a.tarih;
+        aciluzman = a.uzman;
+        acilhekim = a.hekim;
+    }
+    var tatbikatmaps = { 1: "Yangın", 2: "Patlama", 3: "Sel", 4: "Kimyasal Madde Yayılım", 5: "Salgın Hastalık", 6: "Zehirlenme", 7: "Sabotaj", 8: "Radyoaktif Madde Yayılım", 9: "Nükleer Madde Yayılım" };
+    let tatbikattarih = "";
+    let tatbikatad = "";
+    let tatbikatunvan = "";
+    let tatbikattur = "";
+    if (json.tatbikat && json.tatbikat.length > 0)
+    {
+        let t = json.tatbikat[0];
+        tatbikattarih = t.tarih;
+        tatbikatad = t.yurutucu;
+        tatbikatunvan = t.unvan;
+        tatbikattur = t.tur;
+        tatbikattur = tatbikatmaps[t.tur];
+    }
+    let periyodiktarih = "";
+    let periyodikhekim = "";
+    let isegirishekim = "";
+    if (json.saglikraporu && json.saglikraporu.length > 0)
+    {
+        let s = json.saglikraporu[0];
+        periyodiktarih = s.t;
+        periyodikhekim = s.x;
+        isegirishekim = s.y;
+    }
+    let egitimuzman = "";
+    let egitimhekim = "";
+    if (json.egitim && json.egitim.length > 0)
+    {
+        egitimuzman = json.egitim[0].x;
+        egitimhekim = json.egitim[0].y;
+    }
+    const unvanlar = [{ id: "0", ad: "Lütfen Seçiniz" }, { id: "1", ad: "Elektrik Mühendisi" }, { id: "2", ad: "Elektrik ve Elektronik Mühendisi" }, { id: "3", ad: "Elektronik Mühendisi" }, { id: "4", ad: "Elektrik Yüksek Teknikeri" }, { id: "5", ad: "Elektrik Teknik Öğretmeni" }, { id: "6", ad: "Elektrik Teknikeri" }, { id: "7", ad: "İnşaat Mühendisi" }, { id: "8", ad: "İnşaat Yüksek Teknikeri" }, { id: "9", ad: "İnşaat Teknik Öğretmeni" }, { id: "10", ad: "İnşaat Teknikeri" }, { id: "11", ad: "Makine Mühendisi" }, { id: "12", ad: "Makine Yüksek Teknikeri" }, { id: "13", ad: "Makine Teknik Öğretmeni" }, { id: "14", ad: "Makine Teknikeri" }, { id: "15", ad: "Mekatronik Mühendisi" }, { id: "16", ad: "Metalurji ve Malzeme Mühendisi" }, { id: "17", ad: "Metal Teknik Öğretmeni" }, { id: "18", ad: "Yapı Teknik Öğretmeni" }];
+    let ekipmankontrol = githubjson.ekipmankontrol.filter(x => x.tur == "1");
+    const unvanmap = unvanlar.reduce((m, u) => (m[u.id] = u.ad, m), {});
+    let isekipmanijson = [];
+    if (json.isekipmanikontrol && json.isekipmanikontrol.length > 0)
+    {
+        isekipmanijson = json.isekipmanikontrol.map(k => { let e = ekipmankontrol.find(x => x.id == k.id); return e ? { olcumad: e.kontrol, olcumyapanad: k.x, olcumyapanunvan: unvanmap[k.y] || k.y, t: k.t } : null }).filter(x => x);
+    }
+    let isekipmanitablo = [[{ text: "İş Ekipmanı Ölçüm Adı", style: "tablobaslik" }, { text: "Ölçüm Yapan Kişi Ad Soyad", style: "tablobaslik" }, { text: "Ölçüm Yapan Kişi Unvanı", style: "tablobaslik" }, { text: "Ölçüm Tarihi", style: "tablobaslik" }, { text: "Geçerlilik Tarihi", style: "tablobaslik" }]];
+    isekipmanijson.forEach(r =>
+    {
+        isekipmanitablo.push([r.olcumad, r.olcumyapanad, r.olcumyapanunvan, { text: r.t, alignment: "center" }, { text: isekipmanigecerlilik(r.t), alignment: "center" }]);
+    });
+    let ortamolcumu = githubjson.ekipmankontrol.filter(x => x.tur == "2");
+    const ortamolcummap = { 1: "Kişisel Maruziyet Ölçümü", 2: "Noktasal Ölçüm" };
+    let ortamolcumjson = [];
+    if (json.ortamolcumu && json.ortamolcumu.length > 0)
+    {
+        ortamolcumjson = json.ortamolcumu.map(k => { let e = ortamolcumu.find(x => x.id == k.id); return e ? { olcumad: e.kontrol, olcumyapanad: k.x, olcumtip: ortamolcummap[k.y] || k.y, t: k.t } : null }).filter(x => x);
+    }
+    let ortamolcumtablo = [[{ text: "Ortam Ölçüm Adı", style: "tablobaslik" }, { text: "Ölçüm Yapan Kişi Ad Soyad", style: "tablobaslik" }, { text: "Ölçüm Tipi", style: "tablobaslik" }, { text: "Ölçüm Tarihi", style: "tablobaslik" }, { text: "Geçerlilik Tarihi", style: "tablobaslik" }]];
+    ortamolcumjson.forEach(r =>
+    {
+        ortamolcumtablo.push([
+            r.olcumad,
+            r.olcumyapanad,
+            r.olcumtip,
+            { text: r.t, alignment: "center" },
+            { text: "Değişiklik Halinde", alignment: "center" }
+        ]);
+    });
+    let sagliktaramaliste = githubjson.sagliktarama;
+    let sagliktaramasonuc = [];
+    if (json.sagliktarama && json.sagliktarama.length > 0)
+    {
+        sagliktaramasonuc = json.sagliktarama.map(k => { let e = sagliktaramaliste.find(x => x.id == k.id); return e ? { taramaad: e.tarama, yapanad: k.x, yapanunvan: k.y, t: k.t } : null }).filter(x => x);
+    }
+    let sagliktaramatablo = [[{ text: "Sağlık Taraması Adı", style: "tablobaslik" }, { text: "Tarama Yapan Ad Soyad", style: "tablobaslik" }, { text: "Tarama Yapan Unvan", style: "tablobaslik" }, { text: "Tarih", style: "tablobaslik" }, { text: "Geçerlilik", style: "tablobaslik" }]];
+    sagliktaramasonuc.forEach(r =>
+    {
+        sagliktaramatablo.push([r.taramaad, r.yapanad, r.yapanunvan, { text: r.t, alignment: "center" }, { text: saglikgecerlilik(r.t, tehlike), alignment: "center" }]);
+    });
     const docDefinition =
     {
         pageMargins: [30,30,30,30],
@@ -5897,7 +5990,7 @@ function isyeriraporalpdf()
                     [
                         ['İşyeri İsmi', firmajson.fi || ''],
                         ['İşveren Vekili', firmajson.is || ''],
-                        ['Tehlike Sınıfı', tehlikesinifimap[firmajson.ts] || ''],
+                        ['Tehlike Sınıfı', tehlikesinifi || ''],
                         ['SGK Sicil No', firmajson.sc || ''],
                         ['Adres', firmajson.ad || ''],
                         ['İşyeri Hekimi', firmajson.hk || ''],
@@ -5914,11 +6007,11 @@ function isyeriraporalpdf()
                     widths: ['25%', '75%'],
                     body:
                     [
-                        ['Risk Değerlendirme Tarihi', riskveri.tarih || ''],
-                        ['Risk Değerlendirme Tipi', risktip[riskveri.tip] || ''],
-                        ['İş Güvenliği Uzmanı', riskveri.uzman || ''],
-                        ['İşyeri Hekimi', riskveri.hekim || ''],
-                        ['Son Geçerlilik Tarihi', riskdegerlendirmegecerlilik(riskveri.tarih, tehlike) || ''],
+                        ['Risk Değerlendirme Tarihi', risktarih || ''],
+                        ['Risk Değerlendirme Tipi', risktip || ''],
+                        ['İş Güvenliği Uzmanı', riskuzman || ''],
+                        ['İşyeri Hekimi', riskhekim || ''],
+                        ['Son Geçerlilik Tarihi', riskdegerlendirmegecerlilik(risktarih, tehlike) || ''],
                     ]
                 },
                 layout: 'lightGrid'
@@ -5930,10 +6023,10 @@ function isyeriraporalpdf()
                     widths: ['25%', '75%'],
                     body:
                     [
-                        ['Acil Durum Planı Tarihi', acilveri.tarih || ''],
-                        ['İş Güvenliği Uzmanı', acilveri.uzman || ''],
-                        ['İşyeri Hekimi', acilveri.hekim || ''],
-                        ['Son Geçerlilik Tarihi', riskdegerlendirmegecerlilik(acilveri.tarih, tehlike) || ''],
+                        ['Acil Durum Planı Tarihi', aciltarih || ''],
+                        ['İş Güvenliği Uzmanı', aciluzman || ''],
+                        ['İşyeri Hekimi', acilhekim || ''],
+                        ['Son Geçerlilik Tarihi', riskdegerlendirmegecerlilik(aciltarih, tehlike) || ''],
                     ]
                 },
                 layout: 'lightGrid'
@@ -5945,11 +6038,11 @@ function isyeriraporalpdf()
                     widths: ['25%', '75%'],
                     body:
                     [
-                        ['Tatbikat Tarihi', tatbikat.tarih || ''],
-                        ['Gerçekleştiren Ad Soyad', tatbikat.adsoyad || ''],
-                        ['Gerçekleştiren Unvan', tatbikat.unvan || ''],
-                        ['Tatbikat Türü', tatbikattur[tatbikat.tur] || ''],
-                        ['Son Geçerlilik Tarihi', acildurumtatbikat(tatbikat.tarih) || ''],
+                        ['Tatbikat Tarihi', tatbikattarih || ''],
+                        ['Gerçekleştiren Ad Soyad', tatbikatad || ''],
+                        ['Gerçekleştiren Unvan', tatbikatunvan || ''],
+                        ['Tatbikat Türü', tatbikattur || ''],
+                        ['Son Geçerlilik Tarihi', acildurumtatbikat(tatbikattarih) || ''],
                     ]
                 },
                 layout: 'lightGrid'
@@ -5961,9 +6054,9 @@ function isyeriraporalpdf()
                     widths: ['25%', '75%'],
                     body:
                     [
-                        ['Periyodik Muayene Tarihi', saglikraporu.tarih || ''],
-                        ['Periyodik Muayene Hekim', saglikraporu.periyodik || ''],
-                        ['İşe Giriş Raporu Hekim', saglikraporu.isegiris || ''],
+                        ['Periyodik Muayene Tarihi', periyodiktarih || ''],
+                        ['Periyodik Muayene Hekim', periyodikhekim || ''],
+                        ['İşe Giriş Raporu Hekim', isegirishekim || ''],
                     ]
                 },
                 layout: 'lightGrid'
@@ -5975,33 +6068,20 @@ function isyeriraporalpdf()
                     widths: ['25%', '75%'],
                     body:
                     [
-                        ['Temel İSG Eğitimi Ad Soyad', isgegitim.uzman || ''],
+                        ['Temel İSG Eğitimi Uzman', egitimuzman || ''],
+                        ['Temel İSG Eğitimi Hekim', egitimhekim || ''],
                     ]
                 },
                 layout: 'lightGrid',
             },
-                {
+            {
                 pageBreak: 'before',
                 pageOrientation: 'landscape',
                 pageMargins: [25, 25, 25, 25],
                 table:
                 {
-                    widths: ['25%', '26%', '22%', '13%', '14%'],
-                    body:
-                    [
-                        [{ text: 'İş Ekipmanı Ölçüm Adı', style: 'tablobaslik' }, { text: 'Ölçüm Yapan Kişi Ad Soyad', style: 'tablobaslik' }, { text: 'Ölçüm Yapan Kişi Unvanı', style: 'tablobaslik' }, { text: 'Ölçüm Tarihi', style: 'tablobaslik' }, { text: 'Geçerlilik Tarihi', style: 'tablobaslik' }],
-                        [isekipmaniolcum[0], json.ma, mbunvan[json.mb] || '', { text: json.mc, alignment: 'center' }, { text: isekipmanigecerlilik(json.mc), alignment: 'center' }],
-                        [isekipmaniolcum[1], json.md, meunvan[json.me] || '', { text: json.mf, alignment: 'center' }, { text: isekipmanigecerlilik(json.mf), alignment: 'center' }],
-                        [isekipmaniolcum[2], json.mg, mhunvan[json.mh] || '', { text: json.mi, alignment: 'center' }, { text: isekipmanigecerlilik(json.mi), alignment: 'center' }],
-                        [isekipmaniolcum[3], json.mj, mkunvan[json.mk] || '', { text: json.ml, alignment: 'center' }, { text: isekipmanigecerlilik(json.ml), alignment: 'center' }],
-                        [isekipmaniolcum[4], json.mm, mnunvan[json.mn] || '', { text: json.mo, alignment: 'center' }, { text: isekipmanigecerlilik(json.mo), alignment: 'center' }],
-                        [isekipmaniolcum[5], json.mp, mrunvan[json.mr] || '', { text: json.ms, alignment: 'center' }, { text: isekipmanigecerlilik(json.ms), alignment: 'center' }],
-                        [isekipmaniolcum[6], json.mt, muunvan[json.mu] || '', { text: json.mv, alignment: 'center' }, { text: isekipmanigecerlilik(json.mv), alignment: 'center' }],
-                        [isekipmaniolcum[7], json.my, mzunvan[json.mz] || '', { text: json.mx, alignment: 'center' }, { text: isekipmanigecerlilik(json.mx), alignment: 'center' }],
-                        [isekipmaniolcum[8], json.m0, m1unvan[json.m1] || '', { text: json.m2, alignment: 'center' }, { text: isekipmanigecerlilik(json.m2), alignment: 'center' }],
-                        [isekipmaniolcum[9], json.m3, m4unvan[json.m4] || '', { text: json.m5, alignment: 'center' }, { text: isekipmanigecerlilik(json.m5), alignment: 'center' }],
-                        [isekipmaniolcum[10], json.m6, m7unvan[json.m7] || '', { text: json.m8, alignment: 'center' }, { text: isekipmanigecerlilik(json.m8), alignment: 'center' }],
-                    ]
+                    widths: ['30%', '25%', '21%', '12%', '12%'],
+                    body: isekipmanitablo,
                 },
                 layout: 'lightGrid',
                 margin: [0, 0, 0, 10]
@@ -6009,18 +6089,8 @@ function isyeriraporalpdf()
             {
                 table:
                 {
-                    widths: ['25%', '26%', '22%', '13%', '14%'],
-                    body:
-                    [
-                        [{ text: 'Ortam Ölçüm Adı', style: 'tablobaslik' }, { text: 'Ölçüm Yapan Kişi Ad Soyad', style: 'tablobaslik' }, { text: 'Ölçüm Yapan Kişi Unvanı', style: 'tablobaslik' }, { text: 'Ölçüm Tarihi', style: 'tablobaslik' }, { text: 'Geçerlilik Tarihi', style: 'tablobaslik' }],
-                        [ortamolcumad[0], json.oa, obtip[json.ob] || '', { text: json.oc, alignment: 'center' }, { text: json.oc ? 'Değişiklik Halinde' : '', alignment: 'center' }],
-                        [ortamolcumad[1], json.od, oetip[json.oe] || '', { text: json.of, alignment: 'center' }, { text: json.of ? 'Değişiklik Halinde' : '', alignment: 'center' }],
-                        [ortamolcumad[2], json.og, ohtip[json.oh] || '', { text: json.oi, alignment: 'center' }, { text: json.oi ? 'Değişiklik Halinde' : '', alignment: 'center' }],
-                        [ortamolcumad[3], json.oj, oktip[json.ok] || '', { text: json.ol, alignment: 'center' }, { text: json.ol ? 'Değişiklik Halinde' : '', alignment: 'center' }],
-                        [ortamolcumad[4], json.om, ontip[json.on] || '', { text: json.oo, alignment: 'center' }, { text: json.oo ? 'Değişiklik Halinde' : '', alignment: 'center' }],
-                        [ortamolcumad[5], json.op, ortip[json.or] || '', { text: json.os, alignment: 'center' }, { text: json.os ? 'Değişiklik Halinde' : '', alignment: 'center' }],
-                        [ortamolcumad[6], json.ot, outip[json.ou] || '', { text: json.ov, alignment: 'center' }, { text: json.ov ? 'Değişiklik Halinde' : '', alignment: 'center' }],
-                    ]
+                    widths: ['30%', '25%', '21%', '12%', '12%'],
+                    body: ortamolcumtablo,
                 },
                 layout: 'lightGrid',
                 margin: [0, 0, 0, 10]
@@ -6028,22 +6098,12 @@ function isyeriraporalpdf()
             {
                 table:
                 {
-                    widths: ['25%', '26%', '22%', '13%', '14%'],
-                    body:
-                    [
-                        [{ text: 'Sağlık Taraması Adı', style: 'tablobaslik' }, { text: 'Tarama Yapan Kişi Ad Soyad', style: 'tablobaslik' }, { text: 'Tarama Yapan Kişi Unvan', style: 'tablobaslik' }, { text: 'Ölçüm Tarihi', style: 'tablobaslik' }, { text: 'Geçerlilik Tarihi', style: 'tablobaslik' }],
-                        [sagliktarama[0], json.xa, json.xb, { text: json.xc, alignment: 'center' }, { text: saglikgecerlilik(json.xc, tehlike), alignment: 'center' }],
-                        [sagliktarama[1], json.xd, json.xe, { text: json.xf, alignment: 'center' }, { text: saglikgecerlilik(json.xf, tehlike), alignment: 'center' }],
-                        [sagliktarama[2], json.xg, json.xh, { text: json.xi, alignment: 'center' }, { text: saglikgecerlilik(json.xi, tehlike), alignment: 'center' }],
-                        [sagliktarama[3], json.xj, json.xk, { text: json.xl, alignment: 'center' }, { text: saglikgecerlilik(json.xl, tehlike), alignment: 'center' }],
-                        [sagliktarama[4], json.xm, json.xn, { text: json.xo, alignment: 'center' }, { text: saglikgecerlilik(json.xo, tehlike), alignment: 'center' }],
-                        [sagliktarama[5], json.xp, json.xr, { text: json.xs, alignment: 'center' }, { text: saglikgecerlilik(json.xs, tehlike), alignment: 'center' }],
-                        [sagliktarama[6], json.xt, json.xu, { text: json.xv, alignment: 'center' }, { text: saglikgecerlilik(json.xv, tehlike), alignment: 'center' }],
-                        [sagliktarama[7], json.xy, json.xz, { text: json.xx, alignment: 'center' }, { text: saglikgecerlilik(json.xx, tehlike), alignment: 'center' }],
-                    ]
+                    widths: ['30%', '25%', '21%', '12%', '12%'],
+                    body: sagliktaramatablo,
                 },
                 layout: 'lightGrid',
-            },
+                margin: [0, 0, 0, 10]
+            }
         ],
         styles:
         {
@@ -6062,350 +6122,460 @@ function isyeriraporalpdf()
 
 async function isyeriraporalexcel()
 {
+    let githubjson = jsoncevir(store.get("listeicerik"));
     let firmajson = isyersecimfirmaoku();
     let tehlike = parseInt(firmajson.ts);
     var json = jsoncevir($('#HiddenField2').val());
     let uzmanAd = store.get("uzmanad") || '';
-    var riskveri = { tarih: json.r1, tip: json.r2, uzman: json.r3, hekim: json.r4 };
-    var acilveri = { tarih: json.a1, uzman: json.a2, hekim: json.a3 };
-    var tatbikat = { tarih: json.t1, adsoyad: json.t2, unvan: json.t3, tur: json.t4 };
-    var saglikraporu = { tarih: json.s1, periyodik: json.s2, isegiris: json.s3 };
-    var isgegitim = { uzman: json.i1 };
-    var risktip = { 1: "Fine Kinney", 2: "L Tipi Matris", 3: "Hazop", 4: "Neden-Sonuç Analiz", 5: "Hata Ağacı Analiz", 6: "Hata Türleri ve Etki Analiz" };
-    var tehlikesinifimap = { 1: "Az Tehlikeli", 2: "Tehlikeli", 3: "Çok Tehlikeli" };
-    var tatbikattur = { 1: "Yangın", 2: "Patlama", 3: "Sel", 4: "Kimyasal Madde Yayılım", 5: "Salgın Hastalık", 6: "Zehirlenme", 7: "Sabotaj", 8: "Radyoaktif Madde Yayılım", 9: "Nükleer Madde Yayılım" };
-    var mbunvan = { 1: "Elektrik Mühendisi", 2: "Elektrik ve Elektronik Mühendisi", 3: "Elektrik Yüksek Teknikeri", 4: "Elektrik Teknikeri", 5: "Elektrik Teknik Öğretmeni" },
-        meunvan = mbunvan,
-        mhunvan = mbunvan,
-        mkunvan = { 1: "Makine Mühendisi", 2: "Mekatronik Mühendisi", 3: "Makine Yüksek Teknikeri", 4: "Makine Teknikeri", 5: "Makine Teknik Öğretmeni", 6: "Metal Teknik Öğretmeni" },
-        mnunvan = { 1: "Makine Mühendisi", 2: "Metalurji ve Malzeme Mühendisi", 3: "Mekatronik Mühendisi", 4: "Makine Yüksek Teknikeri", 5: "Makine Teknikeri", 6: "Makine Teknik Öğretmeni", 7: "Metal Teknik Öğretmeni" },
-        mrunvan = { 1: "Makine Mühendisi", 2: "Makine Yüksek Teknikeri", 3: "Makine Teknikeri", 4: "Makine Teknik Öğretmeni", 5: "Metal Teknik Öğretmeni" },
-        muunvan = mrunvan,
-        mzunvan = mrunvan,
-        m1unvan = { 1: "Elektrik Mühendisi", 2: "Elektrik ve Elektronik Mühendisi", 3: "Elektronik Mühendisi", 4: "Elektrik Yüksek Teknikeri", 5: "Elektrik Teknikeri", 6: "Elektrik Teknik Öğretmeni" },
-        m4unvan = mkunvan,
-        m7unvan = { 1: "İnşaat Mühendisi", 2: "Makine Mühendisi", 3: "İnşaat Teknik Öğretmeni", 4: "Yapı Teknik Öğretmeni", 5: "Makine Teknik Öğretmeni", 6: "Metal Teknik Öğretmeni", 7: "İnşaat Teknikeri", 8: "İnşaat Yüksek Teknikeri" };
-    var isekipmaniolcum = { 0: "Elektrik Tesisatı ve Topraklama Kontrolü", 1: "Paratoner Tesisatı Kontrolü", 2: "Jeneratör Kontrolü", 3: "Kaldırma Aracı Kontrolü", 4: "Basınçlı Kap ve Tesisat Kontrolü", 5: "Havalandırma Tesisatı Kontrolü", 6: "Yangın Söndürme Sistemi Kontrolü", 7: "Portatif Yangın Söndürücü Kontrolü", 8: "Yangın Algılama Sistemi Kontrolü", 9: "Kaldırma Aksesuarı Kontrolü", 10: "İskele Kontrolü" };
-    var ortamolcumad = { 0: "Gürültü Ölçümü", 1: "Toz Ölçümü", 2: "Uçucu Organik Madde Ölçümü", 3: "Gaz Ölçümü", 4: "Aydınlatma Ölçümü", 5: "Termal Konfor Ölçümü", 6: "Titreşim Ölçümü" };
-    var obtip = { 1: "Kişisel (Dozimetrik)", 2: "Noktasal" };
-    var oetip = { 1: "Kişisel (Dozimetrik)", 2: "Noktasal" };
-    var ohtip = { 1: "Kişisel (Dozimetrik)", 2: "Noktasal" };
-    var oktip = { 1: "Kişisel (Dozimetrik)", 2: "Noktasal" };
-    var ontip = { 1: "Noktasal" };
-    var ortip = { 1: "Kişisel (Dozimetrik)", 2: "Ortam" };
-    var outip = { 1: "Kişisel (Dozimetrik)", 2: "Ekipman" };
-    var sagliktarama = { 0: "Akciğer Grafisi", 1: "Tam Kan Testi", 2: "Solunum Fonksiyon Testi", 3: "Odiyometik Test", 4: "Karaciğer Fonksiyon Testi", 5: "Kanda Ağır Metal Testi", 6: "Tam İdrar Tahlili", 7: "Göz Muayenesi" };
-    ////////////////////////////////////////////////////////////////////////
+    let riskveri = { tarih: '', tip: '', uzman: '', hekim: '' };
+    if (json.riskdegerlendirme && json.riskdegerlendirme.length > 0)
+    {
+        let r = json.riskdegerlendirme[0];
+        riskveri.tarih = r.tarih;
+        riskveri.tip = r.tip;
+        riskveri.uzman = r.uzman;
+        riskveri.hekim = r.hekim;
+    }
+    let acilveri = { tarih: '', uzman: '', hekim: '' };
+    if (json.acildurum && json.acildurum.length > 0) {
+        let a = json.acildurum[0];
+        acilveri.tarih = a.tarih;
+        acilveri.uzman = a.uzman;
+        acilveri.hekim = a.hekim;
+    }
+    let tatbikat = { tarih: '', adsoyad: '', unvan: '', tur: '' };
+    if (json.tatbikat && json.tatbikat.length > 0) {
+        let t = json.tatbikat[0];
+        tatbikat.tarih = t.tarih;
+        tatbikat.adsoyad = t.yurutucu;
+        tatbikat.unvan = t.unvan;
+        tatbikat.tur = t.tur;
+    }
+    let saglikraporu = { tarih: '', periyodik: '', isegiris: '' };
+    if (json.saglikraporu && json.saglikraporu.length > 0) {
+        let s = json.saglikraporu[0];
+        saglikraporu.tarih = s.t;
+        saglikraporu.periyodik = s.x;
+        saglikraporu.isegiris = s.y;
+    }
+    let isgegitim = { uzman: '', hekim: '' };
+    if (json.egitim && json.egitim.length > 0) {
+        let egitim = json.egitim[0];
+        isgegitim.uzman = egitim.x;
+        isgegitim.hekim = egitim.y;
+    }
+    const risktipMap = { 1: "Fine Kinney", 2: "L Tipi Matris", 3: "Hazop", 4: "Neden-Sonuç Analiz", 5: "Hata Ağacı Analiz", 6: "Hata Türleri ve Etki Analiz" };
+    const tehlikesinifiMap = { 1: "Az Tehlikeli", 2: "Tehlikeli", 3: "Çok Tehlikeli" };
+    const tatbikatturMap = { 1: "Yangın", 2: "Patlama", 3: "Sel", 4: "Kimyasal Madde Yayılım", 5: "Salgın Hastalık", 6: "Zehirlenme", 7: "Sabotaj", 8: "Radyoaktif Madde Yayılım", 9: "Nükleer Madde Yayılım" };
+    const unvanlar = [
+        { id: "0", ad: "Lütfen Seçiniz" },
+        { id: "1", ad: "Elektrik Mühendisi" }, { id: "2", ad: "Elektrik ve Elektronik Mühendisi" },
+        { id: "3", ad: "Elektronik Mühendisi" }, { id: "4", ad: "Elektrik Yüksek Teknikeri" },
+        { id: "5", ad: "Elektrik Teknik Öğretmeni" }, { id: "6", ad: "Elektrik Teknikeri" },
+        { id: "7", ad: "İnşaat Mühendisi" }, { id: "8", ad: "İnşaat Yüksek Teknikeri" },
+        { id: "9", ad: "İnşaat Teknik Öğretmeni" }, { id: "10", ad: "İnşaat Teknikeri" },
+        { id: "11", ad: "Makine Mühendisi" }, { id: "12", ad: "Makine Yüksek Teknikeri" },
+        { id: "13", ad: "Makine Teknik Öğretmeni" }, { id: "14", ad: "Makine Teknikeri" },
+        { id: "15", ad: "Mekatronik Mühendisi" }, { id: "16", ad: "Metalurji ve Malzeme Mühendisi" },
+        { id: "17", ad: "Metal Teknik Öğretmeni" }, { id: "18", ad: "Yapı Teknik Öğretmeni" }
+    ];
+    const unvanMap = unvanlar.reduce((m, u) => { m[u.id] = u.ad; return m; }, {});
+    let isEkipmaniRows = [];
+    if (json.isekipmanikontrol && json.isekipmanikontrol.length > 0) {
+        let ekipmanListesi = githubjson.ekipmankontrol.filter(x => x.tur == "1");
+        json.isekipmanikontrol.forEach(k => {
+            let e = ekipmanListesi.find(x => x.id == k.id);
+            if (e) {
+                isEkipmaniRows.push([
+                    e.kontrol,
+                    k.x,
+                    unvanMap[k.y] || k.y,
+                    k.t || '',
+                    isekipmanigecerlilik(k.t) || ''
+                ]);
+            }
+        });
+    }
+    let ortamOlcumRows = [];
+    if (json.ortamolcumu && json.ortamolcumu.length > 0) {
+        let ortamOlcumListesi = githubjson.ekipmankontrol.filter(x => x.tur == "2");
+        const ortamTipMap = { 1: "Kişisel Maruziyet Ölçümü", 2: "Noktasal Ölçüm" };
+        json.ortamolcumu.forEach(k => {
+            let e = ortamOlcumListesi.find(x => x.id == k.id);
+            if (e) {
+                ortamOlcumRows.push([
+                    e.kontrol,
+                    k.x,
+                    ortamTipMap[k.y] || k.y,
+                    k.t || '',
+                    k.t ? 'Değişiklik Halinde' : ''
+                ]);
+            }
+        });
+    }
+    let saglikTaramaRows = [];
+    if (json.sagliktarama && json.sagliktarama.length > 0) {
+        let taramaListesi = githubjson.sagliktarama;
+        json.sagliktarama.forEach(k => {
+            let e = taramaListesi.find(x => x.id == k.id);
+            if (e) {
+                saglikTaramaRows.push([
+                    e.tarama,
+                    k.x,
+                    k.y,
+                    k.t || '',
+                    saglikgecerlilik(k.t, tehlike) || ''
+                ]);
+            }
+        });
+    }
     const workbook = new ExcelJS.Workbook();
     const worksheet = workbook.addWorksheet('İşyeri Raporu-1');
-    worksheet.pageSetup = { paperSize: 9, orientation: "portrait", fitToPage: true, fitToWidth: 1, fitToHeight: 0, horizontalCentered: true, margins: { left: 0.4, right: 0.4, top: 0.4, bottom: 0.4, header: 0.2, footer: 0.2 } };
-    worksheet.columns = [{width: 27.7 }, {width: 62.7 }];
-    const anabaslik = {font: { name: 'Calibri', size: 12, bold: true }, alignment: { horizontal: 'center', vertical: 'top' }};
-    const altbaslik = {font: { name: 'Calibri', size: 11, bold: true }, alignment: { horizontal: 'left', vertical: 'middle' }};
-    const normalmetin={font:{name:'Calibri',size:11,bold:false},alignment:{horizontal:'left',vertical:'middle'},border:{top:{style:'thin'},left:{style:'thin'},bottom:{style:'thin'},right:{style:'thin'}}};
-    const ortalanormalmetin={font:{name:'Calibri',size:11,bold:false},alignment:{horizontal:'center',vertical:'middle'},border:{top:{style:'thin'},left:{style:'thin'},bottom:{style:'thin'},right:{style:'thin'}}};
-    const tablobaslikstil={font:{bold:true,color:{argb:'FFFFFFFF'}},alignment:{horizontal:'center',vertical:'middle',wrapText:true},fill:{type:'pattern',pattern:'solid',fgColor:{argb:'FF545454'}},border:{top:{style:'thin'},left:{style:'thin'},bottom:{style:'thin'},right:{style:'thin'}}};
+    worksheet.pageSetup = {
+        paperSize: 9, orientation: "portrait", fitToPage: true, fitToWidth: 1, fitToHeight: 0, horizontalCentered: true,
+        margins: { left: 0.4, right: 0.4, top: 0.4, bottom: 0.4, header: 0.2, footer: 0.2 }
+    };
+    worksheet.columns = [{ width: 27.7 }, { width: 62.7 }];
+    const anabaslik = { font: { name: 'Calibri', size: 12, bold: true }, alignment: { horizontal: 'center', vertical: 'top' } };
+    const altbaslik = { font: { name: 'Calibri', size: 11, bold: true }, alignment: { horizontal: 'left', vertical: 'middle' } };
+    const normalmetin = {
+        font: { name: 'Calibri', size: 11, bold: false }, alignment: { horizontal: 'left', vertical: 'middle' },
+        border: { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
+    };
+    const ortalanormalmetin = {
+        font: { name: 'Calibri', size: 11, bold: false }, alignment: { horizontal: 'center', vertical: 'middle' },
+        border: { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
+    };
+    const tablobaslikstil = {
+        font: { bold: true, color: { argb: 'FFFFFFFF' } }, alignment: { horizontal: 'center', vertical: 'middle', wrapText: true },
+        fill: { type: 'pattern', pattern: 'solid', fgColor: { argb: 'FF545454' } },
+        border: { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } }
+    };
+
     let hedefsatir = 1;
     worksheet.mergeCells(hedefsatir, 1, hedefsatir, 2);
     worksheet.getCell(hedefsatir, 1).value = 'İŞYERİ KAYIT RAPORLAMA';
     worksheet.getCell(hedefsatir, 1).style = anabaslik;
     worksheet.getRow(hedefsatir).height = 25;
-    hedefsatir = hedefsatir + 1;
+    hedefsatir++;
+
     worksheet.mergeCells(hedefsatir, 1, hedefsatir, 2);
     worksheet.getCell(hedefsatir, 1).value = 'İşyeri Bilgileri';
     worksheet.getCell(hedefsatir, 1).style = altbaslik;
     worksheet.getRow(hedefsatir).height = 20;
-    hedefsatir = hedefsatir + 1;
+    hedefsatir++;
     worksheet.getCell(hedefsatir, 1).value = 'İşyeri İsmi';
     worksheet.getCell(hedefsatir, 1).style = normalmetin;
     worksheet.getCell(hedefsatir, 2).value = firmajson.fi || '';
     worksheet.getCell(hedefsatir, 2).style = normalmetin;
     worksheet.getRow(hedefsatir).height = 20;
-    hedefsatir = hedefsatir + 1;
+    hedefsatir++;
+
     worksheet.getCell(hedefsatir, 1).value = 'İşveren Vekili';
     worksheet.getCell(hedefsatir, 1).style = normalmetin;
     worksheet.getCell(hedefsatir, 2).value = firmajson.is || '';
     worksheet.getCell(hedefsatir, 2).style = normalmetin;
     worksheet.getRow(hedefsatir).height = 20;
-    hedefsatir = hedefsatir + 1;
+    hedefsatir++;
+
     worksheet.getCell(hedefsatir, 1).value = 'Tehlike Sınıfı';
     worksheet.getCell(hedefsatir, 1).style = normalmetin;
-    worksheet.getCell(hedefsatir, 2).value = tehlikesinifimap[firmajson.ts] || '';
+    worksheet.getCell(hedefsatir, 2).value = tehlikesinifiMap[firmajson.ts] || '';
     worksheet.getCell(hedefsatir, 2).style = normalmetin;
     worksheet.getRow(hedefsatir).height = 20;
-    hedefsatir = hedefsatir + 1;
+    hedefsatir++;
+
+    worksheet.getCell(hedefsatir, 1).value = 'SGK Sicil No';
+    worksheet.getCell(hedefsatir, 1).style = normalmetin;
+    worksheet.getCell(hedefsatir, 2).value = firmajson.sc || '';
+    worksheet.getCell(hedefsatir, 2).style = normalmetin;
+    worksheet.getRow(hedefsatir).height = 20;
+    hedefsatir++;
+
     worksheet.getCell(hedefsatir, 1).value = 'Adres';
     worksheet.getCell(hedefsatir, 1).style = normalmetin;
     worksheet.getCell(hedefsatir, 2).value = firmajson.ad || '';
     worksheet.getCell(hedefsatir, 2).style = normalmetin;
     worksheet.getRow(hedefsatir).height = 20;
-    hedefsatir = hedefsatir + 1;
+    hedefsatir++;
+
     worksheet.getCell(hedefsatir, 1).value = 'İşyeri Hekimi';
     worksheet.getCell(hedefsatir, 1).style = normalmetin;
     worksheet.getCell(hedefsatir, 2).value = firmajson.hk || '';
     worksheet.getCell(hedefsatir, 2).style = normalmetin;
     worksheet.getRow(hedefsatir).height = 20;
-    hedefsatir = hedefsatir + 1;
+    hedefsatir++;
+
     worksheet.getCell(hedefsatir, 1).value = 'İş Güvenliği Uzmanı';
     worksheet.getCell(hedefsatir, 1).style = normalmetin;
     worksheet.getCell(hedefsatir, 2).value = uzmanAd;
     worksheet.getCell(hedefsatir, 2).style = normalmetin;
     worksheet.getRow(hedefsatir).height = 20;
-    hedefsatir = hedefsatir + 1;
+    hedefsatir++;
+
     worksheet.getCell(hedefsatir, 1).value = 'Bulunduğu İl';
     worksheet.getCell(hedefsatir, 1).style = normalmetin;
-    worksheet.getCell(hedefsatir, 2).value = firmajson.sh;
+    worksheet.getCell(hedefsatir, 2).value = firmajson.sh || '';
     worksheet.getCell(hedefsatir, 2).style = normalmetin;
     worksheet.getRow(hedefsatir).height = 20;
-    hedefsatir = hedefsatir + 1;
+    hedefsatir++;
     worksheet.mergeCells(hedefsatir, 1, hedefsatir, 2);
     worksheet.getCell(hedefsatir, 1).value = 'Risk Değerlendirme Kayıtları';
     worksheet.getCell(hedefsatir, 1).style = altbaslik;
     worksheet.getRow(hedefsatir).height = 25;
-    hedefsatir = hedefsatir + 1;
+    hedefsatir++;
+
     worksheet.getCell(hedefsatir, 1).value = 'Risk Değerlendirme Tarihi';
     worksheet.getCell(hedefsatir, 1).style = normalmetin;
     worksheet.getCell(hedefsatir, 2).value = riskveri.tarih || '';
     worksheet.getCell(hedefsatir, 2).style = normalmetin;
     worksheet.getRow(hedefsatir).height = 20;
-    hedefsatir = hedefsatir + 1;
+    hedefsatir++;
+
     worksheet.getCell(hedefsatir, 1).value = 'Risk Değerlendirme Tipi';
     worksheet.getCell(hedefsatir, 1).style = normalmetin;
-    worksheet.getCell(hedefsatir, 2).value = risktip[riskveri.tip] || '';
+    worksheet.getCell(hedefsatir, 2).value = risktipMap[riskveri.tip] || '';
     worksheet.getCell(hedefsatir, 2).style = normalmetin;
     worksheet.getRow(hedefsatir).height = 20;
-    hedefsatir = hedefsatir + 1;
+    hedefsatir++;
+
     worksheet.getCell(hedefsatir, 1).value = 'İş Güvenliği Uzmanı';
     worksheet.getCell(hedefsatir, 1).style = normalmetin;
     worksheet.getCell(hedefsatir, 2).value = riskveri.uzman || '';
     worksheet.getCell(hedefsatir, 2).style = normalmetin;
     worksheet.getRow(hedefsatir).height = 20;
-    hedefsatir = hedefsatir + 1;
+    hedefsatir++;
+
     worksheet.getCell(hedefsatir, 1).value = 'İşyeri Hekimi';
     worksheet.getCell(hedefsatir, 1).style = normalmetin;
     worksheet.getCell(hedefsatir, 2).value = riskveri.hekim || '';
     worksheet.getCell(hedefsatir, 2).style = normalmetin;
     worksheet.getRow(hedefsatir).height = 20;
-    hedefsatir = hedefsatir + 1;
+    hedefsatir++;
+
     worksheet.getCell(hedefsatir, 1).value = 'Son Geçerlilik Tarihi';
     worksheet.getCell(hedefsatir, 1).style = normalmetin;
     worksheet.getCell(hedefsatir, 2).value = riskdegerlendirmegecerlilik(riskveri.tarih, tehlike) || '';
     worksheet.getCell(hedefsatir, 2).style = normalmetin;
     worksheet.getRow(hedefsatir).height = 20;
-    hedefsatir = hedefsatir + 1;
+    hedefsatir++;
     worksheet.mergeCells(hedefsatir, 1, hedefsatir, 2);
     worksheet.getCell(hedefsatir, 1).value = 'Acil Durum Planı';
     worksheet.getCell(hedefsatir, 1).style = altbaslik;
     worksheet.getRow(hedefsatir).height = 25;
-    worksheet.getRow(hedefsatir).height = 20;
-    hedefsatir = hedefsatir + 1;
+    hedefsatir++;
+
     worksheet.getCell(hedefsatir, 1).value = 'Acil Durum Planı Tarihi';
     worksheet.getCell(hedefsatir, 1).style = normalmetin;
     worksheet.getCell(hedefsatir, 2).value = acilveri.tarih || '';
     worksheet.getCell(hedefsatir, 2).style = normalmetin;
     worksheet.getRow(hedefsatir).height = 20;
-    hedefsatir = hedefsatir + 1;
+    hedefsatir++;
+
     worksheet.getCell(hedefsatir, 1).value = 'İş Güvenliği Uzmanı';
     worksheet.getCell(hedefsatir, 1).style = normalmetin;
     worksheet.getCell(hedefsatir, 2).value = acilveri.uzman || '';
     worksheet.getCell(hedefsatir, 2).style = normalmetin;
     worksheet.getRow(hedefsatir).height = 20;
-    hedefsatir = hedefsatir + 1;
+    hedefsatir++;
+
     worksheet.getCell(hedefsatir, 1).value = 'İşyeri Hekimi';
     worksheet.getCell(hedefsatir, 1).style = normalmetin;
     worksheet.getCell(hedefsatir, 2).value = acilveri.hekim || '';
     worksheet.getCell(hedefsatir, 2).style = normalmetin;
     worksheet.getRow(hedefsatir).height = 20;
-    hedefsatir = hedefsatir + 1;
+    hedefsatir++;
+
     worksheet.getCell(hedefsatir, 1).value = 'Son Geçerlilik Tarihi';
     worksheet.getCell(hedefsatir, 1).style = normalmetin;
     worksheet.getCell(hedefsatir, 2).value = riskdegerlendirmegecerlilik(acilveri.tarih, tehlike) || '';
     worksheet.getCell(hedefsatir, 2).style = normalmetin;
     worksheet.getRow(hedefsatir).height = 20;
-    hedefsatir = hedefsatir + 1;
+    hedefsatir++;
     worksheet.mergeCells(hedefsatir, 1, hedefsatir, 2);
     worksheet.getCell(hedefsatir, 1).value = 'Acil Durum Tatbikatı';
     worksheet.getCell(hedefsatir, 1).style = altbaslik;
     worksheet.getRow(hedefsatir).height = 25;
-    hedefsatir = hedefsatir + 1;
+    hedefsatir++;
+
     worksheet.getCell(hedefsatir, 1).value = 'Tatbikat Tarihi';
     worksheet.getCell(hedefsatir, 1).style = normalmetin;
     worksheet.getCell(hedefsatir, 2).value = tatbikat.tarih || '';
     worksheet.getCell(hedefsatir, 2).style = normalmetin;
     worksheet.getRow(hedefsatir).height = 20;
-    hedefsatir = hedefsatir + 1;
+    hedefsatir++;
+
     worksheet.getCell(hedefsatir, 1).value = 'Gerçekleştiren Ad Soyad';
     worksheet.getCell(hedefsatir, 1).style = normalmetin;
     worksheet.getCell(hedefsatir, 2).value = tatbikat.adsoyad || '';
     worksheet.getCell(hedefsatir, 2).style = normalmetin;
     worksheet.getRow(hedefsatir).height = 20;
-    hedefsatir = hedefsatir + 1;
+    hedefsatir++;
+
     worksheet.getCell(hedefsatir, 1).value = 'Gerçekleştiren Unvan';
     worksheet.getCell(hedefsatir, 1).style = normalmetin;
     worksheet.getCell(hedefsatir, 2).value = tatbikat.unvan || '';
     worksheet.getCell(hedefsatir, 2).style = normalmetin;
     worksheet.getRow(hedefsatir).height = 20;
-    hedefsatir = hedefsatir + 1;
+    hedefsatir++;
+
     worksheet.getCell(hedefsatir, 1).value = 'Tatbikat Türü';
     worksheet.getCell(hedefsatir, 1).style = normalmetin;
-    worksheet.getCell(hedefsatir, 2).value = tatbikattur[tatbikat.tur] || '';
+    worksheet.getCell(hedefsatir, 2).value = tatbikatturMap[tatbikat.tur] || '';
     worksheet.getCell(hedefsatir, 2).style = normalmetin;
     worksheet.getRow(hedefsatir).height = 20;
-    hedefsatir = hedefsatir + 1;
+    hedefsatir++;
+
     worksheet.getCell(hedefsatir, 1).value = 'Son Geçerlilik Tarihi';
     worksheet.getCell(hedefsatir, 1).style = normalmetin;
     worksheet.getCell(hedefsatir, 2).value = acildurumtatbikat(tatbikat.tarih) || '';
     worksheet.getCell(hedefsatir, 2).style = normalmetin;
     worksheet.getRow(hedefsatir).height = 20;
-    hedefsatir = hedefsatir + 1;
+    hedefsatir++;
     worksheet.mergeCells(hedefsatir, 1, hedefsatir, 2);
     worksheet.getCell(hedefsatir, 1).value = 'EK-2 Sağlık Raporu';
     worksheet.getCell(hedefsatir, 1).style = altbaslik;
     worksheet.getRow(hedefsatir).height = 25;
-    worksheet.getRow(hedefsatir).height = 20;
-    hedefsatir = hedefsatir + 1;
+    hedefsatir++;
+
     worksheet.getCell(hedefsatir, 1).value = 'Periyodik Muayene Tarihi';
     worksheet.getCell(hedefsatir, 1).style = normalmetin;
     worksheet.getCell(hedefsatir, 2).value = saglikraporu.tarih || '';
     worksheet.getCell(hedefsatir, 2).style = normalmetin;
     worksheet.getRow(hedefsatir).height = 20;
-    hedefsatir = hedefsatir + 1;
+    hedefsatir++;
+
     worksheet.getCell(hedefsatir, 1).value = 'Periyodik Muayene Hekim';
     worksheet.getCell(hedefsatir, 1).style = normalmetin;
     worksheet.getCell(hedefsatir, 2).value = saglikraporu.periyodik || '';
     worksheet.getCell(hedefsatir, 2).style = normalmetin;
     worksheet.getRow(hedefsatir).height = 20;
-    hedefsatir = hedefsatir + 1;
+    hedefsatir++;
+
     worksheet.getCell(hedefsatir, 1).value = 'İşe Giriş Raporu Hekim';
     worksheet.getCell(hedefsatir, 1).style = normalmetin;
     worksheet.getCell(hedefsatir, 2).value = saglikraporu.isegiris || '';
     worksheet.getCell(hedefsatir, 2).style = normalmetin;
     worksheet.getRow(hedefsatir).height = 20;
-    hedefsatir = hedefsatir + 1;
+    hedefsatir++;
     worksheet.mergeCells(hedefsatir, 1, hedefsatir, 2);
     worksheet.getCell(hedefsatir, 1).value = 'Temel İSG Eğitimi';
     worksheet.getCell(hedefsatir, 1).style = altbaslik;
     worksheet.getRow(hedefsatir).height = 25;
-    hedefsatir = hedefsatir + 1;
-    worksheet.getCell(hedefsatir, 1).value = 'Temel İSG Eğitimi Ad Soyad';
+    hedefsatir++;
+    worksheet.getCell(hedefsatir, 1).value = 'Temel İSG Eğitimi Uzman';
     worksheet.getCell(hedefsatir, 1).style = normalmetin;
     worksheet.getCell(hedefsatir, 2).value = isgegitim.uzman || '';
     worksheet.getCell(hedefsatir, 2).style = normalmetin;
     worksheet.getRow(hedefsatir).height = 20;
-    hedefsatir = hedefsatir + 1;
-    //////////////////////////////////////////////////////
-    const raporsayfa2 = workbook.addWorksheet('İşyeri Raporu-2');
-    raporsayfa2.pageSetup = { paperSize: 9, orientation: "landscape", fitToPage: true, fitToWidth: 1, fitToHeight: 0, horizontalCentered: true, margins: { left: 0.4, right: 0.4, top: 0.4, bottom: 0.4, header: 0.2, footer: 0.2 } };
-    raporsayfa2.columns = [{width: 36.7 }, {width: 37.7 }, {width: 31.7 }, {width: 15.7 }, {width: 16.7}, {width: 13.7}, {width: 13.7}, {width: 13.7}, {width: 13.7}];
-    hedefsatir = 1;
-    raporsayfa2.getCell(hedefsatir, 1).value = "İş Ekipmanı Ölçüm Adı";
-    raporsayfa2.getCell(hedefsatir, 1).style = tablobaslikstil;
-    raporsayfa2.getCell(hedefsatir, 2).value = "Ölçüm Yapan Kişi Ad Soyad";
-    raporsayfa2.getCell(hedefsatir, 2).style = tablobaslikstil;
-    raporsayfa2.getCell(hedefsatir, 3).value = "Ölçüm Yapan Kişi Unvanı";
-    raporsayfa2.getCell(hedefsatir, 3).style = tablobaslikstil;
-    raporsayfa2.getCell(hedefsatir, 4).value = "Ölçüm Tarihi";
-    raporsayfa2.getCell(hedefsatir, 4).style = tablobaslikstil;
-    raporsayfa2.getCell(hedefsatir, 5).value = "Geçerlilik Tarihi";
-    raporsayfa2.getCell(hedefsatir, 5).style = tablobaslikstil;
-    hedefsatir = hedefsatir + 1;
-    const isEkipmaniRows =
-    [
-        [isekipmaniolcum[0], json.ma, mbunvan[json.mb] || '', json.mc, isekipmanigecerlilik(json.mc)],
-        [isekipmaniolcum[1], json.md, meunvan[json.me] || '', json.mf, isekipmanigecerlilik(json.mf)],
-        [isekipmaniolcum[2], json.mg, mhunvan[json.mh] || '', json.mi, isekipmanigecerlilik(json.mi)],
-        [isekipmaniolcum[3], json.mj, mkunvan[json.mk] || '', json.ml, isekipmanigecerlilik(json.ml)],
-        [isekipmaniolcum[4], json.mm, mnunvan[json.mn] || '', json.mo, isekipmanigecerlilik(json.mo)],
-        [isekipmaniolcum[5], json.mp, mrunvan[json.mr] || '', json.ms, isekipmanigecerlilik(json.ms)],
-        [isekipmaniolcum[6], json.mt, muunvan[json.mu] || '', json.mv, isekipmanigecerlilik(json.mv)],
-        [isekipmaniolcum[7], json.my, mzunvan[json.mz] || '', json.mx, isekipmanigecerlilik(json.mx)],
-        [isekipmaniolcum[8], json.m0, m1unvan[json.m1] || '', json.m2, isekipmanigecerlilik(json.m2)],
-        [isekipmaniolcum[9], json.m3, m4unvan[json.m4] || '', json.m5, isekipmanigecerlilik(json.m5)],
-        [isekipmaniolcum[10], json.m6, m7unvan[json.m7] || '', json.m8, isekipmanigecerlilik(json.m8)],
+    hedefsatir++;
+
+    worksheet.getCell(hedefsatir, 1).value = 'Temel İSG Eğitimi Hekim';
+    worksheet.getCell(hedefsatir, 1).style = normalmetin;
+    worksheet.getCell(hedefsatir, 2).value = isgegitim.hekim || '';
+    worksheet.getCell(hedefsatir, 2).style = normalmetin;
+    worksheet.getRow(hedefsatir).height = 20;
+    hedefsatir++;
+    const raporSayfa2 = workbook.addWorksheet('İşyeri Raporu-2');
+    raporSayfa2.pageSetup = {
+        paperSize: 9, orientation: "landscape", fitToPage: true, fitToWidth: 1, fitToHeight: 0, horizontalCentered: true,
+        margins: { left: 0.4, right: 0.4, top: 0.4, bottom: 0.4, header: 0.2, footer: 0.2 }
+    };
+    raporSayfa2.columns = [
+        { width: 36.7 }, { width: 37.7 }, { width: 31.7 },
+        { width: 15.7 }, { width: 16.7 }, { width: 13.7 },
+        { width: 13.7 }, { width: 13.7 }, { width: 13.7 }
     ];
+    hedefsatir = 1;
+    raporSayfa2.getCell(hedefsatir, 1).value = "İş Ekipmanı Ölçüm Adı";
+    raporSayfa2.getCell(hedefsatir, 1).style = tablobaslikstil;
+    raporSayfa2.getCell(hedefsatir, 2).value = "Ölçüm Yapan Kişi Ad Soyad";
+    raporSayfa2.getCell(hedefsatir, 2).style = tablobaslikstil;
+    raporSayfa2.getCell(hedefsatir, 3).value = "Ölçüm Yapan Kişi Unvanı";
+    raporSayfa2.getCell(hedefsatir, 3).style = tablobaslikstil;
+    raporSayfa2.getCell(hedefsatir, 4).value = "Ölçüm Tarihi";
+    raporSayfa2.getCell(hedefsatir, 4).style = tablobaslikstil;
+    raporSayfa2.getCell(hedefsatir, 5).value = "Geçerlilik Tarihi";
+    raporSayfa2.getCell(hedefsatir, 5).style = tablobaslikstil;
+    hedefsatir++;
     isEkipmaniRows.forEach(data =>
     {
-        const row = raporsayfa2.addRow(data.map(val => val || ''));
+        const row = raporSayfa2.addRow(data);
         row.getCell(1).style = normalmetin;
         row.getCell(2).style = normalmetin;
         row.getCell(3).style = normalmetin;
         row.getCell(4).style = ortalanormalmetin;
         row.getCell(5).style = ortalanormalmetin;
-        hedefsatir = hedefsatir + 1;
+        hedefsatir++;
     });
-    hedefsatir = hedefsatir + 1;
-    raporsayfa2.getCell(hedefsatir, 1).value = "Ortam Ölçüm Adı";
-    raporsayfa2.getCell(hedefsatir, 1).style = tablobaslikstil;
-    raporsayfa2.getCell(hedefsatir, 2).value = "Ölçüm Yapan Kişi Ad Soyad";
-    raporsayfa2.getCell(hedefsatir, 2).style = tablobaslikstil;
-    raporsayfa2.getCell(hedefsatir, 3).value = "Ölçüm Yapan Kişi Unvanı";
-    raporsayfa2.getCell(hedefsatir, 3).style = tablobaslikstil;
-    raporsayfa2.getCell(hedefsatir, 4).value = "Ölçüm Tarihi";
-    raporsayfa2.getCell(hedefsatir, 4).style = tablobaslikstil;
-    raporsayfa2.getCell(hedefsatir, 5).value = "Geçerlilik Tarihi";
-    raporsayfa2.getCell(hedefsatir, 5).style = tablobaslikstil;
-    const ortamOlcumRows = [
-        [ortamolcumad[0], json.oa, obtip[json.ob] || '', json.oc, json.oc ? 'Değişiklik Halinde' : ''],
-        [ortamolcumad[1], json.od, oetip[json.oe] || '', json.of, json.of ? 'Değişiklik Halinde' : ''],
-        [ortamolcumad[2], json.og, ohtip[json.oh] || '', json.oi, json.oi ? 'Değişiklik Halinde' : ''],
-        [ortamolcumad[3], json.oj, oktip[json.ok] || '', json.ol, json.ol ? 'Değişiklik Halinde' : ''],
-        [ortamolcumad[4], json.om, ontip[json.on] || '', json.oo, json.oo ? 'Değişiklik Halinde' : ''],
-        [ortamolcumad[5], json.op, ortip[json.or] || '', json.os, json.os ? 'Değişiklik Halinde' : ''],
-        [ortamolcumad[6], json.ot, outip[json.ou] || '', json.ov, json.ov ? 'Değişiklik Halinde' : ''],
-    ];
-    ortamOlcumRows.forEach(data =>
-    {
-        const row = raporsayfa2.addRow(data.map(val => val || ''));
+    hedefsatir++;
+    raporSayfa2.getCell(hedefsatir, 1).value = "Ortam Ölçüm Adı";
+    raporSayfa2.getCell(hedefsatir, 1).style = tablobaslikstil;
+    raporSayfa2.getCell(hedefsatir, 2).value = "Ölçüm Yapan Kişi Ad Soyad";
+    raporSayfa2.getCell(hedefsatir, 2).style = tablobaslikstil;
+    raporSayfa2.getCell(hedefsatir, 3).value = "Ölçüm Tipi";
+    raporSayfa2.getCell(hedefsatir, 3).style = tablobaslikstil;
+    raporSayfa2.getCell(hedefsatir, 4).value = "Ölçüm Tarihi";
+    raporSayfa2.getCell(hedefsatir, 4).style = tablobaslikstil;
+    raporSayfa2.getCell(hedefsatir, 5).value = "Geçerlilik Tarihi";
+    raporSayfa2.getCell(hedefsatir, 5).style = tablobaslikstil;
+    hedefsatir++;
+    ortamOlcumRows.forEach(data => {
+        const row = raporSayfa2.addRow(data);
         row.getCell(1).style = normalmetin;
         row.getCell(2).style = normalmetin;
         row.getCell(3).style = normalmetin;
         row.getCell(4).style = ortalanormalmetin;
         row.getCell(5).style = ortalanormalmetin;
-        hedefsatir = hedefsatir + 1;
+        hedefsatir++;
     });
-    hedefsatir = hedefsatir + 2;
-    raporsayfa2.getCell(hedefsatir, 1).value = "Sağlık Taraması Adı";
-    raporsayfa2.getCell(hedefsatir, 1).style = tablobaslikstil;
-    raporsayfa2.getCell(hedefsatir, 2).value = "Tarama Yapan Kişi Ad Soyad";
-    raporsayfa2.getCell(hedefsatir, 2).style = tablobaslikstil;
-    raporsayfa2.getCell(hedefsatir, 3).value = "Tarama Yapan Kişi Unvanı";
-    raporsayfa2.getCell(hedefsatir, 3).style = tablobaslikstil;
-    raporsayfa2.getCell(hedefsatir, 4).value = "Tarama Tarihi";
-    raporsayfa2.getCell(hedefsatir, 4).style = tablobaslikstil;
-    raporsayfa2.getCell(hedefsatir, 5).value = "Geçerlilik Tarihi";
-    raporsayfa2.getCell(hedefsatir, 5).style = tablobaslikstil;
-    const saglikTaramaRows =
-    [
-        [sagliktarama[0], json.xa, json.xb, json.xc, saglikgecerlilik(json.xc, tehlike)],
-        [sagliktarama[1], json.xd, json.xe, json.xf, saglikgecerlilik(json.xf, tehlike)],
-        [sagliktarama[2], json.xg, json.xh, json.xi, saglikgecerlilik(json.xi, tehlike)],
-        [sagliktarama[3], json.xj, json.xk, json.xl, saglikgecerlilik(json.xl, tehlike)],
-        [sagliktarama[4], json.xm, json.xn, json.xo, saglikgecerlilik(json.xo, tehlike)],
-        [sagliktarama[5], json.xp, json.xr, json.xs, saglikgecerlilik(json.xs, tehlike)],
-        [sagliktarama[6], json.xt, json.xu, json.xv, saglikgecerlilik(json.xv, tehlike)],
-        [sagliktarama[7], json.xy, json.xz, json.xx, saglikgecerlilik(json.xx, tehlike)],
-    ];
+    hedefsatir += 2;
+    raporSayfa2.getCell(hedefsatir, 1).value = "Sağlık Taraması Adı";
+    raporSayfa2.getCell(hedefsatir, 1).style = tablobaslikstil;
+    raporSayfa2.getCell(hedefsatir, 2).value = "Tarama Yapan Kişi Ad Soyad";
+    raporSayfa2.getCell(hedefsatir, 2).style = tablobaslikstil;
+    raporSayfa2.getCell(hedefsatir, 3).value = "Tarama Yapan Kişi Unvanı";
+    raporSayfa2.getCell(hedefsatir, 3).style = tablobaslikstil;
+    raporSayfa2.getCell(hedefsatir, 4).value = "Tarama Tarihi";
+    raporSayfa2.getCell(hedefsatir, 4).style = tablobaslikstil;
+    raporSayfa2.getCell(hedefsatir, 5).value = "Geçerlilik Tarihi";
+    raporSayfa2.getCell(hedefsatir, 5).style = tablobaslikstil;
+    hedefsatir++;
     saglikTaramaRows.forEach(data =>
     {
-        const row = raporsayfa2.addRow(data.map(val => val || ''));
+        const row = raporSayfa2.addRow(data);
         row.getCell(1).style = normalmetin;
         row.getCell(2).style = normalmetin;
         row.getCell(3).style = normalmetin;
         row.getCell(4).style = ortalanormalmetin;
         row.getCell(5).style = ortalanormalmetin;
-        hedefsatir = hedefsatir + 1;
+        hedefsatir++;
     });
-
     try
     {
         const buffer = await workbook.xlsx.writeBuffer();
-        saveAs(new Blob([buffer]), 'İşyeri Raporu.xlsx');
-        console.log('Excel dosyası başarıyla oluşturuldu ve indirme başlatıldı.');
-    } catch (err) {
+        const blob = new Blob([buffer], { type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" });
+        saveAs(blob, "İşyeri Raporu.xlsx");
+        console.log("Excel dosyası başarıyla oluşturuldu ve indirme başlatıldı.");
+    }
+    catch (err)
+    {
         console.error('Excel dosyası oluşturulurken hata:', err);
         alert('Excel dosyası oluşturulurken bir hata oluştu.');
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
 
 function gorevlendirmeraporexcel()
 {
