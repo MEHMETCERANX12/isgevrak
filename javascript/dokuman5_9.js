@@ -5535,27 +5535,27 @@ async function evrakkayitisyeriload()
 
     if (veri.riskdegerlendirme?.length) {
         let r = veri.riskdegerlendirme[0];
-        $('#risktarih').val(r.tarih);
-        $('#riskuzman').val(r.uzman);
-        $('#riskhekim').val(r.hekim);
-        $('#risktip').val(r.tip);
+        $('#risktarih').val(r.t);
+        $('#riskuzman').val(r.x);
+        $('#riskhekim').val(r.y);
+        $('#risktip').val(r.z);
         risksonuckontrol();
     }
 
     if (veri.acildurum?.length) {
         let a = veri.acildurum[0];
-        $('#aciltarih').val(a.tarih);
-        $('#aciluzman').val(a.uzman);
-        $('#acilhekim').val(a.hekim);
+        $('#aciltarih').val(a.t);
+        $('#aciluzman').val(a.x);
+        $('#acilhekim').val(a.y);
         acilsonuckontrol();
     }
 
     if (veri.tatbikat?.length) {
         let t = veri.tatbikat[0];
-        $('#tatbikattarih').val(t.tarih);
-        $('#tatbikatad').val(t.yurutucu);
-        $('#tatbikatunvan').val(t.unvan);
-        $('#tatbikattur').val(t.tur);
+        $('#tatbikattarih').val(t.t);
+        $('#tatbikatad').val(t.x);
+        $('#tatbikatunvan').val(t.y);
+        $('#tatbikattur').val(t.z);
         tatbikatsonuckontrol();
     }
 
@@ -5622,14 +5622,14 @@ function evrakkayitisyerioku()
     let risktip = $('#risktip').val();
     if (risktarih && riskuzman && riskhekim && risktip !== "0")
     {
-        sonuc.riskdegerlendirme.push({ tarih: risktarih, uzman: riskuzman, hekim: riskhekim, tip: risktip });
+        sonuc.riskdegerlendirme.push({ t: risktarih, x: riskuzman, y: riskhekim, z: risktip });
     }
     let aciltarih = $('#aciltarih').val();
     let aciluzman = $('#aciluzman').val();
     let acilhekim = $('#acilhekim').val();
     if (aciltarih && aciluzman && acilhekim)
     {
-        sonuc.acildurum.push({ tarih: aciltarih, uzman: aciluzman, hekim: acilhekim });
+        sonuc.acildurum.push({ t: aciltarih, x: aciluzman, y: acilhekim });
     }
     let tatbikattarih = $('#tatbikattarih').val();
     let tatbikatad = $('#tatbikatad').val();
@@ -5637,7 +5637,7 @@ function evrakkayitisyerioku()
     let tatbikattur = $('#tatbikattur').val();
     if (tatbikattarih && tatbikatad && tatbikatunvan && tatbikattur !== "0")
     {
-        sonuc.tatbikat.push({ tarih: tatbikattarih, yurutucu: tatbikatad, unvan: tatbikatunvan, tur: tatbikattur });
+        sonuc.tatbikat.push({ t: tatbikattarih, x: tatbikatad, y: tatbikatunvan, z: tatbikattur });
     }
     let uzman = $('#uzmanad').val();
     let hekim = $('#hekimad').val();
@@ -5887,10 +5887,10 @@ function isyeriraporalpdf()
     if (json.riskdegerlendirme && json.riskdegerlendirme.length > 0)
     {
         let r = json.riskdegerlendirme[0];
-        risktarih = r.tarih;
-        riskuzman = r.uzman;
-        riskhekim = r.hekim;
-        risktip = riskmap[r.tip];
+        risktarih = r.t;
+        riskuzman = r.x;
+        riskhekim = r.y;
+        risktip = riskmap[r.z];
     }
     let aciltarih = "";
     let aciluzman = "";
@@ -5898,9 +5898,9 @@ function isyeriraporalpdf()
     if (json.acildurum && json.acildurum.length > 0)
     {
         let a = json.acildurum[0];
-        aciltarih = a.tarih;
-        aciluzman = a.uzman;
-        acilhekim = a.hekim;
+        aciltarih = a.t;
+        aciluzman = a.x;
+        acilhekim = a.y;
     }
     var tatbikatmaps = { 1: "Yangın", 2: "Patlama", 3: "Sel", 4: "Kimyasal Madde Yayılım", 5: "Salgın Hastalık", 6: "Zehirlenme", 7: "Sabotaj", 8: "Radyoaktif Madde Yayılım", 9: "Nükleer Madde Yayılım" };
     let tatbikattarih = "";
@@ -5910,11 +5910,10 @@ function isyeriraporalpdf()
     if (json.tatbikat && json.tatbikat.length > 0)
     {
         let t = json.tatbikat[0];
-        tatbikattarih = t.tarih;
-        tatbikatad = t.yurutucu;
-        tatbikatunvan = t.unvan;
-        tatbikattur = t.tur;
-        tatbikattur = tatbikatmaps[t.tur];
+        tatbikattarih = t.t;
+        tatbikatad = t.x;
+        tatbikatunvan = t.y;
+        tatbikattur = tatbikatmaps[t.z];
     }
     let periyodiktarih = "";
     let periyodikhekim = "";
