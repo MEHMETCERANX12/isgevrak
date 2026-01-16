@@ -1,5 +1,115 @@
 [
   {
+    "h": "MEHMET UÇKUN",
+    "f": "OSMAN ESKİ",
+    "s": "26920020211098610060755000"
+  },
+  {
+    "h": "MEHMET UÇKUN",
+    "f": "ANIL BERK ESKİ",
+    "s": "25611010115110660062868000"
+  },
+  {
+    "h": "MEHMET UÇKUN",
+    "f": "ESRA EYMİR",
+    "s": "29313020214187920060741000"
+  },
+  {
+    "h": "MEHMET UÇKUN",
+    "f": "GREEN PARK YAŞAM KONUTLARI YÖNETİCİLİĞİ",
+    "s": "26832010113054270062169000"
+  },
+  {
+    "h": "MEHMET UÇKUN",
+    "f": "AYSUN YOĞURTÇUOĞLU",
+    "s": "25610020213113910060719000"
+  },
+  {
+    "h": "MEHMET UÇKUN",
+    "f": "ACS HEALTHCARE SAĞLIK SİSTEMLERİ SANAYİ VE TİCARET LİMİTED ŞİRKETİ",
+    "s": "24774020213223110060775000"
+  },
+  {
+    "h": "MEHMET UÇKUN",
+    "f": "ÖZKAN GÜNEY",
+    "s": "25622020214125190060773000"
+  },
+  {
+    "h": "ALİ YÜCEL",
+    "f": "HÜSEYİN SONER KORKMAZ",
+    "s": "44100010115127940060550000"
+  },
+  {
+    "h": "ALİ YÜCEL",
+    "f": "HÜSEYİN SONER KORKMAZ",
+    "s": "44100010115128120060568000"
+  },
+  {
+    "h": "AYHAN CİĞER",
+    "f": "VİMESOFT BİLGİ TEKNOLOJİLERİ VE YAZILIM ANONİM ŞİRKETİ",
+    "s": "26210010115115640062181000"
+  },
+  {
+    "h": "AYHAN CİĞER",
+    "f": "VİMESOFT BİLGİ TEKNOLOJİLERİ VE YAZILIM ANONİM ŞİRKETİ",
+    "s": "26210010115115620062179000"
+  },
+  {
+    "h": "MEHMET UÇKUN",
+    "f": "BONA VİVA ULUSLARARASI SAĞLIK TURİZM DANIŞMANLIK İNŞAAT VE TİCARET LİMİTED ŞİRKETİ",
+    "s": "27911020214141420060747000"
+  },
+  {
+    "h": "MEHMET UÇKUN",
+    "f": "KZN METAL SANAYİ VE TİCARET LİMİTED ŞİRKETİ",
+    "s": "22015010113439290062662000"
+  },
+  {
+    "h": "MEHMET UÇKUN",
+    "f": "CN METAL İHRACAT SANAYİ VE TİCARET LİMİTED ŞİRKETİ",
+    "s": "22444010113377720062616000"
+  },
+  {
+    "h": "MEHMET UÇKUN",
+    "f": "REFERANS MERKEZ YAZILIM VE DANIŞMANLIK TİCARET LİMİTED ŞİRKETİ",
+    "s": "27020020213967500060718000"
+  },
+  {
+    "h": "MEHMET UÇKUN",
+    "f": "KUVARS GRUP GIDA SANAYİ VE TİCARET LİMİTED ŞİRKETİ",
+    "s": "25610010114745650062139000"
+  },
+  {
+    "h": "MEHMET UÇKUN",
+    "f": "AYZIT UMAY DAL",
+    "s": "28623020214073850060780000"
+  },
+  {
+    "h": "MEHMET UÇKUN",
+    "f": "SAVAŞ GRANİT MERMER SANAYİ VE TİCARET LİMİTED ŞİRKETİ",
+    "s": "24683010115065080062169000"
+  },
+  {
+    "h": "MEHMET UÇKUN",
+    "f": "BAHAR GÖKÇE ÖZDİL",
+    "s": "29313020214133130060791000"
+  },
+  {
+    "h": "MEHMET UÇKUN",
+    "f": "PROBEL MAK.ZİRAİ ÜRÜN.İLÇ.GID.İNŞ.OTO.MET.İML.İTH.İHR.LTD.ŞT",
+    "s": "24685010111611930062174000"
+  },
+  {
+    "h": "MEHMET UÇKUN",
+    "f": "UMUT SOĞUK SİSTEM LAS.KAP.SAN.TİC.LTD.ŞTİ.",
+    "s": "22211010110806310062822000"
+  },
+  {
+    "h": "AYHAN CİĞER",
+    "f": "GÖKHAN GIDA VE İHTİYAÇ MADDELERİ İNŞAAT NAKLİYE İMALAT SAN.V",
+    "s": "24711010113402270062146000"
+  },
+  {
     "h": "AYHAN CİĞER",
     "f": "RB SAVUNMA SANAYİ TİCARET LİMİTED ŞİRKETİ",
     "s": "27112010114709870062850000"
@@ -21,18 +131,8 @@
   },
   {
     "h": "MEHMET UÇKUN",
-    "f": "ÇOBANLAR PLASTİK KALIP SANAYİ VE TİCARET LİMİTED ŞİRKETİ",
-    "s": "22221010114631590062179000"
-  },
-  {
-    "h": "MEHMET UÇKUN",
     "f": "MÜCAHİT SELÇUK",
     "s": "26920020211669740060735000"
-  },
-  {
-    "h": "AYHAN CİĞER",
-    "f": "O3 MÜHENDİSLİK MİMARLIK İNŞAAT SANAYİ TİCARET ANONİM ŞİRKETİ",
-    "s": "27112010114845020062782000"
   },
   {
     "h": "MEHMET UÇKUN",
@@ -48,11 +148,6 @@
     "h": "MEHMET UÇKUN",
     "f": "ERCAN KILIÇ",
     "s": "24520010114707380062892000"
-  },
-  {
-    "h": "ALİ YÜCEL",
-    "f": "GOLDEN KRUVASAN UNLU MAMULLERİ GIDA AMBALAJ TAŞIMACILIK SANAYİ VE TİCARET LİMİTED ŞİRKETİ",
-    "s": "21071010114507300062366000"
   },
   {
     "h": "MEHMET UÇKUN",
@@ -90,11 +185,6 @@
     "s": "24520010114442590062894000"
   },
   {
-    "h": "AYHAN CİĞER",
-    "f": "ZABİNZA MEDİKAL TEKSTİL İMALAT SANAYİ VE TİCARET LİMİTED ŞİRKETİ",
-    "s": "23250010115065280062189000"
-  },
-  {
     "h": "MEHMET UÇKUN",
     "f": "YD MAKİNE SAVUNMA HAVACILIK SANAYİ VE TİCARET LİMİTED ŞİRKETİ",
     "s": "22562010113821810062196000"
@@ -113,11 +203,6 @@
     "h": "AYHAN CİĞER",
     "f": "ÇETİN KÜÇÜKŞENER",
     "s": "22740010111129350062125000"
-  },
-  {
-    "h": "MEHMET UÇKUN",
-    "f": "İSMAİL HİLMİ ÇUHADAROĞLU",
-    "s": "28622020211335340060760000"
   },
   {
     "h": "MEHMET UÇKUN",
@@ -146,11 +231,6 @@
   },
   {
     "h": "MEHMET UÇKUN",
-    "f": "BAŞKENT PSİKOLOJİ AKADEMİSİ EĞİTİM HİZMETLERİ DANIŞMANLIK PSİKOTEKNİK PROJE TİCARET LİMİTED ŞİRKETİ",
-    "s": "28560020213433500060765000"
-  },
-  {
-    "h": "MEHMET UÇKUN",
     "f": "BAFİ KUYUMCULUK TELEKOMİNİKASYON İLETİŞİM TEKSTİL SANAYİ TİC",
     "s": "24777010111961360062897000"
   },
@@ -158,11 +238,6 @@
     "h": "MEHMET UÇKUN",
     "f": "ADİN MÜCEVHERAT İNŞAAT OTOMOTİV GIDA BİLİŞİM SİSTEMLERİ SANAYİ VE TİCARET LİMİTED ŞİRKETİ",
     "s": "24777020213568770060712000"
-  },
-  {
-    "h": "MEHMET UÇKUN",
-    "f": "SEDA MİL",
-    "s": "28569020214088960060739000"
   },
   {
     "h": "MEHMET UÇKUN",
@@ -178,16 +253,6 @@
     "h": "ALİ YÜCEL",
     "f": "YENİ REHBER AKADEMİ EĞİTİM HİZMETLERİ TİCARET LİMİTED ŞİRKETİ",
     "s": "28559020214032710060740000"
-  },
-  {
-    "h": "ALİ YÜCEL",
-    "f": "TRPOWER İNŞAAT ANONİM ŞİRKETİ",
-    "s": "44100010114760660062385001"
-  },
-  {
-    "h": "MEHMET UÇKUN",
-    "f": "SEMA BALAL",
-    "s": "21414010113548530062125000"
   },
   {
     "h": "MEHMET UÇKUN",
@@ -346,11 +411,6 @@
   },
   {
     "h": "MEHMET UÇKUN",
-    "f": "BERK KAYMAZ",
-    "s": "28623010114629710062185000"
-  },
-  {
-    "h": "MEHMET UÇKUN",
     "f": "ART DESİGN ACADEMY AĞIZ DİŞ SAĞLIĞI TIBBİ MALZEMELER VE LABORATUVAR HİZMETLERİ SANAYİ TİCARET LİMİTED ŞİRKETİ",
     "s": "23250020213621090060706000"
   },
@@ -368,11 +428,6 @@
     "h": "ALİ YÜCEL",
     "f": "VERA GRUP LOKANTA KAFE SANAYİ TİCARET LİMİTED ŞİRKETİ",
     "s": "25610010114806670062130000"
-  },
-  {
-    "h": "MEHMET UÇKUN",
-    "f": "TARKAN KILIÇ",
-    "s": "24520010111997370062312000"
   },
   {
     "h": "MEHMET UÇKUN",
@@ -476,11 +531,6 @@
   },
   {
     "h": "MEHMET UÇKUN",
-    "f": "ESRA YANIKDERE",
-    "s": "24729020214005240060709000"
-  },
-  {
-    "h": "MEHMET UÇKUN",
     "f": "BAHRİYELİ DOĞA SPORLARI SANAYİ VE TİCARET LİMİTED ŞİRKETİ",
     "s": "24764010112970210062105000"
   },
@@ -525,19 +575,9 @@
     "s": "22319010100465020060210000"
   },
   {
-    "h": "YASEMİN KÜÇÜKGÜMRAH",
-    "f": "TRİADECOR MOBİLYA DEKORASYON KAPI ÜRETİM SANAYİ TİCARET ANONİM ŞİRKETİ",
-    "s": "21623010113815240062621000"
-  },
-  {
     "h": "AYHAN CİĞER",
     "f": "HİDROKONTROL MAKİNA SANAYİ VE TİCARET ANONİM ŞİRKETİ",
     "s": "24614010102149470062163000"
-  },
-  {
-    "h": "MEHMET UÇKUN",
-    "f": "RÜZGAR1 NAKLİYAT HAFRİYAT AKARYAKIT İNŞAAT MADENCİLİK SANAYİVE TİCARET LİMİTED ŞİRKETİ",
-    "s": "24312020213092440062406000"
   },
   {
     "h": "MEHMET UÇKUN",
@@ -600,11 +640,6 @@
     "s": "24782010113801740060529000"
   },
   {
-    "h": "ALİ YÜCEL",
-    "f": "NURSEN TEMİZ",
-    "s": "24777010112621020060506000"
-  },
-  {
     "h": "MEHMET UÇKUN",
     "f": "KARLA MÜCEVHERAT KUYUMCULUK BİLİŞİM SİSTEMLERİ İNŞAAT OTOMOTİV TEKSTİL İMALAT SANAYİ VE TİCARET LİMİTED ŞİRKETİ",
     "s": "24777020213143860060707000"
@@ -633,11 +668,6 @@
     "h": "AYHAN CİĞER",
     "f": "RSM WOLKSTEK OTOM İNŞ. LTD . ŞTİ.",
     "s": "24531010113409400062180000"
-  },
-  {
-    "h": "MEHMET UÇKUN",
-    "f": "LT GRUP MÜHENDİSLİK ENERJİ ELEKTRİK İNŞAAT SANAYİ VE TİCARET LİMİTED ŞİRKETİ",
-    "s": "44100010114955240062646000"
   },
   {
     "h": "ALİ YÜCEL",
@@ -696,18 +726,13 @@
   },
   {
     "h": "ALİ YÜCEL",
-    "f": "SAİT YAVUZ ÖZ",
-    "s": "26920020210250600060732000"
-  },
-  {
-    "h": "ALİ YÜCEL",
     "f": "PLATON YAYINCILIK EĞİTİM DANIŞMANLIK BİLGİSAYAR YAZILIM SANA",
     "s": "26619020212285110060774000"
   },
   {
     "h": "ALİ YÜCEL",
     "f": "TÜMEKS ELEKTRONİK MOBİLYA TEKSTİL ÜRÜNLERİ SANAYİ VE TİCARET LİMİTED ŞİRKETİ",
-    "s": "24759020213984320060751000"
+    "s": "24755020213984320060751000"
   },
   {
     "h": "ALİ YÜCEL",
@@ -753,11 +778,6 @@
     "h": "ALİ YÜCEL",
     "f": "LEYLA ÇOBAN",
     "s": "24771010112065080062190000"
-  },
-  {
-    "h": "ALİ YÜCEL",
-    "f": "KAMİL ÜLKER",
-    "s": "44100010114760660062385000"
   },
   {
     "h": "ALİ YÜCEL",
@@ -876,56 +896,6 @@
   },
   {
     "h": "ALİ YÜCEL",
-    "f": "YAŞAR ARIKAN",
-    "s": "24532010102444220062150000"
-  },
-  {
-    "h": "ALİ YÜCEL",
-    "f": "FAHRETTİN YONCALIK",
-    "s": "24532010114191890062150000"
-  },
-  {
-    "h": "ALİ YÜCEL",
-    "f": "YUSUF DURMAZ",
-    "s": "24532010110830360062102000"
-  },
-  {
-    "h": "ALİ YÜCEL",
-    "f": "SAMET ARIKAN",
-    "s": "24782010112378830062137000"
-  },
-  {
-    "h": "ALİ YÜCEL",
-    "f": "EMRE DURMAZ",
-    "s": "24531010113434980062119000"
-  },
-  {
-    "h": "ALİ YÜCEL",
-    "f": "GÖKHAN GÜNEŞ",
-    "s": "23831010114724340062142000"
-  },
-  {
-    "h": "ALİ YÜCEL",
-    "f": "İLHAN ÖZMEN",
-    "s": "24511010112038240062125000"
-  },
-  {
-    "h": "ALİ YÜCEL",
-    "f": "YAŞAR HAVUR",
-    "s": "24677010114048670062184000"
-  },
-  {
-    "h": "ALİ YÜCEL",
-    "f": "EROL EKİZ",
-    "s": "23831010114000440062114000"
-  },
-  {
-    "h": "ALİ YÜCEL",
-    "f": "CENGİZ OKUR",
-    "s": "24677010114042520062151000"
-  },
-  {
-    "h": "ALİ YÜCEL",
     "f": "SANTES TEKNİK KONTROL VE BELGELENDİRME LİMİTED ŞİRKETİ",
     "s": "27490020212161290060711000"
   },
@@ -933,11 +903,6 @@
     "h": "ALİ YÜCEL",
     "f": "CPM MEDİKAL TEM.BİLG.TURZ.İNŞ.İTH.İHR.SAN.İÇ VE DIŞ TİC.A.Ş.",
     "s": "24774020211155580060729000"
-  },
-  {
-    "h": "ALİ YÜCEL",
-    "f": "A Z KOPYALAMA KIRTASİYE ELEKTRONİK ALETLER TEKSTİL ÜRÜNLERİ SANAYİ ÜRETİM TİCARET İTHALAT İHRACAT LİMİTED ŞİRKETİ",
-    "s": "24762020210374560060712000"
   },
   {
     "h": "YASEMİN KÜÇÜKGÜMRAH",
@@ -1021,38 +986,8 @@
   },
   {
     "h": "ALİ YÜCEL",
-    "f": "MEHMET UĞUR BABUŞCU",
-    "s": "26910020213885390060752000"
-  },
-  {
-    "h": "ALİ YÜCEL",
-    "f": "FATMA BETÜL BABUŞCU",
-    "s": "24773010113782990062494000"
-  },
-  {
-    "h": "ALİ YÜCEL",
     "f": "VOLKAN ZAVAGAR",
     "s": "24511010114134280062112000"
-  },
-  {
-    "h": "ALİ YÜCEL",
-    "f": "YUSUF KARA",
-    "s": "23831010113512930062154000"
-  },
-  {
-    "h": "ALİ YÜCEL",
-    "f": "ALİ SARI",
-    "s": "23831010114838900062152000"
-  },
-  {
-    "h": "ALİ YÜCEL",
-    "f": "BÜNYAMİN SÖNMEZ",
-    "s": "24120010114661290062142000"
-  },
-  {
-    "h": "ALİ YÜCEL",
-    "f": "TOLGA SEZGİN",
-    "s": "24532010114143850062196000"
   },
   {
     "h": "AYHAN CİĞER",
@@ -1063,31 +998,6 @@
     "h": "AYHAN CİĞER",
     "f": "AYTİM PLASTİK VE KALIP TEKNOLOJİLERİ SANAYİ TİCARET LİMİTED ŞİRKETİ",
     "s": "22553010113784150062616000"
-  },
-  {
-    "h": "ALİ YÜCEL",
-    "f": "HARUN EFE ",
-    "s": "24531010111987930062138000"
-  },
-  {
-    "h": "ALİ YÜCEL",
-    "f": "HALİL SÖNMEZ",
-    "s": "24531010111957420062191000"
-  },
-  {
-    "h": "ALİ YÜCEL",
-    "f": "CİHAN DEMİRBAŞ",
-    "s": "24677010112162990062184000"
-  },
-  {
-    "h": "ALİ YÜCEL",
-    "f": "YUSUF ERBAŞ",
-    "s": "24532010113326930062178000"
-  },
-  {
-    "h": "ALİ YÜCEL",
-    "f": "MEHMET BOZDOĞAN",
-    "s": "24532010113214090062146000"
   },
   {
     "h": "ALİ YÜCEL",
@@ -1161,11 +1071,6 @@
   },
   {
     "h": "ALİ YÜCEL",
-    "f": "UTKAN KEÇECİ",
-    "s": "27410020212275810060717000"
-  },
-  {
-    "h": "ALİ YÜCEL",
     "f": "MODAM CAFE RESTAURANT GIDA SANAYİ TİCARET LİMİTED ŞİRKETİ",
     "s": "25610020212833510060712000"
   },
@@ -1178,16 +1083,6 @@
     "h": "ALİ YÜCEL",
     "f": "HÜSEYİN KAĞIT ORGANİZASYON PRODÜKSİYON GIDA İNŞAAT TURİZM SA",
     "s": "29001010113538660062508000"
-  },
-  {
-    "h": "ALİ YÜCEL",
-    "f": "DECHOME MAĞAZACILIK BİLİŞİM ELEKTRONİK PAZARLAMA SANAYİ VE TİCARET LİMİTED ŞİRKETİ",
-    "s": "24754010112911870062988000"
-  },
-  {
-    "h": "ALİ YÜCEL",
-    "f": "NİT__SET EV ALETLERİ PAZARLAMA SANAYİ VE TİCARET LİMİTED ŞİRKETİ",
-    "s": "24755010111127940062978000"
   },
   {
     "h": "ALİ YÜCEL",
@@ -1233,6 +1128,11 @@
     "h": "AYHAN CİĞER",
     "f": "BİLMET BİLGİSAYAR TAN.OFİS GER.TİC.LTD.ŞTİ.",
     "s": "22823010110961530062124000"
+  },
+  {
+    "h": "ALİ YÜCEL",
+    "f": "",
+    "s": "24941010114333880060587000"
   },
   {
     "h": "AYHAN CİĞER",
@@ -1440,76 +1340,6 @@
     "s": "26920010102028900062534000"
   },
   {
-    "h": "ALİ YÜCEL",
-    "f": "SİNAN BAYKAR",
-    "s": "23831010114681350062111000"
-  },
-  {
-    "h": "ALİ YÜCEL",
-    "f": "YASİN ELVAN__MEHMET ELVAN ADİ ORTAKLIĞI",
-    "s": "24532010114000420062112000"
-  },
-  {
-    "h": "ALİ YÜCEL",
-    "f": "MUSTAFA ELVAN",
-    "s": "24677010114191880062149000"
-  },
-  {
-    "h": "ALİ YÜCEL",
-    "f": "SUAT KAPLAN",
-    "s": "24532010114050360062159000"
-  },
-  {
-    "h": "ALİ YÜCEL",
-    "f": "MEHMET EFE",
-    "s": "24532010112580860062164000"
-  },
-  {
-    "h": "ALİ YÜCEL",
-    "f": "MEHMET MERT BOZDOĞAN",
-    "s": "24532010114551090062180000"
-  },
-  {
-    "h": "ALİ YÜCEL",
-    "f": "MUSTAFA BOZDOĞAN",
-    "s": "23831010114630480062165000"
-  },
-  {
-    "h": "ALİ YÜCEL",
-    "f": "GAZİ ELVAN",
-    "s": "24531010114420970062166000"
-  },
-  {
-    "h": "ALİ YÜCEL",
-    "f": "YUNUS PEKTAŞ",
-    "s": "23831010113586820062171000"
-  },
-  {
-    "h": "ALİ YÜCEL",
-    "f": "FAHRETTİN ÜSTÜNDAĞ",
-    "s": "24532010111825720062116000"
-  },
-  {
-    "h": "ALİ YÜCEL",
-    "f": "GÖKHAN MADEN",
-    "s": "23831010114316200062165000"
-  },
-  {
-    "h": "ALİ YÜCEL",
-    "f": "ALİ İHSANKALENDEROĞLU",
-    "s": "24532010111434860062121000"
-  },
-  {
-    "h": "ALİ YÜCEL",
-    "f": "MUSTAFA CİHAN",
-    "s": "24532010114681220062195000"
-  },
-  {
-    "h": "ALİ YÜCEL",
-    "f": "EMRE SÖNMEZ",
-    "s": "24532010114069930062176000"
-  },
-  {
     "h": "MEHMET UÇKUN",
     "f": "BHB ANKARA İNŞAAT GAYRİMENKUL TİCARET LİMİTED ŞİRKETİ",
     "s": "24120010110270140180285000"
@@ -1563,16 +1393,6 @@
     "h": "MEHMET UÇKUN",
     "f": "KADİR YALÇIN",
     "s": "22512010112365730060285000"
-  },
-  {
-    "h": "ALİ YÜCEL",
-    "f": "YUSUF İLDEŞ",
-    "s": "24520010112031290060509000"
-  },
-  {
-    "h": "ALİ YÜCEL",
-    "f": "ÇINAR SİTE Sİ YÖNETİMİ",
-    "s": "28130020210016230062169000"
   },
   {
     "h": "ALİ YÜCEL",
@@ -1696,16 +1516,6 @@
   },
   {
     "h": "MEHMET UÇKUN",
-    "f": "ÖZSEÇKİN SİTE YÖNETİMİ",
-    "s": "26832010110329800062195000"
-  },
-  {
-    "h": "MEHMET UÇKUN",
-    "f": "ATA MATBAACILIK SANAYİ TİCARET ANONİM ŞİRKETİ",
-    "s": "25819010113211840060215000"
-  },
-  {
-    "h": "MEHMET UÇKUN",
     "f": "ZMG MAKİNA VE DANIŞMANLIK TEMSİLCİLİK SANAYİ TİCARET LİMİTED ŞİRKETİ",
     "s": "22562010113872110062182000"
   },
@@ -1713,11 +1523,6 @@
     "h": "MEHMET UÇKUN",
     "f": "ALPARAS İNŞAAT GAYRİMENKUL DANIŞMANLIK LİMİTED ŞİRKETİ",
     "s": "26831020213443700060718000"
-  },
-  {
-    "h": "MEHMET UÇKUN",
-    "f": "ŞEMSETTİN ONAT",
-    "s": "24642020213007020060797000"
   },
   {
     "h": "MEHMET UÇKUN",
@@ -1785,26 +1590,6 @@
     "s": "22712010101468870062597000"
   },
   {
-    "h": "AYHAN CİĞER",
-    "f": "OKUR GLOBAL MAKİNE İÇ VE DIŞ TİCARET PAZARLAMA ANONİM ŞİRKETİ",
-    "s": "24663010113892640062701000"
-  },
-  {
-    "h": "AYHAN CİĞER",
-    "f": "OKUR MAKİNA İMALAT VE İNŞAAT SANAYİ TİCARET ANONİM ŞİRKETİ",
-    "s": "22892010113020280062765000"
-  },
-  {
-    "h": "AYHAN CİĞER",
-    "f": "OKUR MAKİNA İMALAT VE İNŞAAT SANAYİ TİCARET ANONİM ŞİRKETİ",
-    "s": "22892010113408250062762000"
-  },
-  {
-    "h": "AYHAN CİĞER",
-    "f": "OKUR MAKİNA İMALAT VE İNŞAAT SANAYİ TİCARET ANONİM ŞİRKETİ",
-    "s": "22892010110243200061368000"
-  },
-  {
     "h": "MEHMET UÇKUN",
     "f": "RSM WOLKSTEK OTOMOTİV İNŞAAT LİMİTED ŞİRKETİ",
     "s": "44100010114828100062139000"
@@ -1828,11 +1613,6 @@
     "h": "MEHMET UÇKUN",
     "f": "MURAT YILDIRIM",
     "s": "24642020213965030062462000"
-  },
-  {
-    "h": "MEHMET UÇKUN",
-    "f": "RİDER İÇ VE DIŞ TİCARET PAZARLAMA SANAYİ LTD.ŞTİ.",
-    "s": "24540020213293200060703000"
   },
   {
     "h": "MEHMET UÇKUN",
@@ -1986,18 +1766,8 @@
   },
   {
     "h": "AYHAN CİĞER",
-    "f": "OSMAN ESKİ",
-    "s": "26920020211098610060755000"
-  },
-  {
-    "h": "AYHAN CİĞER",
     "f": "VETERNAL HAYVANCILIK VETERİNER KLİNİK HİZMETLERİ SANAYİ VE TİCARET LİMİTED ŞİRKETİ",
     "s": "27500010114412540062196000"
-  },
-  {
-    "h": "AYHAN CİĞER",
-    "f": "VPR OTOMOTİV SANAYİ VE TİCARET LİMİTED ŞİRKETİ",
-    "s": "24532010114477200062163000"
   },
   {
     "h": "AYHAN CİĞER",
@@ -2063,16 +1833,6 @@
     "h": "MEHMET UÇKUN",
     "f": "SURHAN ÇELİK KAPI İNŞAAT SANAYİ VE TİCARET LİMİTED ŞİRKETİ",
     "s": "44100010113870400062108020"
-  },
-  {
-    "h": "MEHMET UÇKUN",
-    "f": "ALİ DEDEOĞLU",
-    "s": "21812010101741530060209000"
-  },
-  {
-    "h": "MEHMET UÇKUN",
-    "f": "AHMET ÖCAL",
-    "s": "24711010113965430062805000"
   },
   {
     "h": "MEHMET UÇKUN",
@@ -2176,16 +1936,6 @@
   },
   {
     "h": "MEHMET UÇKUN",
-    "f": "KAZIM DAĞDEVİREN",
-    "s": "24941020213249700062218000"
-  },
-  {
-    "h": "MEHMET UÇKUN",
-    "f": "YUSUF DAĞDEVİREN",
-    "s": "24941020213801590062214000"
-  },
-  {
-    "h": "MEHMET UÇKUN",
     "f": "TODO DAYANIKLI TÜKETİM MALLARI MOBİLYA SANAYİ VE TİCARET LİMİTED ŞİRKETİ",
     "s": "24754010113018340420585000"
   },
@@ -2222,7 +1972,7 @@
   {
     "h": "AYHAN CİĞER",
     "f": "TERA TAAHHÜT İNŞAAT TURİZM GIDA SANAYİ VE TİCARET ANONİM ŞİRKETİ",
-    "s": "28211020211029230060704000"
+    "s": "28210020211029230060704000"
   },
   {
     "h": "AYHAN CİĞER",
@@ -2331,11 +2081,6 @@
   },
   {
     "h": "MEHMET UÇKUN",
-    "f": "AYDINLAR İÇ VE DIŞ TİC.LTD.ŞTİ.",
-    "s": "24520010110324200062820000"
-  },
-  {
-    "h": "MEHMET UÇKUN",
     "f": "KML BİLGİSAYAR VE YAZ.TEKN.SAN.TİC.LTD.ŞTİ.",
     "s": "26201010111726500062185000"
   },
@@ -2353,11 +2098,6 @@
     "h": "MEHMET UÇKUN",
     "f": "9 BLOK SİTESİ YÖNETİMİ",
     "s": "26832010101827670062187000"
-  },
-  {
-    "h": "MEHMET UÇKUN",
-    "f": "HAKAN ELMASOĞLU",
-    "s": "23109010113561520060263000"
   },
   {
     "h": "MEHMET UÇKUN",
@@ -2391,11 +2131,6 @@
   },
   {
     "h": "MEHMET UÇKUN",
-    "f": "AYVALI SERA TAR.ÜRÜN.İNŞ.SAN.TİC.LTD.ŞTİ.",
-    "s": "20130010110848700062490000"
-  },
-  {
-    "h": "MEHMET UÇKUN",
     "f": "AHMET ARSLANOĞLU",
     "s": "26920010113038420060236000"
   },
@@ -2420,11 +2155,6 @@
     "s": "25630020213769370060790000"
   },
   {
-    "h": "MEHMET UÇKUN",
-    "f": "EMİNE KARACA",
-    "s": "29313010114855370062850000"
-  },
-  {
     "h": "AYHAN CİĞER",
     "f": "HASAN KARAMAN METAL SANAYİ TİCARET LİMİTED ŞİRKETİ",
     "s": "24672010114680330062106000"
@@ -2432,7 +2162,7 @@
   {
     "h": "MEHMET UÇKUN",
     "f": "ÖZKAYA PASTA ŞEKERLEME SAN.VE TİC.LTD.ŞTİ.",
-    "s": "25610020200026720062424000"
+    "s": "25612020200026720062424000"
   },
   {
     "h": "MEHMET UÇKUN",
@@ -2600,16 +2330,6 @@
     "s": "24751010111804970060275000"
   },
   {
-    "h": "MEHMET UÇKUN",
-    "f": "S4 PROJE İNŞAAT TAAHHÜT TEMİZLİK TEKSTİL SANAYİ VE TİCARET LİMİTED ŞİRKETİ",
-    "s": "27112020213302150060725000"
-  },
-  {
-    "h": "AYHAN CİĞER",
-    "f": "ARDA PVC PLASTİK DOĞ ÇELİK KONSTTRÜKSİYON İNŞ TAAH SAN VE TİC A.Ş",
-    "s": "44120010114872980062165000"
-  },
-  {
     "h": "YASEMİN KÜÇÜKGÜMRAH",
     "f": "MAKİM MAKİNA TEKNOLOJİLERİ SANAYİ VE TİCARET ANONİM ŞİRKETİ",
     "s": "22452010114819920062694000"
@@ -2731,11 +2451,6 @@
   },
   {
     "h": "YASEMİN KÜÇÜKGÜMRAH",
-    "f": "ER ŞA TEKNİK SERVİS HİZMETLERİ NAKLİYAT İTHALAT İHRACAT SANAYİ VE TİCARET LİMİTED ŞİRKETİ",
-    "s": "29522010112962230062380000"
-  },
-  {
-    "h": "YASEMİN KÜÇÜKGÜMRAH",
     "f": "ESN ÜRETİM GIDA BESİCİLİK İNŞAAT SANAYİ TİCARET LİMİTED ŞİRKETİ",
     "s": "24617010112940450062136000"
   },
@@ -2743,11 +2458,6 @@
     "h": "MEHMET UÇKUN",
     "f": "MTM BİLİŞİM ARGE YAZILIM VE GÜV.TEKNSAN.TİC.A.Ş.",
     "s": "22740010113049020062129000"
-  },
-  {
-    "h": "YASEMİN KÜÇÜKGÜMRAH",
-    "f": "MAKSAR GIDA İNŞAAT TİCARET LİMİTED ŞİRKETİ",
-    "s": "44100010114655790062174000"
   },
   {
     "h": "MEHMET UÇKUN",
@@ -2768,11 +2478,6 @@
     "h": "ALİ YÜCEL",
     "f": "FAİK KARAHANCI GIDA SANAYİ ANONİM ŞİRKETİ",
     "s": "24639010112861560062504000"
-  },
-  {
-    "h": "YASEMİN KÜÇÜKGÜMRAH",
-    "f": "MRG MAKİNA İMALAT PAZARLAMA İTHALAT İHRACAT SANAYİ TİCARET LİMİTED ŞİRKETİ",
-    "s": "23320010114525240062817000"
   },
   {
     "h": "YASEMİN KÜÇÜKGÜMRAH",
@@ -2948,11 +2653,6 @@
     "h": "YASEMİN KÜÇÜKGÜMRAH",
     "f": "ATM ATILIM MAKİNA PAZARLAMA İHRACAT İTHALAT SANAYİ VE TİCARET LİMİTED ŞİRKETİ",
     "s": "23320010111625390062562000"
-  },
-  {
-    "h": "MEHMET UÇKUN",
-    "f": "DEMİRCİLER GRUP TARIM HAY.TU.OTO.SAN.TİCLTD.ŞTİ.",
-    "s": "20141020211862510060409000"
   },
   {
     "h": "MEHMET UÇKUN",
