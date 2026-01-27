@@ -5664,15 +5664,21 @@ function evrakkayitisyerioku()
     let table = $('#muhendislikkontrol').DataTable();
     table.rows({ page: 'all' }).every(function ()
     {
-        let row = this.node();
-        let tds = $(row).find('td');
+        let rowData = this.data(); // 👈 id burada
+        let tds = $(this.node()).find('td');
+
         let yapanad = tds.eq(1).find('input').val().trim();
         let yapanunvan = tds.eq(2).find('select').val();
         let tarih = tds.eq(3).find('input').val().trim();
-        let id = tds.eq(4).text().trim();
+
         if (yapanad && tarih && yapanunvan !== "0")
         {
-            sonuc.isekipmanikontrol.push({ id: id, x: yapanad, y: yapanunvan, t: tarih });
+            sonuc.isekipmanikontrol.push({
+                id: rowData.id,
+                x: yapanad,
+                y: yapanunvan,
+                t: tarih
+            });
         }
     });
     let table2 = $('#ortamolcumtablo').DataTable();
@@ -5684,7 +5690,7 @@ function evrakkayitisyerioku()
         let yapanunvan = tds.eq(2).find('input').val().trim(); // ✅ DOĞRU
         let olcumtip = tds.eq(3).find('select').val();
         let tarih  = tds.eq(4).find('input').val().trim();
-        if (yapanad && tarih && olcumtip !== "0")
+        if (yapanad && yapanunvan && tarih && olcumtip !== "0")
         {
             sonuc.ortamolcumu.push
             ({
@@ -5696,22 +5702,27 @@ function evrakkayitisyerioku()
             });
         }
     });
-    $('#sagliktaramatablo tbody tr').each(function ()
+    let table3 = $('#sagliktaramatablo').DataTable();
+    table3.rows({ page: 'all' }).every(function ()
     {
-        let tds = $(this).find('td');
+        let rowData = this.data(); // 👈 id burada
+        let tds = $(this.node()).find('td');
         let yapanad = tds.eq(1).find('input').val().trim();
         let yapanunvan = tds.eq(2).find('input').val().trim();
         let tarih = tds.eq(3).find('input').val().trim();
-        let id = tds.eq(4).text();
         if (yapanad && yapanunvan && tarih)
         {
-            sonuc.sagliktarama.push({ id: id, x: yapanad, y: yapanunvan, t: tarih });
+            sonuc.sagliktarama.push({
+                id: rowData.id,
+                x: yapanad,
+                y: yapanunvan,
+                t: tarih
+            });
         }
     });
     $('#HiddenField1').val(JSON.stringify(sonuc));
     return true;
 }
-
 
 function acilsonuckontrol() { let t = $("#aciltarih").val(), u = $("#aciluzman").val(), h = $("#acilhekim").val(); t && u && h ? $("#acilsonuc").show() : $("#acilsonuc").hide() }
 function risksonuckontrol() { let t = $("#risktarih").val(), u = $("#riskuzman").val(), h = $("#riskhekim").val(), p = $("#risktip").val(); t && u && h && p !== "0" ? $("#risksonuc").show() : $("#risksonuc").hide() }
