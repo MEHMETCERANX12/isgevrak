@@ -5421,7 +5421,6 @@ function evrakkayitcalisanguncelle()
     return true;
 }
 
-
 async function evrakkayitisyeriload()
 {
     let liste = [];
@@ -5475,7 +5474,7 @@ async function evrakkayitisyeriload()
             { data: null, title: "Yapan Kişi Ad Soyad", width: "400px", render: () => `<input type="text" class="csstextbox100" onblur="adsoyadduzelt(this)" autocomplete="off">` },
             { data: null, title: "Yapan Kişi Unvan", width: "350px", render: () => unvanSelect() },
             { data: null, title: "Tarih", width: "175px", render: () => `<input type="text" class="csstextbox100" autocomplete="off" onfocus="datepickerjquery(this)" style="text-align:center">` },
-            { data: "id", visible: true }
+            { data: "id", visible: false }
         ],
         createdRow: function (r) { $(r).find("td").eq(0).css("text-align", "left"); },
         headerCallback: function (thead) { $(thead).find('th').css('text-align', 'center'); },
@@ -5488,10 +5487,11 @@ async function evrakkayitisyeriload()
         order: [],
         columns: [
             { data: "kontrol", title: "Ortam Ölçüm Adı" },
-            { data: null, title: "Yapan Kişi Ad Soyad", width: "400px", render: () => `<input type="text" class="csstextbox100" onblur="adsoyadduzelt(this)" autocomplete="off">` },
-            { data: null, title: "Yapan Kişi Unvan", width: "350px", render: () => `<select class="cssdropdown100 olcumtip"><option value="0">Lütfen Seçiniz</option><option value="1">Kişisel Maruziyet Ölçümü</option><option value="2">Noktasal Ölçüm</option></select>` },
+            { data: null, title: "Yapan Kişi Ad Soyad", width: "300px", render: () => `<input type="text" class="csstextbox100" onblur="adsoyadduzelt(this)" autocomplete="off">` },
+            { data: null, title: "Yapan Kişi Unvan", width: "300px", render: () => `<input type="text" class="csstextbox100" onblur="basharfbuyuk(this)" autocomplete="off">` },
+            { data: null, title: "Ölçüm Metodu", width: "250px", render: () => `<select class="cssdropdown100 olcumtip"><option value="0">Lütfen Seçiniz</option><option value="1">Kişisel Maruziyet Ölçümü</option><option value="2">Noktasal Ölçüm</option></select>` },
             { data: null, title: "Tarih", width: "175px", render: () => `<input type="text" class="csstextbox100" autocomplete="off" onfocus="datepickerjquery(this)" style="text-align:center">` },
-            { data: "id", visible: true }
+            { data: "id", visible: false }
         ],
         createdRow: function (r) { $(r).find("td").eq(0).css("text-align", "left"); },
         headerCallback: function (thead) { $(thead).find('th').css('text-align', 'center'); },
@@ -5507,7 +5507,7 @@ async function evrakkayitisyeriload()
             { data: null, title: "Yapan Kişi Ad Soyad", width: "400px", render: () => `<input type="text" class="csstextbox100" onblur="adsoyadduzelt(this)" autocomplete="off">` },
             { data: null, title: "Yapan Kişi Unvan", width: "350px", render: () => `<input type="text" class="csstextbox100" onblur="basharfbuyuk(this)" autocomplete="off">` },
             { data: null, title: "Tarih", width: "175px", render: () => `<input type="text" class="csstextbox100" autocomplete="off" onfocus="datepickerjquery(this)" style="text-align:center">` },
-            { data: "id", visible: true }
+            { data: "id", visible: false }
         ],
         createdRow: function (r) { $(r).find("td").eq(0).css("text-align", "left"); },
         headerCallback: function (thead) { $(thead).find('th').css('text-align', 'center'); },
@@ -5531,6 +5531,7 @@ async function evrakkayitisyeriload()
     $('#periyodiktarih, #periyodikhekim, #isegirishekim').on('keyup change', saglikraporsonuckontrol);
 
     let veri = jsoncevir($('#HiddenField1').val());
+    console.log(veri);
     if (!veri) return;
 
     if (veri.riskdegerlendirme?.length) {
@@ -5550,7 +5551,8 @@ async function evrakkayitisyeriload()
         acilsonuckontrol();
     }
 
-    if (veri.tatbikat?.length) {
+    if (veri.tatbikat?.length)
+    {
         let t = veri.tatbikat[0];
         $('#tatbikattarih').val(t.t);
         $('#tatbikatad').val(t.x);
@@ -5562,10 +5564,11 @@ async function evrakkayitisyeriload()
     let table1 = $('#muhendislikkontrol').DataTable();
     veri.isekipmanikontrol?.forEach(v => {
         table1.rows().every(function () {
-            let tds = $(this.node()).find('td');
-            let id = tds.eq(4).text().trim();
-            if (id === v.id) {
-                tds.eq(1).find('input').val(v.x);
+            let rowData = this.data();
+            if ((rowData.id || "") === v.id)
+            {
+                let tds = $(this.node()).find('td');
+                tds.eq(1).find('input').val(v.x); 
                 tds.eq(2).find('select').val(v.y);
                 tds.eq(3).find('input').val(v.t);
             }
@@ -5573,30 +5576,36 @@ async function evrakkayitisyeriload()
     });
 
     let table2 = $('#ortamolcumtablo').DataTable();
+
     veri.ortamolcumu?.forEach(v => {
         table2.rows().every(function () {
-            let tds = $(this.node()).find('td');
-            let id = tds.eq(4).text().trim();
-            if (id === v.id) {
-                tds.eq(1).find('input').val(v.x);
-                tds.eq(2).find('select').val(v.y);
-                tds.eq(3).find('input').val(v.t);
+            let rowData = this.data();
+            if ((rowData.id || "") === v.id) {
+                let tds = $(this.node()).find('td');
+                tds.eq(1).find('input').val(v.x); // Ad Soyad
+                tds.eq(2).find('input').val(v.z); // Unvan
+                tds.eq(3).find('select').val(v.y); // Ölçüm Metodu
+                tds.eq(4).find('input').val(v.t); // Tarih
             }
         });
     });
 
+
+
     let table3 = $('#sagliktaramatablo').DataTable();
     veri.sagliktarama?.forEach(v => {
         table3.rows().every(function () {
-            let tds = $(this.node()).find('td');
-            let id = tds.eq(4).text().trim();
-            if (id === v.id) {
+            let rowData = this.data();
+            if ((rowData.id || "") === v.id)
+            {
+                let tds = $(this.node()).find('td');
                 tds.eq(1).find('input').val(v.x);
                 tds.eq(2).find('input').val(v.y);
                 tds.eq(3).find('input').val(v.t);
             }
         });
     });
+
 
     if (veri.egitim?.length) {
         $('#uzmanad').val(veri.egitim[0].x);
@@ -5666,16 +5675,25 @@ function evrakkayitisyerioku()
             sonuc.isekipmanikontrol.push({ id: id, x: yapanad, y: yapanunvan, t: tarih });
         }
     });
-    $('#ortamolcumtablo tbody tr').each(function ()
+    let table2 = $('#ortamolcumtablo').DataTable();
+    table2.rows({ page: 'all' }).every(function ()
     {
-        let tds = $(this).find('td');
+        let rowData = this.data();
+        let tds = $(this.node()).find('td');
         let yapanad = tds.eq(1).find('input').val().trim();
-        let olcumtip = tds.eq(2).find('select').val();
-        let tarih = tds.eq(3).find('input').val().trim();
-        let id = tds.eq(4).text();
+        let yapanunvan = tds.eq(2).find('input').val().trim(); // ✅ DOĞRU
+        let olcumtip = tds.eq(3).find('select').val();
+        let tarih  = tds.eq(4).find('input').val().trim();
         if (yapanad && tarih && olcumtip !== "0")
         {
-            sonuc.ortamolcumu.push({ id: id, x: yapanad, y: olcumtip, t: tarih });
+            sonuc.ortamolcumu.push
+            ({
+                id: rowData.id,
+                x: yapanad,
+                z: yapanunvan,
+                y: olcumtip,
+                t: tarih
+            });
         }
     });
     $('#sagliktaramatablo tbody tr').each(function ()
@@ -5693,6 +5711,8 @@ function evrakkayitisyerioku()
     $('#HiddenField1').val(JSON.stringify(sonuc));
     return true;
 }
+
+
 function acilsonuckontrol() { let t = $("#aciltarih").val(), u = $("#aciluzman").val(), h = $("#acilhekim").val(); t && u && h ? $("#acilsonuc").show() : $("#acilsonuc").hide() }
 function risksonuckontrol() { let t = $("#risktarih").val(), u = $("#riskuzman").val(), h = $("#riskhekim").val(), p = $("#risktip").val(); t && u && h && p !== "0" ? $("#risksonuc").show() : $("#risksonuc").hide() }
 function tatbikatsonuckontrol() { let t = $("#tatbikattarih").val(), a = $("#tatbikatad").val(), u = $("#tatbikatunvan").val(), r = $("#tatbikattur").val(); t && a && u && r !== "0" ? $("#tatbikatsonuc").show() : $("#tatbikatsonuc").hide() }
