@@ -3293,9 +3293,50 @@ function kkdsablonduzenlekaydet()
 }
 
 ////////////////////////////ACİL DURUM/////////////////////////////////////////////ACİL DURUM/////////////////////////////////////////////ACİL DURUM/////////////////////////////////////////////
-
+function admegorevlendirme1load()
+{
+    const $select = $('#isyeri');
+    if ($select.length === 0) return;
+    const $defaultOption = $('<option>', {text: 'Lütfen işyeri seçiniz', value: '', disabled: true, selected: true});
+    $select.append($defaultOption);
+    let data = store.get('firmajson');
+    if (typeof data === 'string')
+    {
+        data = JSON.parse(data);
+    }
+    if (Array.isArray(data))
+    {
+        data.sort((a, b) => a.fk.localeCompare(b.fk));
+        data.forEach(row => {const $option = $('<option>', {text: row.fk, value: row.id }); $select.append($option);});
+    }
+}
+function admegorevlendiredevam1()
+{
+    let jsonfirmatumu = store.get('firmajson');
+    if (typeof jsonfirmatumu === 'string')
+    {
+        try
+        {
+            jsonfirmatumu = JSON.parse(jsonfirmatumu);
+        }
+        catch (e)
+        {
+            alertify.error("Beklenmedik bir hata oluştu");
+            jsonfirmatumu = [];
+        }
+    }
+    var selectedId = $('#isyeri').val();
+    var selectedRow = $.grep(jsonfirmatumu, function (f) { return f.id == selectedId; })[0];
+    if (!selectedRow)
+    {
+        alertify.error("Lütfen bir işyeri seçiniz", 7);
+        return;
+    }
+    store.set('xjsonfirma', JSON.stringify(selectedRow));
+    store.set('xfirmaid', selectedRow.id);
+    window.location.href = "admegorevlendirme2.aspx?id=" + encodeURIComponent(selectedRow.id);
+}
 function acildurumkonuliste(){const a={yangin:"Yangın",deprem:"Deprem",sel:"Sel",sabotaj:"Sabotaj",iskaza:"İş Kazası",elektrik:"Elektrik Çarpması",salgin:"Salgın Hastalık (Covid - 19 vb.)",gida:"Gıda Zehirlenmesi",yildirim:"Yıldırım Düşmesi",basinc:"Basınçlı Kap Patlaması",kmaruziyet:"Kimyasal Maruziyet",ksizinti:"Kimyasal Sızıntı",patlama:"Patlayıcı Ortam",bakim:"Bakım Onarım",hayvan:"Hayvan Sokması Isırması"},b=store.get("acildurumkonusecim");if(!b)return[];const c=[];$.each(b,function(d,e){e==1&&a[d]&&c.push({ad:a[d]})});return c}
-
 async function acildurumisyeririsk()
 {
     const liste = [];
