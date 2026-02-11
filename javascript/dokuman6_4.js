@@ -1,6 +1,54 @@
 ///////////////////İŞ KAZASI///////////////////İŞ KAZASI///////////////////İŞ KAZASI///////////////////İŞ KAZASI//////////İŞ KAZASI//////////
 ///////////////////İŞ KAZASI///////////////////İŞ KAZASI///////////////////İŞ KAZASI///////////////////İŞ KAZASI//////////İŞ KAZASI//////////
-
+function iskazasitutanak1load()
+{
+    isyerigetir();
+    $("#hastanebolum").hide();
+    $("#tibbimudahale").on("change", function ()
+    {
+        let deger = $(this).val();
+        if (deger === "1")
+        {
+            $("#hastanebolum").slideDown();
+        }
+        else
+        {
+            $("#hastanebolum").slideUp();
+        }
+    });
+}
+function iskazatutanakdevam1()
+{
+    let firmaid = firmasecimoku();
+    if (!firmaid)
+    {
+        alertify.error("Lütfen işyeri seçiniz");
+        return;
+    }
+    let tibbimudahale = $("#tibbimudahale").val();
+    if (!tibbimudahale)
+    {
+        alertify.error("Sağlık Kuruluşunda Tıbbi Müdahale Yapılıp Yapılmadığını Seçiniz");
+        return;
+    }
+    let tutanaktarih = $("#tutanaktarih").val();
+    let kazatarih = $("#kazatarih").val();
+    let saat = $("#saat").val();
+    let kazayeri = $("#kazayeri").val();
+    let kazaadsoyad = $("#kazaadsoyad").val();
+    let kazasiddet = $("#kazasiddet").val();
+    let yapilanis = $("#yapilanis").val();
+    let hastanead = $("#hastanead").val();
+    let kazaanlatim = $("#kazaanlatim").val();
+    if (tibbimudahale === "1" && !hastanead)
+    {
+        alertify.error("Lütfen sağlık kuruluşunun adını giriniz");
+        return;
+    }
+    let tutanakjson={firmaid:firmaid,kazaadsoyad:kazaadsoyad,tutanaktarih:tutanaktarih,kazatarih:kazatarih,saat:saat,kazayeri:kazayeri,kazasiddet:kazasiddet,yapilanis:yapilanis,tibbimudahale:tibbimudahale,hastanead:hastanead,kazaanlatim:kazaanlatim};
+    store.set("iskazasiicerik", tutanakjson);
+    window.location.href = "iskazatutanak2.aspx";
+}
 
 function iskazatutanakload2()
 {
@@ -116,7 +164,6 @@ async function iskazatutanakwordcikti()
     const blob = await Packer.toBlob(doc);
     saveAs(blob, "İş Kazası Tutanağı - " + metinuret(3) + ".docx");
 }
-
 function iskazasiimza(json){const rows=[];const{TextRun,Paragraph,Table,TableRow,TableCell,WidthType,BorderStyle,AlignmentType,HeightRule,VerticalAlign}=docx;const chunkSize=3;for(let i=0;i<json.length;i+=chunkSize){const grup=json.slice(i,i+chunkSize);rows.push(new TableRow({children:grup.map(x=>new TableCell({borders:{top:{style:BorderStyle.NONE},bottom:{style:BorderStyle.NONE},left:{style:BorderStyle.NONE},right:{style:BorderStyle.NONE}},verticalAlign:VerticalAlign.CENTER,children:[new Paragraph({alignment:AlignmentType.CENTER,children:[new TextRun({text:x.adsoyad,bold:true,font:"Calibri",size:22})]})]}))}));rows.push(new TableRow({children:grup.map(x=>new TableCell({borders:{top:{style:BorderStyle.NONE},bottom:{style:BorderStyle.NONE},left:{style:BorderStyle.NONE},right:{style:BorderStyle.NONE}},verticalAlign:VerticalAlign.CENTER,children:[new Paragraph({alignment:AlignmentType.CENTER,children:[new TextRun({text:x.unvan,font:"Calibri",size:22})]})]}))}));rows.push(new TableRow({children:grup.map(()=>new TableCell({borders:{top:{style:BorderStyle.NONE},bottom:{style:BorderStyle.NONE},left:{style:BorderStyle.NONE},right:{style:BorderStyle.NONE}},verticalAlign:VerticalAlign.CENTER,children:[new Paragraph({alignment:AlignmentType.CENTER,children:[new TextRun({text:"İmza",font:"Calibri",size:22})]})]}))}));rows.push(new TableRow({height:{value:1100,rule:HeightRule.EXACT},children:grup.map(()=>new TableCell({borders:{top:{style:BorderStyle.NONE},bottom:{style:BorderStyle.NONE},left:{style:BorderStyle.NONE},right:{style:BorderStyle.NONE}},children:[new Paragraph(" ")]}))}));}return new Table({width:{size:100,type:WidthType.PERCENTAGE},borders:{top:{style:BorderStyle.NONE},bottom:{style:BorderStyle.NONE},left:{style:BorderStyle.NONE},right:{style:BorderStyle.NONE},insideHorizontal:{style:BorderStyle.NONE},insideVertical:{style:BorderStyle.NONE}},rows:rows});}
 
 ///////////////////YILLIK DEĞERLENDİRME RAPORU///////////////////YILLIK DEĞERLENDİRME RAPORU///////////////////YILLIK DEĞERLENDİRME RAPORU///////////////////YILLIK DEĞERLENDİRME RAPORU//////////
