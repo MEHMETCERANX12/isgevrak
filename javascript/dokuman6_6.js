@@ -1,3 +1,58 @@
+///////////////////GPT///////////////////GPT///////////////////GPT///////////////////GPT//////////GPT//////////
+function gptriskdegerlendirmetamam1()
+{
+    let riskdegerlendirme = $('#riskdegerlendirme').val().trim();
+    if (gptriskdegerlendirmekontrol(riskdegerlendirme) === false)
+    {
+        alertify.error("ChatGPT'den risk değerlendirmesini tekrar kopyalayıp yapıştırınız");
+        $('#riskdegerlendirme').val("");
+        return false;
+    }
+    store.set("gptriskdegerlendirme", riskdegerlendirme);
+    $("#HiddenField1").val(riskdegerlendirme);
+    $("#HiddenField2").val(store.get("uzmanad"));
+    riskdegerlendirme = jsoncevir(riskdegerlendirme);
+    $("#HiddenField3").val(riskdegerlendirme.x[0]);
+    return true;
+}
+function gptriskdegerlendirmekontrol(data)
+{
+    let jsonData;
+    try
+    {
+        jsonData = JSON.parse(data);
+    }
+    catch (e)
+    {
+        console.error("JSON parse hatası:", e);
+        return false;
+    }
+    if (typeof jsonData !== 'object' || jsonData === null || Array.isArray(jsonData)) {
+        return false;
+    }
+    if (!Array.isArray(jsonData.x) || jsonData.x.length === 0) return false;
+    if (!jsonData.x.every(x => typeof x === "string" && x.trim() !== "")) return false;
+    if (!Array.isArray(jsonData.w) || jsonData.w.length === 0) return false;
+
+    for (const risk of jsonData.w)
+    {
+        if (typeof risk !== "object" || risk === null || Array.isArray(risk)) return false;
+        for (const key of ["b", "c", "d", "e"]) {
+            if (typeof risk[key] !== "string" || risk[key].trim() === "") return false;
+        }
+        for (const key of ["k", "l", "m"]) {
+            if (typeof risk[key] !== "number" || !Number.isFinite(risk[key]) || risk[key] <= 0) return false;
+        }
+        if (!Array.isArray(risk.q) || risk.q.length === 0) return false;
+
+        for (const onlem of risk.q) {
+            if (typeof onlem !== "object" || onlem === null || Array.isArray(onlem)) return false;
+            if (typeof onlem.f !== "string" || onlem.f.trim() === "") return false;
+            if (typeof onlem.g !== "string" || onlem.g.trim() === "") return false;
+        }
+    }
+    return true;
+}
 ///////////////////İŞ KAZASI///////////////////İŞ KAZASI///////////////////İŞ KAZASI///////////////////İŞ KAZASI//////////İŞ KAZASI//////////
 ///////////////////İŞ KAZASI///////////////////İŞ KAZASI///////////////////İŞ KAZASI///////////////////İŞ KAZASI//////////İŞ KAZASI//////////
 function iskazasitutanak1load()
