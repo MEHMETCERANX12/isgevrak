@@ -1,3 +1,40 @@
+///////////////////İSG KURUL ÇIKTI///////////////////İSG KURUL ÇIKTI///////////////////İSG KURUL ÇIKTI///////////////////İSG KURUL ÇIKTI//////////İSG KURUL ÇIKTI//////////
+function isgkurulcikti2load()
+{
+    let data = store.get("isgkurulload");
+    const aylar = {0:"Olağanüstü İsg Kurul Toplantısı",1:"Ocak Ayı Olağan İsg Kurulu Toplantısı",2:"Şubat Ayı Olağan İsg Kurulu Toplantısı",3:"Mart Ayı Olağan İsg Kurulu Toplantısı",4:"Nisan Ayı Olağan İsg Kurulu Toplantısı",5:"Mayıs Ayı Olağan İsg Kurulu Toplantısı",6:"Haziran Ayı Olağan İsg Kurulu Toplantısı",7:"Temmuz Ayı Olağan İsg Kurulu Toplantısı",8:"Ağustos Ayı Olağan İsg Kurulu Toplantısı",9:"Eylül Ayı Olağan İsg Kurulu Toplantısı",10:"Ekim Ayı Olağan İsg Kurulu Toplantısı",11:"Kasım Ayı Olağan İsg Kurulu Toplantısı",12:"Aralık Ayı Olağan İsg Kurulu Toplantısı"};
+    const sonuc = data.map(item => { const tarih = item.kurulveri[0].tarih; const konu = item.kurulveri[0].konu; return{ i: item.i, tarih, konu, konuyazi: aylar[konu] || "Bilinmeyen Konu" }; });
+    $('#tablo').DataTable
+    ({
+        data: sonuc,
+        order: [[0, "desc"]],
+        dom: 't',
+        pageLength: -1,
+        columns:
+        [
+            { title: "Tarih", data: "tarih", type: "date-eu" },
+            { title: "Toplantı Konusu", data: "konuyazi", orderable: false },
+            { data: 'i', title: 'Çıktı Al', orderable: false, render: e => `<input type="button" name="cikti" class="cssbutontamam" value="Çıktı" data-id="${e}"/>` }
+        ],
+        createdRow: row => $(row).find('td').eq(1).css('text-align', 'left'),
+        headerCallback: thead => $(thead).find('th').css('text-align', 'center')
+    });
+    $(document).on("click", "input[name='cikti']", function ()
+    {
+        const id = parseInt($(this).data("id"));
+        const data = store.get("isgkurulload");
+        const satir = data.find(item => item.i === id);
+        store.set("isgkurulsecim", satir);
+        store.set("dosyaciktitipi", "6");
+        window.location.href = "dosyacikti.aspx";
+    });
+}
+function kurulciktidevam1()
+{ 
+    let firmaid = firmasecimoku();
+    if (!firmaid){ return;}
+    window.location.href = "isgkurulcikti2.aspx?id=" + encodeURIComponent(firmaid);
+}
 ///////////////////GPT///////////////////GPT///////////////////GPT///////////////////GPT//////////GPT//////////
 function gptriskdegerlendirmetamam1()
 {
