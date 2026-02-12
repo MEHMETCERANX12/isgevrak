@@ -1,4 +1,284 @@
-///////////////////İSG KURUL ÇIKTI///////////////////İSG KURUL ÇIKTI///////////////////İSG KURUL ÇIKTI///////////////////İSG KURUL ÇIKTI//////////İSG KURUL ÇIKTI//////////
+///////////////////İSG KURUL///////////////////İSG KURUL///////////////////İSG KURUL///////////////////İSG KURUL//////////İSG KURUL//////////
+function kurulduzenleload4()
+{
+    let isgkurul = jsoncevir(store.get("isgkurultumu"));
+    let kararmetni = isgkurul.kurulicerik || [];
+    $('#tablo').DataTable
+    ({
+        data: kararmetni,
+        pageLength: -1,
+        ordering: false,
+        dom: 't',
+        columns:
+        [
+            { width: "3%", data: "i", title: "No"},
+            { width: "75%", data: "m", title: "Karar İçeriği"},
+            { width: "11%", data: null, title:"Düzenle", render:(d,t,r)=>`<input type="button" class="cssbutontamam" value="Düzenle" onclick="kurulduzenlemaddeduzenle(${r.i});"/>`},
+            { width: "11%", data: null, title:"Sil", render:(d,t,r)=>`<input type="button" class="cssbutontamam" value="Sil" onclick="kurulduzenelemaddesil(${r.i});"/>`}
+        ],
+        language:{emptyTable: "Kurul Kararı Yok"},
+        createdRow:function(r){$(r).find("td").eq(0).css("text-align","center"); $(r).find("td").eq(1).css("text-align","left");},
+        headerCallback: function (thead) { $(thead).find('th').css('text-align', 'center');}
+    });
+}
+function kurulduzenlemaddeekle()
+{
+    $('#m1').val('');
+    $('#diyalogekle').fadeIn();
+}
+function kurulduzenlemaddeekleonay()
+{
+    let table = $('#tablo').DataTable();
+    let m = $('#m1').val().trim();
+    if (m.length < 4)
+    {
+        alertify.error("Karar maddesi en az 4 karakterden oluşmalıdır.");
+        return false;
+    }
+    let kurulicerik = store.get("isgkurultumu");
+    kurulicerik = jsoncevir(kurulicerik);
+    let sira = 1;
+    if (kurulicerik.kurulicerik && kurulicerik.kurulicerik.length > 0)
+    {
+        sira = Math.max(...kurulicerik.kurulicerik.map(x=>x.i)) + 1;
+    }
+    let yeniMadde = { i: sira, m: m };
+    if(!kurulicerik.kurulicerik) kurulicerik.kurulicerik = [];
+    kurulicerik.kurulicerik.push(yeniMadde);
+    store.set("isgkurultumu", kurulicerik);
+    $('#HiddenField1').val(JSON.stringify(kurulicerik));
+    table.row.add(yeniMadde).draw(false);
+    $('#diyalogekle').fadeOut();
+    return true;
+}
+function kurulduzenlemaddeduzenle(i)
+{
+    let kurulicerik = jsoncevir(store.get("isgkurultumu"));
+    let madde = kurulicerik.kurulicerik.find(x=>x.i === i);
+    if(!madde) return;
+    $('#m2').val(madde.m);
+    $('#Button1').data('maddeId', i);
+    $('#diyalogduzenle').fadeIn();
+}
+function kurulduzenlemaddedegistir()
+{
+    let i = $('#Button1').data('maddeId');
+    let m = $('#m2').val().trim();
+    console.log(m.length);
+    if (m.length < 4)
+    {
+        alertify.error("Karar maddesi en az 4 karakterden oluşmalıdır.");
+        return false;
+    }
+    let kurulicerik = jsoncevir(store.get("isgkurultumu"));
+    let madde = kurulicerik.kurulicerik.find(x=>x.i === i);
+    if(madde) madde.m = m;
+    store.set("isgkurultumu", kurulicerik);
+    $('#HiddenField1').val(JSON.stringify(kurulicerik));
+    let table = $('#tablo').DataTable();
+    let rowIndex = table.rows().indexes().filter(idx => table.row(idx).data().i === i)[0];
+    table.row(rowIndex).data(madde).draw(false);
+    $('#diyalogduzenle').fadeOut();
+    return true;
+}
+function kurulduzenelemaddesil(i)
+{
+    store.set("silid", i);
+    $('#diyalogsil').fadeIn();
+}
+function kurulduzenlemaddesilonay()
+{
+    let i = store.get("silid");
+    let kurulicerik = jsoncevir(store.get("isgkurultumu"));
+    kurulicerik.kurulicerik = kurulicerik.kurulicerik.filter(x => x.i !== i);
+    kurulicerik.kurulicerik.forEach((x, idx) => { x.i = idx + 1;});
+    store.set("isgkurultumu", kurulicerik);
+    $('#HiddenField1').val(JSON.stringify(kurulicerik));
+    let table = $('#tablo').DataTable();
+    table.clear();
+    table.rows.add(kurulicerik.kurulicerik || []);
+    table.draw();
+    $('#diyalogsil').fadeOut();
+    return true;
+}
+function isgkurulduzenle3load()
+{
+    let json = store.get("isgkurulsecim");
+    json = jsoncevir(json);
+    let kurulveri = json.kurulveri || [];
+    let tarih = kurulveri[0].tarih;
+    let konu = kurulveri[0].konu;
+    let saat = kurulveri[0].saat;
+    $('#tarih').val(tarih);
+    $('#konu').val(konu);
+    $('#saat').val(saat);
+    let kuruluye = json.kuruluye || [];
+    store.set("isgkuruluye", kuruluye);
+    $('#tablo').DataTable
+    ({
+        data: kuruluye,
+        pageLength: -1,
+        ordering: false,
+        dom: 't',
+        columns:
+        [
+            { data: "a", title: "İSG Kurul Üye Adı"},
+            { data: "u", title: "İSG Kurul Üye Unvanı" },
+            { data: null, title:"Düzenle",render:(d,t,r)=>`<input type="button" class="cssbutontamam" value="Düzenle" data-id="${r.i}" onclick="kurulduzenleuyeduzenle(this);"/>`},
+            { data: null, title:"Sil",render:(d,t,r)=>`<input type="button" class="cssbutontamam" value="Sil" data-id="${r.i}" onclick="kuruluduzenleyesil(this);"/>`}
+        ],
+        createdRow:function(r){$(r).find("td").eq(0).css("text-align","left");$(r).find("td").eq(1).css("text-align","left");},
+        headerCallback: function (thead) { $(thead).find('th').css('text-align', 'center');}
+    });
+}
+function kurulduzenleuyeduzenle(buton)
+{
+    let row = $(buton).closest("tr");
+    let table = $('#tablo').DataTable();
+    let data = table.row(row).data();
+    $('#a1').val(data.a);
+    $('#u1').val(data.u);
+    $('#Button1').data('rowIndex', table.row(row).index());
+    $('#diyalogduzenle').fadeIn();
+}
+function kurulduzeneleuyedegistir()
+{
+    let table = $('#tablo').DataTable();
+    let rowIndex = $('#Button1').data('rowIndex');
+    if (rowIndex === undefined) return;
+    let yeniAd = $('#a1').val().trim();
+    let yeniUnvan = $('#u1').val().trim();
+    table.row(rowIndex).data({ a: yeniAd,
+        u: yeniUnvan
+    }).draw(false);
+
+    let kuruljson = store.get("isgkuruluye") || [];
+    if (kuruljson[rowIndex])
+    {
+        kuruljson[rowIndex].a = yeniAd;
+        kuruljson[rowIndex].u = yeniUnvan;
+    }
+    store.set("isgkuruluye", kuruljson);
+    $('#diyalogduzenle').fadeOut();
+}
+function kuruluduzenleyesil(buton)
+{
+    let row = $(buton).closest("tr");
+    let table = $('#tablo').DataTable();
+    let data = table.row(row).data();
+    $('#siladsoyad').text(data.a + " adlı kişiyi silmek istediğinizden emin misiniz ?");
+    $('#Button2').data('rowIndex', table.row(row).index());
+    $('#diyalogsil').fadeIn();
+}
+function kurulduzenleuyesilonay()
+{
+    let table = $('#tablo').DataTable();
+    let rowIndex = $('#Button2').data('rowIndex');
+    if (rowIndex === undefined) return;
+    table.row(rowIndex).remove().draw(false);
+    let kuruljson = store.get("isgkuruluye") || [];
+    if (kuruljson[rowIndex]) {
+        kuruljson.splice(rowIndex, 1);
+    }
+    store.set("isgkuruluye", kuruljson);
+    $('#diyalogsil').fadeOut();
+}
+function kurulduzenleuyeekle()
+{
+    $('#a2').val('');
+    $('#u2').val('');
+    $('#diyalogekle').fadeIn();
+}
+function kurulduzenleuyeekleonay()
+{
+    let table = $('#tablo').DataTable();
+    let yeniAd = $('#a2').val().trim();
+    let yeniUnvan = $('#u2').val().trim();
+    if (!yeniAd || !yeniUnvan)
+    {
+        alertify.error("Ad Soyad ve Unvan alanları boş olamaz.");
+        return;
+    }
+    let newRow = { a: yeniAd, u: yeniUnvan };
+    table.row.add(newRow).draw(false);
+    let kuruljson = store.get("isgkuruluye") || [];
+    kuruljson.push(newRow);
+    store.set("isgkuruluye", kuruljson);
+    $('#diyalogekle').fadeOut();
+}
+function kurulduzenletoplantijson()
+{
+    let json = store.get("isgkurulsecim");
+    json = jsoncevir(json);
+    let kurulveri = json.kurulveri || [];
+    if (kurulveri.length === 0) kurulveri.push({});
+    let tarih = $('#tarih').val().trim();
+    if (tarihkontrol(tarih) === true)
+    {
+        kurulveri[0].tarih = tarih;
+    }
+    let konu = $("#konu").val().trim();
+    if (!isNaN(parseInt(konu)) && parseInt(konu) > 0)
+    {
+        kurulveri[0].konu = parseInt(konu);
+    }
+    let saat = $("#saat").val();
+    if (/^\d{2}:\d{2}$/.test(saat))
+    {
+        kurulveri[0].saat = saat;
+    }
+    let kuruluye = store.get("isgkuruluye");
+    kuruluye = jsoncevir(kuruluye);
+    let kurulicerik = json.kurulicerik || [];
+    let sonuc = { kurulveri: kurulveri, kuruluye: kuruluye, kurulicerik: kurulicerik };
+    $('#HiddenField1').val(JSON.stringify(sonuc));
+    store.set("isgkurultumu", JSON.stringify(sonuc));
+    return true;
+}
+function isgkurulduzenle2load()
+{
+    let data = store.get("isgkurulload");
+    const aylar = {0:"Olağanüstü İsg Kurul Toplantısı",1:"Ocak Ayı Olağan İsg Kurulu Toplantısı",2:"Şubat Ayı Olağan İsg Kurulu Toplantısı",3:"Mart Ayı Olağan İsg Kurulu Toplantısı",4:"Nisan Ayı Olağan İsg Kurulu Toplantısı",5:"Mayıs Ayı Olağan İsg Kurulu Toplantısı",6:"Haziran Ayı Olağan İsg Kurulu Toplantısı",7:"Temmuz Ayı Olağan İsg Kurulu Toplantısı",8:"Ağustos Ayı Olağan İsg Kurulu Toplantısı",9:"Eylül Ayı Olağan İsg Kurulu Toplantısı",10:"Ekim Ayı Olağan İsg Kurulu Toplantısı",11:"Kasım Ayı Olağan İsg Kurulu Toplantısı",12:"Aralık Ayı Olağan İsg Kurulu Toplantısı"};
+    const sonuc = data.map(item => { const tarih = item.kurulveri[0].tarih; const konu = item.kurulveri[0].konu; return{ i: item.i, tarih, konu, konuyazi: aylar[konu] || "Bilinmeyen Konu" }; });
+    $('#tablo').DataTable
+    ({
+        data: sonuc,
+        order: [[0, "desc"]],
+        dom: 't',
+        pageLength: -1,
+        columns:
+        [
+            { title: "Tarih", data: "tarih", type: "date-eu" },
+            { title: "Toplantı Konusu", data: "konuyazi", orderable: false },
+            { data: 'i', title: 'Düzenle', orderable: false, render: e => `<input type="button" name="duzenle" class="cssbutontamam" value="Düzenle" data-id="${e}"/>` },
+            { data: 'i', title: 'Sil', orderable: false, render: e => `<input type="button" name="sil" class="cssbutontamam" value="Sil" data-id="${e}"/>` }
+        ],
+        createdRow: row => $(row).find('td').eq(1).css('text-align', 'left'),
+        headerCallback: thead => $(thead).find('th').css('text-align', 'center')
+    });
+    $(document).on("click", "input[name='duzenle']", function ()
+    {
+        const id = parseInt($(this).data("id"));
+        const data = store.get("isgkurulload");
+        const satir = data.find(item => item.i === id);
+        store.set("isgkurulsecim", satir);
+        window.location.href = "isgkurulduzenle3.aspx?id=" + encodeURIComponent(id);
+    });
+    $(document).on("click", "input[name='sil']", function ()
+    {
+        const id = parseInt($(this).data("id"));
+        $("#hidden").val(id);
+        $('#diyalogkurulsil').fadeIn();
+    });
+}
+
+function kurulduzenledevam1()
+{ 
+    let firmaid = firmasecimoku();
+    if (!firmaid){ return;}
+    window.location.href = "isgkurulduzenle2.aspx?id=" + encodeURIComponent(firmaid);
+}
+
 function isgkurulcikti2load()
 {
     let data = store.get("isgkurulload");
