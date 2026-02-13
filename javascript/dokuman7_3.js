@@ -8835,6 +8835,394 @@ function talimatcikti3load()
     $('.dt-search input').css({"background-color": "white", "width": "12vw", "margin": "0 auto", "display": "inline-block", "font-size": "1vw", "font-family": "Calibri", "text-align": "left"});
 }
 ////////////////////////RİSK DEĞERLENDİRME////////////////////////RİSK DEĞERLENDİRME////////////////////////RİSK DEĞERLENDİRME////////////////////////RİSK DEĞERLENDİRME////////////////////////
+function riskdegerlendirmeduzenle2load()
+{
+    $('#siddetsecim, #frekanssecim, #olasiliksecim').on('change', riskhesaplama);
+    let veri = $('#HiddenField1').val();
+    veri = JSON.parse(veri);
+    veri.w.forEach(item =>
+    {
+        if (!item.hasOwnProperty('id'))
+        {
+            item.id = Math.floor(Math.random() * 1000000) + 1;
+        }
+    });
+    $('#HiddenField1').val(JSON.stringify(veri));
+    $('#riskbaslik').text(veri.x[0] + " Risk Değerlendirmesi Düzenleme");
+    const alan = $('#riskdegerlendirmealan');
+    alan.empty();
+    veri.w.forEach((item) =>
+    {
+        const anaDiv = $(`<div style="border:0.2vw solid #ccc; padding:0.8vw; margin-bottom:15px; border-radius:0.8vw; background:#f9f9f9"><p><strong>Tehlike Kaynağı: </strong>${item.b}</p><p><strong>Tehlike: </strong>${item.c}</p><p><strong>Risk: </strong>${item.d}</p><p><strong>Riske Maruz Kalan Çalışanlar: </strong>${item.e}</p><p><strong>Şiddet:&nbsp;</strong>${item.k}&emsp;<strong>Frekans:&nbsp;</strong>${item.l}&emsp;<strong>Olasılık:&nbsp;</strong>${item.m}</p><div class="kontroller" style="margin-top:1vw;"></div></div>`);
+        item.q.forEach(qitem => {anaDiv.find('.kontroller').append(`<div style="display:flex; justify-content:space-between; margin:1.5vw 0; gap:1.5vw;"><div style="flex:1;text-align:justify;"><strong>Kontrol:</strong> ${qitem.f}</div><div style="flex:1;text-align:justify;"><strong>Mevcut Durum:</strong> ${qitem.g}</div></div>`);});
+        anaDiv.find('.kontroller').append(`<div class="cssdivortala"><input name="risksil" type="button" class="cssbutontumu" onclick="riskduzenlemesil();" value="Bu Kısmı Sil" data-id="${item.id}" />&emsp;&emsp;<input name="riskduzenle" type="button" class="cssbutontumu" value="Bu Kısmı Düzenle" data-id="${item.id}" /></div><div class="cssboslukalt1"></div>`);
+        $('#riskdegerlendirmealan').append(anaDiv);
+    });
+    $(document).on('click', 'input[name="riskduzenle"]', function ()
+    {
+        riskduzenletemizle();
+        store.set("riskkontrol", "1");
+        const id = $(this).data('id');
+        const veri = JSON.parse($('#HiddenField1').val());
+        const index = veri.w.findIndex(item => item.id === id);
+        store.set("riskindex", index);
+        const riskicerik = veri.w[index];
+        $('#b').val(riskicerik.b);
+        $('#c').val(riskicerik.c);
+        $('#d').val(riskicerik.d);
+        $('#e').val(riskicerik.e);
+        $('#siddetsecim').val(String(riskicerik.k));
+        $('#frekanssecim').val(String(riskicerik.l));
+        $('#olasiliksecim').val(String(riskicerik.m));
+        $('#siddetsecim, #frekanssecim, #olasiliksecim').trigger('change');
+        $('#diyologriskduzenleme').fadeIn(function () {$('#diyologriskduzenleme .dylg-content').animate({ scrollTop: 0 }, 200);});
+        riskicerik.q.forEach((qitem, i) =>
+        {
+            const index = i + 1;
+            $('#f' + index).val(qitem.f);
+            $('#g' + index).val(qitem.g);
+        });
+    });
+    $(document).on('click', 'input[name="risksil"]', function ()
+    {
+        const id = $(this).data('id');
+        const veri = JSON.parse($('#HiddenField1').val());
+        const index = veri.w.findIndex(item => item.id === id);
+        store.set("riskindex", index);
+        store.set("riskkontrol", "3");
+        $('#diyologrisksil').fadeIn();
+    })
+}
+
+function riskhesaplama()
+{
+    const s = parseFloat($('#siddetsecim').val());
+    const f = parseFloat($('#frekanssecim').val());
+    const o = parseFloat($('#olasiliksecim').val());
+    if (isNaN(s) || isNaN(f) || isNaN(o))
+    {
+        $('#tehlikesonuc').html('').hide();
+        return;
+    }
+    const risk = s * f * o;
+    let riskSeviye = "";
+    let renk = "";
+    if (risk < 21)
+    {
+        riskSeviye = "20 ≥ Kabul Edilebilir Risk";
+        renk = "green";
+        yazi = "white";
+    }
+    else if (risk < 71)
+    {
+        riskSeviye = "70 ≥ Risk > 20 Olası Risk";
+        renk = "yellow";
+        yazi = "black";
+    }
+    else if (risk < 201)
+    {
+        riskSeviye = "200 ≥ Risk > 70 Önemli Risk";
+        renk = "darkblue";
+        yazi = "white";
+    }
+    else if (risk < 401)
+    {
+        riskSeviye = "400 ≥ Risk > 200 Yüksek Risk";
+        renk = "purple";
+        yazi = "white";
+    }
+    else
+    {
+        riskSeviye = "Risk > 400 Tolere Edilmez Risk";
+        renk = "firebrick";
+        yazi = "white";
+    }
+    $('#tehlikesonuc').html(`<div style="padding: 0.3vw; width: 18vw; text-align:center; border-radius:0.5vw; font-weight:bold; background:${renk}; color:${yazi}">${riskSeviye}</div>`).show();
+}
+function riskduzenlemeekle()
+{
+    riskduzenletemizle();
+    store.set("riskkontrol", "2");
+    $('#diyologriskduzenleme').fadeIn();
+}
+function riskduzenletemizle()
+{
+    $('#b').val("");
+    $('#c').val("");
+    $('#d').val("");
+    $('#e').val("");
+    $("#siddetsecim").val("");
+    $("#frekanssecim").val("");
+    $("#olasiliksecim").val("");
+    $('#siddetsecim, #frekanssecim, #olasiliksecim').trigger('change');
+    $("#f1").val("");
+    $("#g1").val("");
+    $("#f2").val("");
+    $("#g2").val("");
+    $("#f3").val("");
+    $("#g3").val("");
+    $("#f4").val("");
+    $("#g4").val("");
+    $("#f5").val("");
+    $("#g5").val("");
+    $("#f6").val("");
+    $("#g6").val("");
+    $("#f7").val("");
+    $("#g7").val("");
+    $("#f8").val("");
+    $("#g8").val("");
+    $("#f9").val("");
+    $("#g9").val("");
+    $("#f10").val("");
+    $("#g10").val("");
+}
+function riskanalizisayfajson()
+{
+    let kontrol = store.get("riskkontrol");
+    if (kontrol === "1")
+    {
+        let veri = JSON.parse($('#HiddenField1').val());
+        const index = parseInt(store.get("riskindex"));
+        const riskicerik = veri.w[index];
+        riskicerik.b = $('#b').val();
+        riskicerik.c = $('#c').val();
+        riskicerik.d = $('#d').val();
+        riskicerik.e = $('#e').val();
+        riskicerik.k = parseFloat($('#siddetsecim').val());
+        riskicerik.l = parseFloat($('#frekanssecim').val());
+        riskicerik.m = parseFloat($('#olasiliksecim').val());
+        riskicerik.q = [];
+        for (let i = 1; i <= 10; i++)
+        {
+            const f = $('#f' + i).val();
+            const g = $('#g' + i).val();
+            if (f || g) {
+                riskicerik.q.push({ f, g });
+            }
+        }
+        $('#HiddenField1').val(JSON.stringify(veri));
+        let veriKopyasi = JSON.parse(JSON.stringify(veri));
+        veriKopyasi.w.forEach(item => {
+            delete item.id;
+        });
+        $('#HiddenField2').val(JSON.stringify(veriKopyasi));
+        
+        $('#diyologriskduzenleme').fadeOut();
+    }
+    else if (kontrol === "2")
+    {
+        let veri = JSON.parse($('#HiddenField1').val());
+        const yenikayit =
+        {
+            id: Math.floor(Math.random() * 1000000) + 1,
+            b: $('#b').val(),
+            c: $('#c').val(),
+            d: $('#d').val(),
+            e: $('#e').val(),
+            k: parseFloat($('#siddetsecim').val()),
+            l: parseFloat($('#frekanssecim').val()),
+            m: parseFloat($('#olasiliksecim').val()),
+            q: []
+        };
+        for (let i = 1; i <= 10; i++)
+        {
+            const f = $('#f' + i).val();
+            const g = $('#g' + i).val();
+            if (f || g)
+            {
+                yenikayit.q.push({ f, g });
+            }
+        }
+        veri.w.push(yenikayit);
+        $('#HiddenField1').val(JSON.stringify(veri));
+        let veriKopyasi = JSON.parse(JSON.stringify(veri));
+        veriKopyasi.w.forEach(item => { delete item.id; });
+        $('#HiddenField2').val(JSON.stringify(veriKopyasi));        
+        $('#diyologriskduzenleme').fadeOut();
+    }
+    else if (kontrol === "3")
+    {
+        let veri = JSON.parse($('#HiddenField1').val());
+        const index = parseInt(store.get("riskindex"));
+        veri.w.splice(index, 1);
+        $('#HiddenField1').val(JSON.stringify(veri));
+        let veriKopyasi = JSON.parse(JSON.stringify(veri));
+        veriKopyasi.w.forEach(item => { delete item.id; });
+        $('#HiddenField2').val(JSON.stringify(veriKopyasi));
+        $('#diyologrisksil').fadeOut();
+    }
+}
+function riskdegerlendirmead1()
+{    
+    let veri = $('#HiddenField1').val();
+    veri = JSON.parse(veri);
+    $('#riskdegerlendirmead').val(veri.x[0]);
+    $('#diyologriskad').fadeIn();
+}
+function riskdegerlendirmead2()
+{    
+    let veri = $('#HiddenField1').val();
+    veri = JSON.parse(veri);
+    const yenibaslik = $('#riskdegerlendirmead').val();
+    veri.x[0] = yenibaslik;
+    $('#HiddenField1').val(JSON.stringify(veri));
+    let veriKopyasi = JSON.parse(JSON.stringify(veri));
+    veriKopyasi.w.forEach(item => { delete item.id; });
+    $('#HiddenField2').val(JSON.stringify(veriKopyasi));
+    $('#HiddenField3').val(yenibaslik);
+    $('#diyologriskad').fadeOut();
+    $('#riskbaslik').text(yenibaslik + " Risk Değerlendirmesi Düzenleme");
+}
+
+function riskduzenlemesira1()
+{
+    var jsonData = $("#HiddenField1").val();
+    if (!jsonData) return;
+    var data = JSON.parse(jsonData);
+    if ($.fn.DataTable.isDataTable('#riskdegerlendirmetablo'))
+    {
+        $('#riskdegerlendirmetablo').DataTable().destroy();
+        $('#riskdegerlendirmetablo tbody').empty();
+    }
+    $('#riskdegerlendirmetablo').DataTable({
+        data: data.w,
+        rowId: 'id',
+        columns: [
+            {
+                data: 'c',
+                title: 'Tehlike',
+                className: 'text-left'
+            },
+            {
+                data: 'd',
+                title: 'Risk',
+                className: 'text-left'
+            },
+            {
+                data: 'id',
+                visible: false,
+                searchable: false
+            }
+        ],
+        paging: false,
+        dom: 't',
+        info: false,
+        ordering: false,
+        searching: false,
+        createdRow: function (row) {
+            $(row).find('td:eq(0), td:eq(1)').css('text-align', 'left');
+        },
+        headerCallback: function (thead) {
+            $(thead).find('th').css('text-align', 'center');
+        },
+        initComplete: function ()
+        {
+            $("#riskdegerlendirmetablo tbody").sortable({
+                helper: function (e, tr) {
+                    var $originals = tr.children();
+                    var $helper = tr.clone();
+                    $helper.children().each(function (index) {
+                        $(this).width($originals.eq(index).width());
+                    });
+                    return $helper;
+                },
+                update: function ()
+                {
+                    let yeniSiraliIdListesi = [];
+                    $('#riskdegerlendirmetablo tbody tr').each(function () {
+                        let id = parseInt(this.id);
+                        if (!isNaN(id)) yeniSiraliIdListesi.push(id);
+                    });
+                    let orijinal = data.w;
+                    let sirali = yeniSiraliIdListesi
+                        .map(id => orijinal.find(x => x && x.id === id))
+                        .filter(x => x);
+                    data.w = sirali;
+                    store.set("riskdegerlendirmesirali", data);
+                }
+            }).disableSelection();
+        }
+    });
+    $('.dt-search input').css({ "background-color": "white" }).attr("autocomplete", "off");
+    $('.dt-length select').css({ "background-color": "white" });
+    $("#diyologrisksiralama").fadeIn();
+}
+
+function riskduzenlemesira2()
+{
+    try
+    {
+        let veri = store.get("riskdegerlendirmesirali");
+        if (typeof veri === "string")
+        {
+            veri = JSON.parse(veri);
+        }
+        $('#HiddenField1').val(JSON.stringify(veri));
+        let veriKopyasi = JSON.parse(JSON.stringify(veri));
+        veriKopyasi.w.forEach(item => { delete item.id; });
+        $('#HiddenField2').val(JSON.stringify(veriKopyasi));
+        return true;
+    }
+    catch (ex)
+    {
+        console.log(ex);
+        return false;
+    }
+}
+function riskdegerlendirmeicerik(x) {
+    store.set("tedbirsecim", x);
+    let data = store.get("riskicerikrehber");
+    if (!data) {
+        fetch("https://cdn.jsdelivr.net/gh/MEHMETCERANX12/isgevrak@main/kaynak/risktedbir1_1.json")
+            .then(response => response.json())
+            .then(json => {
+                store.session.set("riskicerikrehber", json);
+                riskiceriktabloKur(json);
+            })
+            .catch(error => console.error("Hata:", error));
+    }
+    else {
+        riskiceriktabloKur(data);
+    }
+    $("#diyologrehber").fadeIn();
+}
+
+function riskiceriktabloKur(data)
+{
+    if ($.fn.DataTable.isDataTable('#riskiceriktablo'))
+    {
+        $('#riskiceriktablo').DataTable().clear().destroy();
+    }
+    $('#riskiceriktablo').DataTable({
+        data: data,
+        order: [],
+        columnDefs: [{ targets: '_all', orderable: false }],
+        columns:
+            [
+                { data: "c", title: "Başlık" },
+                { data: "a", title: "Tedbir İçeriği" },
+                { data: "b", title: "Uygulama İçeriği" },
+                { data: null, title: "Seç", render: (d, t, r) => `<input type="button" name="iceriksec" class="cssbutontumu" data-a="${r.a}" data-b="${r.b}" value="Seç"/>` }
+            ],
+        language: { search: "Tedbir Ara:", lengthMenu: "Sayfa başına _MENU_ kayıt göster", zeroRecords: "Eşleşen kayıt bulunamadı", info: "_TOTAL_ kayıttan _START_ ile _END_ arası gösteriliyor", infoEmpty: "Kayıt yok", infoFiltered: "(toplam _MAX_ kayıttan filtrelendi)", emptyTable: "Eşleşen tedbir bulunamadı" },
+        lengthMenu: [10, 25, 50, 100, 500, 1000],
+        pageLength: 1000,
+        createdRow: function (row) { $(row).find('td').eq(0).css('text-align', 'left'); $(row).find('td').eq(1).css('text-align', 'left'); $(row).find('td').eq(2).css('text-align', 'left'); },
+        headerCallback: function (thead) { $(thead).find('th').css('text-align', 'center'); }
+    });
+    $('.dt-search input').css({ "background-color": "white" }).attr("autocomplete", "off");
+    $('.dt-length select').css({ "background-color": "white" });
+    $(document).on("click", 'input[name="iceriksec"]', function ()
+    {
+        let x = store.get("tedbirsecim");
+        let a = $(this).data("a");
+        let b = $(this).data("b");
+        $("#f" + x).val(a);
+        $("#g" + x).val(b);
+        $("#diyologrehber").fadeOut();
+    });
+}
+
 function riskdegerlendirmeduzenle1load()
 {
     var jsonData = $("#HiddenField1").val();
