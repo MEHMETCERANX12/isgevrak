@@ -819,7 +819,7 @@ function iskazasiimza(json){const rows=[];const{TextRun,Paragraph,Table,TableRow
 
 ///////////////////YILLIK DEĞERLENDİRME RAPORU///////////////////YILLIK DEĞERLENDİRME RAPORU///////////////////YILLIK DEĞERLENDİRME RAPORU///////////////////YILLIK DEĞERLENDİRME RAPORU//////////
 ///////////////////YILLIK DEĞERLENDİRME RAPORU///////////////////YILLIK DEĞERLENDİRME RAPORU///////////////////YILLIK DEĞERLENDİRME RAPORU///////////////////YILLIK DEĞERLENDİRME RAPORU//////////
-function yillikdegerlendirmeraporuload()
+async function yillikdegerlendirmeraporuload()
 {
     isyerigetir();
     try
@@ -1270,7 +1270,7 @@ async function yillikdegerelendirmeraporu()
 }
 function sagliktaramabtrf(j, y) { let i = (j.sagliktarama || []).map(x => x.id), m = {}, s = { b: !1, t: !1, r: !1, f: !1 }; (y.sagliktarama || []).forEach(x => m[x.id] = x.tip); i.forEach(id => { let t = m[id]; t && (s[t] = !0) }); return [s.b, s.t, s.r, s.f] }
 ///////////////////YILLIK EĞİTİM PLANI///////////////////YILLIK EĞİTİM PLANI///////////////////YILLIK EĞİTİM PLANI///////////////////YILLIK EĞİTİM PLANI///////////////////YILLIK EĞİTİM PLANI///////////////////YILLIK EĞİTİM PLANI///////////////////
-function yillikegitimveplan1load()
+async function yillikegitimveplan1load()
 {
     store.set("indirmetamam", "0");
     isyerigetir();
