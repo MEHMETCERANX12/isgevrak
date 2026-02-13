@@ -2280,6 +2280,18 @@ function calisantemsilcisitamam2(json)
     window.location = 'dosyacikti.aspx';
 }
 ////////////////////////////SAĞLIK RAPORU/////////////////////////////////////////////SAĞLIK RAPORU/////////////////////////////////////////////SAĞLIK RAPORU/////////////////////////////////////////////
+function saglikrapordevam1()
+{
+    let tarih = $('#tarih').val().trim();
+    if (tarihkontrol(tarih) === false)
+    {
+        alertify.error("Lütfen geçerli bir tarih giriniz");
+        return;
+    }
+    store.set("saglikraportarih", tarih);
+    let firmaid = firmasecimoku();
+    window.location.href = "saglikraporukvkk2.aspx?id=" + encodeURIComponent(firmaid);
+}
 function saglikraporuload()
 {
     let calisanjson = jsoncevir(store.get("loadjson"));
