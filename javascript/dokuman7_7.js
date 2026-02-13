@@ -819,6 +819,50 @@ function iskazasiimza(json){const rows=[];const{TextRun,Paragraph,Table,TableRow
 
 ///////////////////YILLIK DEĞERLENDİRME RAPORU///////////////////YILLIK DEĞERLENDİRME RAPORU///////////////////YILLIK DEĞERLENDİRME RAPORU///////////////////YILLIK DEĞERLENDİRME RAPORU//////////
 ///////////////////YILLIK DEĞERLENDİRME RAPORU///////////////////YILLIK DEĞERLENDİRME RAPORU///////////////////YILLIK DEĞERLENDİRME RAPORU///////////////////YILLIK DEĞERLENDİRME RAPORU//////////
+function yillikdegerlendirmeraporuload()
+{
+    isyerigetir();
+    try
+    {
+        let yillikplandata = await githuboku("https://cdn.jsdelivr.net/gh/MEHMETCERANX12/isgevrak@main/kaynak/yillikplan1_4.json");
+        store.set("yillikplandata", yillikplandata);
+        store.set("indirmetamam", "1");
+    }
+    catch
+    {
+        store.set("indirmetamam", "0");
+        alertify.error("Yıllık plan verisi indirilemedi");
+    }
+}
+function yillikegitimveplandevam1()
+{
+    if (store.get("indirmetamam") == "1")
+    {
+        let tarih = $('#tarih').val().trim();
+        if (!tarihkontrol(tarih)) {
+            alertify.error("Lütfen yıllık çalışma planı için giriniz");
+            return;
+        }
+        let yilsecim = $('#yilsecim').val().trim();
+        if (!yilsecim) {
+            alertify.error("Lütfen hangi yılın değerlendirme raporunu yaptığınızı yazınız");
+            return;
+        }
+        let firmaid = firmasecimoku();
+        if (!firmaid)
+        {
+            alertify.error("Lütfen işyeri seçiniz");
+            return;
+        }
+        $('#HiddenField1').val(firmaid);
+        store.set("degerlendirmeyil", yilsecim);
+        store.set("degerlendirmetarih", tarih);
+    }
+    else
+    {
+        alertify.error("Yıllık Plan verisi henüz indirilemedi.")
+    }
+}
 
 async function yillikdegerelendirmeraporu()
 {
@@ -1226,6 +1270,71 @@ async function yillikdegerelendirmeraporu()
 }
 function sagliktaramabtrf(j, y) { let i = (j.sagliktarama || []).map(x => x.id), m = {}, s = { b: !1, t: !1, r: !1, f: !1 }; (y.sagliktarama || []).forEach(x => m[x.id] = x.tip); i.forEach(id => { let t = m[id]; t && (s[t] = !0) }); return [s.b, s.t, s.r, s.f] }
 ///////////////////YILLIK EĞİTİM PLANI///////////////////YILLIK EĞİTİM PLANI///////////////////YILLIK EĞİTİM PLANI///////////////////YILLIK EĞİTİM PLANI///////////////////YILLIK EĞİTİM PLANI///////////////////YILLIK EĞİTİM PLANI///////////////////
+function yillikegitimveplan1load()
+{
+    store.set("indirmetamam", "0");
+    isyerigetir();
+    $('#gundrop').on('change', function () { const i = this.selectedIndex; for (let j = 1; j <= 4; j++)$('#alan' + j).toggle(j <= i + 1) }).trigger('change');
+    try
+    {
+        let yillikplandata = await githuboku("https://cdn.jsdelivr.net/gh/MEHMETCERANX12/isgevrak@main/kaynak/yillikplan1_4.json");
+        store.set("yillikplandata", yillikplandata);
+        store.set("indirmetamam", "1");
+    }
+    catch
+    {
+        store.set("indirmetamam", "0");
+        alertify.error("Yıllık plan verisi indirilemedi");
+    }
+}
+
+function yillikegitimveplandevam1()
+{
+    if (store.get("indirmetamam") === "1")
+    {
+        let yillikcalismatarih = $('#yillikcalismatarih').val().trim();
+        if (!tarihkontrol(yillikcalismatarih)) {
+            alertify.error("Lütfen yıllık çalışma planı için giriniz");
+            return;
+        }
+        let yillikegitimtarih = $('#yillikegitimtarih').val().trim();
+        if (!tarihkontrol(yillikegitimtarih)) {
+            alertify.error("Lütfen yıllık eğitim planı için tarih giriniz");
+            return;
+        }
+        let yilsecim = $('#yilsecim').val().trim();
+        if (!yilsecim) {
+            alertify.error("Lütfen hangi yılın planını yaptığınızı yazınız");
+            return;
+        }
+        let firmaid = firmasecimoku();
+        if (!firmaid) {
+            alertify.error("Lütfen işyeri seçiniz");
+            return;
+        }
+        let gun = parseInt($('#gundrop').val());
+        let egitimgun = [];
+        for (let i = 1; i <= gun; i++)
+        {
+            let t = $('#tarih' + i).val().trim();
+            if (!tarihkontrol(t)) {
+                alertify.error(`Lütfen ${i}. gün için tarih giriniz`);
+                return;
+            }
+            egitimgun.push({ gun: i, tarih: t });
+        }
+        store.set("egitimgunleri", egitimgun);
+        store.set("yilsecim", yilsecim);
+        store.set("yillikcalismatarih", yillikcalismatarih);
+        store.set("yillikegitimtarih", yillikegitimtarih);
+        window.location.href = "yillikegitimveplan2.aspx";
+    }
+    else
+    {
+        alertify.error("İndirme işlemi devam etmektedir. Lütfen bekleyip bir daha deneyiniz.");
+        return;
+    }
+}
 async function yillikcalismaplaniwordyaz()
 {
     function varyok(json) { return Array.isArray(json) && json.includes(1) ? 1 : 0; };
