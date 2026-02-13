@@ -8855,57 +8855,92 @@ function riskdegerlendirmecikti1()
 
 function riskdegerlendirmecikti2load()
 {
-    let json = jsoncevir($("#HiddenField1").val());
+    let json = jsoncevir(store.get("riskjson"));
+    const ozelliste = [3, 4, 9, 11, 12, 55, 63, 68, 84, 87, 113, 114, 129, 140, 142, 153, 167, 300];
+    const ozeljson = json.filter(item => ozelliste.includes(item.i));
     json.sort((x, y) => x.a.localeCompare(y.a, 'tr'));
-    $('#genelrisktablo').DataTable
-    ({
-        data: json,
-        ordering: false,
-        pageLength: 10,
-        lengthMenu: [[10, 25, 50, -1], [10, 25, 50, 'Tümü']],
-        columns:
-        [
-            { data: 'a', title: 'Risk Değerlendirme Adı', width: '80%' },
-            { data: 'o', title: 'Onay', width: '10%', render: d => d == 1 ? '✓' : '' },
-            { data: 'i', title: 'Ekle', orderable: false, width: '10%', render: d => `<input name="ekle" type="button" class="cssbutontamam" value="Ekle" data-id="${d}"/>` }
-        ],
-        language: {
-            search: "Risk Değerlendirme Ara:",
-            lengthMenu: "Sayfa başına _MENU_ kayıt göster",
-            zeroRecords: "Eşleşen kayıt bulunamadı",
-            info: "_TOTAL_ kayıttan _START_ ile _END_ arası gösteriliyor",
-            infoEmpty: "Kayıt yok",
-            infoFiltered: "(toplam _MAX_ kayıttan filtrelendi)",
-            emptyTable: "Risk değerlendirmesi bulunamadı"
-        },
-        headerCallback: t => { $(t).find('th').css('text-align', 'center') },
-        createdRow: function (row) { $(row).find('td').eq(0).css('text-align', 'left'); }
+    ozeljson.sort((x, y) => x.a.localeCompare(y.a, 'tr'));
+    function genelRiskTableYukle(data)
+    {
+        if ($.fn.DataTable.isDataTable('#genelrisktablo'))
+        {
+            $('#genelrisktablo').DataTable().destroy();
+            $('#genelrisktablo').empty();
+        }
+        $('#genelrisktablo').DataTable(
+            {
+                ordering: false,
+                pageLength: 10,
+                lengthMenu: [[10, 25, 50, -1], [10, 25, 50, 'Tümü']],
+                data: data,
+                columns:
+                    [
+                        { data: 'a', title: 'Risk Değerlendirme Adı', width: '80%' },
+                        { data: 'o', title: 'Onay', width: '10%', render: d => d == 1 ? '✓' : '' },
+                        {
+                            data: 'i',
+                            title: 'Ekle',
+                            orderable: false,
+                            width: '10%',
+                            render: d =>
+                                `<input name="ekle" type="button" class="cssbutontamam" value="Ekle" data-id="${d}"/>`
+                        }
+                    ],
+                language:
+                {
+                    search: "Risk Değerlendirme Ara:",
+                    lengthMenu: "Sayfa başına _MENU_ kayıt göster",
+                    zeroRecords: "Eşleşen kayıt bulunamadı",
+                    info: "_TOTAL_ kayıttan _START_ ile _END_ arası gösteriliyor",
+                    infoEmpty: "Kayıt yok",
+                    infoFiltered: "(toplam _MAX_ kayıttan filtrelendi)",
+                    emptyTable: "Risk değerlendirmesi bulunamadı"
+                },
+                headerCallback: t => $(t).find('th').css('text-align', 'center'),
+                createdRow: row => $(row).find('td').eq(0).css('text-align', 'left')
+            });
+
+        $('.dt-search input').css({ "background-color": "white" }).attr("autocomplete", "off");
+        $('.dt-length select').css({ "background-color": "white" });
+    }
+    genelRiskTableYukle(json);
+    $('#riskfiltre').on('change', function ()
+    {
+        if (this.value === "1") {
+            genelRiskTableYukle(ozeljson);
+        }
+        else
+        {
+            genelRiskTableYukle(json);
+        }            
     });
     $("#diyaloggenelrisktablo").fadeIn();
-    $('.dt-search input').css({ "background-color": "white" }).attr("autocomplete", "off");
-    $('.dt-length select').css({ "background-color": "white" });
     let anatablo = $('#risktablocikti').DataTable
     ({
         dom: 't',
         pageLength: -1,
         ordering: false,
-        columns: [
+        columns:
+        [
             { data: 'a', title: "Risk Değerlendirme Listesi", width: "100%" },
             { data: 'i', title: 'Sil', width: '10%', render: d => `<input name="sil" type="button" class="cssbutontamam" value="Sil" data-id="${d}" />` }
         ],
-        headerCallback: function (thead) { $(thead).find('th').css('text-align', 'center'); },
-        createdRow: function (row) { $(row).find('td').eq(0).css({ 'text-align': 'left' }); }
+        headerCallback: thead => $(thead).find('th').css('text-align', 'center'),
+        createdRow: row => $(row).find('td').eq(0).css({ 'text-align': 'left' })
     });
     $(document).on('click', 'input[name="ekle"]', function ()
     {
         const id = $(this).data('id');
-        const satirVerisi = $('#genelrisktablo').DataTable().data().toArray().find(x => x.i == id);
-        if (satirVerisi) {
+        const table = $(this).closest('table').attr('id');
+        const sourceTable = $('#' + table).DataTable();
+        const satirVerisi = sourceTable.data().toArray().find(x => x.i == id);
+        if (satirVerisi)
+        {
             anatablo.row.add({ a: satirVerisi.a, i: satirVerisi.i }).draw();
         }
         $("#diyaloggenelrisktablo").fadeOut();
+        $("#diyalogsikrisktablo").fadeOut();
         $("#risktablodiv").fadeIn();
-
         if (anatablo.rows().count() === 50)
         {
             $("#riskeklebuton").fadeOut();
@@ -8915,12 +8950,8 @@ function riskdegerlendirmecikti2load()
         {
             $("#riskeklebuton").fadeIn();
         }
-        if (anatablo.rows().count() > 1)
-        {
-            $("#bilgi").fadeIn();
-        } else {
-            $("#bilgi").fadeOut();
-        }
+        if (anatablo.rows().count() > 1) $("#bilgi").fadeIn();
+        else $("#bilgi").fadeOut();
     });
     $(document).on('click', 'input[name="sil"]', function ()
     {
@@ -8928,36 +8959,21 @@ function riskdegerlendirmecikti2load()
         anatablo.rows().every(function ()
         {
             const data = this.data();
-            if (data.i == id) {
+            if (data.i == id)
+            {
                 this.remove().draw();
                 return false;
             }
         });
-        if (anatablo.rows().count() === 0)
-        {
-            $("#risktablodiv").fadeOut();
-        }
-        if (anatablo.rows().count() !== 50)
-        {
-            $("#riskeklebuton").fadeIn();
-        }
-        else
-        {
-            $("#riskeklebuton").fadeOut();
-        }
-        if (anatablo.rows().count() > 1)
-        {
-            $("#bilgi").fadeIn();
-        }
-        else
-        {
-            $("#bilgi").fadeOut();
-        }
+        if (anatablo.rows().count() === 0) $("#risktablodiv").fadeOut();
+        if (anatablo.rows().count() !== 50) $("#riskeklebuton").fadeIn();
+        else $("#riskeklebuton").fadeOut();
+        if (anatablo.rows().count() > 1) $("#bilgi").fadeIn();
+        else $("#bilgi").fadeOut();
     });
-    $("#risktablocikti tbody").sortable({helper:fixHelper,update:function(e,u){var n=[];$("#risktablocikti tbody tr").each(function(){n.push($(this).find("td:eq(0)").text());});}}).disableSelection();
-    function fixHelper(e,tr){var $originals=tr.children(),$helper=tr.clone();$helper.children().each(function(i){$(this).width($originals.eq(i).width());});return $helper;}
+    $("#risktablocikti tbody").sortable({helper:fixHelper,update:function(){const n=[];$("#risktablocikti tbody tr").each(function(){n.push($(this).find("td:eq(0)").text())})}}).disableSelection();
+    function fixHelper(e,tr){const $originals=tr.children();const $helper=tr.clone();$helper.children().each(function(i){$(this).width($originals.eq(i).width())});return $helper}
 }
-
 function riskdegerlendirmecikti2devam()
 {
     let liste = [];
