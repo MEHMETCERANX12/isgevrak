@@ -864,6 +864,44 @@ function yillikegitimveplandevam1()
     }
 }
 
+
+function yillikegitimveplan2load()
+{
+    let json = jsoncevir(store.get("yillikplandata"));
+    let konular = json.isgegitim;
+    $('#egitimicerik').DataTable
+    ({
+        data: konular,
+        dom: 't',
+        pageLength: -1,
+        columns:
+        [
+            {data: null, orderable: false, render: DataTable.render.select(), width: "80px" },
+            {data:"konu",title:"İSG Eğitim Konuları",orderable:!1,render:(d,t,r,m)=>t==="display"?`<input name="konuicerik" type="text" class="csstextbox100" value="${d}">`:d}
+        ],
+        select: { style: "multi", selector: "td:first-child" },
+        order: [],
+        createdRow: function (r) { $(r).find("td").eq(1).css("text-align", "left"); },
+        headerCallback: function (thead) { $(thead).find('th').css('text-align', 'center'); },
+    });
+    $('#egitimicerik').DataTable().rows([0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19]).select();
+}
+
+function yillikegitimveplandevam2()
+{
+    let table = $('#egitimicerik').DataTable();
+    let sonuc = [];
+    table.rows({ selected: true }).every(function () {
+        let tr = this.node();
+        let val = $(tr).find('input[name="konuicerik"]').val();
+        sonuc.push(val);
+    });
+    store.set("egitimkonuicerik", sonuc);
+    window.location.href = "yillikegitimveplan3.aspx";
+}
+
+
+
 async function yillikdegerelendirmeraporu()
 {
     let jsonveri = jsoncevir(store.get("degerlendirmejson"));
@@ -1270,6 +1308,173 @@ async function yillikdegerelendirmeraporu()
 }
 function sagliktaramabtrf(j, y) { let i = (j.sagliktarama || []).map(x => x.id), m = {}, s = { b: !1, t: !1, r: !1, f: !1 }; (y.sagliktarama || []).forEach(x => m[x.id] = x.tip); i.forEach(id => { let t = m[id]; t && (s[t] = !0) }); return [s.b, s.t, s.r, s.f] }
 ///////////////////YILLIK EĞİTİM PLANI///////////////////YILLIK EĞİTİM PLANI///////////////////YILLIK EĞİTİM PLANI///////////////////YILLIK EĞİTİM PLANI///////////////////YILLIK EĞİTİM PLANI///////////////////YILLIK EĞİTİM PLANI///////////////////
+function yillikegitimveplan5load()
+{
+    $('#riskdegerlendirme').trigger('change');
+    $('#acildurumplani').trigger('change');
+    store.set("riskdegerlendirme", "1");
+    store.set("acildurumplani", "1");
+    $('#riskdegerlendirme').on('change', function ()
+    {
+        if (this.value === "0")
+        {
+            $('#riskgizli').show();
+            store.set("riskdegerlendirme", "0");
+        }
+        else
+        {
+            $('#riskgizli').hide();
+            store.set("riskdegerlendirme", "1");
+        }
+    });
+
+    $('#acildurumplani').on('change', function ()
+    {
+        if (this.value === "0")
+        {
+            $('#acildurumgizli').show();
+            store.set("acildurumplani", "0");
+        }
+        else
+        {
+            $('#acildurumgizli').hide();
+            store.set("acildurumplani", "1");
+        }
+    });
+}
+
+function yillikegitimveplandevam5()
+{
+    let riskdegerlendirme = $('input[name="risk"]:checked').val() || "0";
+    let acildurumplani = $('input[name="acil"]:checked').val() || "0";
+    let acildurumtatbikati = $('input[name="tatb"]:checked').val() || "0";
+    let ekipmanjson = [];
+    for (let i = 1; i <= 12; i++) { ekipmanjson.push($('#olc' + i).is(':checked') ? 1 : 0); }
+    let ortamjson = [];
+    for (let i = 1; i <= 12; i++) { ortamjson.push($('#ort' + i).is(':checked') ? 1 : 0); }
+    let taramajson = [];
+    for (let i = 1; i <= 12; i++) { taramajson.push($('#tar' + i).is(':checked') ? 1 : 0); }
+    let periyodikjson = [];
+    for (let i = 1; i <= 12; i++) { periyodikjson.push($('#sgl' + i).is(':checked') ? 1 : 0); }
+    let kuruljson = [];
+    for (let i = 1; i <= 12; i++) { kuruljson.push($('#krl' + i).is(':checked') ? 1 : 0); }
+    let ilkyardimjson = [];
+    for (let i = 1; i <= 12; i++) { ilkyardimjson.push($('#ilk' + i).is(':checked') ? 1 : 0); }
+    let yuksektejson = [];
+    for (let i = 1; i <= 12; i++) { yuksektejson.push($('#yuk' + i).is(':checked') ? 1 : 0); }
+    let isekipmanegitimjson = [];
+    for (let i = 1; i <= 12; i++) { isekipmanegitimjson.push($('#isk' + i).is(':checked') ? 1 : 0); }
+    let kimyasaljson = [];
+    for (let i = 1; i <= 12; i++) { kimyasaljson.push($('#kim' + i).is(':checked') ? 1 : 0); }
+    let kaldirmajson = [];
+    for (let i = 1; i <= 12; i++) { kaldirmajson.push($('#kal' + i).is(':checked') ? 1 : 0); }
+    let acilegitimjson = [];
+    for (let i = 1; i <= 12; i++) { acilegitimjson.push($('#acl' + i).is(':checked') ? 1 : 0); }
+    let kkdjson = [];
+    for (let i = 1; i <= 12; i++) { kkdjson.push($('#kkd' + i).is(':checked') ? 1 : 0); }
+    store.set("riskdegerlendirmesecim", riskdegerlendirme);//Tamam
+    store.set("acildurumplanisecim", acildurumplani);//Tamam
+    store.set("acildurumtatbikati", acildurumtatbikati);//Tamam
+    store.set("ekipmanjson", ekipmanjson);//Tamam
+    store.set("ortamjson", ortamjson);//Tamam
+    store.set("taramajson", taramajson);//Tamam
+    store.set("periyodikjson", periyodikjson);//Tamam
+    store.set("kuruljson", kuruljson);//Tamam
+    store.set("ilkyardimjson", ilkyardimjson);//Tamam
+    store.set("yuksektejson", yuksektejson);//Tamam
+    store.set("isekipmanegitimjson", isekipmanegitimjson);//Tamam
+    store.set("kimyasaljson", kimyasaljson);//Tamam
+    store.set("kaldirmajson", kaldirmajson);//Tamam
+    store.set("acilegitimjson", acilegitimjson);//Tamam
+    store.set("kkdjson", kkdjson);//Tamam
+    store.set("dosyaciktitipi", "9");
+    window.location.href = "dosyacikti.aspx";
+}
+
+async function yillikegitimveplan3load()
+{
+    let json = jsoncevir(store.get("yillikplandata"));
+    let ekipmankontrol = json.ekipmankontrol;
+    $('#muhendislikkontrol').DataTable
+        ({
+            data: ekipmankontrol,
+            dom: 't',
+            pageLength: -1,
+            order: [[2, 'asc']],
+            rowGroup: { dataSrc: "grup" },
+            columns:
+            [
+                { data: null, orderable: false, render: DataTable.render.select(), width: "80px" },
+                { data: "kontrol", title: "İş Ekipmanı ve Ortam Ölçümleri", orderable: !1, render: (d, t, r, m) => t === "display" ? `<input name="kontroladi" type="text" class="csstextbox100" value="${d}">` : d },
+                { data: "grup", visible: false},
+                { data: "tur", visible: false},
+            ],
+            select: { style: "multi", selector: "td:first-child" },
+            order: [],
+            createdRow: function (r) { $(r).find("td").eq(1).css("text-align", "left"); },
+            headerCallback: function (thead) { $(thead).find('th').css('text-align', 'center'); },
+    });
+}
+function yillikegitimveplandevam3()
+{
+    let table = $('#muhendislikkontrol').DataTable();
+    let muhendislikolcum = [];
+    let ortamolcum = [];
+    table.rows({ selected: true }).every(function ()
+    {
+        let rowData = this.data();
+        let tr = this.node();
+        let kontrolAdi = $(tr).find('input[name="kontroladi"]').val();
+        if (rowData.tur === "1")
+        {
+            muhendislikolcum.push(kontrolAdi);
+        }
+        else if (rowData.tur === "2")
+        {
+            ortamolcum.push(kontrolAdi);
+        }
+    });
+    store.set("muhendislikolcum", muhendislikolcum);
+    store.set("ortamolcum", ortamolcum);
+    window.location.href = "yillikegitimveplan4.aspx";
+}
+
+function yillikegitimveplan4load()
+{
+    let json = jsoncevir(store.get("yillikplandata"));
+    let sagliktarama = json.sagliktarama;
+    $('#sagliktarama').DataTable
+    ({
+        data: sagliktarama,
+        dom: 't',
+        pageLength: -1,
+        order: [[2, 'asc']],
+        columns:
+        [
+            { data: null, orderable: false, render: DataTable.render.select(), width: "80px" },
+            { data: "tarama", title: "Sağlık Taraması Adı", orderable: !1, render: (d, t, r, m) => t === "display" ? `<input name="kontroladi" type="text" class="csstextbox100" value="${d}">` : d },
+        ],
+        select: { style: "multi", selector: "td:first-child" },
+        order: [],
+        createdRow: function (r) { $(r).find("td").eq(1).css("text-align", "left"); },
+        headerCallback: function (thead) { $(thead).find('th').css('text-align', 'center'); },
+    });
+}
+
+function yillikegitimveplandevam4()
+{
+    let table = $('#sagliktarama').DataTable();
+    let sonuc = [];
+    table.rows({ selected: true }).every(function ()
+    {
+        let tr = this.node();
+        let val = $(tr).find('input[name="kontroladi"]').val();
+        sonuc.push(val);
+    });
+    store.set("sagliktarama", sonuc);
+    window.location.href = "yillikegitimveplan5.aspx";
+}
+
 async function yillikegitimveplan1load()
 {
     store.set("indirmetamam", "0");
