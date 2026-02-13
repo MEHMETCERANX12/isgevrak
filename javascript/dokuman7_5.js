@@ -8835,6 +8835,154 @@ function talimatcikti3load()
     $('.dt-search input').css({"background-color": "white", "width": "12vw", "margin": "0 auto", "display": "inline-block", "font-size": "1vw", "font-family": "Calibri", "text-align": "left"});
 }
 ////////////////////////RİSK DEĞERLENDİRME////////////////////////RİSK DEĞERLENDİRME////////////////////////RİSK DEĞERLENDİRME////////////////////////RİSK DEĞERLENDİRME////////////////////////
+function riskdegerlendirmesiyeni2load()
+{
+    $('#siddetsecim, #frekanssecim, #olasiliksecim').on('change', riskhesaplama);
+    let veri = store.get("yeniriskdegerlendirmesi");
+    if (veri !== null)
+    {
+        veri.w.forEach(item =>
+        {
+            if (!item.hasOwnProperty('id'))
+            {
+                item.id = Math.floor(Math.random() * 1000000) + 1;
+            }
+        });
+        $('#HiddenField1').val(JSON.stringify(veri));
+        store.set("yeniriskdegerlendirmesi", null);
+    }
+    else
+    {
+        veri = $('#HiddenField1').val();
+        veri = JSON.parse(veri);
+        veri.w.forEach(item =>
+        {
+            if (!item.hasOwnProperty('id'))
+            {
+                item.id = Math.floor(Math.random() * 1000000) + 1;
+            }
+        });
+    }
+    $('#riskbaslik').text(veri.x[0] + " Risk Değerlendirmesi Düzenleme");
+    const alan = $('#riskdegerlendirmealan');
+    alan.empty();
+    veri.w.forEach((item) =>
+    {
+        const anaDiv = $(`<div style="border:0.2vw solid #ccc; padding:0.8vw; margin-bottom:15px; border-radius:0.8vw; background:#f9f9f9"><p><strong>Tehlike Kaynağı: </strong>${item.b}</p><p><strong>Tehlike: </strong>${item.c}</p><p><strong>Risk: </strong>${item.d}</p><p><strong>Riske Maruz Kalan Çalışanlar: </strong>${item.e}</p><p><strong>Şiddet:&nbsp;</strong>${item.k}&emsp;<strong>Frekans:&nbsp;</strong>${item.l}&emsp;<strong>Olasılık:&nbsp;</strong>${item.m}</p><div class="kontroller" style="margin-top:1vw;"></div></div>`);
+        item.q.forEach(qitem => {anaDiv.find('.kontroller').append(`<div style="display:flex; justify-content:space-between; margin:1.5vw 0; gap:1.5vw;"><div style="flex:1;text-align:justify;"><strong>Kontrol:</strong> ${qitem.f}</div><div style="flex:1;text-align:justify;"><strong>Mevcut Durum:</strong> ${qitem.g}</div></div>`);});
+        anaDiv.find('.kontroller').append(`<div class="cssdivortala"><input name="risksil" type="button" class="cssbutontumu" onclick="riskduzenlemesil();" value="Bu Kısmı Sil" data-id="${item.id}" />&emsp;&emsp;<input name="riskduzenle" type="button" class="cssbutontumu" value="Bu Kısmı Düzenle" data-id="${item.id}" /></div><div class="cssboslukalt1"></div>`);
+        $('#riskdegerlendirmealan').append(anaDiv);
+    });
+    $(document).on('click', 'input[name="riskduzenle"]', function ()
+    {
+        riskduzenletemizle();
+        store.set("riskkontrol", "1");
+        const id = $(this).data('id');
+        const veri = JSON.parse($('#HiddenField1').val());
+        const index = veri.w.findIndex(item => item.id === id);
+        store.set("riskindex", index);
+        const riskicerik = veri.w[index];
+        $('#b').val(riskicerik.b);
+        $('#c').val(riskicerik.c);
+        $('#d').val(riskicerik.d);
+        $('#e').val(riskicerik.e);
+        $('#siddetsecim').val(String(riskicerik.k));
+        $('#frekanssecim').val(String(riskicerik.l));
+        $('#olasiliksecim').val(String(riskicerik.m));
+        $('#siddetsecim, #frekanssecim, #olasiliksecim').trigger('change');
+        $('#diyologriskduzenleme').fadeIn(function () {$('#diyologriskduzenleme .dylg-content').animate({ scrollTop: 0 }, 200);});
+        riskicerik.q.forEach((qitem, i) =>
+        {
+            const index = i + 1;
+            $('#f' + index).val(qitem.f);
+            $('#g' + index).val(qitem.g);
+        });
+    });
+    $(document).on('click', 'input[name="risksil"]', function ()
+    {
+        const id = $(this).data('id');
+        const veri = JSON.parse($('#HiddenField1').val());
+        const index = veri.w.findIndex(item => item.id === id);
+        store.set("riskindex", index);
+        store.set("riskkontrol", "3");
+        $('#diyologrisksil').fadeIn();
+    })
+}
+
+function riskdegerlendirmesiyeni2load()
+{
+    $('#siddetsecim, #frekanssecim, #olasiliksecim').on('change', riskhesaplama);
+    let veri = store.get("yeniriskdegerlendirmesi");
+    if (veri !== null)
+    {
+        veri.w.forEach(item =>
+        {
+            if (!item.hasOwnProperty('id'))
+            {
+                item.id = Math.floor(Math.random() * 1000000) + 1;
+            }
+        });
+        $('#HiddenField1').val(JSON.stringify(veri));
+        store.set("yeniriskdegerlendirmesi", null);
+    }
+    else
+    {
+        veri = $('#HiddenField1').val();
+        veri = JSON.parse(veri);
+        veri.w.forEach(item =>
+        {
+            if (!item.hasOwnProperty('id'))
+            {
+                item.id = Math.floor(Math.random() * 1000000) + 1;
+            }
+        });
+    }
+    $('#riskbaslik').text(veri.x[0] + " Risk Değerlendirmesi Düzenleme");
+    const alan = $('#riskdegerlendirmealan');
+    alan.empty();
+    veri.w.forEach((item) =>
+    {
+        const anaDiv = $(`<div style="border:0.2vw solid #ccc; padding:0.8vw; margin-bottom:15px; border-radius:0.8vw; background:#f9f9f9"><p><strong>Tehlike Kaynağı: </strong>${item.b}</p><p><strong>Tehlike: </strong>${item.c}</p><p><strong>Risk: </strong>${item.d}</p><p><strong>Riske Maruz Kalan Çalışanlar: </strong>${item.e}</p><p><strong>Şiddet:&nbsp;</strong>${item.k}&emsp;<strong>Frekans:&nbsp;</strong>${item.l}&emsp;<strong>Olasılık:&nbsp;</strong>${item.m}</p><div class="kontroller" style="margin-top:1vw;"></div></div>`);
+        item.q.forEach(qitem => {anaDiv.find('.kontroller').append(`<div style="display:flex; justify-content:space-between; margin:1.5vw 0; gap:1.5vw;"><div style="flex:1;text-align:justify;"><strong>Kontrol:</strong> ${qitem.f}</div><div style="flex:1;text-align:justify;"><strong>Mevcut Durum:</strong> ${qitem.g}</div></div>`);});
+        anaDiv.find('.kontroller').append(`<div class="cssdivortala"><input name="risksil" type="button" class="cssbutontumu" onclick="riskduzenlemesil();" value="Bu Kısmı Sil" data-id="${item.id}" />&emsp;&emsp;<input name="riskduzenle" type="button" class="cssbutontumu" value="Bu Kısmı Düzenle" data-id="${item.id}" /></div><div class="cssboslukalt1"></div>`);
+        $('#riskdegerlendirmealan').append(anaDiv);
+    });
+    $(document).on('click', 'input[name="riskduzenle"]', function ()
+    {
+        riskduzenletemizle();
+        store.set("riskkontrol", "1");
+        const id = $(this).data('id');
+        const veri = JSON.parse($('#HiddenField1').val());
+        const index = veri.w.findIndex(item => item.id === id);
+        store.set("riskindex", index);
+        const riskicerik = veri.w[index];
+        $('#b').val(riskicerik.b);
+        $('#c').val(riskicerik.c);
+        $('#d').val(riskicerik.d);
+        $('#e').val(riskicerik.e);
+        $('#siddetsecim').val(String(riskicerik.k));
+        $('#frekanssecim').val(String(riskicerik.l));
+        $('#olasiliksecim').val(String(riskicerik.m));
+        $('#siddetsecim, #frekanssecim, #olasiliksecim').trigger('change');
+        $('#diyologriskduzenleme').fadeIn(function () {$('#diyologriskduzenleme .dylg-content').animate({ scrollTop: 0 }, 200);});
+        riskicerik.q.forEach((qitem, i) =>
+        {
+            const index = i + 1;
+            $('#f' + index).val(qitem.f);
+            $('#g' + index).val(qitem.g);
+        });
+    });
+    $(document).on('click', 'input[name="risksil"]', function ()
+    {
+        const id = $(this).data('id');
+        const veri = JSON.parse($('#HiddenField1').val());
+        const index = veri.w.findIndex(item => item.id === id);
+        store.set("riskindex", index);
+        store.set("riskkontrol", "3");
+        $('#diyologrisksil').fadeIn();
+    })
+}
+
 function riskdegerlendirmeyenitamam1()
 {
     let riskad = $('#riskdegerlendirmeadi').val().trim();
