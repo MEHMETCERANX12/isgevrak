@@ -8834,8 +8834,108 @@ function talimatcikti3load()
     $('.dt-search').css({"text-align": "right", "margin": "0.8vw 0 0.8vw 0"});
     $('.dt-search input').css({"background-color": "white", "width": "12vw", "margin": "0 auto", "display": "inline-block", "font-size": "1vw", "font-family": "Calibri", "text-align": "left"});
 }
-
 ////////////////////////RİSK DEĞERLENDİRME////////////////////////RİSK DEĞERLENDİRME////////////////////////RİSK DEĞERLENDİRME////////////////////////RİSK DEĞERLENDİRME////////////////////////
+function riskdegerlendirmeduzenle1load()
+{
+    var jsonData = $("#HiddenField1").val();
+    if (jsonData)
+    {
+        try
+        {
+            var data = JSON.parse(jsonData);            
+            $('#risktablo').DataTable({
+                data: data,
+                pageLength: -1,
+                lengthMenu: [[10, 25, 50, 100, 500, -1], [10, 25, 50, 100, 500, "Tümü"]],
+                columns:
+                [
+                    {data: 'a', title: 'Risk Değerlendirme Adı', width: '80%' },
+                    {data:'i',title:'Düzenle',orderable:!1,width:'10%',render:d=>`<input name="duzenle" type="button" class="cssbutontamam" value="Düzenle" data-id="${d}"/>`},
+                    {data:'i',title:'Sil',orderable:!1,width:'10%',render:d=>`<input name="sil" type="button" class="cssbutontamam" value="Sil" data-id="${d}"/>`}
+                ],
+                language:
+                {
+                    search: "Risk Değerlendirme Ara:",
+                    lengthMenu: "Sayfa başına _MENU_ kayıt göster",
+                    zeroRecords: "Eşleşen kayıt bulunamadı",
+                    info: "_TOTAL_ kayıttan _START_ ile _END_ arası gösteriliyor",
+                    infoEmpty: "Kayıt yok",
+                    infoFiltered: "(toplam _MAX_ kayıttan filtrelendi)",
+                    emptyTable: "Risk değerlendirme bulunamadı"
+                },
+                createdRow: function (row)
+                {
+                    $(row).find('td').eq(0).css('text-align', 'left');
+                    $(row).find('td').eq(1).css('text-align', 'center');
+                    $(row).find('td').eq(2).css('text-align', 'center');
+                },
+                headerCallback: function (thead)
+                { 
+                    $(thead).find('th').css('text-align', 'center');
+                }
+            });
+        }
+        catch (e)
+        {
+            console.error("JSON parse hatası:", e);
+        }
+    }
+    $('.dt-search input').css({ "background-color": "white" }).attr("autocomplete", "off");
+    $('.dt-length select').css({ "background-color": "white" });
+    $(document).on('click', 'input[name="duzenle"], input[name="sil"]', function ()
+    {
+        var i = $(this).data('id');
+        var b = $(this).closest('tr').find('td:eq(0)').text().trim();
+        if ($(this).attr('name') === 'duzenle')
+        {
+            if (!Number.isInteger(i) || i <= 0)
+            {
+                alertify.error("Beklenmedik bir hata oluştu");
+                return false;
+            }
+            window.location.href = "riskdegerlendirmeduzenle2.aspx?id=" + encodeURIComponent(i);
+        }
+        else if ($(this).attr('name') === 'sil')
+        {
+            $('#HiddenField2').val(i);
+            $("#mesajicerik").text(`${b} SİLMEK istediğinizden emin misiniz?`);
+            $("#diyolagrisksil").fadeIn();
+        }
+    });
+ }
+
+function riskdegerlendirmesil()
+{
+    const iddeger = $('#HiddenField2').val();
+    const id = parseInt(iddeger, 10);
+    if (isNaN(id) || id <= 0)
+    {
+        alertify.error("Beklenmedik bir hata oluştu");
+        return false;
+    }
+    var jsonData = $('#HiddenField1').val();
+    if (!jsonData)
+    {
+        alertify.error("Veri bulunamadı");
+        return false;
+    }
+    try
+    {
+        var data = JSON.parse(jsonData);
+        data = data.filter(function (item)
+        {
+            return item.i !== id;
+        });
+        $('#HiddenField1').val(JSON.stringify(data));
+        $("#diyolagtalimatsil").fadeOut();
+        return true;
+    }
+    catch (e)
+    {
+        alertify.error("Veri işleme hatası");
+        return false;
+    }
+}
 
 function riskdegerlendirmecikti1()
 {
