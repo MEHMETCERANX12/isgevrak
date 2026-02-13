@@ -1,4 +1,34 @@
 ///////////////////İSG KURUL///////////////////İSG KURUL///////////////////İSG KURUL///////////////////İSG KURUL//////////İSG KURUL//////////
+function kuruluyekontrol()
+{
+    let firmaid = firmasecimoku();
+    let tarih = $('#tarih').val().trim();
+    if (!firmaid || !/^[a-z0-9]{10}$/.test(firmaid))
+    {
+        return false;
+    }
+    if (!tarih)
+    {
+        alertify.error("Lütfen bir tarih giriniz");
+        return false;
+    }
+    let tarihRegex = /^(0[1-9]|[12][0-9]|3[01])\.(0[1-9]|1[0-2])\.(19|20)\d{2}$/;
+    if (!tarihRegex.test(tarih))
+    {
+        alertify.error("Tarih formatı geçersiz. Lütfen gg.aa.yyyy formatında giriniz");
+        return false;
+    }
+    $('#HiddenField1').val(firmaid);
+    store.set("atamatarih", tarih);
+    return true;
+}
+function kuruluyedevam(kuruljson)
+{
+    let json = JSON.stringify(kuruljson);
+    store.set("kuruluyejson", json);
+    store.set("dosyaciktitipi", "7");
+    window.location.href = "dosyacikti.aspx";
+}
 function isgkurulolustur3load()
 {
     let isgkurul = jsoncevir(store.get("isgkurultumu"));
@@ -21,7 +51,6 @@ function isgkurulolustur3load()
         headerCallback: function (thead) { $(thead).find('th').css('text-align', 'center');}
     });
 }
-
 function kurulmaddeekle()
 {
     $('#m1').val('');
