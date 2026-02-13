@@ -834,7 +834,7 @@ async function yillikdegerlendirmeraporuload()
         alertify.error("Yıllık plan verisi indirilemedi");
     }
 }
-function yillikegitimveplandevam1()
+function yillikdegerlendirmedevam1()
 {
     if (store.get("indirmetamam") == "1")
     {
