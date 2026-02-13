@@ -8835,6 +8835,21 @@ function talimatcikti3load()
     $('.dt-search input').css({"background-color": "white", "width": "12vw", "margin": "0 auto", "display": "inline-block", "font-size": "1vw", "font-family": "Calibri", "text-align": "left"});
 }
 ////////////////////////RİSK DEĞERLENDİRME////////////////////////RİSK DEĞERLENDİRME////////////////////////RİSK DEĞERLENDİRME////////////////////////RİSK DEĞERLENDİRME////////////////////////
+function riskdegerlendirmeyenitamam1()
+{
+    let riskad = $('#riskdegerlendirmeadi').val().trim();
+    if (riskad.length < 4)
+    {
+        alertify.error("Risk değerlendirme adı minumum 4 karekter olmalıdır.");
+        return false;
+    }
+    let json={"x":[riskad],"w":[{"b":"Tehlike Kaynağını Yazınız","c":"Tehlikeyi yazınız","d":"Riski Yazınız","e":"Etkilenen Kişileri Yazınız","k":1,"l":1,"m":1,"q":[{"f":"Önleyici veya kontrol tedbirini yazınız.","g":"Kontrol tedbir var ve uygun olacak şekilde yazınız."}]}]};
+    store.set("yeniriskdegerlendirmesi", json);
+    $("#HiddenField1").val(riskad);
+    $("#HiddenField2").val(store.get("uzmanad"));
+    return true;
+}
+
 function riskdegerlendirmeduzenle2load()
 {
     $('#siddetsecim, #frekanssecim, #olasiliksecim').on('change', riskhesaplama);
