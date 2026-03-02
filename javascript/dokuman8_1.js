@@ -5263,6 +5263,7 @@ async function acildurumgirisyazdocx()
     let isveren = isyeri.is;
     let hekimad = isyeri.hk;
     let hekimno = isyeri.hn;
+    let sicil = isyeri.sc;
     let kapaksecim = parseInt($('#kapaksecim').val());
     let isyeribaslik = isyeribaslikayar(kapaksecim, isyeriismi);
     let ustbaslik = "";
@@ -5280,6 +5281,8 @@ async function acildurumgirisyazdocx()
             new Paragraph({ children: [new TextRun({ text: isyeriismi, size: 22, font: "Calibri" })], spacing: { before: 100, after: 100 }, alignment: "left" }),
             new Paragraph({ children: [new TextRun({ text: "İşyeri Adresi", bold: true, size: 22, font: "Calibri" })], spacing: { before: 100, after: 100 }, alignment: "left" }),
             new Paragraph({ children: [new TextRun({ text: isyeriadresi, size: 22, font: "Calibri" })], spacing: { before: 100, after: 100 }, alignment: "left" }),
+            new Paragraph({ children: [new TextRun({ text: "İşyeri SGK Sicil No", bold: true, size: 22, font: "Calibri" })], spacing: { before: 100, after: 100 }, alignment: "left" }),
+            new Paragraph({ children: [new TextRun({ text: sicil, size: 22, font: "Calibri" })], spacing: { before: 100, after: 100 }, alignment: "left" }),
             new Paragraph({ children: [new TextRun({ text: "İşveren Vekili Adı Soyadı", bold: true, size: 22, font: "Calibri" })], spacing: { before: 100, after: 100 }, alignment: "left" }),
             new Paragraph({ children: [new TextRun({ text: isveren, size: 22, font: "Calibri" })], spacing: { before: 100, after: 100 }, alignment: "left" }),
             new Paragraph({ children: [new TextRun({ text: "Acil Durum Plan Tarihi", bold: true, size: 22, font: "Calibri" })], spacing: { before: 100, after: 100 }, alignment: "left" }),
