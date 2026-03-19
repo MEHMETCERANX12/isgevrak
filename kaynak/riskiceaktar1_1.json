@@ -1,7 +1,7 @@
 [
   {
     "id": 1,
-    "b": "Bakım onarım sırasında oluşabilecek iş kazaları",
+    "b": "İş Ekipmanı Bakım Onarım Sırasında Alınacak Tedbir Paketi",
     "g": "İş Ekipmanı",
     "m":
     {
@@ -34,7 +34,7 @@
   },
   {
     "id": 2,
-    "b": "İş ekipmanının kontrolsüz hareketi sonucu devrilmesi veya düşmesi vb.",
+    "b": "İş Ekipmanının Yere Sabitleme Tedbir Paketi",
     "g": "İş Ekipmanı",
     "m": {
       "b": "x1",
