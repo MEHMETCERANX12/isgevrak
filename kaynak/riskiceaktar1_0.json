@@ -1,0 +1,55 @@
+[
+  {
+    "id": 1,
+    "b": "Bakım onarım sırasında oluşabilecek iş kazaları",
+    "g": "İş Ekipmanı",
+    "m":
+    {
+      "b": "x1",
+      "c": "Bakım onarım sırasında oluşabilecek iş kazaları",
+      "d": "Ölümlü veya ağır yaralanmalı iş kazaları",
+      "e": "Bakım onarım yapan kişi",
+      "k": 40,
+      "l": 1,
+      "m": 1,
+      "q": [
+        {
+          "f": "İş ekipmanında bakım ve onarım işlemine başlamadan önce, elektrik akımına maruziyet ve kontrolsüz hareket riskini önlemek amacıyla enerji kaynağı kesilmeli; bakım süresi boyunca acil durdurma butonu basılı konumda tutulmalıdır.",
+          "g": "Bakım ve onarım işlemlerine başlamadan önce iş ekipmanının enerji kaynağı kesilecek acil stop butonu aktif hale getirilecektir."
+        },
+        {
+          "f": "İş ekipmanının bakım ve onarımı, bu konuda mesleki yeterliliği olan bir kişi tarafından yapılmalıdır.",
+          "g": "Mesleki yeterliliği olan bir kişi tarafından yapılacaktır."
+        },
+        {
+          "f": "Bakım ve onarım çalışmaları sırasında, iş ekipmanının hareketli kısımlarının istem dışı kapanmasını önlemek amacıyla uygun mekanik kilitleme sistemleri veya emniyet takozları kullanılmalıdır.",
+          "g": "Bu şekilde çalışılma yapılacaktır."
+        },
+        {
+          "f": "Bakım ve onarım çalışmalarına başlamadan önce, yüksek basınçlı bağlantı ve hortumların ani veya beklenmedik hareketlere neden olmaması için sistemdeki basınç güvenli bir şekilde tahliye edilmelidir.",
+          "g": "Bu şekilde çalışılma yapılacaktır."
+        }
+      ]
+    }
+  },
+  {
+    "id": 2,
+    "b": "İş ekipmanının kontrolsüz hareketi sonucu devrilmesi veya düşmesi vb.",
+    "g": "İş Ekipmanı",
+    "m": {
+      "b": "x1",
+      "c": "İş ekipmanının kontrolsüz hareketi sonucu devrilmesi veya düşmesi vb.",
+      "d": "Kontrolsüz hareket sonucu oluşabilecek ölümlü veya ağır yaralanmalı iş kazaları",
+      "e": "Tüm çalışanlar ve 3. şahıslar",
+      "k": 40,
+      "l": 1,
+      "m": 1,
+      "q": [
+        {
+          "f": "İş ekipmanının kendi hareketinden veya dışarıdan bir müdahale sonucu (çarpma, deprem vb.) kontrolsüz hareket etmemesi için yere sabitlenmelidir.",
+          "g": "İş ekipmanı yere sabitlenmiştir. Bu şekilde çalışma sürdürülmelidir."
+        }
+      ]
+    }
+  }
+]
