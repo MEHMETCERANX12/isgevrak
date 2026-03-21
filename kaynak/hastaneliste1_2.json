@@ -565,5 +565,75 @@
         "hastane": "Yenimahalle Eğitim ve Araştırma Hastanesi",
         "adres": "Yeni Batı Mahallesi 2367. Sokak No: 4 Batıkent Yenimahalle/Ankara",
         "telefon": "0 312 587 20 00"
-    }
+    },
+  {
+    "il": "Nevşehir",
+    "ilce": "Merkez",
+    "hastane": "Nevşehir Devlet Hastanesi",
+    "adres": "15 Temmuz Mahallesi 148. Sokak No:1 Merkez/Nevşehir",
+    "telefon": "+90 (384) 228 50 50"
+  },
+  {
+    "il": "Nevşehir",
+    "ilce": "Ürgüp",
+    "hastane": "Ürgüp Devlet Hastanesi",
+    "adres": "15 Temmuz Mahallesi Otogar Cad. No:3 Ürgüp/Nevşehir",
+    "telefon": "+90 (384) 341 40 31"
+  },
+  {
+    "il": "Nevşehir",
+    "ilce": "Kozaklı",
+    "hastane": "Kozaklı Devlet Hastanesi",
+    "adres": "Hoca Ahmet Yesevi Mahallesi, 534 Sokak, Dış Kapı No: 6, Kozaklı/Nevşehir",
+    "telefon": "+90 (384) 471 30 08"
+  },
+  {
+    "il": "Nevşehir",
+    "ilce": "Acıgöl",
+    "hastane": "Acıgöl İlçe Devlet Hastanesi",
+    "adres": "Çayırlık Mahallesi Hastane Caddesi No:33 Acıgöl/Nevşehir",
+    "telefon": "+90 (384) 311 20 17"
+  },
+  {
+    "il": "Nevşehir",
+    "ilce": "Avanos",
+    "hastane": "Avanos İlçe Devlet Hastanesi",
+    "adres": "Cumhuriyet Mahallesi Zelve Caddesi No:22 Avanos/Nevşehir",
+    "telefon": "+90 (384) 511 40 21"
+  },
+  {
+    "il": "Nevşehir",
+    "ilce": "Derinkuyu",
+    "hastane": "Derinkuyu İlçe Devlet Hastanesi",
+    "adres": "Fatih Mahallesi Şehit Erhan Karataş Caddesi No:63 Derinkuyu/Nevşehir",
+    "telefon": "+90 (384) 381 38 93"
+  },
+  {
+    "il": "Nevşehir",
+    "ilce": "Gülşehir",
+    "hastane": "Gülşehir İlçe Devlet Hastanesi",
+    "adres": "Karavezir Mahallesi, Şehit Er Duran Çekiç Caddesi, No:3-C Gülşehir/Nevşehir",
+    "telefon": "+90 (384) 411 30 06"
+  },
+  {
+    "il": "Nevşehir",
+    "ilce": "Hacıbektaş",
+    "hastane": "Hacıbektaş İlçe Devlet Hastanesi",
+    "adres": "Bala Mahallesi Hastane Caddesi No:4/1 Hacıbektaş/Nevşehir",
+    "telefon": "+90 (384) 441 30 15"
+  },
+  {
+    "il": "Nevşehir",
+    "ilce": "Merkez",
+    "hastane": "Nevşehir Ağız ve Diş Sağlığı Merkezi",
+    "adres": "15 Temmuz Mahallesi, Sıhhat Sokak No:12 Merkez/Nevşehir",
+    "telefon": "+90 (384) 215 42 91"
+  },
+  {
+    "il": "Nevşehir",
+    "ilce": "Kozaklı",
+    "hastane": "Kozaklı Fizik Tedavi ve Rehabilitasyon Hastanesi",
+    "adres": "Emek Mahallesi, Kaplıca Caddesi No:121 Kozaklı/Nevşehir",
+    "telefon": "+90 (384) 471 25 99"
+  }   
 ]
