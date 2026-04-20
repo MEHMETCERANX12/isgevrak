@@ -1,141 +1,117 @@
 {
-  "yuksektecalisma": [
-    {
-      "s": "Yüksekten çalışma sırasında aşağıda belirtilen hangi güvenlik önlemi doğrudur?",
-      "d": "Yüksekte çalışırken mutlaka emniyet kemeri takılmalı ve güvenli bir noktaya bağlanmalıdır.",
-      "y1": "Yüksekte çalışırken yalnızca dengeye dikkat etmek yeterlidir, ek bir güvenlik ekipmanına gerek yoktur.",
-      "y2": "Yüksekte çalışırken hızlı hareket ederek işi bir an önce tamamlamak en güvenli yöntemdir.",
-      "y3": "Yüksekte çalışma sırasında rüzgarlı hava koşulları varsa, çalışmaya devam edilir."
-    },
-    {
-      "s": "Yüksekte yapılan çalışmalara ilişkin aşağıda verilen bilgilerden hangisi doğrudur?",
-      "d": "Yüksekte çalışırken paraşüt tipi emniyet kemeri takmamıza gerekir.",
-      "y1": "Yağmurlu, karlı ve rüzgarlı havalarda yüksekte çalışmak güvenlidir.",
-      "y2": "Yüksekte çalışırken yukarıdan aşağıya malzeme atabiliriz.",
-      "y3": "Yüksekte çalışırken, yüksekten düşmemizi engelleyen korkulukları istediğimiz zaman çıkarabiliriz."
-    },
-    {
-      "s": "Yapı/İnşaat işlerine ilişkin aşağıda verilen bilgilerden hangisi yanlıştır?",
-      "d": "Yapı alanına işi olmayan kişilerin girişi engellenmelidir.",
-      "y1": "Sahada dolaşırken baret takmaya ve iş ayakkabısı giymeye gerek yoktur.",
-      "y2": "Kazı alanının etrafı çevrilmeli ve uyarı levhaları konulmalıdır.",
-      "y3": "İskelede çalışırken, uzanmak veya başka bir sebepten ötürü dışarıya uzanmamalıyız."
-    }
-  ],
-  "bakim": [
-    {
-      "s": "Bakım onarım işleri ile ilgili aşağıda verilen bilgilerden hangisi yanlıştır?",
-      "d": "Bakım/onarım konusunda mesleki yeterliliğe sahip olan çalışanlar bu işi yapabilir.",
-      "y1": "Bakım/onarım işinin yapıldığı alana meraklı olan kişiler girebilir ve işe yardımcı olabilir.",
-      "y2": "Bakım/onarım işlemi sırasında ekipmanın acil stop butonuna basılmalı ve elektrik bağlantısı sökülmelidir.",
-      "y3": "Bakım/onarım işlemi sırasında 'Dikkat Bakım Var' levhası asılmalıdır."
-    }
-  ],
-  "elektrik": [
-    {
-      "s": "Elektrik ile ilgili aşağıda verilen güvenlik tedbirlerinden hangisi yanlıştır?",
-      "d": "Hasar görmüş veya kesilmiş elektrik kablosunu bantlayarak kullanmaya devam edebiliriz.",
-      "y1": "Her türlü elektrikli ekipmana müdahale etmeden önce elektriği kesmemiz gerekir.",
-      "y2": "Elektrik kesilmiş olsa dahi elektrik kesilip kesilmediği kontrol etmeden işe başlamamalıyız.",
-      "y3": "Elektrik sistemlerinde topraklama, olası bir elektrik kaçağını toprağa verilmesini sağlayan güvenlik sistemidir."
-    }
-  ],
-  "isekipmani": [
-    {
-      "s": "Aşağıda belirtilen iş ekipmanlarının kullanımına ilişkin bilgilerden hangisi yanlıştır?",
-      "d": "İş ekipmanları sadece tasarım ve imalat amacına uygun işler için kullanılmalıdır.",
-      "y1": "İş ekipmanının arıza yapması halinde kimseye haber veremeden hemen müdahale edip onarmalıyız.",
-      "y2": "El aletleri ile çalışmaya başlamadan önce kırık, çatlak veya yıpranma olup olmadığını kontrol etmeliyiz.",
-      "y3": "İş ekipmanlarının üstünde yer alan uyarı ve ikazlara dikkat etmeliyiz ve buna göre çalışmalıyız."
-    },
-    {
-      "s": "Bir iş ekipmanını kullanırken aşağıdaki hareketlerden hangisinin yapılması yanlıştır?",
-      "d": "İş ekipmanı çok yıpranmış veya bozulmuş ise kullanılmamalıdır.",
-      "y1": "İş ekipmanın koruyucu kapak ve donanımları işi yavaşlatıyorsa çıkartılabilir.",
-      "y2": "İş ekipmanın kullanımı konusunda yeterli bilgiye sahip değilsek kullanamamalıyız.",
-      "y3": "Tehlikeli bir durum oluştuğunda acil stop butonuna basılmalıdır."
-    }
-  ],
-  "tekniksoru": [
-    {
-      "s": "Ergonomik risk etmenleri ile ilgili aşağıdaki bilgilerden hangisi yanlıştır?",
-      "d": "Bir yükü birden daha fazla kişi ile taşımak, tek olarak taşımaktan daha güvenlidir.",
-      "y1": "Bir yükü kaldırma aracı ile değil öncelikle elle taşımalıyız.",
-      "y2": "Uzun süreli oturmak, egzersiz yapmamak vücut kaslarımızın zayıflamasına sebep olur.",
-      "y3": "Bir yükü elle taşırken yükü vücudumuza yakın tutmalıyız."
-    },
-    {
-      "s": "Acil durum çağrı merkezi telefon numarası aşağıdakilerinden hangisidir?",
-      "d": "112",
-      "y1": "111",
-      "y2": "110",
-      "y3": "109"
-    },
-    {
-      "s": "İşyerinde çalışma alanı düzenine ilişkin aşağıdaki bilgilerden hangisi doğrudur?",
-      "d": "Düzenli çalışma alanı, iş kazalarını azaltır, verimliliği artırır ve çalışanların motivasyonunu olumlu etkiler.",
-      "y1": "Düzenli bir çalışma alanı, yalnızca estetik görünüm sağlar.",
-      "y2": "Çalışma zemininde bulunan kablolar herhangi bir tehlike oluşturmaz.",
-      "y3": "Çalışma zemini ıslak veya kaygan vaziyette iken çalışmaya devam edilebilir."
-    },
-    {
-      "s": "Çalışma ortamında karşılaşabileceğiniz tehlikeli kimyasal maddelerle ilgili hangi önlem en doğru yaklaşımdır?",
-      "d": "Çalışmadan önce malzeme güvenlik bilgi formunu okunmalı ve uygun kişisel koruyucu donanım kullanılmalıdır.",
-      "y1": "Kimyasal maddelere çıplak elle, eldiven takmadan temas etmekte sakınca yoktur.",
-      "y2": "Kimyasal maddeler, havalandırılmayan veya kapalı bir ortamda güvenli şekilde kullanılabilir.",
-      "y3": "Kimyasal maddeleri karıştırıp birleştirmek tehlikeli değildir."
-    },
-    {
-      "s": "Aşağıdakilerden hangisi kimyasal maddelerle güvenli çalışmanın temel kurallarındandır?",
-      "d": "Kimyasal maddeler uygun şekilde etiketlenmeli ve kapalı ortamlarda saklanmalıdır.",
-      "y1": "Kimyasal maddeler çalışma alanında açık ve ulaşılabilir şekilde bırakılmalıdır.",
-      "y2": "Kimyasallarla çalışırken eldiven, maske gibi koruyucuların kullanılması gerekli değildir.",
-      "y3": "Kimyasal maddeler yiyeceklerle aynı dolapta saklanabilir, bu herhangi bir risk oluşturmaz."
-    },
-    {
-      "s": "Aşağıda fiziksel risk etmenleri ile verilen bilgilerden hangisi doğrudur?",
-      "d": "Yüksek ve uzun süreli gürültüye maruziyet işitme kaybına neden olabilir.",
-      "y1": "Kimyasal madde buharlarının solunması risk oluşturmaz.",
-      "y2": "Tozlu çalışma ortamında maske kullanmak zorunlu değildir.",
-      "y3": "Ortam sıcaklığı, çalışma performansını etkilemez."
-    },
-    {
-      "s": "Elle kaldırma ve taşıma işlemlerinde aşağıdakilerden hangisi doğru bir uygulamadır?",
-      "d": "Yük, dizlerden destek alınarak ve bel düz tutulacak şekilde kaldırılmalıdır.",
-      "y1": "Yük mümkün olduğunca uzaktan kavranmalı ve hızlıca kaldırılmalıdır.",
-      "y2": "Yük taşırken ani dönme ve eğilme hareketleri yapılmalıdır.",
-      "y3": "Ağır yükler tek başına ve aniden kaldırılmalıdır."
-    },
-    {
-      "s": "Aşağıdakilerden hangisi yangın riskini azaltmaya yönelik doğru bir uygulamadır?",
-      "d": "Yanıcı maddeler uygun kaplarda saklanmalı ve ateş kaynaklarından uzak tutulmalıdır.",
-      "y1": "Yanıcı maddeler açıkta ve kontrolsüz şekilde depolanabilir.",
-      "y2": "Elektrik kablolarının zarar görmesi yangın riski oluşturmaz.",
-      "y3": "Yangın söndürme ekipmanlarının bakımına gerek yoktur."
-    },
-    {
-      "s": "Acil bir durumda yapılması uygun olmayan davranış aşağıdakilerden hangisidir? (yangın, deprem vb.)",
-      "d": "Acil durumda asansör kullanılarak tahliye yapılmasında sakınca yoktur.",
-      "y1": "Acil çıkış işaretlerini takip ederek tahliye olmalıyız.",
-      "y2": "Acil durum yolları ve çıkışları her zaman açık tutulmalı ve önüne bir malzeme koymamalıyız.",
-      "y3": "Acil durum anında paniğe kapılmamalı ve soğukkanlılığımızı korumalıyız."
-    },
-    {
-      "s": "Aşağıdakilerden hangisi elektrikle çalışmalarda güvenliği sağlamaya yönelik doğru bir uygulamadır?",
-      "d": "Elektrik panoları kilitli olmalı ve yetkisiz kişilerin erişimi engellenmelidir.",
-      "y1": "Elektrik kabloları açıkta ve suya yakın yerlerde bırakılabilir.",
-      "y2": "Elektrik arızalarını herkesin müdahale edebilmesi için pano kapağı açık bırakılmalıdır.",
-      "y3": "Islak ellerle elektrikli aletleri kullanmak güvenlik açısından sorun oluşturmaz."
-    },
-    {
-      "s": "Kişisel koruyucu donanımlarla ile ilgili aşağıdaki ifadelerden hangisi doğrudur?",
-      "d": "Kişisel koruyucu donanımlar, çalışanı tehlikeye karşı korumak amacıyla kullanılan ekipmanlardır.",
-      "y1": "Yıpranmış veya bozulmuşta olsa kişisel koruyucu donanımı kullanmalıyız.",
-      "y2": "Kişisel koruyucu donanımlar tehlikeleri ortadan kaldırdığı için başka hiçbir önleme gerek yoktur.",
-      "y3": "Kişisel koruyucu donanımlar beden ölçülerimize uygun olmasada kullanılması sakınca yaratmaz."
-    }
+    "tekniksoru":
+    [
+        {
+            "s": "Aşağıda belirtilen iş ekipmanlarının kullanımına ilişkin ifadelerden hangisi yanlıştır?",
+            "d": "İş ekipmanı arızalandığında, kimseye haber vermeden hemen müdahale ederek onarım yapılmalıdır.",
+            "y1": "İş ekipmanları yalnızca tasarım ve imalat amacına uygun şekilde kullanılmalıdır.",
+            "y2": "İş ekipmanları üzerindeki uyarı ve ikazlara dikkat edilmeli ve buna uygun şekilde çalışılmalıdır.",
+            "a": "İş ekipmanlarının güvenli kullanımı"
+        },
+        {
+            "s": "Bir iş ekipmanını kullanırken aşağıdaki davranışlardan hangisi yanlıştır?",
+            "d": "İş ekipmanının koruyucu kapakları ve güvenlik donanımları işi yavaşlatıyorsa çıkarılabilir.",
+            "y1": "Kullanımı hakkında yeterli bilgiye sahip olmadığımız iş ekipmanlarını kullanmamalıyız.",
+            "y2": "İş ekipmanında, tehlikeli bir durum oluştuğunda acil durdurma (stop) butonuna basılmalıdır.",
+            "a": "İş ekipmanlarının güvenli kullanımı"
+        },
+        {
+            "s": "Elektrik ile ilgili aşağıdaki davranışlardan hangisi yanlıştır?",
+            "d": "Hasar görmüş veya kesilmiş elektrik kabloları bantlanarak kullanılmaya devam edilebilir.",
+            "y1": "Elektrikli ekipmanlara müdahale etmeden önce mutlaka elektrik akımı kesilmelidir.",
+            "y2": "Elektrik tesisatına yalnızca bu konuda mesleki yeterliliğe sahip kişiler müdahale etmelidir.",
+            "a": "Elektrik, tehlikeleri, riskleri ve önlemleri"
+        },
+        {
+            "s": "Ergonomik risk etmenleri ile ilgili aşağıdaki ifadelerden hangisi doğrudur?",
+            "d": "Bir yükü birden fazla kişiyle taşımak, tek başına taşımaktan her zaman daha güvenlidir.",
+            "y1": "Yükleri taşırken, kaldırma araçları yerine öncelikle elle taşımayı tercih etmeliyiz.",
+            "y2": "Bir yükü elle taşırken yükü vücudumuza uzak tutmalıyız.",
+            "a": "Ergonomik Risk Etmenleri"
+        },
+        {
+            "s": "Acil durumlarda aranması gereken Acil Çağrı Merkezi numarası hangisidir?",
+            "d": "112 Acil Çağrı Merkezi",
+            "y1": "110 Acil Çağrı Merkezi",
+            "y2": "155 Acil Çağrı Merkezi",
+            "a": "Acil durumlar, tahliye ve kurtarma"
+        },
+        {
+            "s": "Kimyasal maddelerle güvenli çalışma konusunda aşağıdakilerden hangisi doğrudur?",
+            "d": "Kimyasal maddeler uygun şekilde etiketlenmeli ve güvenli, kapalı alanlarda saklanmalıdır.",
+            "y1": "Kimyasal maddeler çalışma alanında açık ve kolay ulaşılabilir şekilde bırakılmalıdır.",
+            "y2": "Kimyasallarla çalışırken eldiven ve maske gibi koruyucu ekipmanlar kullanılmasa da olur.",
+            "a": "Kimyasal risk etmenleri"
+        },
+        {
+            "s": "Çalışma ortamında karşılaşabileceğiniz tehlikeli kimyasal maddelerle ilgili hangi önlem en doğru yaklaşımdır?",
+            "d": "Çalışmadan önce malzeme güvenlik bilgi formunu okunmalı ve uygun kişisel koruyucu donanım kullanılmalıdır.",
+            "y1": "Kimyasal maddeler, havalandırılmayan veya kapalı bir ortamda güvenli şekilde kullanılabilir.",
+            "y2": "Kimyasal maddeleri karıştırmak veya birleştirmek her zaman güvenlidir.",
+            "a": "Kimyasal risk etmenleri"
+        },
+        {
+            "s": "Fiziksel risk etmenleriyle ilgili aşağıdaki ifadelerden hangisi doğrudur?",
+            "d": "Yüksek düzeyde ve uzun süreli gürültüye maruz kalmak işitme kaybına neden olabilir.",
+            "y1": "Kimyasal madde buharlarının yüksek yoğunlukta solunması, zehirlenme risk oluşturmaz.",
+            "y2": "Tozlu çalışma ortamında uzun süre çalışan kişi maske kullanması gerekli değildir.",
+            "a": "Fiziksel risk etmenleri"
+        },
+        {
+            "s": "Elle yük kaldırma ve taşıma sırasında aşağıdakilerden hangisi doğru bir uygulamadır?",
+            "d": "Yük, dizlerden destek alınarak ve bel düz tutulacak şekilde kaldırılmalıdır.",
+            "y1": "Yük mümkün olduğunca uzaktan tutulmalı ve hızlıca kaldırılmalıdır.",
+            "y2": "Yük taşırken ani dönme ve eğilme hareketleri yapılmalıdır.",
+            "a": "Elle kaldırma ve taşıma"
+        },
+        {
+            "s": "Yangın riskini azaltmak için aşağıdaki uygulamalardan hangisi doğrudur?",
+            "d": "Yanıcı maddeler uygun kaplarda saklanmalı ve ateş kaynaklarından uzak tutulmalıdır.",
+            "y1": "Yanıcı maddeler, ısı kaynaklarının yakınında depolanabilir.",
+            "y2": "Elektrikli ekipmanlar ve elektrik tesisatı yangın sebeplerinden biri değildir.",
+            "a": "Yangın ve yangından korunma"
+        },
+        {
+            "s": "Yangın, deprem gibi acil durumlarda aşağıdaki davranışlardan hangisi yanlıştır?",
+            "d": "Acil durumlarda tahliye sırasında asansör kullanmak güvenlidir.",
+            "y1": "Acil durum anında yönlendirme levhalarını ve acil çıkış işaretlerini takip ederek, toplanma alanına ulaşmalıyız.",
+            "y2": "Acil durum anında panik yapmamalı, durumu hızlı ve doğru bir şekilde değerlendirerek bilinçli hareket etmeliyiz.",
+            "a": "Yangın ve yangından korunma"
+        },
+        {
+            "s": "Elektrikle çalışmalarda güvenliği sağlamak için aşağıdaki uygulamalardan hangisi doğrudur?",
+            "d": "Elektrik panoları kilitli olmalı ve yetkisiz kişilerin erişimi engellenmelidir.",
+            "y1": "Elektrik panolarının önüne malzeme koymak herhangi bir risk oluşturmaz.",
+            "y2": "Elektrik panolarının içine depolama amacıyla malzeme konulduktan sonra kapak kapatılabilir.",
+            "a": "Elektrik, tehlikeleri, riskleri ve önlemleri"
+        },
+        {
+            "s": "Ekranlı araçlarla çalışırken aşağıdaki uygulamalardan hangisi doğrudur?",
+            "d": "Ekran göz hizasında olmalı, düzenli aralar verilmeli ve uygun oturuş pozisyonu korunmalıdır.",
+            "y1": "Ekrana çok yakın mesafeden ve uzun süre ara vermeden çalışmak daha verimlidir.",
+            "y2": "Sırt desteği olmayan sandalyeler uzun süreli çalışmalarda kullanılabilir.",
+            "a": "Ekranlı araçlarla çalışma"
+        },
+        {
+            "s": "Kişisel koruyucu donanımlarla ilgili aşağıdaki ifadelerden hangisi doğrudur?",
+            "d": "Kişisel koruyucu donanımlar, çalışanları tehlikelere karşı korumak amacıyla kullanılan ekipmanlardır.",
+            "y1": "Kişisel koruyucu donanımlar yıpranmış veya hasarlı olsa bile kullanılabilir.",
+            "y2": "Kişisel koruyucu donanımlar kullanıldığında başka güvenlik önlemlerine gerek yoktur.",
+            "a": "Kişisel koruyucu donanım kullanımı"
+
+        }
   ],
   "genelsoru": [
+    
+          {
+            "s": "İşyerinde çalışma alanının düzeniyle ilgili aşağıdaki ifadelerden hangisi doğrudur?",
+            "d": "Düzenli bir çalışma alanı, iş kazalarını azaltır, verimliliği artırır ve çalışanların motivasyonunu olumlu etkiler.",
+            "y1": "Çalışma alanındaki dağınık kablolar herhangi bir tehlike oluşturmaz.",
+            "y2": "Zemin ıslak veya kaygan olsa da çalışmaya devam edilebilir.",
+            "a": "İşyeri Temizliği ve Düzeni"
+        },  
+    
+    
     {
       "s": "İş sağlığı ve güvenliğinin amacı aşağıdakilerden hangisi değildir?",
       "d": "Mal ve hizmetin çok daha hızlı bir şekilde üretilmesini sağlamak.",
@@ -212,6 +188,23 @@
       "y1": "Ambulans gelene kadar hastayı bir yerden bir yere taşımak.",
       "y2": "Kazazedeye ilaç vermek ve tedavi etmek.",
       "y3": "Kazaya uğrayan çalışanı görmezden gelip olay yerinden uzaklaşmak."
+    }
+  ],
+  "digerkonular":
+  [
+    {
+        "s": "Yüksekten çalışma sırasında aşağıda belirtilen hangi uygulama doğrudur?",
+        "d": "Yüksekte çalışırken mutlaka emniyet kemeri takılmalı ve güvenli bir noktaya bağlanmalıdır.",
+        "y1": "Yüksekten düşmemizi engelleyen korkulukları, işimizi engellemesi halinde çıkarabiliriz.",
+        "y2": "Yüksekte gerçekleştirilen kısa süreli çalışmalarda emniyet kemeri kullanımına gerek yoktur.",
+        "a": "Yüksekte Çalışma"
+    },
+    {
+        "s": "Bakım ve onarım işleriyle ilgili aşağıdaki ifadelerden hangisi yanlıştır?",
+        "d": "Bakım ve onarım işlemleri yalnızca bu konuda mesleki yeterliliğe sahip çalışanlar tarafından yapılmalıdır.",
+        "y1": "Arızalı ekipman çalışır durumdayken bakım yapmak daha hızlı sonuç verir.",
+        "y2": "Bakım ve onarım işlemi başlamadan önce enerji kaynaklarını kesmek zorunlu değildir.",
+        "a": "Bakım Onarım İşleri"
     }
   ]
 }
