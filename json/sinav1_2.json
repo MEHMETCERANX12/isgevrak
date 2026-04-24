@@ -1,0 +1,806 @@
+{
+  "sinav":
+  [
+    {
+      "id": 1,
+      "k": 1,
+      "b": "Çalışanların yasal hak ve sorumlulukları",
+      "s": "Aşağıdakilerden hangisi çalışanların iş sağlığı ve güvenliği kapsamındaki yükümlülüklerine ilişkin doğru bir ifadedir?",
+      "c": [
+        {
+          "x": "Yaptığı iş veya hareketinden ötürü diğer çalışanların sağlık ve güvenliğini tehlikeye düşürmemekle yükümlüdür.",
+          "y": true
+        },
+        {
+          "x": "Kendilerine sağlanan kişisel koruyucu donanımı koruma ve kullanma yükümlülükleri yoktur.",
+          "y": false
+        },
+        {
+          "x": "Aldığı iş sağlığı ve güvenliği eğitimlerine ve kendisine verilen güvenlik talimatlarına uymak zorunda değildir.",
+          "y": false
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "k": 1,
+      "b": "Çalışma mevzuatı ile ilgili bilgiler",
+      "s": "Çalışma mevzuatına ilişkin aşağıdaki ifadelerden hangisi doğrudur?",
+      "c": [
+        {
+          "x": "Türkiye'de çalışma hayatını düzenleyen temel yasal düzenleme 4857 sayılı İş Kanunu'dur.",
+          "y": true
+        },
+        {
+          "x": "Haftalık çalışma süresi 60 saat olarak belirlenmiştir.",
+          "y": false
+        },
+        {
+          "x": "Günlük dinlenme süresi ve hafta tatili iş sağlığı ve güvenliği açısından bir önemi yoktur.",
+          "y": false
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "k": 1,
+      "b": "İşyeri temizliği ve düzeni",
+      "s": "Aşağıdakilerden hangisi işyerinde temizlik ve düzenin sağlanmasının olumlu sonuçlarından biridir?",
+      "c": [
+        {
+          "x": "İş kazası risklerini azaltarak daha güvenli bir çalışma ortamı oluşturur ve verimliliği artırır.",
+          "y": true
+        },
+        {
+          "x": "Yalnızca işyerinin daha düzenli ve estetik görünmesini sağlar, iş sağlığı ve güvenliği ile bir ilgisi yoktur.",
+          "y": false
+        },
+        {
+          "x": "Temizlik ve düzen sadece yöneticilerin sorumluluğundadır, çalışanların bu konuda bir yükümlülüğü yoktur.",
+          "y": false
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "k": 1,
+      "b": "İş kazası ve meslek hastalığından doğan hukuki sonuçlar",
+      "s": "İşyerinde yaralanma ile sonuçlanan bir olay meydana geldiğinde, aşağıdaki ifadelerden hangisi yanlıştır?",
+      "c": [
+        {
+          "x": "Yaralanma hafif olsa bile kimseye haber vermeden çalışmaya devam edilmelidir.",
+          "y": true
+        },
+        {
+          "x": "Yaralanmalı iş kazası derhal işveren veya işveren vekiline bildirilmelidir.",
+          "y": false
+        },
+        {
+          "x": "Yaralanan çalışana, ilkyardım ekibi tarafından vakit kaybetmeden ilk müdahale yapılmalıdır.",
+          "y": false
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "k": 2,
+      "b": "İlkyardım",
+      "s": "İlkyardımın temel amacı aşağıdakilerden hangisidir?",
+      "c": [
+        {
+          "x": "Hasta veya yaralının durumunun daha da kötüleşmesini önlemek ve hayati tehlikeyi en aza indirmek.",
+          "y": true
+        },
+        {
+          "x": "Kazazedeye ilaç vererek tedavi uygulamak.",
+          "y": false
+        },
+        {
+          "x": "Yaralının en kısa sürede işinin başına dönmesini sağlamak.",
+          "y": false
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "k": 2,
+      "b": "Meslek hastalıklarının sebepleri",
+      "s": "Meslek hastalıklarına ilişkin aşağıdaki ifadelerden hangisi doğrudur?",
+      "c": [
+        {
+          "x": "Çalışma ortamındaki tehlike ve risklerin ortadan kaldırılması, meslek hastalıklarının oluşmasını önlemede en etkili yöntemdir.",
+          "y": true
+        },
+        {
+          "x": "Meslek hastalıkları aniden ortaya çıkar ve basit ilaçlarla kısa sürede tedavi edilebilir.",
+          "y": false
+        },
+        {
+          "x": "Kişisel koruyucu donanım kullanımı meslek hastalıklarının önlenmesinde etkili değildir.",
+          "y": false
+        }
+      ]
+    },
+    {
+      "id": 7,
+      "k": 2,
+      "b": "Hastalıktan korunma prensipleri ve korunma tekniklerinin uygulanması",
+      "s": "Hastalıktan korunma prensipleri kapsamında aşağıdakilerden hangisi en doğru yaklaşımdır?",
+      "c": [
+        {
+          "x": "Riskleri kaynağında yok etmek ve toplu korunma yöntemlerini öncelikli olarak uygulamak.",
+          "y": true
+        },
+        {
+          "x": "Sadece kişisel koruyucu donanım kullanarak tüm riskleri ortadan kaldırmak.",
+          "y": false
+        },
+        {
+          "x": "Hastalık ortaya çıktıktan sonra önlem almak yeterlidir.",
+          "y": false
+        }
+      ]
+    },
+    {
+      "id": 8,
+      "k": 2,
+      "b": "Bağımlılık yapıcı maddelerin zararları ve teknoloji bağımlılığı",
+      "s": "Aşağıdakilerden hangisi teknoloji bağımlılığının olumsuz etkilerinden biridir?",
+      "c": [
+        {
+          "x": "Dikkat dağınıklığına ve iş kazalarına neden olması.",
+          "y": true
+        },
+        {
+          "x": "Fiziksel ve ruhsal sağlığı olumlu yönde geliştirmesi.",
+          "y": false
+        },
+        {
+          "x": "Çalışma disiplinini artırarak daha güvenli çalışma ortamı sağlaması.",
+          "y": false
+        }
+      ]
+    },
+    {
+      "id": 9,
+      "k": 2,
+      "b": "Biyolojik ve psikososyal risk etmenleri",
+      "s": "Aşağıdaki işyeri ortamlarından hangisi psikososyal riskler açısından daha yüksek tehlike barındırır?",
+      "c": [
+        {
+          "x": "Uzun süre yoğun stres ve baskı altında çalışmayı gerektiren işyerleri.",
+          "y": true
+        },
+        {
+          "x": "Tozlu ve hijyen koşulları yetersiz olan işyerleri.",
+          "y": false
+        },
+        {
+          "x": "Yoğun kimyasal maddelerin kullanıldığı işyerleri.",
+          "y": false
+        }
+      ]
+    },
+    {
+      "id": 10,
+      "k": 3,
+      "b": "İş kazalarının sebepleri ve korunma prensipleri ile tekniklerinin uygulanması",
+      "s": "İş kazalarının sebepleri ile ilgili aşağıdakilerden hangisi doğrudur?",
+      "c": [
+        {
+          "x": "İş kazalarının önlenmesi için çalışma ortamındaki tehlikelerle mücadele edilmelidir.",
+          "y": true
+        },
+        {
+          "x": "İş kazaları yalnızca çalışan hatalarından ve deneyimsiz çalışanlardan kaynaklanır.",
+          "y": false
+        },
+        {
+          "x": "İş kazaları tamamen şansa bağlıdır ve önlenmesi mümkün değildir.",
+          "y": false
+        }
+      ]
+    },
+    {
+      "id": 11,
+      "k": 3,
+      "b": "Yangın ve yangından korunma",
+      "s": "Yangın, deprem gibi acil durumlarda aşağıdaki davranışlardan hangisi yanlıştır?",
+      "c": [
+        {
+          "x": "Acil durumlarda tahliye sırasında asansör kullanmak güvenlidir.",
+          "y": true
+        },
+        {
+          "x": "Acil durum anında yönlendirme levhalarını ve acil çıkış işaretlerini takip ederek, toplanma alanına ulaşmalıyız.",
+          "y": false
+        },
+        {
+          "x": "Acil durum anında panik yapmamalı, durumu hızlı ve doğru bir şekilde değerlendirerek bilinçli hareket etmeliyiz.",
+          "y": false
+        }
+      ]
+    },
+    {
+      "id": 12,
+      "k": 3,
+      "b": "Elle kaldırma ve taşıma",
+      "s": "Elle yük kaldırma ve taşıma sırasında aşağıdakilerden hangisi doğru bir uygulamadır?",
+      "c": [
+        {
+          "x": "Yük, dizlerden destek alınarak ve bel düz tutulacak şekilde kaldırılmalıdır.",
+          "y": true
+        },
+        {
+          "x": "Yük mümkün olduğunca uzaktan tutulmalı ve hızlıca kaldırılmalıdır.",
+          "y": false
+        },
+        {
+          "x": "Yük taşırken ani dönme ve eğilme hareketleri yapılmalıdır.",
+          "y": false
+        }
+      ]
+    },
+    {
+      "id": 13,
+      "k": 3,
+      "b": "Acil durumlar, tahliye ve kurtarma",
+      "s": "Acil durumlarda aranması gereken Acil Çağrı Merkezi numarası hangisidir?",
+      "c": [
+        {
+          "x": "112 Acil Çağrı Merkezi",
+          "y": true
+        },
+        {
+          "x": "110 Acil Çağrı Merkezi",
+          "y": false
+        },
+        {
+          "x": "155 Acil Çağrı Merkezi",
+          "y": false
+        }
+      ]
+    },
+    {
+      "id": 14,
+      "k": 3,
+      "b": "İş ekipmanlarının güvenli kullanımı",
+      "s": "Aşağıda belirtilen iş ekipmanlarının kullanımına ilişkin ifadelerden hangisi yanlıştır?",
+      "c": [
+        {
+          "x": "İş ekipmanı arızalandığında, kimseye haber vermeden hemen müdahale ederek onarım yapılmalıdır.",
+          "y": true
+        },
+        {
+          "x": "İş ekipmanları yalnızca tasarım ve imalat amacına uygun şekilde kullanılmalıdır.",
+          "y": false
+        },
+        {
+          "x": "İş ekipmanları üzerindeki uyarı ve ikazlara dikkat edilmeli ve buna uygun şekilde çalışılmalıdır.",
+          "y": false
+        }
+      ]
+    },
+    {
+      "id": 15,
+      "k": 3,
+      "b": "Yangın ve yangından korunma",
+      "s": "Yangın riskini azaltmak için aşağıdaki uygulamalardan hangisi doğrudur?",
+      "c": [
+        {
+          "x": "Yanıcı maddeler uygun kaplarda saklanmalı ve ateş kaynaklarından uzak tutulmalıdır.",
+          "y": true
+        },
+        {
+          "x": "Yanıcı maddeler, ısı kaynaklarının yakınında depolanabilir.",
+          "y": false
+        },
+        {
+          "x": "Elektrikli ekipmanlar ve elektrik tesisatı yangın sebeplerinden biri değildir.",
+          "y": false
+        }
+      ]
+    },
+    {
+      "id": 16,
+      "k": 3,
+      "b": "Ergonomik Risk Etmenleri",
+      "s": "Ergonomik risk etmenleri ile ilgili aşağıdaki ifadelerden hangisi doğrudur?",
+      "c": [
+        {
+          "x": "Bir yükü birden fazla kişiyle taşımak, tek başına taşımaktan her zaman daha güvenlidir.",
+          "y": true
+        },
+        {
+          "x": "Yükleri taşırken, kaldırma araçları yerine öncelikle elle taşımayı tercih etmeliyiz.",
+          "y": false
+        },
+        {
+          "x": "Bir yükü elle taşırken yükü vücudumuza uzak tutmalıyız.",
+          "y": false
+        }
+      ]
+    },
+    {
+      "id": 17,
+      "k": 3,
+      "b": "Kimyasal risk etmenleri",
+      "s": "Kimyasal maddelerle güvenli çalışma konusunda aşağıdakilerden hangisi doğrudur?",
+      "c": [
+        {
+          "x": "Kimyasal maddeler uygun şekilde etiketlenmeli ve güvenli, kapalı alanlarda saklanmalıdır.",
+          "y": true
+        },
+        {
+          "x": "Kimyasal maddeler çalışma alanında açık ve kolay ulaşılabilir şekilde bırakılmalıdır.",
+          "y": false
+        },
+        {
+          "x": "Kimyasallarla çalışırken eldiven ve maske gibi koruyucu ekipmanlar kullanılmasa da olur.",
+          "y": false
+        }
+      ]
+    },
+    {
+      "id": 18,
+      "k": 3,
+      "b": "Kimyasal risk etmenleri",
+      "s": "Çalışma ortamında karşılaşabileceğiniz tehlikeli kimyasal maddelerle ilgili hangi önlem en doğru yaklaşımdır?",
+      "c": [
+        {
+          "x": "Çalışmadan önce malzeme güvenlik bilgi formunu okunmalı ve uygun kişisel koruyucu donanım kullanılmalıdır.",
+          "y": true
+        },
+        {
+          "x": "Kimyasal maddeler, havalandırılmayan veya kapalı bir ortamda güvenli şekilde kullanılabilir.",
+          "y": false
+        },
+        {
+          "x": "Kimyasal maddeleri karıştırmak veya birleştirmek her zaman güvenlidir.",
+          "y": false
+        }
+      ]
+    },
+    {
+      "id": 19,
+      "k": 3,
+      "b": "Fiziksel risk etmenleri",
+      "s": "Fiziksel risk etmenleriyle ilgili aşağıdaki ifadelerden hangisi doğrudur?",
+      "c": [
+        {
+          "x": "Yüksek düzeyde ve uzun süreli gürültüye maruz kalmak işitme kaybına neden olabilir.",
+          "y": true
+        },
+        {
+          "x": "Kimyasal madde buharlarının yüksek yoğunlukta solunması, zehirlenme risk oluşturmaz.",
+          "y": false
+        },
+        {
+          "x": "Tozlu çalışma ortamında uzun süre çalışan kişi maske kullanması gerekli değildir.",
+          "y": false
+        }
+      ]
+    },
+    {
+      "id": 20,
+      "k": 3,
+      "b": "Elektrik, tehlikeleri, riskleri ve önlemleri",
+      "s": "Elektrik ile ilgili aşağıdaki davranışlardan hangisi yanlıştır?",
+      "c": [
+        {
+          "x": "Hasar görmüş veya kesilmiş elektrik kabloları bantlanarak kullanılmaya devam edilebilir.",
+          "y": true
+        },
+        {
+          "x": "Elektrikli ekipmanlara müdahale etmeden önce mutlaka elektrik akımı kesilmelidir.",
+          "y": false
+        },
+        {
+          "x": "Elektrik tesisatına yalnızca bu konuda mesleki yeterliliğe sahip kişiler müdahale etmelidir.",
+          "y": false
+        }
+      ]
+    },
+    {
+      "id": 21,
+      "k": 3,
+      "b": "Elektrik, tehlikeleri, riskleri ve önlemleri",
+      "s": "Elektrikle çalışmalarda güvenliği sağlamak için aşağıdaki uygulamalardan hangisi doğrudur?",
+      "c": [
+        {
+          "x": "Elektrik panoları kilitli olmalı ve yetkisiz kişilerin erişimi engellenmelidir.",
+          "y": true
+        },
+        {
+          "x": "Elektrik panolarının önüne malzeme koymak herhangi bir risk oluşturmaz.",
+          "y": false
+        },
+        {
+          "x": "Elektrik panolarının içine depolama amacıyla malzeme konulduktan sonra kapak kapatılabilir.",
+          "y": false
+        }
+      ]
+    },
+    {
+      "id": 22,
+      "k": 3,
+      "b": "Ekranlı araçlarla çalışma",
+      "s": "Ekranlı araçlarla çalışırken aşağıdaki uygulamalardan hangisi doğrudur?",
+      "c": [
+        {
+          "x": "Ekran göz hizasında olmalı, düzenli aralar verilmeli ve uygun oturuş pozisyonu korunmalıdır.",
+          "y": true
+        },
+        {
+          "x": "Ekrana çok yakın mesafeden ve uzun süre ara vermeden çalışmak daha verimlidir.",
+          "y": false
+        },
+        {
+          "x": "Sırt desteği olmayan sandalyeler uzun süreli çalışmalarda kullanılabilir.",
+          "y": false
+        }
+      ]
+    },
+    {
+      "id": 23,
+      "k": 3,
+      "b": "Kişisel koruyucu donanım kullanımı",
+      "s": "Kişisel koruyucu donanımlarla ilgili aşağıdaki ifadelerden hangisi doğrudur?",
+      "c": [
+        {
+          "x": "Kişisel koruyucu donanımlar, çalışanları tehlikelere karşı korumak amacıyla kullanılan ekipmanlardır.",
+          "y": true
+        },
+        {
+          "x": "Kişisel koruyucu donanımlar yıpranmış veya hasarlı olsa bile kullanılabilir.",
+          "y": false
+        },
+        {
+          "x": "Kişisel koruyucu donanımlar kullanıldığında başka güvenlik önlemlerine gerek yoktur.",
+          "y": false
+        }
+      ]
+    },
+    {
+      "id": 24,
+      "k": 3,
+      "b": "İş sağlığı ve güvenliği genel kuralları ve güvenlik kültürü",
+      "s": "Aşağıdakilerden hangisi iş sağlığı ve güvenliğinin temel amaçları arasında yer almaz?",
+      "c": [
+        {
+          "x": "Mal ve hizmet üretim sürecinin daha hızlı gerçekleşmesini sağlamak.",
+          "y": true
+        },
+        {
+          "x": "Çalışanları işin yürütümü sırasında karşılaşabilecekleri risk ve tehlikelere karşı korumak.",
+          "y": false
+        },
+        {
+          "x": "İş kazaları ile meslek hastalıklarının oluşma ihtimalini en düşük seviyeye indirmek.",
+          "y": false
+        }
+      ]
+    },
+    {
+      "id": 25,
+      "k": 3,
+      "b": "Parlama, patlama",
+      "s": "Aşağıdakilerden hangisi patlayıcı ortam oluşumuna neden olabilir?",
+      "c": [
+        {
+          "x": "Yanıcı gaz ve buharın ortam havasına yayılması ile oluşur.",
+          "y": true
+        },
+        {
+          "x": "Patlayıcı ortam oluşması için oksijen bulunmasına gerek yoktur.",
+          "y": false
+        },
+        {
+          "x": "Patlayıcı ortam oluşumu için yüksek sıcaklık her zaman zorunludur.",
+          "y": false
+        }
+      ]
+    },
+    {
+      "id": 26,
+      "k": 3,
+      "b": "Sağlık ve güvenlik işaretleri",
+      "s": "Sağlık ve güvenlik işaretleri ile ilgili aşağıdaki ifadelerden hangisi doğrudur?",
+      "c": [
+        {
+          "x": "Çalışanları tehlikelere karşı uyarmak ve yönlendirmek amacıyla kullanılır.",
+          "y": true
+        },
+        {
+          "x": "Sadece estetik amaçlı kullanılır.",
+          "y": false
+        },
+        {
+          "x": "İş güvenliği açısından herhangi bir önemi yoktur.",
+          "y": false
+        }
+      ]
+    },
+    {
+      "id": 27,
+      "k": 3,
+      "b": "İş ekipmanlarının güvenli kullanımı",
+      "s": "Bir iş ekipmanını kullanırken aşağıdaki davranışlardan hangisi yanlıştır?",
+      "c": [
+        {
+          "x": "İş ekipmanının koruyucu kapakları ve güvenlik donanımları işi yavaşlatıyorsa çıkarılabilir.",
+          "y": true
+        },
+        {
+          "x": "Kullanımı hakkında yeterli bilgiye sahip olmadığımız iş ekipmanlarını kullanmamalıyız.",
+          "y": false
+        },
+        {
+          "x": "İş ekipmanında, tehlikeli bir durum oluştuğunda acil durdurma (stop) butonuna basılmalıdır.",
+          "y": false
+        }
+      ]
+    },
+    {
+      "id": 28,
+      "k": 4,
+      "b": "Yüksekte Çalışma",
+      "s": "Yüksekten çalışma sırasında aşağıda belirtilen hangi uygulama doğrudur?",
+      "c": [
+        {
+          "x": "Yüksekte çalışırken mutlaka emniyet kemeri takılmalı ve güvenli bir noktaya bağlanmalıdır.",
+          "y": true
+        },
+        {
+          "x": "Yüksekten düşmemizi engelleyen korkulukları, işimizi engellemesi halinde çıkarabiliriz.",
+          "y": false
+        },
+        {
+          "x": "Yüksekte gerçekleştirilen kısa süreli çalışmalarda emniyet kemeri kullanımına gerek yoktur.",
+          "y": false
+        }
+      ]
+    },
+    {
+      "id": 29,
+      "k": 4,
+      "b": "Risk Değerlendirme Dokümanı Eğitimi",
+      "s": "İş sağlığı ve güvenliği kapsamında hazırlanan risk değerlendirmesi için aşağıdaki ifadelerden hangisi doğrudur?",
+      "c": [
+        {
+          "x": "İşyerindeki tehlikelerin belirlenip risklerin analiz edilerek gerekli önleyici tedbirlerin planlanmasıdır.",
+          "y": true
+        },
+        {
+          "x": "İşyerinde gerçekleşmiş iş kazalarının kayıt altına alınması ve değerlendirmesidir.",
+          "y": false
+        },
+        {
+          "x": "Risk değerlendirmesi, işyerinde yürütülen faaliyetleri kapsamaz ve ilgilenmez.",
+          "y": false
+        }
+      ]
+    },
+    {
+      "id": 30,
+      "k": 4,
+      "b": "Bakım Onarım İşleri",
+      "s": "Bakım ve onarım işleriyle ilgili aşağıdaki ifadelerden hangisi yanlıştır?",
+      "c": [
+        {
+          "x": "Bakım ve onarım işlemleri yalnızca bu konuda mesleki yeterliliğe sahip çalışanlar tarafından yapılmalıdır.",
+          "y": true
+        },
+        {
+          "x": "Arızalı ekipman çalışır durumdayken bakım yapmak daha hızlı sonuç verir.",
+          "y": false
+        },
+        {
+          "x": "Bakım ve onarım işlemi başlamadan önce enerji kaynaklarını kesmek zorunlu değildir.",
+          "y": false
+        }
+      ]
+    }
+  ],
+  "seviye":
+  [
+    {
+      "id": 1,
+      "b": "Bireysel Geçmiş",
+      "s": "Geçmiş herhangi bir tarihte İş Sağlığı ve Güvenliği eğitimi aldınız mı?",
+      "c": ["Evet eğitim aldım.", "Hayır eğitim almadım."] 
+    },
+    {
+      "id": 2,
+      "b": "Bireysel Geçmiş",
+      "s": "İşyerinde yürüteceğiniz iş ile ilgili diplomanız, meslek yeterlilik belgeniz veya herhangi bir eğitiminiz var mı?",
+      "c": ["Evet var.", "Hayır yok."] 
+    },
+    {
+      "id": 3,
+      "b": "Bireysel Geçmiş",
+      "s": "Yapacağınız işte, daha önce ne kadar süre çalıştınız?",
+      "c": ["Evet çalıştım. ......... Yıl.", "Hayır. İlk defa yapacağım."] 
+    },
+    {
+      "id": 4,
+      "b": "Bireysel Geçmiş",
+      "s": "Geçmiş çalışma hayatınızda iş kazası hiç yaşadınız mı?",
+      "c": ["Hayır yaşamadım.", "Evet yaşadım. Kısaca olayı anlatınız:"] 
+    },
+    {
+      "id": 5,
+      "b": "Bireysel Geçmiş",
+      "s": "Geçmiş çalışma hayatınızda yaptığınız işten kaynaklanan kalıcı bir hastalık veya sağlık sorunu yaşadınız mı?",
+      "c": ["Hayır yaşamadım.", "Evet yaşadım. Kısaca olayı anlatınız:"] 
+    },
+    {
+      "id": 6,
+      "b": "Tehlike Bilgisi",
+      "s": "Çalışacağınız işte karşılaşabileceğiniz iş sağlığı ve güvenliği tehlikeleri hakkında bilginiz var mı?",
+      "c": ["Evet var.", "Hayır yok."]
+    },
+    {
+      "id": 7,
+      "b": "Sorumluluk",
+      "s": "İş sağlığı ve güvenliği kurallarına uyma konusunda kendinizi nasıl değerlendirirsiniz?",
+      "c": ["İSG kurallarına uyarım.", "Bazılarına uyarım, bazılarına uymam."]
+    },
+    {
+      "id": 8,
+      "b": "Dikkat ve Algı",
+      "s": "Çalışma sırasında dikkatinizin kolay dağıldığını düşünüyor musunuz?",
+      "c": ["Hayır. Dikkatim dağılmaz.", "Evet. Dikkat dağınıklığı yaşarım."]
+    },
+    {
+      "id": 9,
+      "b": "Yangın Söndürme",
+      "s": "Yangın söndürme tüpünün nasıl kullanılacağını biliyor musunuz?",
+      "c": ["Evet biliyorum.", "Hayır bilmiyorum."]
+    },
+    {
+      "id": 10,
+      "b": "Tahliye Bilgisi",
+      "s": "Acil durum anında nerede tahliye olacağınızı ve toplanma alanını biliyor musunuz?",
+      "c": ["Evet biliyorum.", "Hayır bilmiyorum."]
+    },
+    {
+      "id": 11,
+      "b": "Uyarı İşaretleri",
+      "s": "İşyerindeki güvenlik ve sağlık işaretlerinin anlamlarını biliyor musunuz?",
+      "c": ["Evet biliyorum.", "Hayır bilmiyorum."]
+    },
+    {
+      "id": 12,
+      "b": "İSG Yaklaşımı",
+      "s": "İşi yaparken aşağıdakilerden hangisini öncelik verirsiniz?",
+      "c": ["İşin güvenliğini birinci planda tutarak işi yaparım.", "İşin en hızlı sürede bitmesini birinci planda tutarak işi yaparım."]
+    },
+    {
+      "id": 13,
+      "b": "KKD Kullanımı",
+      "s": "Kişisel koruyucu donanımları hangi durumlarda kullanmanız gerektiğini biliyor musunuz?",
+      "c": ["Evet biliyorum.", "Hayır bilmiyorum."]
+    },
+    {
+      "id": 14,
+      "b": "Tehlike Bildirimi",
+      "s": "Sağlığınızı veya güvenliğinizi tehlikeye düşüren bir durum anında ne yaparsınız?",
+      "c": ["İşveren vekiline veya iş güvenliği uzmanına bildiririm.", "Hayır bildirmem. Kimseye anlatmam."]
+    },
+    {
+      "id": 15,
+      "b": "İSG Kültürü",
+      "s": "İş sağlığı ve güvenliği kurallarını nasıl değerlendirirsiniz?",
+      "c": ["Çalışanların hayatını korumak için gereklidir.", "Yasal zorunluluk olduğu için uygulanır."]
+    },
+    {
+      "id": 16,
+      "b": "İSG Kültürü",
+      "s": "İş kazaları ile ilgili aşağıdaki görüşlerden hangisine katılırsınız?",
+      "c": ["Gerekli tedbirlerin alınması ve çalışanlar tarafından önlemelere uyulması halinde önlenebilir.", "İş kazası olağan bir durumdur. Kaçınılması mümkün değildir."]
+    },
+    {
+      "id": 17,
+      "b": "Meslek Hastalığı",
+      "s": "Yaptığınız işin uzun vadede sağlığınızı olumsuz etkileyebileceğini düşünüyor musunuz?",
+      "c": ["Hayır etkilemez.", "Evet etkliyebilir. Kısaca yazınız:"]
+    },
+    {
+      "id": 18,
+      "b": "Fazla Çalışma",
+      "s": "Uzun süreli ve fazla çalışmanın dikkat dağınıklığına ve iş kazalarına neden olabileceğini düşünüyor musunuz?",
+      "c": ["Evet. İş kazasında faktör olabilir.", "Hayır. Yorgunluk ve dikkat dağınıklığı iş kazasında önemli değildir."]
+    }, 
+    {
+      "id": 19,
+      "b": "İlkyardım",
+      "s": "İl Sağlık Müdürlüğünden alınmış, şu an geçerli ya da geçersiz ilkyardım belgeniz var mı?",
+      "c": ["Hayır ilkyardım belgem yok.", "Evet ilkyardım belgem var."]
+    },
+    {
+      "id": 20,
+      "b": "Hijyen",
+      "s": "Eldiven kullanıldığında da el yıkamanın gerekli olduğunu düşünüyor musunuz?",
+      "c": ["Evet el yıkama gerekli.", "Hayır gerekli değil."]
+    },
+    {
+      "id": 21,
+      "b": "Hijyen",
+      "s": "İşyerine sarhoş yahut uyuşturucu madde almış olarak gelinmesi ya da işyerinde bu maddelerin kullanılması yasak olduğunu biliyor musunuz?",
+      "c": ["Evet biliyorum.", "Hayır bilmiyorum."]
+    },
+    {
+      "id": 22,
+      "b": "Kimyasallar",
+      "s": "Kimyasal etiketlerinde yer alan uyarı işaretlerinin tehlikeleri gösterdiğini biliyor musunuz?",
+      "c": ["Evet biliyorum.", "Hayır bilmiyorum."]
+    },
+    {
+      "id": 23,
+      "b": "Kimyasallar",
+      "s": "Tehlike uyarı etiketi bulunmayan bir kimyasal maddenin kullanılması tehlikeli midir?",
+      "c": ["Evet tehlikelidir.", "Hayır tehlikeli değildir."]
+    },
+    {
+      "id": 24,
+      "b": "Kimyasallar",
+      "s": "Kimyasal etiketlerinde yazan kullanım talimatlarına uymanız gerektiğini biliyor musunuz?",
+      "c": ["Evet biliyorum.", "Hayır bilmiyorum."]
+    },
+    {
+      "id": 25,
+      "b": "Kimyasal Güvenlik",
+      "s": "İşyeri çalışma ortamında bulunabilecek gürültü, toz, kimyasal buharlar vb. çalışan sağlığına zarar verebilir mi?",
+      "c": ["Evet sağlığa zarar verebilir.", "Hayır zarar vermez."]
+    },
+    {
+      "id": 26,
+      "b": "Elle Taşıma",
+      "s": "Yük kaldırırken belden eğilmek yerine dizleri bükerek kaldırmanız gerektiğini biliyor musunuz?",
+      "c": ["Evet biliyorum.", "Hayır bilmiyorum."]
+    },
+    {
+      "id": 27,
+      "b": "Elle Taşıma",
+      "s": "Yükü vücuda yakın tutarak taşımanın daha güvenli olduğunu biliyor musunuz?",
+      "c": ["Evet biliyorum.", "Hayır bilmiyorum."]
+    },
+    {
+      "id": 28,
+      "b": "Parlama ve Patlama",
+      "s": "Yanıcı maddelerin açık alev ve kıvılcımlardan uzak tutulması gerektiğini biliyor musunuz?",
+      "c": ["Evet biliyorum.", "Hayır bilmiyorum."]
+    },
+    {
+      "id": 29,
+      "b": "İş Ekipmanları",
+      "s": "İş ekipmanlarının koruyucu donanımlarının çıkarılmasının veya devre dışı bırakılmasının tehlikeli olduğunu düşünüyor musunuz?",
+      "c": ["Evet tehlikelidir.", "Hayır tehlikeli değildir."]
+    },
+    {
+      "id": 30,
+      "b": "Ekranlı Araçlar",
+      "s": "Uzun süre ekran karşısında çalışmanın göz sağlığını etkileyebileceğini biliyor musunuz?",
+      "c": ["Evet biliyorum.", "Hayır bilmiyorum."]
+    },
+    {
+      "id": 31,
+      "b": "Ekranlı Araçlar",
+      "s": "Ekranlı araçlarla çalışırken belirli aralıklarla mola vermeniz gerektiğini biliyor musunuz?",
+      "c": ["Evet biliyorum.", "Hayır bilmiyorum."]
+    },
+    {
+      "id": 32,
+      "b": "Ekranlı Araçlar",
+      "s": "Çalışma sırasında ekran, masa ve sandalye yüksekliğinin doğru ayarlanmasının önemli olduğunu düşünüyor musunuz?",
+      "c": ["Evet önemlidir.", "Hayır önemli değildir."]
+    },
+    {
+      "id": 33,
+      "b": "Elektrik",
+      "s": "Elektrik tesisatında bir arıza olduğunda ne yaparsınız?",
+      "c": ["Yetkili kişiye bilgi veririm. Müdahale etmem.", "Kendim müdahale ederim."]
+    }
+  ]
+}
