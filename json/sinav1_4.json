@@ -727,8 +727,8 @@
     {
       "id": 21,
       "b": "Hijyen",
-      "s": "İşyerine sarhoş yahut uyuşturucu madde almış olarak gelinmesi ya da işyerinde bu maddelerin kullanılması yasak olduğunu biliyor musunuz?",
-      "c": ["Evet biliyorum.", "Hayır bilmiyorum."]
+      "s": "Bağımlılık yapan maddelerin etkisinde işyerine gelmek veya kullanmak güvenliğinizi tehlikeye atar mı?",
+      "c": ["Evet tehlikeli bir durum.", "Hayır tehlikeli bir durum değil."]
     },
     {
       "id": 22,
@@ -775,7 +775,7 @@
     {
       "id": 29,
       "b": "İş Ekipmanları",
-      "s": "İş ekipmanlarının koruyucu donanımlarının çıkarılmasının veya devre dışı bırakılmasının tehlikeli olduğunu düşünüyor musunuz?",
+      "s": "İş ekipmanlarının koruyucularını çıkarmanın veya devre dışı bırakmanın tehlikeli olduğunu düşünüyor musunuz?",
       "c": ["Evet tehlikelidir.", "Hayır tehlikeli değildir."]
     },
     {
@@ -793,7 +793,7 @@
     {
       "id": 32,
       "b": "Ekranlı Araçlar",
-      "s": "Çalışma sırasında ekran, masa ve sandalye yüksekliğinin doğru ayarlanmasının önemli olduğunu düşünüyor musunuz?",
+      "s": "Çalışırken ekran, masa ve sandalye yüksekliğinin doğru ayarlanmasının önemli olduğunu düşünüyor musunuz?",
       "c": ["Evet önemlidir.", "Hayır önemli değildir."]
     },
     {
